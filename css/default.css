@@ -19,11 +19,14 @@ a {
 .header { 
           font-size: 0.8em;
           border-bottom: 1px solid grey;
-          text-align: right;
+          
+          color: white;
+          background: darkgrey;
  }
 
 .top > div { 
-              display: inline;
+             display: inline;
+             text-align: right;
 }
 
 .left { 
@@ -32,9 +35,10 @@ a {
 
 .footer { 
           margin-top: 20px;
-          border-top: 1px solid black;
           font-size: 0.8em;
           text-align: right;
+          color: white;
+          background: darkgrey;
  }
 
 
@@ -51,12 +55,12 @@ h1 {
      background: black;
      color: white;
      padding: 3px 10px;
+     margin-top: 0px;
+     margin-bottom: 5px;
  }
 h2 { 
-     background: darkgrey;
+     background: green;
      color: white;
-     padding: 2px 7px;
-     margin-left: 5px;
+     padding: 2px 20px;
      font-size: 1.1em;
-
  }
