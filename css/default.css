@@ -72,31 +72,47 @@ ul {
  }
 
 
+
+h1, h2, h3, 
+h4, h5, h6 { 
+             margin-bottom: 0px;
+             color: white;
+ }
+
+h1 + h2, h2 + h3, h3 + h4, 
+h4 + h5, h5 + h6 { 
+                   margin-top: 0px;
+ }
+
 h1 { 
      background: black;
-     color: white;
-     padding: 3px 10px;
+     padding: 3px 15px;
      margin-top: 0px;
      margin-bottom: 5px;
  }
 h2 { 
      background: darkred;
-     color: white;
      padding: 2px 20px;
      font-size: 1.3em;
  }
 
 h3 { 
      background: purple;
-     color: white;
      padding: 2px 25px;
      font-size: 1.1em;
+ }
+
+h4 { 
+     background: green;
+     padding: 2px 30px;
+     font-size: 1.05em;
  }
 
 .title .pub-date { 
                    /*color: transparent;*/
                    font-size:0.5em;
                    line-height:2.4em;
+                   float:right;
  }
 .title:hover .pub-date { 
                          color: inherit;
