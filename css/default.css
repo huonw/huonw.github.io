@@ -46,6 +46,10 @@ a,a:visited {
 .header { 
  }
 
+.header a { 
+            margin: 0 5px;
+ }
+
 .footer { 
  }
 
@@ -56,13 +60,13 @@ a,a:visited {
  }
 
 p { 
-    text-indent: 2em;
-    margin: 8px 5px;
+    text-indent: 1.5em;
+    margin: 8px 8px;
  }
 
 h1 + p, h2 + p, h3 + p, 
 h4 + p, h5 + p, h6 + p { 
-                         margin-top: 0px;
+                         margin-top: 5px;
                          text-indent: 0em;
  }
 
@@ -91,21 +95,35 @@ h1 {
      margin-bottom: 5px;
  }
 h2 { 
+     margin-top: 10px;
      background: darkred;
      padding: 2px 20px;
      font-size: 1.3em;
  }
 
 h3 { 
+     margin-top: 8px;
      background: purple;
      padding: 2px 25px;
-     font-size: 1.1em;
+     font-size: 1.2em;
  }
 
 h4 { 
-     background: green;
+     margin-top: 6px;
+     background: blue;
      padding: 2px 30px;
-     font-size: 1.05em;
+     font-size: 1.1em;
+ }
+
+h5 { 
+     background: green;
+     font-size: 1.1em;
+     padding: 2px 35px;
+ }
+h6 { 
+     background: yellow;
+     font-size: 1em;
+     padding: 2px 35px;
  }
 
 .title .pub-date { 
