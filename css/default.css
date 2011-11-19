@@ -35,13 +35,12 @@ a,a:visited {
 
 .headfoot { 
             color: white;
-            background: darkgrey;
+            background: rgb(60,60,60);
             font-size: 0.8em;
             padding: 1px 10px;
-
  }
 .headfoot a, .headfoot a:visited { 
-                                       color: lightblue;
+                                   color: lightblue;
 }
 
 .header { 
@@ -57,7 +56,8 @@ a,a:visited {
  }
 
 p { 
-             text-indent: 2em;
+    text-indent: 2em;
+    margin: 8px 0;
  }
 
 h1 + p, h2 + p, h3 + p, 
@@ -87,8 +87,8 @@ h2 {
  }
 
 .title .pub-date { 
-                   display: none;
+                   color: transparent;
  }
 .title:hover .pub-date { 
-                         display: inline;
+                         color: inherit;
  }
