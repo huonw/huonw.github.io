@@ -6,6 +6,10 @@ a {
     text-decoration: none;
 }
 
+#home-link { 
+             float: right;
+ }
+
 .wrapper { 
            max-width: 600px;
            margin: 0 auto;
@@ -31,6 +35,6 @@ a {
         font-size: 0.8em;
  }
 
-.posts { 
+ul { 
          list-style: circle inside none;
  }
