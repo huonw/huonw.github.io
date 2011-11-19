@@ -2,9 +2,16 @@ body {
        font-family: "sans serif";
 }
 
-a {
-    text-decoration: none;
+a,a:visited {
+              color: blue;
+              text-decoration: none;
 }
+
+
+.date { 
+        font-family: "monospace";
+        font-size: 0.8em;
+ }
 
 .wrapper { 
            max-width: 600px;
@@ -12,16 +19,9 @@ a {
            background: rgba(255,255,255,80);
  }
 
-.content { 
-           /*margin: 5px 10px;*/
- }
 
-.header { 
-          font-size: 0.8em;
-          border-bottom: 1px solid grey;
-          
-          color: white;
-          background: darkgrey;
+.top { 
+       text-align: right;
  }
 
 .top > div { 
@@ -33,23 +33,44 @@ a {
         float: left;
  }
 
+.headfoot { 
+            color: white;
+            background: darkgrey;
+            font-size: 0.8em;
+            padding: 1px 10px;
+
+ }
+.headfoot > a, .headfoot > a:visited { 
+                                       color: lightblue;
+}
+
+.header { 
+ }
+
 .footer { 
-          margin-top: 20px;
-          font-size: 0.8em;
-          text-align: right;
-          color: white;
-          background: darkgrey;
  }
 
 
-.date { 
-        font-family: "monospace";
-        font-size: 0.8em;
+.content { 
+           /*margin: 5px 10px;*/
+           text-align:justify;
  }
+
+p { 
+             text-indent: 2em;
+ }
+
+h1 + p, h2 + p, h3 + p, 
+h4 + p, h5 + p, h6 + p { 
+                         margin-top: 0px;
+                         text-indent: 0em;
+ }
+
 
 ul { 
          list-style: circle inside none;
  }
+
 
 h1 { 
      background: black;
@@ -63,4 +84,11 @@ h2 {
      color: white;
      padding: 2px 20px;
      font-size: 1.1em;
+ }
+
+.title .pub-date { 
+                   display: none;
+ }
+.title:hover .pub-date { 
+                         display: inline;
  }
