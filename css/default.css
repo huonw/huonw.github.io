@@ -40,7 +40,7 @@ a,a:visited {
             padding: 1px 10px;
 
  }
-.headfoot > a, .headfoot > a:visited { 
+.headfoot a, .headfoot a:visited { 
                                        color: lightblue;
 }
 

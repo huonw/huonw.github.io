@@ -17,14 +17,14 @@
       </div>
       <div class="right">
         <a href="/" id="home-link">home</a>
-        <a href="https://github.com/dbaupp">github</a>
+        <a href="https://github.com/dbaupp/dbaupp.github.com">github</a>
       </div>
     </div>
   </div>
   <div class="content">
     <h1 class="title">{{ page.title }}
       {% if page.date %}
-        <span class="date pub-date">{{ page.date }}</span>
+        <span class="date pub-date">{{ page.date | date_to_string }}</span>
       {% endif %}
     </h1>
     {% if page.subtitle %}
@@ -33,7 +33,12 @@
     {{ content }}
   </div>
   <div class="footer headfoot">
-    <span class="info">Huon Wilson (<a href="https://github.com/dbaupp">dbaupp</a>) &mdash; <span class="date">2011</span></span>
+    <div class="top">
+      <div class="left"></div>
+      <div class="right">
+	<span class="info">Huon Wilson (<a href="https://github.com/dbaupp">dbaupp</a>) &mdash; <span class="date">2011</span>
+	</span>
+      </div>
   </div>
 </div>
 </body> </html>
