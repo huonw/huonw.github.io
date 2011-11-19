@@ -2,17 +2,35 @@ body {
        font-family: "sans serif";
 }
 
+a {
+    text-decoration: none;
+}
+
 .wrapper { 
            max-width: 600px;
            margin: 0 auto;
  }
 
+.content { 
+           margin: 3px;
+ }
+
 .header { 
-          
+          font-size: 0.8em;
+          border-bottom: 1px solid grey;
  }
 
 .footer { 
           margin-top: 20px;
           border-top: 1px solid black;
           font-size: 0.8em;
+ }
+
+.date { 
+        font-family: "monospace";
+        font-size: 0.8em;
+ }
+
+.posts { 
+         list-style: circle inside none;
  }
