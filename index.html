@@ -1,1 +1,14 @@
-"Hello world"
+---
+layout: default
+title: dbaupp
+---
+
+<div>
+  This is just a test at the moment.
+
+  <ul>
+    {% for post in site.posts %}
+      <li><a href="{{ post.url }}"> {{ post.title }} </a> ({{ post.date | date_to_string }})</li>
+    {% endfor %}
+  </ul>
+</div>
