@@ -6,8 +6,10 @@ a {
     text-decoration: none;
 }
 
-#home-link { 
-             float: right;
+
+h2 { 
+     margin-left: 5px;
+     font-size: 1.1em;
  }
 
 .wrapper { 
@@ -16,12 +18,13 @@ a {
  }
 
 .content { 
-           margin: 3px;
+           margin: 5px 10px;
  }
 
 .header { 
           font-size: 0.8em;
           border-bottom: 1px solid grey;
+          text-align: right;
  }
 
 .footer { 
