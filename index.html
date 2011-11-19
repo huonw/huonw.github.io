@@ -8,11 +8,14 @@ title: dbaupp
 <h2>Bloggy things</h2>
 <ul class="posts">
   {% for post in site.posts %}
-    <li><a href="{{ post.url }}"> {{ post.title }}</a> <span class="date">({{ post.date | date_to_string }})</span></li>
+    <li>
+       <a href="{{ post.url }}"> {{ post.title }}</a>
+       <span class="date">({{ post.date | date_to_string }})</span>
+    </li>
   {% endfor %}
 </ul>
 
 <h2>Other things</h2>
 <ul>
-  <li>My <a href="/git-achievements">git achievements</a><sup><a href="https://github.com/icefox/git-achievements">[1]</a></sup></li>
+  <li>My <a href="/git-achievements">git achievements</a><sup>[<a href="https://github.com/icefox/git-achievements">1</a>]</sup></li>
 </ul>

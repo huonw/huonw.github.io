@@ -8,8 +8,13 @@
 
 <body>
 <div class="wrapper">
-  <div class="header">
-    <div class="titlebar">
+  <div class="header top">
+    <div class="left">
+      {% unless page.notoplink %}
+        <a href="">{{ page.title }}</a>
+      {% endunless %}
+    </div>
+    <div class="right">
       <a href="/" id="home-link">home</a>
       <a href="https://github.com/dbaupp">github</a>
     </div>

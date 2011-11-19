@@ -6,25 +6,28 @@ a {
     text-decoration: none;
 }
 
-
-h2 { 
-     margin-left: 5px;
-     font-size: 1.1em;
- }
-
 .wrapper { 
            max-width: 600px;
            margin: 0 auto;
+           background: rgba(255,255,255,80);
  }
 
 .content { 
-           margin: 5px 10px;
+           /*margin: 5px 10px;*/
  }
 
 .header { 
           font-size: 0.8em;
           border-bottom: 1px solid grey;
           text-align: right;
+ }
+
+.top > div { 
+              display: inline;
+}
+
+.left { 
+        float: left;
  }
 
 .footer { 
@@ -42,4 +45,18 @@ h2 {
 
 ul { 
          list-style: circle inside none;
+ }
+
+h1 { 
+     background: black;
+     color: white;
+     padding: 3px 10px;
+ }
+h2 { 
+     background: darkgrey;
+     color: white;
+     padding: 2px 7px;
+     margin-left: 5px;
+     font-size: 1.1em;
+
  }
