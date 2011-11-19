@@ -57,7 +57,7 @@ a,a:visited {
 
 p { 
     text-indent: 2em;
-    margin: 8px 0;
+    margin: 8px 5px;
  }
 
 h1 + p, h2 + p, h3 + p, 
@@ -80,14 +80,23 @@ h1 {
      margin-bottom: 5px;
  }
 h2 { 
-     background: green;
+     background: darkred;
      color: white;
      padding: 2px 20px;
+     font-size: 1.3em;
+ }
+
+h3 { 
+     background: purple;
+     color: white;
+     padding: 2px 25px;
      font-size: 1.1em;
  }
 
 .title .pub-date { 
-                   color: transparent;
+                   /*color: transparent;*/
+                   font-size:0.5em;
+                   line-height:2.4em;
  }
 .title:hover .pub-date { 
                          color: inherit;
