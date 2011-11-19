@@ -1,0 +1,18 @@
+body { 
+       font-family: "sans serif";
+}
+
+.wrapper { 
+           max-width: 600px;
+           margin: 0 auto;
+ }
+
+.header { 
+          
+ }
+
+.footer { 
+          margin-top: 20px;
+          border-top: 1px solid black;
+          font-size: 0.8em;
+ }
