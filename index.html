@@ -1,17 +1,17 @@
 ---
 layout: default
 title: dbaupp
+no_top_link: true
 ---
 
-<p>This is mostly empty at the moment. It might have stuff at some point. It probably shouldn't be public at all, but trying new stuff is too cool to resist.
+<p>This is mostly empty at the moment. It might have stuff at some point. It probably shouldn't be public at all, but trying new stuff is too cool to resist.</p>
 
 <h2>Bloggy things</h2>
 <ul class="posts">
   {% for post in site.posts %}
-    <li>
-       <a href="{{ post.url }}"> {{ post.title }}</a>
-       <span class="date">({{ post.date | date_to_string }})</span>
-    </li>
+  <li><a href="{{ post.url }}">{{ post.title }}</a>
+    <span class="date">({{ post.date | date_to_string }})</span>
+  </li>
   {% endfor %}
 </ul>
 

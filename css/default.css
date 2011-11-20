@@ -1,140 +1,141 @@
 body { 
-       font-family: "sans serif";
+    font-family: "sans serif";
 }
 
 a,a:visited {
-              color: blue;
-              text-decoration: none;
+    color: blue;
+    text-decoration: none;
 }
 
 
 .date { 
-        font-family: "monospace";
-        font-size: 0.8em;
- }
+    font-family: "monospace";
+    font-size: 0.8em;
+}
+
 
 .wrapper { 
-           max-width: 600px;
-           margin: 0 auto;
-           background: rgba(255,255,255,80);
- }
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255,255,255,80);
+}
 
 
 .top { 
-       text-align: right;
- }
+    text-align: right;
+}
 
 .top > div { 
-             display: inline;
-             text-align: right;
+    display: inline;
+    text-align: right;
 }
 
 .left { 
-        float: left;
- }
+    float: left;
+}
 
 .headfoot { 
-            color: white;
-            background: rgb(60,60,60);
-            font-size: 0.8em;
-            padding: 1px 10px;
- }
+    color: white;
+    background: rgb(60,60,60);
+    font-size: 0.8em;
+    padding: 1px 10px;
+}
 .headfoot a, .headfoot a:visited { 
-                                   color: lightblue;
+    color: lightblue;
 }
 
 .header { 
- }
+}
 
-.header a { 
-            margin: 0 5px;
- }
+.header span { 
+    margin: 0 5px;
+}
 
 .footer { 
- }
+}
 
 
 .content { 
-           /*margin: 5px 10px;*/
-           text-align:justify;
- }
+    /*margin: 5px 10px;*/
+    text-align:justify;
+}
 
 p { 
     text-indent: 1.5em;
     margin: 8px 8px;
- }
+}
 
 h1 + p, h2 + p, h3 + p, 
 h4 + p, h5 + p, h6 + p { 
-                         margin-top: 5px;
-                         text-indent: 0em;
- }
+    margin-top: 5px;
+    text-indent: 0em;
+}
 
 
 ul { 
-         list-style: circle inside none;
- }
+    list-style: circle inside none;
+}
 
 
 
 h1, h2, h3, 
 h4, h5, h6 { 
-             margin-bottom: 0px;
-             color: white;
- }
+    margin-bottom: 0px;
+    color: white;
+}
 
 h1 + h2, h1 + h3, h1 + h4, h1 + h5, h1 + h6,
 h2 + h3, h2 + h4, h2 + h5, h2 + h6,
 h3 + h4, h3 + h5, h3 + h6,
 h4 + h5, h4 + h6,
 h5 + h6 { 
-                   margin-top: 0px;
- }
+    margin-top: 0px;
+}
 
 h1 { 
-     background: black;
-     padding: 3px 15px;
-     margin-top: 0px;
- }
+    background: black;
+    padding: 3px 15px;
+    margin-top: 0px;
+}
 h2 { 
-     margin-top: 15px;
-     background: darkred;
-     padding: 2px 15px;
-     font-size: 1.3em;
- }
+    margin-top: 15px;
+    background: darkred;
+    padding: 2px 15px;
+    font-size: 1.3em;
+}
 
 h3 { 
-     margin-top: 12px;
-     background: purple;
-     padding: 2px 22px;
-     font-size: 1.2em;
- }
+    margin-top: 12px;
+    background: purple;
+    padding: 2px 22px;
+    font-size: 1.2em;
+}
 
 h4 { 
-     margin-top: 9px;
-     background: blue;
-     padding: 2px 30px;
-     font-size: 1.1em;
- }
+    margin-top: 9px;
+    background: blue;
+    padding: 2px 30px;
+    font-size: 1.1em;
+}
 
 h5 { 
-     margin-top: 6px;
-     background: green;
-     font-size: 1.1em;
-     padding: 2px 35px;
- }
+    margin-top: 6px;
+    background: green;
+    font-size: 1.1em;
+    padding: 2px 35px;
+}
 h6 { 
-     background: darkorange;
-     font-size: 1em;
-     padding: 2px 35px;
- }
+    background: darkorange;
+    font-size: 1em;
+    padding: 2px 35px;
+}
 
 .title .pub-date { 
-                   /*color: transparent;*/
-                   font-size:0.5em;
-                   line-height:2.4em;
-                   float:right;
- }
+    /*color: transparent;*/
+    font-size:0.5em;
+    line-height:2.4em;
+    float:right;
+}
 .title:hover .pub-date { 
-                         color: inherit;
- }
+    color: inherit;
+}
