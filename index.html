@@ -5,17 +5,20 @@ no_top_link: true
 ---
 
 <p>This is mostly empty at the moment. It might have stuff at some point. It probably shouldn't be public at all, but trying new stuff is too cool to resist.</p>
-
-<h2>Bloggy things</h2>
+  
+<p>This site even has (La)TeX style hyphenation and line breaking!</p>    
+ 
+<h2>Bloggy things</h2>  
 <ul class="posts">
   {% for post in site.posts %}
-  <li><a href="{{ post.url }}">{{ post.title }}</a>
-    <span class="date">({{ post.date | date_to_string }})</span>
+  <li><span><a href="{{ post.url }}">{{ post.title }}</a>
+    <span class="date">({{ post.date | date_to_string }})</span></span>
   </li>
   {% endfor %}
 </ul>
 
 <h2>Other things</h2>
 <ul>
-  <li>My <a href="/git-achievements">git achievements</a><sup>[<a href="https://github.com/icefox/git-achievements">1</a>]</sup></li>
+  <li><span>My <a href="/git-achievements">git achievements</a><sup>[<a href="https://github.com/icefox/git-achievements">1</a>]</sup></span></li>
+  <li><span>About the <a href="/hyphenation.html">hyphenation and line breaking</a>.</span></li>
 </ul>

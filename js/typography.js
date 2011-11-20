@@ -13,8 +13,6 @@ jQuery(function ($) {
 	return cache[str];
     }
 
-    lineLength = $('#typeset').width();
-
     ruler = $('<div class="ruler">&nbsp;</div>').css({
 	visibility: 'hidden',
 	position: 'absolute',
@@ -32,7 +30,6 @@ jQuery(function ($) {
 	shrink: 0
     },
 	hyphenWidth = measureString('-'),
-
 	hyphenPenalty = 100;
 
     // Calculate the space widths based on our font preferences
@@ -42,8 +39,8 @@ jQuery(function ($) {
 
     lineHeight = parseFloat(ruler.html('Hello World').css('lineHeight'));
 
-    $('.hyphenate').each(function () {
-	$(this).find('p, img').each(function (index, element) {
+    $(':header').each(function () {
+	$(this).nextUntil(':header').filter('p').each(function (index, element) {
 	    var paragraph,
 	 nodes = [],
 	 breaks = [],
@@ -54,6 +51,7 @@ jQuery(function ($) {
 	 i, point, r, lineStart,
 	 iterator,
 	 token, hyphenated;
+	    lineLength = $(this).width();
 
 	    if (element.nodeName.toUpperCase() === 'P') {
 		paragraph = $(element);
@@ -69,13 +67,12 @@ jQuery(function ($) {
 		    if (word.length >= 6) {
 			hyphenated = Hyphenator.hyphenate(word, 'en-gb').split('\u00AD');
 		    }
-		    console.log(word, word.length, hyphenated.length, hyphenated);
+		    
 		    if (hyphenated.length > 1) {
 			hyphenated.forEach(function (part, partIndex, partArray) {
 			    nodes.push(linebreak.box(measureString(part), part));
 			    if (partIndex !== partArray.length - 1) {
 				nodes.push(linebreak.penalty(hyphenWidth, hyphenPenalty, 1));
-
 			    }
 			});
 		    } else {
@@ -89,27 +86,18 @@ jQuery(function ($) {
 			nodes.push(linebreak.glue(space.width, space.stretch, space.shrink));
 		    }
 		});
-		console.log(nodes);
+		
 		var tol = 1;
 		while (breaks.length === 0 && tol < 10) {
 		    // Perform the line breaking
 		    breaks = linebreak(nodes, lineLengths.length !== 0 ? lineLengths : [lineLength], {tolerance: tol});
 		    tol++;
 		}
+
 		if (breaks.length === 0) {
-		    console.log("no breaks found");
 		    return;
 		}
 
-		/*// Try again with a higher tolerance if the line breaking failed.
-		if (breaks.length === 0) {
-		    breaks = linebreak(nodes, lineLengths.length !== 0 ? lineLengths : [lineLength], {tolerance: 2});
-		    // And again
-		    if (breaks.length === 0) {
-			breaks = linebreak(nodes, lineLengths.length !== 0 ? lineLengths : [lineLength], {tolerance: 3});
-		    }
-		}*/
-		alert("breaks: " + breaks.length + ", " + breaks);
 		// Build lines from the line breaks found.
 		for (var i = 1, l = breaks.length; i < l; i ++) {
 		    point = breaks[i].position,
@@ -126,16 +114,16 @@ jQuery(function ($) {
 		    lines.push({ratio: r, nodes: nodes.slice(lineStart, point + 1), position: point});
 		    lineStart = point;
 		}
-		alert("lines: " + lines.length + ", " + lines);
+
 		lines.forEach(function (line, lineIndex, lineArray) {
 		    var	indent = false,
-	  spaces = 0,
-	  totalAdjustment = 0,
-	  wordSpace = line.ratio * (line.ratio < 0 ? space.shrink : space.stretch),
-	  integerWordSpace = Math.round(wordSpace),
-	  adjustment = wordSpace - integerWordSpace,
-	  integerAdjustment = adjustment < 0 ? Math.floor(adjustment) : Math.ceil(adjustment),
-	  tmp = [];
+	                spaces = 0,
+	                totalAdjustment = 0,
+	                wordSpace = line.ratio * (line.ratio < 0 ? space.shrink : space.stretch),
+	                integerWordSpace = Math.round(wordSpace),
+	                adjustment = wordSpace - integerWordSpace,
+	                integerAdjustment = adjustment < 0 ? Math.floor(adjustment) : Math.ceil(adjustment),
+	                tmp = [];
 		    
 		    // Iterate over the nodes in each line and build a temporary array containing just words, spaces, and soft-hyphens.
 		    line.nodes.forEach(function (n, index, array) {
@@ -190,7 +178,7 @@ jQuery(function ($) {
 		});
 
 		paragraph.empty();
-		alert(output);
+
 		paragraph.append(output.join(''));
 		currentWidth = lineLength;
 

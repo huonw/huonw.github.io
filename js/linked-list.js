@@ -5,7 +5,7 @@ function LinkedList() {
 	this.listSize = 0;
 }
 (function () {
-	jQuery.extend(LinkedList, {
+	Object.extend(LinkedList, {
 		Node: function (data) {
 			this.prev = null;
 			this.next = null;
@@ -13,7 +13,7 @@ function LinkedList() {
 		}
 	});
 
-	jQuery.extend(LinkedList.Node.prototype, {
+	Object.extend(LinkedList.Node.prototype, {
 		toString: function () {
 			return this.data.toString();
 		}
@@ -23,7 +23,7 @@ function LinkedList() {
 		return !((node && node.prev === null && node.next === null && list.tail !== node && list.head !== node) || list.isEmpty());
 	}
 
-	jQuery.extend(LinkedList.prototype, {
+	Object.extend(LinkedList.prototype, {
 		size: function () {
 			return this.listSize;
 		},
