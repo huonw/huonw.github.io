@@ -20,9 +20,7 @@ jQuery(function ($) {
 	width: 'auto',
 	display: 'inline',
 	left: '-8000px'
-    });
-
-    $('body').append(ruler);
+    }).appendTo($('body'));
 
     var	space = {
 	width: 0,
@@ -40,7 +38,8 @@ jQuery(function ($) {
     lineHeight = parseFloat(ruler.html('Hello World').css('lineHeight'));
 
     $(':header').each(function () {
-	$(this).nextUntil(':header').filter('p').each(function (index, element) {
+	var nexts = $(this).nextUntil(':header');
+	nexts.filter(':not(p)').find('p').add(nexts.filter('p')).each(function (index, element) {
 	    var paragraph,
 	 nodes = [],
 	 breaks = [],
@@ -59,7 +58,8 @@ jQuery(function ($) {
 		if (index !== 0) {
 		    nodes.push(linebreak.box(30, ''));
 		}
-
+		
+		// TODO: convert this to get words nested with markup, and then do everything based on that.
 		words = paragraph.text().split(/\s/);
 
 		words.forEach(function (word, index, array) {
@@ -95,6 +95,7 @@ jQuery(function ($) {
 		}
 
 		if (breaks.length === 0) {
+		    paragraph.css({'background-color':'rgba(255,0,0,0.1)'});
 		    return;
 		}
 
@@ -180,6 +181,8 @@ jQuery(function ($) {
 		paragraph.empty();
 
 		paragraph.append(output.join(''));
+		if (breaks.length > 0)
+		    paragraph.css({'background-color':'rgba(0,255,255,0.1)'});
 		currentWidth = lineLength;
 
 		lineLengths = lineLengths.slice(lines.length);

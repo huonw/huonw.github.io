@@ -4,11 +4,11 @@ title: Hyphenation
 ---
 
 ## Introduction
-This page is designed to be a test of the JavaScript hyphenation and line breaking algorithms.
-
+This page is designed to be a test and description of the JavaScript hyphenation and line breaking algorithms.
+ 
 ## Hyphenation
 The hyphenation is done by [Hyphenator.js](http://code.google.com/p/hyphenator/), which uses the algorithm developed by Liangs for use in TeX. It is currently using the British English dictionary (i.e. en-gb). This seems to work quite well.
-
+  
 ## Line breaking
 The line breaking algorithm is the Knuth & Plass algorithm, which was also developed for use in TeX (it's pretty good at public domain typesetting algorithms, this "TeX" program).
 
