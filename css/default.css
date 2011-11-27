@@ -25,7 +25,7 @@ body {
     background: rgb(240,240,240);
 }
 
-@media only screen and (max-width: 600px), handheld {
+@media only screen and (max-device-width: 600px), only screen and (max-width: 600px), handheld {
     body {
         padding:0px;
     }
