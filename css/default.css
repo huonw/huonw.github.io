@@ -1,9 +1,26 @@
+---
+top_colour: rgb(170,170,170)
+bottom_colour: rgb(112,112,112)
+---
+
+html { 
+    background-image: linear-gradient(bottom, {{page.bottom_colour}} 0%, {{page.top_colour}} 100%);
+    background-image: -o-linear-gradient(bottom,  {{page.bottom_colour}} 0%, {{page.top_colour}} 100%);
+    background-image: -moz-linear-gradient(bottom,  {{page.bottom_colour}} 0%, {{page.top_colour}} 100%);
+    background-image: -webkit-linear-gradient(bottom,  {{page.bottom_colour}} 0%, {{page.top_colour}} 100%);
+    background-image: -ms-linear-gradient(bottom,  {{page.bottom_colour}} 0%, {{page.top_colour}} 100%);
+    background-color: {{page.top_colour}};
+    min-height:100%;
+}
+
 body { 
+    margin:0px;
+    padding:15px;
     font-family: "sans serif";
 }
 
 a,a:visited {
-    color: blue;
+    color: #22A;
     text-decoration: none;
 }
 
@@ -17,7 +34,7 @@ a,a:visited {
 .wrapper { 
     max-width: 600px;
     margin: 0 auto;
-    background: rgba(255,255,255,80);
+    background: rgb(240,240,240);
 }
 
 
@@ -58,11 +75,17 @@ a,a:visited {
 .content { 
     /*margin: 5px 10px;*/
     text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 p { 
-/*    text-indent: 1.5em;*/
-    margin: 8px 8px;
+    text-indent: 1.5em;
+}
+p,li {
+    margin: 8px 10px;
 }
 
 h1 + p, h2 + p, h3 + p, 
@@ -73,7 +96,11 @@ h4 + p, h5 + p, h6 + p {
 
 
 ul { 
-    list-style: circle inside none;
+    list-style: circle outside none;
+}
+li {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 
@@ -136,6 +163,5 @@ h6 {
     line-height:2.4em;
     float:right;
 }
-.title:hover .pub-date { 
-    color: inherit;
+.title:hover { 
 }
