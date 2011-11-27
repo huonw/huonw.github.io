@@ -9,7 +9,7 @@ You've found Huon Wilson's site.
 
 ## things done
 
-### coding
+### programming
 
 - **[Crossworder](https://github.com/dbaupp/crossworder)**, because formatting crosswords by hand sucks.
 - **[word explorer](http://www.ug.it.usyd.edu.au/~hwil7821/assignment3/form.html)**, because if you are
@@ -23,5 +23,5 @@ You've found Huon Wilson's site.
   [code base](https://github.com/tricycle/lesswrong). (Oh, also, I'm
   [dbaupp](http://lesswrong.com/user/dbaupp) there too)
 
-### not coding
+### <a title="not programming">&not;programming</a>
 - **[Notes](notes.html)** for [HSC](https://en.wikipedia.org/wiki/Higher_School_Certificate_%28New_South_Wales%29) physics and chemistry
