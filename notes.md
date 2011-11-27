@@ -37,6 +37,6 @@ even mentioned (that means that these *cannot* be your only
 source of information).
 
 ## download
-- [Physics.pdf](www.ug.it.usyd.edu.au/~hwil7821/serve.php?file=uploads/notes/Physics.pdf) `(1MB)`
-- [Chemistry.pdf](www.ug.it.usyd.edu.au/~hwil7821/serve.php?file=uploads/notes/Chemistry.pdf) `(0.9MB)`
+- [Physics.pdf](http://www.ug.it.usyd.edu.au/~hwil7821/serve.php?file=uploads/notes/Physics.pdf) `(1MB)`
+- [Chemistry.pdf](http://www.ug.it.usyd.edu.au/~hwil7821/serve.php?file=uploads/notes/Chemistry.pdf) `(0.9MB)`
 
