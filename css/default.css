@@ -3,6 +3,7 @@ top_colour: rgb(220,230,255)
 bottom_colour: rgb(235,235,255)
 top_pos: 90
 bottom_pos: 50
+content_colour: white
 ---
 
 html { 
@@ -22,7 +23,7 @@ body {
 
 .wrapper {
     margin: 0 auto;
-    background: rgb(240,240,240);
+    background: {{page.content_colour}};
 }
 
 @media only screen and (max-device-width: 600px), only screen and (max-width: 600px), handheld {
