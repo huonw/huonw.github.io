@@ -15,10 +15,34 @@ html {
     min-height:100%;
 }
 
-body { 
+body {
     margin:0px;
-    padding:15px;
-    font-family: "sans serif";
+    font-family: "sans serif";    
+}
+
+.wrapper {
+    margin: 0 auto;
+    background: rgb(240,240,240);
+}
+
+@media only screen and (max-width: 600px), handheld {
+    body {
+        padding:0px;
+    }
+
+    .wrapper {
+        width: 100%;
+    }
+}
+
+@media (min-width: 600px) {
+    body { 
+        padding:15px;
+    }
+
+    .wrapper { 
+        max-width: 600px;
+    }
 }
 
 a,a:visited {
@@ -33,11 +57,7 @@ a,a:visited {
 }
 
 
-.wrapper { 
-    max-width: 600px;
-    margin: 0 auto;
-    background: rgb(240,240,240);
-}
+
 
 
 .top { 
