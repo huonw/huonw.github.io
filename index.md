@@ -8,7 +8,7 @@ You've found Huon Wilson's site. Evidently, this is mostly empty at the moment. 
 at some point, but there's not really any reason for it to be public at all, at the moment.
 
 
-## done things
+## things done
 Here's some stuff that I've done.
 
 ### coding
@@ -16,7 +16,7 @@ Here's some stuff that I've done.
 - Small [modifications](https://github.com/dbaupp/melville-facing-the-singularity-edition) to the
   [Melville](http://madebyraygun.com/wordpress/themes/melville/) WordPress theme for use on
   [Facing&shy;The&shy;Singularity.com](http://facingthesingularity.com/)
-- [Contributions](https://github.com/dbaupp/lesswrong) to the [LessWrong](http://lesswrong.com/)
+- Minor [contributions](https://github.com/dbaupp/lesswrong) to the [LessWrong](http://lesswrong.com/)
   [code base](https://github.com/tricycle/lesswrong). (Oh, also, I'm
   [dbaupp](http://lesswrong.com/user/dbaupp) there too)
 - [Crossworder](https://github.com/dbaupp/crossworder), because formatting crosswords by hand sucks.
