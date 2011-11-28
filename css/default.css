@@ -6,6 +6,14 @@ top_pos: 90
 bottom_pos: 50
 content_colour: white
 link_colour: black #rgb(90,90,90)
+width: 800px
+body_padding: 15px
+text_margin: 30px
+
+wide_size: 1.3
+wide_threshold: 2
+
+thin_threshold: 0.9
 ---
 
 html { 
@@ -15,7 +23,7 @@ html {
     background-image: -moz-linear-gradient(bottom,  {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
     background-image: -webkit-linear-gradient(bottom,  {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
     background-image: -ms-linear-gradient(bottom,  {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
-    {% endif %}
+x    {% endif %}
 
     background-color: {{page.top_colour}};
     min-height:100%;
@@ -24,30 +32,103 @@ html {
 body {
     margin:0px;
     font-family: "sans serif";    
+    padding-top: {{page.body_padding}};
 }
 
-.wrapper {
+#wrapper {
     margin: 0 auto;
     background: {{page.content_colour}};
+    max-width: {{page.width}};
+    width: 100%;
+    position:relative;
 }
 
-@media only screen and (max-device-width: 600px), only screen and (max-width: 600px), handheld {
+p,ul,ol { 
+    margin: 8px {{page.text_margin}};
+}
+
+
+ul { 
+    list-style: circle outside none;
+}
+ul,ol {
+    padding-left: 0px;
+    margin-right: {{page.text_margin | times:2}}px;
+}
+li {
+    margin: 4px 0 4px {{page.text_margin}};
+}
+
+/* media queries */
+@media (min-width: {{page.width | times:page.thin_threshold}}px) 
+and (max-width: {{page.width | times:page.wide_threshold }}px)  {
+    #screen-ind:before{
+        content: "normal";
+    }
+}
+
+
+@media /* (max-device-width: {{page.width | times:page.thin_threshold}}px), */
+(max-width: {{page.width | times:page.thin_threshold}}px) {
+    #screen-ind:before {
+        content: "thin";
+    }
+
+    ul,ol,p {
+         margin-left: {{page.text_margin | divided_by:2}}px;
+         margin-right: {{page.text_margin | divided_by:2}}px;
+    }
+}
+
+@media /*not handheld and (max-device-width: {{page.width | times:page.thin_threshold}}px), */
+not handheld and (max-width: {{page.width | times:page.thin_threshold}}px) {
+}   
+
+
+
+@media only handheld {
     body {
         padding:0px;
     }
-
-    .wrapper {
-        width: 100%;
+    #screen-ind:before {
+        content: "mobile";
     }
 }
 
-@media (min-width: 600px) {
-    body { 
-        padding:15px;
+
+
+@media (min-width: {{page.width | times:page.wide_threshold }}px) {
+    #screen-ind:before {
+        content: "wide";
     }
 
-    .wrapper { 
-        max-width: 600px;
+    #wrapper {
+        max-width: {{page.width | times:page.wide_size }}px;
+    }
+
+    ul,ol {
+        column-gap: 0;
+        columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+        -moz-column-gap: 0px;
+        -moz-columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+        -webkit-column-gap: 0px;
+        -webkit-columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+    }
+    li {
+    /*    margin-right:0;
+        margin-left:0;*/
+    }
+}
+
+@media only print {
+    body {
+        font-family: serif;
+    }
+    .no-print {
+        display: none;
+    }
+    #screen-ind:before {
+        content: "print";
     }
 }
 
@@ -58,12 +139,8 @@ a[href],a[href]:visited {
 
 .date { 
     font-family: monospace;
-    font-size: 0.8em;
+    font-size: 1em;
 }
-
-
-
-
 
 .top { 
     text-align: right;
@@ -88,36 +165,36 @@ a[href],a[href]:visited {
     color: white;
 }
 
-.header { 
+#header { 
 }
 
-.header span { 
+.headfoot span { 
     margin: 0 5px;
 }
+.headfoot span span {
+    margin: 0;
+}
 
-.footer { 
+#footer { 
 }
 
 
-.content { 
-    /*margin: 5px 10px;*/
+#content { 
     text-align:justify;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
+    margin-bottom:20px;
 }
 
-p { 
+p {
     text-indent: 1.5em;
-}
-p,li {
-    margin: 8px 10px;
 }
 
 h1 + p, h2 + p, h3 + p, 
 h4 + p, h5 + p, h6 + p { 
-    margin-top: 5px;
+    margin-top: 8px;
     text-indent: 0em;
 }
 
@@ -126,20 +203,22 @@ blockquote p:first-child {
 }
 
 
-ul { 
-    list-style: circle outside none;
-}
-li {
-    margin-top: 4px;
-    margin-bottom: 4px;
-}
-
 
 
 h1, h2, h3, 
 h4, h5, h6 { 
     margin-bottom: 0px;
-    color: white;
+    color: rgb(245,245,245);
+}
+
+@media not print {
+    h1 + h2, h1 + h3, h1 + h4, h1 + h5, h1 + h6,
+    h2 + h3, h2 + h4, h2 + h5, h2 + h6,
+    h3 + h4, h3 + h5, h3 + h6,
+    h4 + h5, h4 + h6,
+    h5 + h6 {     
+        border-top: 1px solid black;
+    }
 }
 
 h1 + h2, h1 + h3, h1 + h4, h1 + h5, h1 + h6,
@@ -152,40 +231,41 @@ h5 + h6 {
 
 h1 { 
     background: black;
-    padding: 3px 15px;
+    padding: 3px {{page.text_margin | plus:5}}px;
     margin-top: 0px;
+    font-size: 2.2em;
 }
 h2 { 
     margin-top: 15px;
     background: darkred;
-    padding: 2px 15px;
-    font-size: 1.3em;
+    padding: 2px {{page.text_margin | plus:5}}px;
+    font-size: 1.6em;
 }
 
 h3 { 
     margin-top: 12px;
     background: darkblue;
-    padding: 2px 25px;
-    font-size: 1.2em;
+    padding: 2px {{page.text_margin | plus:15}}px;
+    font-size: 1.3em;
 }
 
 h4 { 
     margin-top: 9px;
     background: green;
-    padding: 2px 30px;
-    font-size: 1.1em;
+    padding: 2px {{page.text_margin | plus:20}}px;
+    font-size: 1.2em;
 }
 
 h5 { 
     margin-top: 6px;
     background: darkorange;
     font-size: 1.1em;
-    padding: 2px 35px;
+    padding: 2px {{page.text_margin | plus:20}}px;
 }
 h6 { 
     background: purple;
     font-size: 1em;
-    padding: 2px 35px;
+    padding: 2px {{page.text_margin | plus:20}}px;
 }
 
 .title .pub-date { 
@@ -193,6 +273,4 @@ h6 {
     font-size:0.5em;
     line-height:2.4em;
     float:right;
-}
-.title:hover { 
 }
