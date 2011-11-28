@@ -2,6 +2,7 @@
 layout: default
 title: dbaupp
 no_top_link: true
+google_meta: true
 ---
 
 You've found Huon Wilson's site.
@@ -10,6 +11,7 @@ You've found Huon Wilson's site.
 ## things done
 
 ### programming
+Here's some things I've written, or at least, been involved with. They are mostly either Python, PHP or CSS/HTML/JavaScript (or some combination of that).
 
 - **[Crossworder](https://github.com/dbaupp/crossworder)**, because formatting crosswords by hand sucks.
 - **[word explorer](http://www.ug.it.usyd.edu.au/~hwil7821/assignment3/form.html)**, because if you are
