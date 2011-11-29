@@ -68,8 +68,7 @@ and (max-width: {{page.width | times:page.wide_threshold }}px)  {
 }
 
 
-@media /* (max-device-width: {{page.width | times:page.thin_threshold}}px), */
-(max-width: {{page.width | times:page.thin_threshold}}px) {
+@media (max-width: {{page.width | times:page.thin_threshold}}px) {
     #screen-ind:before {
         content: "thin";
     }
@@ -80,13 +79,12 @@ and (max-width: {{page.width | times:page.wide_threshold }}px)  {
     }
 }
 
-@media /*not handheld and (max-device-width: {{page.width | times:page.thin_threshold}}px), */
-not handheld and (max-width: {{page.width | times:page.thin_threshold}}px) {
+
+@media (max-width: {{page.width | times:page.thin_threshold}}px) {
 }   
 
 
-
-@media only handheld {
+@media screen and (max-device-width:640px) {
     body {
         padding:0px;
     }
@@ -147,13 +145,14 @@ a[href],a[href]:visited {
 }
 
 .top > div { 
-    display: inline;
-    text-align: right;
+    display: inline-block;
+    margin: 2px 0;
+}
+.top > .left { 
+    float: left;
+    text-align: left;
 }
 
-.left { 
-    float: left;
-}
 
 .headfoot { 
     color: white;
@@ -170,14 +169,15 @@ a[href],a[href]:visited {
 
 .headfoot span { 
     margin: 0 5px;
+    display: inline-block;
 }
 .headfoot span span {
     margin: 0;
+    display: inline;
 }
 
 #footer { 
 }
-
 
 #content { 
     text-align:justify;
@@ -234,12 +234,16 @@ h1 {
     padding: 3px {{page.text_margin | plus:5}}px;
     margin-top: 0px;
     font-size: 2.2em;
+-moz-column-span:all;
+-webkit-column-span:all;
 }
 h2 { 
     margin-top: 15px;
     background: darkred;
     padding: 2px {{page.text_margin | plus:5}}px;
     font-size: 1.6em;
+-moz-column-span:all;
+-webkit-column-span:all;
 }
 
 h3 { 
@@ -247,6 +251,9 @@ h3 {
     background: darkblue;
     padding: 2px {{page.text_margin | plus:15}}px;
     font-size: 1.3em;
+-moz-column-span:all;
+-webkit-column-span:all;
+
 }
 
 h4 { 
@@ -254,6 +261,8 @@ h4 {
     background: green;
     padding: 2px {{page.text_margin | plus:20}}px;
     font-size: 1.2em;
+-moz-column-span:all;
+-webkit-column-span:all;
 }
 
 h5 { 
