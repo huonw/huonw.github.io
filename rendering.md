@@ -3,7 +3,7 @@ layout: default
 title: '"Rendering"?'
 ---
 
-This site uses CSS `@media` directives to render the page nicer for different screen formats. Try changing your browser window.
+This site uses [CSS `@media` queries](https://developer.mozilla.org/en/CSS/Media_queries) to render the page appropriately for different screen formats. Try changing the width of your browser window.
 
 If the window is very wide, the text is allowed to take up more room, and some elements become multicolumn (only lists at the moment). If it's very thin (or being viewed by a mobile browser), then the amount of whitespace is reduced.
 

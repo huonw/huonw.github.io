@@ -16,7 +16,7 @@ wide_threshold: 2
 thin_threshold: 0.9
 ---
 
-html { 
+html {
     {% if use_gradient %}
     background-image: linear-gradient(bottom, {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
     background-image: -o-linear-gradient(bottom,  {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
@@ -31,8 +31,8 @@ x    {% endif %}
 
 body {
     margin:0px;
-    font-family: "sans serif";    
-    padding-top: {{page.body_padding}};
+    font-family: "sans serif";
+    padding: {{page.body_padding}} 0;
 }
 
 #wrapper {
@@ -43,12 +43,12 @@ body {
     position:relative;
 }
 
-p,ul,ol { 
+p,ul,ol {
     margin: 8px {{page.text_margin}};
 }
 
 
-ul { 
+ul {
     list-style: circle outside none;
 }
 ul,ol {
@@ -60,7 +60,7 @@ li {
 }
 
 /* media queries */
-@media (min-width: {{page.width | times:page.thin_threshold}}px) 
+@media (min-width: {{page.width | times:page.thin_threshold}}px)
 and (max-width: {{page.width | times:page.wide_threshold }}px)  {
     #screen-ind:before{
         content: "normal";
@@ -81,7 +81,7 @@ and (max-width: {{page.width | times:page.wide_threshold }}px)  {
 
 
 @media (max-width: {{page.width | times:page.thin_threshold}}px) {
-}   
+}
 
 
 @media screen and (max-device-width:640px) {
@@ -135,39 +135,42 @@ a[href],a[href]:visited {
     text-decoration: underline;
 }
 
-.date { 
+.date {
     font-family: monospace;
     font-size: 1em;
 }
 
-.top { 
+
+
+
+.top {
     text-align: right;
 }
 
-.top > div { 
+.top > div {
     display: inline-block;
     margin: 2px 0;
 }
-.top > .left { 
+.top > .left {
     float: left;
     text-align: left;
 }
 
 
-.headfoot { 
+.headfoot {
     color: white;
     background: rgb(60,60,60);
     font-size: 0.8em;
     padding: 1px 10px;
 }
-.headfoot a, .headfoot a:visited { 
+.headfoot a, .headfoot a:visited {
     color: white;
 }
 
-#header { 
+#header {
 }
 
-.headfoot span { 
+.headfoot span {
     margin: 0 5px;
     display: inline-block;
 }
@@ -176,10 +179,10 @@ a[href],a[href]:visited {
     display: inline;
 }
 
-#footer { 
+#footer {
 }
 
-#content { 
+#content {
     text-align:justify;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
@@ -192,8 +195,8 @@ p {
     text-indent: 1.5em;
 }
 
-h1 + p, h2 + p, h3 + p, 
-h4 + p, h5 + p, h6 + p { 
+h1 + p, h2 + p, h3 + p,
+h4 + p, h5 + p, h6 + p {
     margin-top: 8px;
     text-indent: 0em;
 }
@@ -205,8 +208,8 @@ blockquote p:first-child {
 
 
 
-h1, h2, h3, 
-h4, h5, h6 { 
+h1, h2, h3,
+h4, h5, h6 {
     margin-bottom: 0px;
     color: rgb(245,245,245);
 }
@@ -216,7 +219,7 @@ h4, h5, h6 {
     h2 + h3, h2 + h4, h2 + h5, h2 + h6,
     h3 + h4, h3 + h5, h3 + h6,
     h4 + h5, h4 + h6,
-    h5 + h6 {     
+    h5 + h6 {
         border-top: 1px solid black;
     }
 }
@@ -225,11 +228,11 @@ h1 + h2, h1 + h3, h1 + h4, h1 + h5, h1 + h6,
 h2 + h3, h2 + h4, h2 + h5, h2 + h6,
 h3 + h4, h3 + h5, h3 + h6,
 h4 + h5, h4 + h6,
-h5 + h6 { 
+h5 + h6 {
     margin-top: 0px;
 }
 
-h1 { 
+h1 {
     background: black;
     padding: 3px {{page.text_margin | plus:5}}px;
     margin-top: 0px;
@@ -237,7 +240,7 @@ h1 {
 -moz-column-span:all;
 -webkit-column-span:all;
 }
-h2 { 
+h2 {
     margin-top: 15px;
     background: darkred;
     padding: 2px {{page.text_margin | plus:5}}px;
@@ -246,7 +249,7 @@ h2 {
 -webkit-column-span:all;
 }
 
-h3 { 
+h3 {
     margin-top: 12px;
     background: darkblue;
     padding: 2px {{page.text_margin | plus:15}}px;
@@ -256,7 +259,7 @@ h3 {
 
 }
 
-h4 { 
+h4 {
     margin-top: 9px;
     background: green;
     padding: 2px {{page.text_margin | plus:20}}px;
@@ -265,19 +268,19 @@ h4 {
 -webkit-column-span:all;
 }
 
-h5 { 
+h5 {
     margin-top: 6px;
     background: darkorange;
     font-size: 1.1em;
     padding: 2px {{page.text_margin | plus:20}}px;
 }
-h6 { 
+h6 {
     background: purple;
     font-size: 1em;
     padding: 2px {{page.text_margin | plus:20}}px;
 }
 
-.title .pub-date { 
+.title .pub-date {
     /*color: transparent;*/
     font-size:0.5em;
     line-height:2.4em;
