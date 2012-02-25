@@ -1,6 +1,6 @@
 ---
 layout: default
-title: dbaupp
+title:
 no_top_link: true
 google_meta: true
 ---
@@ -15,9 +15,7 @@ Here's some things I've written, or at least, been involved with. They are mostl
 
 - **[Crossworder](https://github.com/dbaupp/crossworder)**, because formatting crosswords by hand sucks.
 - **[word explorer](http://www.ug.it.usyd.edu.au/~hwil7821/assignment3/form.html)**, because if you are
-  going to do a university assignment, you might as well do a hyperbolic graph. (At the time of
-  writing, it has reduced (i.e. almost zero) functionality, since the web server is running python 2.2, and the backend
-  needs python 2.6+)
+  going to do a university assignment, you might as well do a hyperbolic graph.
 - [Modifications](https://github.com/dbaupp/melville-facing-the-singularity-edition) to the
   [Melville](http://madebyraygun.com/wordpress/themes/melville/) WordPress theme for use on
   [Facing&shy;The&shy;Singularity.com](http://facingthesingularity.com/)
