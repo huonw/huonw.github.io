@@ -18,11 +18,11 @@ headings: [h1, h2, h3, h4, h5, h6]
 paragraph_like: [p, ul, ol, blockquote]
 ---
 /* sets head_plus_head to h1+h1,h1+h2,h1+h3,...,h6+h6 */
-{% capture headplushead_ %}{% for h in page.headings %}{% for h_ in page.headings %}{{ h }}+{{ h_ }} {% endfor %}{% endfor %}{% endcapture %}
-{% capture head_plus_head %}{{ headplushead_ | split: ' ' | join: ',' }}{% endcapture %}
-{% capture p_p_ %}{% for p in page.paragraph_like %}{% for p_ in page.paragraph_like %}{{ p }} {{ p_ }}#{% endfor %}{% endfor %}{% endcapture %}
-{% capture p_p %}{{ p_p_ | split: '#' | join: ',' }}{% endcapture %}
-{% capture p_like %}{{ page.paragraph_like | join: ',' }}{% endcapture %}
+{% capture head_plus_head %}{% for h in page.headings %}{% for h_ in page.headings %}{{ h }}+{{ h_ }}, {% endfor %}{% endfor %} #nothingbadselector{% endcapture %}
+{% capture p_p %}{% for p in page.paragraph_like %}{% for p_ in page.paragraph_like %}{{ p }} {{ p_ }}, {% endfor %}{% endfor %} #nothingbadselector{% endcapture %}
+{% capture p_like %}{{ page.paragraph_like | join:',' }}{% endcapture %}
+/* {{ "hello~hi" | split:~ | join:' blah ' }} */
+/* {{ "hello~hi" | split:'~' | join:' blah ' }} */
 
 html {
     {% if page.use_gradient %}
@@ -222,7 +222,7 @@ p + p {
 }
 
 /* paragraphs just below a heading */
-{{ page.headings | join: ' ' | replace: ' ','+p,' | append: '+p' }} {
+{{ page.headings | join:' ' | replace: ' ','+p,' | append: '+p' }} {
     margin-top: 8px;
 /*    text-indent: 0em;*/
 }
@@ -254,12 +254,12 @@ img[data-caption]:before {
 }
 
 /* HEADINGS */
-{{ page.headings | join: ',' }} {
+{{ page.headings | join:',' }} {
     margin-bottom: 0px;
     color: rgb(245,245,245);
 }
 
-{{ page.headings | join: ' a[href],' | append: ' a[href]' }} {
+{{ page.headings | join:' a[href],' | append: ' a[href]' }} {
     color: white;
 }
 
