@@ -1,17 +1,8 @@
-<!DOCTYPE HTML>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="/css/default.css" />
-  {% for item in page.css %}
-     <link rel="stylesheet" href="{{ item }}" />
-  {% endfor %}
-  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
-  {% if page.google_meta %}<meta name="google-site-verification" content="_aEgVgHsog8J7l-p6dSzdXrInvNfHQ8kdejcbuopdzE" />{% endif %}
-</head>
+---
+layout: empty
+use_default: true
+---
 
-<body>
 <div id="wrapper">
   <div id="header" class="headfoot">
     <div class="top">
@@ -37,6 +28,10 @@
     {% endif %}
     <!--<div id="toc"><h2>Contents</h2></div>-->
     {{ content }}
+    <div id="footnotes">
+      <h6>Footnotes</h6>
+      <ol id="footnotes-list"></ol>
+    </div>
   </div>
   <div id="footer" class="headfoot">
     <div class="top">
@@ -44,8 +39,8 @@
 	<span class="valid no-print">valid
 	  <a href="http://validator.w3.org/check?uri=http%3A%2F%2Fdbaupp.github.com{{page.url | escape_once }}">html</a>
 	</span>
-	<span>
-	  Rendering<a href="rendering.html" title="Explanation" class="no-print">(?)</a>: <span id="screen-ind"></span>
+	<span class="no-print">
+	  Rendering<a href="rendering.html" title="Explanation">(?)</a>: <span id="screen-ind"></span>
 	</span>
       </div>
       <div class="right">
@@ -55,26 +50,3 @@
     </div>
   </div>
 </div>
-
-<!-- Start of StatCounter Code -->
-<script type="text/javascript">
-var sc_project=7439209;
-var sc_invisible=1;
-var sc_security="b96244c7";
-</script>
-<script type="text/javascript"
-src="http://www.statcounter.com/counter/counter.js"></script>
-<noscript><div class="statcounter"><a title="vBulletin
-stats" href="http://statcounter.com/vbulletin/"
-target="_blank"><img class="statcounter"
-src="http://c.statcounter.com/7439209/0/b96244c7/1/"
-alt="vBulletin stats"></a></div></noscript>
-<!-- End of StatCounter Code -->
-
-{% if page.js and page.no_jquery != true %}
-   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-{% endif %}
-{% for item in page.js %}
-   <script src="{{ item }}" type="text/javascript"></script>
-{% endfor %}
-</body> </html>
