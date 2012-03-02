@@ -17,12 +17,14 @@ thin_threshold: 0.9
 headings: [h1, h2, h3, h4, h5, h6]
 paragraph_like: [p, ul, ol, blockquote]
 ---
-/* sets head_plus_head to h1+h1,h1+h2,h1+h3,...,h6+h6 */
-{% capture head_plus_head %}{% for h in page.headings %}{% for h_ in page.headings %}{{ h }}+{{ h_ }}, {% endfor %}{% endfor %} #nothingbadselector{% endcapture %}
-{% capture p_p %}{% for p in page.paragraph_like %}{% for p_ in page.paragraph_like %}{{ p }} {{ p_ }}, {% endfor %}{% endfor %} #nothingbadselector{% endcapture %}
+/* sets head_plus_head to h1+h1,h1+h2,h1+h3,...,h6+h6
+
+   The #nothing-ignorethisselector is there to absorb the trailing comma,
+   because github doesn't cope with {{ ... | split: xyz | ... }}.
+   */
+{% capture head_plus_head %}{% for h in page.headings %}{% for h_ in page.headings %}{{ h }}+{{ h_ }}, {% endfor %}{% endfor %} #nothing-ignorethisselector{% endcapture %}
+{% capture p_p %}{% for p in page.paragraph_like %}{% for p_ in page.paragraph_like %}{{ p }} {{ p_ }}, {% endfor %}{% endfor %} #nothing-ignorethisselector{% endcapture %}
 {% capture p_like %}{{ page.paragraph_like | join:',' }}{% endcapture %}
-/* {{ "hello~hi" | split:~ | join:' blah ' }} */
-/* {{ "hello~hi" | split:'~' | join:' blah ' }} */
 
 html {
     {% if page.use_gradient %}
