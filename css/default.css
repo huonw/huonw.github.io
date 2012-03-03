@@ -287,7 +287,7 @@ img[data-caption]:before {
 }
 
 /* the div that holds them */
-#footnotes {
+.footnotes {
     /*display: none;*/
     max-width: {{ page.footnotes.width }};
     margin: 20px auto 10px;
@@ -295,13 +295,13 @@ img[data-caption]:before {
     border-top: 1px solid rgb(240,240,240);
     font-size: 0.8em;
 }
-#footnotes hr {
+.footnotes hr {
     display: none;
 }
-#footnotes ol {
+.footnotes ol {
     margin: 0;
 }
-#footnotes li {
+.footnotes li {
     list-style-position: outside;
     margin-left: 30px;
     margin-right: 10px;
@@ -309,12 +309,12 @@ img[data-caption]:before {
     color: grey;
 }
 
-#footnotes li:target, #footnotes li:hover {
+.footnotes li:target, .footnotes li:hover {
     color: black;
     background-color: lightyellow;
 }
 
-#footnotes a[rev="footnote"] {
+.footnotes a[rev="footnote"] {
     color: grey !important;
     margin: 0 0.3em;
 }
@@ -329,7 +329,7 @@ and (max-width: {{page.thresholds.wide}})  {
 }
 
 @media (max-width: {{page.footnotes.width | plus:20 }}px) {
-    #footnotes {
+    .footnotes {
         margin-left: 10px;
         margin-right: 10px;
     }
@@ -462,11 +462,11 @@ and (max-width: {{page.thresholds.wide}})  {
         content: "print";
     }
 
-    #footnotes {
+    .footnotes {
         max-width: none !important;
     }
 
-    #footnotes a[rev="footnote"] {
+    .footnotes a[rev="footnote"] {
          display: none !important;
     }
 }
