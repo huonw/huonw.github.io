@@ -31,7 +31,9 @@ alt="vBulletin stats"></a></div></noscript>
 
 {% if page.use_default or page.js and page.no_jquery != true  %}
 <!--   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>-->
-   <script src="/js/zepto.min.js" type="text/javascript"></script>
+   <!--[if !IE]>--><script src="/js/zepto.min.js" type="text/javascript"></script><!--<![endif]-->
+   <!--[if IE]><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script><![endif]-->
+
    <script src="/js/default.js" type="text/javascript"></script>
 {% endif %}
 {% for item in page.js %}<script src="{{ item }}" type="text/javascript"></script>{% endfor %}
