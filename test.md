@@ -57,13 +57,14 @@ Earthrise from the moon, during the Apollo 10 mission.[^nasa]
 
 [^nasa]: Original image by NASA; accessible [here](https://commons.wikimedia.org/wiki/File:Apollo_10_earthrise.jpg).
 
-<img src="/img/earthrise.jpg" />
+![](/img/earthrise.jpg){:.unwrap}
 
-Notice how that image stretches to the edge of the page? Images are made as large as possible, as long as they don't exceed their native resolution, and stay within the appropriate area.
+Notice how that image stretches to the edge of the page? Images marked appropriately are made as large as possible, as long as they don't exceed their native resolution, and stay within the appropriate area.
 
 #### Tropical Beach
 A panorama of a Thai beach.[^thai]
-<img src="/img/phra_nang_beach_panorama.jpg" data-caption="hi"/>
+
+![](/img/phra_nang_beach_panorama.jpg)
 
 [^thai]: Image by [kallerna](https://commons.wikimedia.org/wiki/User:Kallerna); accessible [here](https://commons.wikimedia.org/wiki/File:Phra_Nang_beach_panorama_3.jpg).
 

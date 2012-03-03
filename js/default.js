@@ -21,6 +21,9 @@ $(document).ready(function() {
             window.location.hash = url_target;
         }
     }*/
+    if (has_ftns) {
+        ftns[0].id = "footnotes";
+    }
 
     if (!window.no_toc && make_toc(toc, 2, 3, content)) {
         $("#toc").show();
@@ -29,4 +32,10 @@ $(document).ready(function() {
             make_toc_entry("footnotes","Footnotes", 2, 0).appendTo(toc);
         }
     }
+
+    var to_unwrap = $(".unwrap");
+    to_unwrap.each(function(i){
+        var t = $(this);
+        t.parent().before(t).remove();
+    });
 });

@@ -11,6 +11,7 @@ You've found Huon Wilson's site.
 
 ## things done
 
+
 ### programming
 Here's some things I've written, or at least, been involved with. They are mostly either Python, PHP or CSS/HTML/JavaScript (or some combination of that).
 
@@ -24,5 +25,6 @@ Here's some things I've written, or at least, been involved with. They are mostl
   [code base](https://github.com/tricycle/lesswrong). (Oh, also, I'm
   [dbaupp](http://lesswrong.com/user/dbaupp) there too)
 
-### <a title="not programming">&not;programming</a>
+### &not;programming
+{:title="not programming"}
 - **[Notes](notes.html)** for [HSC](https://en.wikipedia.org/wiki/Higher_School_Certificate_%28New_South_Wales%29) physics and chemistry

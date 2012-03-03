@@ -6,14 +6,19 @@ top_pos: 90
 bottom_pos: 50
 content_colour: white
 link_colour: black #rgb(90,90,90)
-width: 800px
+
 body_padding: 15px
 text_margin: 30px
 
-wide_size: 1.3
-wide_threshold: 2
+width: 800px
+wide_width: 1200px
 
-thin_threshold: 0.9
+thresholds: {mobile: 640px, verythin: 500px, thin: 800px, wide: 1400px}
+
+toc: {width: 200px, heading: {bg_colour: white, colour: black}, margin: 5px 10px}
+
+footnotes: {width: 700px}
+
 headings: [h1, h2, h3, h4, h5, h6]
 heading_properties:
   h1: {colour: black, indent: 10px, size: 2.2em, space: 0 }
@@ -64,30 +69,36 @@ body {
 
 #toc {
     font-size: 0.8em;
-    max-width: 230px;
+    max-width: {{ page.toc.width }};
     width: 100%;
-    margin: 2px;
+    margin: {{ page.toc.margin }};
     background: white;
     display: none;
     float: right;
+    border: 0 solid lightgrey;
+
 }
 
 #toc h2 {
      margin-top: 0px;
-     background-color: {{ heading_properties['h1'].colour }};
+     background-color: {{ page.toc.heading.bg_colour }};
+     color: {{ page.toc.heading.colour }};
+     text-align: center;
+     border: solid lightgrey;
+     border-width: 0 0 0 1px;
 }
 
 #toc-list {
      margin: 0;
+     border: solid lightgrey;
+     border-width: 0 0 1px 1px;
 }
 
-#toc .toc-depth0 {
+#toc ol {
+     list-style-type: none;
 }
-#toc .toc-depth2 {
-     display: none;
-}
-#toc .toc-depth1:hover .toc-depth2 {
-     display: block;
+#toc li {
+     margin-left: 15px;
 }
 
 {{p_like}} {
@@ -172,7 +183,7 @@ li {
 #footer {
 }
 
-#content-container{
+#content-wrapper{
     text-align:justify;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
@@ -276,21 +287,21 @@ img[data-caption]:before {
 }
 
 /* the div that holds them */
-.footnotes {
+#footnotes {
     /*display: none;*/
-    max-width: 700px;
+    max-width: {{ page.footnotes.width }};
     margin: 20px auto 10px;
     padding-top: 5px;
     border-top: 1px solid rgb(240,240,240);
     font-size: 0.8em;
 }
-.footnotes hr {
+#footnotes hr {
     display: none;
 }
-.footnotes ol {
+#footnotes ol {
     margin: 0;
 }
-.footnotes li {
+#footnotes li {
     list-style-position: outside;
     margin-left: 30px;
     margin-right: 10px;
@@ -298,33 +309,41 @@ img[data-caption]:before {
     color: grey;
 }
 
-.footnotes li:target, .footnotes li:hover {
+#footnotes li:target, #footnotes li:hover {
     color: black;
     background-color: lightyellow;
 }
 
-.footnote-return {
+#footnotes a[rev="footnote"] {
     color: grey !important;
-    margin: 0 1em;
+    margin: 0 0.3em;
 }
 
 /* media queries */
-@media (min-width: {{page.width | times:page.thin_threshold}}px)
-and (max-width: {{page.width | times:page.wide_threshold }}px)  {
+
+@media (min-width: {{page.thresholds.thin }})
+and (max-width: {{page.thresholds.wide}})  {
     #screen-ind:before{
         content: "normal";
     }
 }
 
+@media (max-width: {{page.footnotes.width | plus:20 }}px) {
+    #footnotes {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
 
-@media (max-width: {{page.width | times:page.thin_threshold}}px) {
+
+@media (max-width: {{ page.thresholds.thin }}) {
     #screen-ind:before {
         content: "thin";
     }
 
     {{p_like}} {
-         margin-left: {{page.text_margin | divided_by:2}}px;
-         margin-right: {{page.text_margin | divided_by:2}}px;
+         margin-left: {{page.text_margin | divided_by:3}}px;
+         margin-right: {{page.text_margin | divided_by:3}}px;
     }
     ul ul li, ol ul li, ul ol li, ol ol li {
          margin: 2px 0 2px 15px;
@@ -337,16 +356,53 @@ and (max-width: {{page.width | times:page.wide_threshold }}px)  {
 
     {% for h in page.headings %}
         {{ h }} {
-           padding-left: {{ page.heading_properties[h].indent | divided_by:2 }}px;
+           padding-left: {{ page.heading_properties[h].indent | divided_by:3 }}px;
         }
     {% endfor %}
 }
 
+@media (max-width: {{ page.thresholds.verythin }}) {
+     #screen-ind:before {
+        content: "very thin";
+    }
 
-@media (max-width: {{page.width | times:page.thin_threshold}}px) {
+    #toc {
+         float: none;
+         max-width: none;
+         width: auto;
+         border-width: 0 0 1px 0;
+    }
+    #toc h2 {
+         border: 0px;
+    }
+    #toc-list {
+         margin: 0 auto;
+         max-width: {{ page.toc.width | times: 2}}px;
+
+         border-width: 0;
+    }
+
+    {{p_like}} {
+         margin-left: 3px;
+         margin-right: 3px;
+    }
+    ul ul li, ol ul li, ul ol li, ol ol li {
+         margin: 2px 0 2px 8px;
+    }
+
+    blockquote {
+         padding-left: 0.4em;
+         padding-right: 0.4em;
+    }
+
+    {% for h in page.headings %}
+        {{ h }} {
+           padding-left: {{ page.heading_properties[h].indent | divided_by:4 }}px;
+        }
+    {% endfor %}
 }
 
-@media screen and (max-device-width:640px) {
+@media screen and (max-device-width:{{page.thresholds.mobile}}) {
     body {
         padding:0px;
     }
@@ -355,22 +411,22 @@ and (max-width: {{page.width | times:page.wide_threshold }}px)  {
     }
 }
 
-@media (min-width: {{page.width | times:page.wide_threshold }}px) {
+@media (min-width: {{ page.thresholds.wide }}) {
     #screen-ind:before {
         content: "wide";
     }
 
     #wrapper {
-        max-width: {{page.width | times:page.wide_size }}px;
+        max-width: {{ page.wide_width }};
     }
 
     ul,ol {
         column-gap: 0;
-        columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+        columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
         -moz-column-gap: 0px;
-        -moz-columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+        -moz-columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
         -webkit-column-gap: 0px;
-        -webkit-columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+        -webkit-columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
     }
     li {
     /*    margin-right:0;
@@ -382,10 +438,35 @@ and (max-width: {{page.width | times:page.wide_threshold }}px)  {
     body {
         font-family: serif;
     }
+    #header {
+        display:none !important;
+    }
+
+    {{ page.headings | join: ',' }} {
+        padding-left: 0 !important;
+    }
+
+    {{ p_like }} {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
     .no-print {
         display: none !important;
     }
     #screen-ind:before {
         content: "print";
+    }
+
+    #footnotes {
+        max-width: none !important;
+    }
+
+    #footnotes a[rev="footnote"] {
+         display: none !important;
     }
 }
