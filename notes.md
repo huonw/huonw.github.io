@@ -7,12 +7,12 @@ If you're here, I'm guessing you're part way through year 12 in NSW,
 and are probably not enjoying it too much, and maybe even trying to
 learn some stuff for the little quiz at the end of the year, before
 you move on to bigger and better things.
-           
+
 Notes are always a good way of learning, whether by reading their
 distilled information, or by actually writing them yourself. The
 latter method (I find) is the best way of learning material, so I
 wrote some notes for physics and chemistry when I was doing my
-[HSC](http://en.wikipedia.org/wiki/Higher_School_Certificate_(New_South_Wales)
+[HSC](http://en.wikipedia.org/wiki/Higher_School_Certificate_(New_South_Wales))
 in 2010.
 
 Not only did I write them, I wrote them electronically, so, by the
@@ -21,7 +21,7 @@ cost. Without payment. Etc etc. (Also, speaking of altruism, maybe you
 could direct your friends here, too)
 
 ## details
-                  
+
 I went (fairly carefully, although not 100%) through the syllabi
 ([physics](http://www.boardofstudies.nsw.edu.au/syllabus_hsc/physics.html)
 &
