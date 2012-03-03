@@ -3,6 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>{% if page.tab_title %} {{ page.tab_title }} | {% elsif page.title %} {{ page.title }} | {% endif %} {{ site.title }}</title>
+  <link rel="stylesheet" href="/css/normalise.css" />
   {% if page.use_default %} <link rel="stylesheet" href="/css/default.css" />{% endif %}
   {% for item in page.css %}<link rel="stylesheet" href="{{ item }}" />{% endfor %}
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
