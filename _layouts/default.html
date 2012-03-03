@@ -17,7 +17,7 @@ use_default: true
       </div>
     </div>
   </div>
-  <div id="content" >
+  <div id="content-wrapper" >
     <h1 id="title">{{ page.title }}
       {% if page.date %}
         <span class="date pub-date">{{ page.date | date_to_string }}</span>
@@ -26,11 +26,9 @@ use_default: true
     {% if page.subtitle %}
       <h2 class="subtitle">{{ page.subtitle }}</h2>
     {% endif %}
-    <!--<div id="toc"><h2>Contents</h2></div>-->
-    {{ content }}
-    <div id="footnotes">
-      <h6>Footnotes</h6>
-      <ol id="footnotes-list"></ol>
+    <div id="toc"><h2>Contents</h2><ol id="toc-list"></ol></div>
+    <div id="content">
+      {{ content }}
     </div>
   </div>
   <div id="footer" class="headfoot">

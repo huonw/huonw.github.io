@@ -15,13 +15,21 @@ wide_threshold: 2
 
 thin_threshold: 0.9
 headings: [h1, h2, h3, h4, h5, h6]
+heading_properties:
+  h1: {colour: black, indent: 10px, size: 2.2em, space: 0 }
+  h2: {colour: darkred, indent: 15px, size: 1.7em, space: 15px }
+  h3: {colour: darkblue, indent: 20px, size: 1.4em, space: 12px }
+  h4: {colour: green, indent: 25px, size: 1.2em, space: 9px }
+  h5: {colour: rgb(180,90,0), indent: 25px, size: 1.1em, space: 6px }
+  h6: {colour: purple, indent: 25px, size: 1em, space: 6px }
+
 paragraph_like: [p, ul, ol, blockquote]
 ---
-/* sets head_plus_head to h1+h1,h1+h2,h1+h3,...,h6+h6
+{% comment %} sets head_plus_head to h1+h1,h1+h2,h1+h3,...,h6+h6
 
    The #nothing-ignorethisselector is there to absorb the trailing comma,
-   because github doesn't cope with {{ ... | split: xyz | ... }}.
-   */
+   because github doesn't cope with { { ... | split: xyz | ... }}.
+{% endcomment %}
 {% capture head_plus_head %}{% for h in page.headings %}{% for h_ in page.headings %}{{ h }}+{{ h_ }}, {% endfor %}{% endfor %} #nothing-ignorethisselector{% endcapture %}
 {% capture p_p %}{% for p in page.paragraph_like %}{% for p_ in page.paragraph_like %}{{ p }} {{ p_ }}, {% endfor %}{% endfor %} #nothing-ignorethisselector{% endcapture %}
 {% capture p_like %}{{ page.paragraph_like | join:',' }}{% endcapture %}
@@ -55,8 +63,31 @@ body {
 }
 
 #toc {
-    display: inline-block;
+    font-size: 0.8em;
+    max-width: 230px;
+    width: 100%;
+    margin: 2px;
+    background: white;
+    display: none;
     float: right;
+}
+
+#toc h2 {
+     margin-top: 0px;
+     background-color: {{ heading_properties['h1'].colour }};
+}
+
+#toc-list {
+     margin: 0;
+}
+
+#toc .toc-depth0 {
+}
+#toc .toc-depth2 {
+     display: none;
+}
+#toc .toc-depth1:hover .toc-depth2 {
+     display: block;
 }
 
 {{p_like}} {
@@ -73,92 +104,29 @@ ul,ol {
     margin-right: {{page.text_margin | times:2}}px;
 }
 
-ul {
-    list-style: disc outside none;
-}
-ul ul {
-    list-style: circle outside none;
-    font-size: .95em;
-}
-ul ul ul { list-style: square outside none; }
-
-li {
-    margin: 4px 0 4px {{page.text_margin}};
+ul ul, ul ol, ol ul, ol ol {
+   font-size: .95em;
 }
 ul ul li, ol ul li, ul ol li, ol ol li {
     margin: 2px 0 2px 20px;
 }
 
-
-/* media queries */
-@media (min-width: {{page.width | times:page.thin_threshold}}px)
-and (max-width: {{page.width | times:page.wide_threshold }}px)  {
-    #screen-ind:before{
-        content: "normal";
-    }
-}
+ul { list-style-type: disc; }
+ul ul { list-style-type: circle; }
+ul ul ul { list-style-type: square; }
+ul ul ul ul { list-style-type: disc; }
+ul ul ul ul ul { list-style-type: circle; }
+ul ul ul ul ul ul { list-style-type: square; }
 
 
-@media (max-width: {{page.width | times:page.thin_threshold}}px) {
-    #screen-ind:before {
-        content: "thin";
-    }
+ol ol { list-style-type: upper-roman; }
+ol ol ol { list-style-type: lower-roman; }
+ol ol ol ol { list-style-type: upper-alpha; }
+ol ol ol ol ol { list-style-type: lower-alpha; }
+ol ol ol ol ol ol { list-style-type: lower-greek; }
 
-    {{p_like}} {
-         margin-left: {{page.text_margin | divided_by:2}}px;
-         margin-right: {{page.text_margin | divided_by:2}}px;
-    }
-    ul ul li, ol ul li, ul ol li, ol ol li {
-         margin: 2px 0 2px 15px;
-    }
-}
-
-
-@media (max-width: {{page.width | times:page.thin_threshold}}px) {
-}
-
-@media screen and (max-device-width:640px) {
-    body {
-        padding:0px;
-    }
-    #screen-ind:before {
-        content: "mobile";
-    }
-}
-
-@media (min-width: {{page.width | times:page.wide_threshold }}px) {
-    #screen-ind:before {
-        content: "wide";
-    }
-
-    #wrapper {
-        max-width: {{page.width | times:page.wide_size }}px;
-    }
-
-    ul,ol {
-        column-gap: 0;
-        columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
-        -moz-column-gap: 0px;
-        -moz-columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
-        -webkit-column-gap: 0px;
-        -webkit-columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
-    }
-    li {
-    /*    margin-right:0;
-        margin-left:0;*/
-    }
-}
-
-@media only print {
-    body {
-        font-family: serif;
-    }
-    .no-print {
-        display: none !important;
-    }
-    #screen-ind:before {
-        content: "print";
-    }
+li {
+    margin: 4px 0 4px {{page.text_margin}};
 }
 
 .date {
@@ -204,7 +172,7 @@ and (max-width: {{page.width | times:page.wide_threshold }}px)  {
 #footer {
 }
 
-#content {
+#content-container{
     text-align:justify;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
@@ -259,6 +227,7 @@ img[data-caption]:before {
 {{ page.headings | join:',' }} {
     margin-bottom: 0px;
     color: rgb(245,245,245);
+    padding: 2px 0;
 }
 
 {{ page.headings | join:' a[href],' | append: ' a[href]' }} {
@@ -275,54 +244,15 @@ img[data-caption]:before {
     margin-top: 0px;
 }
 
-h1 {
-    background: black;
-    padding: 3px {{page.text_margin | plus:5}}px;
-    margin-top: 0px;
-    font-size: 2.2em;
--moz-column-span:all;
--webkit-column-span:all;
-}
-h2 {
-    margin-top: 15px;
-    background: darkred;
-    padding: 2px {{page.text_margin | plus:5}}px;
-    font-size: 1.6em;
--moz-column-span:all;
--webkit-column-span:all;
-}
-
-h3 {
-    margin-top: 12px;
-    background: darkblue;
-    padding: 2px {{page.text_margin | plus:15}}px;
-    font-size: 1.3em;
--moz-column-span:all;
--webkit-column-span:all;
-}
-
-h4 {
-    margin-top: 9px;
-    background: green;
-    padding: 2px {{page.text_margin | plus:20}}px;
-    font-size: 1.2em;
--moz-column-span:all;
--webkit-column-span:all;
-}
-
-h5 {
-    margin-top: 6px;
-    background: rgb(180,90,0);
-    font-size: 1.1em;
-    padding: 2px {{page.text_margin | plus:20}}px;
-}
-h6 {
-    margin-top: 6px;
-    background: purple;
-    font-size: 1em;
-    padding: 2px {{page.text_margin | plus:20}}px;
-}
-
+{% for h in page.headings %}
+   {% assign hh = page.heading_properties[h] %}
+   {{ h }} {
+      margin-top: {{ hh.space }};
+      background-color: {{ hh.colour }};
+      font-size: {{ hh.size }};
+      padding-left: {{ hh.indent }};
+   }
+{% endfor %}
 
 /* "Footnotes" */
 
@@ -346,28 +276,29 @@ h6 {
 }
 
 /* the div that holds them */
-#footnotes {
-    display: none;
+.footnotes {
+    /*display: none;*/
     max-width: 700px;
-    margin: 20px auto 0;
+    margin: 20px auto 10px;
     padding-top: 5px;
     border-top: 1px solid rgb(240,240,240);
     font-size: 0.8em;
 }
-#footnotes h6 {
+.footnotes hr {
     display: none;
 }
-#footnotes-list {
+.footnotes ol {
     margin: 0;
 }
-#footnotes-list li {
+.footnotes li {
     list-style-position: outside;
     margin-left: 30px;
-    margin-right:10px;
+    margin-right: 10px;
     padding: 1px 6px;
     color: grey;
 }
-#footnotes-list li:target, #footnotes-list li:hover {
+
+.footnotes li:target, .footnotes li:hover {
     color: black;
     background-color: lightyellow;
 }
@@ -375,4 +306,86 @@ h6 {
 .footnote-return {
     color: grey !important;
     margin: 0 1em;
+}
+
+/* media queries */
+@media (min-width: {{page.width | times:page.thin_threshold}}px)
+and (max-width: {{page.width | times:page.wide_threshold }}px)  {
+    #screen-ind:before{
+        content: "normal";
+    }
+}
+
+
+@media (max-width: {{page.width | times:page.thin_threshold}}px) {
+    #screen-ind:before {
+        content: "thin";
+    }
+
+    {{p_like}} {
+         margin-left: {{page.text_margin | divided_by:2}}px;
+         margin-right: {{page.text_margin | divided_by:2}}px;
+    }
+    ul ul li, ol ul li, ul ol li, ol ol li {
+         margin: 2px 0 2px 15px;
+    }
+
+    blockquote {
+         padding-left: 0.6em;
+         padding-right: 0.6em;
+    }
+
+    {% for h in page.headings %}
+        {{ h }} {
+           padding-left: {{ page.heading_properties[h].indent | divided_by:2 }}px;
+        }
+    {% endfor %}
+}
+
+
+@media (max-width: {{page.width | times:page.thin_threshold}}px) {
+}
+
+@media screen and (max-device-width:640px) {
+    body {
+        padding:0px;
+    }
+    #screen-ind:before {
+        content: "mobile";
+    }
+}
+
+@media (min-width: {{page.width | times:page.wide_threshold }}px) {
+    #screen-ind:before {
+        content: "wide";
+    }
+
+    #wrapper {
+        max-width: {{page.width | times:page.wide_size }}px;
+    }
+
+    ul,ol {
+        column-gap: 0;
+        columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+        -moz-column-gap: 0px;
+        -moz-columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+        -webkit-column-gap: 0px;
+        -webkit-columns: 2 {{page.width | times:page.wide_size | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
+    }
+    li {
+    /*    margin-right:0;
+        margin-left:0;*/
+    }
+}
+
+@media only print {
+    body {
+        font-family: serif;
+    }
+    .no-print {
+        display: none !important;
+    }
+    #screen-ind:before {
+        content: "print";
+    }
 }

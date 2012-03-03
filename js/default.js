@@ -1,32 +1,32 @@
-$(function() {
-    var ftns = $('.footnote'),
+---
+---
+$(document).ready(function() {
+    /*{% include footnotes.js %}*/
+    {% include toc.js %}
+
+    var url_target = window.location.hash.slice(1),
         content = $("#content"),
-        url_target = window.location.hash.slice(1);
-   
-    if (ftns.length) {
-        var ftn_div = $("#footnotes"),
-            ftn_ol = $("#footnotes-list");
+        ftns = $(".footnotes"),
+        has_ftns = ftns.length > 0,
+        toc = $("#toc-list");
+
+    /*if (make_footnotes(ftn_ol, content)) {
+        ftns.show();
         
-        ftns.css({"display":'none'});
-        ftn_div.css({"display":"block"});
-
-        ftns.each(function(i) {
-            var id = "ftn"+(i+1),
-                t = $(this),
-                link = $("<a/>",{id: id,
-                                 "class": "footnote-counter",
-                                 href: "#_" + id}).text("["+(i+1)+"]");
-            $("<a/>",{"class":"footnote-return",
-                      href:"#"+id,
-                      title:"Return to text"}).text("↩").appendTo(t);
-            $("<li/>",{id:"_"+id}).html(this.innerHTML).appendTo(ftn_ol);
-            t.replaceWith(link);
-        });
-
+        has_ftns = true;
+        
         // the page may've reflown, so jump to the right place again,
         // if we are at the top of the page
         if (window.scrollY === 0) {
             window.location.hash = url_target;
+        }
+    }*/
+
+    if (!window.no_toc && make_toc(toc, 2, 3, content)) {
+        $("#toc").show();
+
+        if (has_ftns) {
+            make_toc_entry("footnotes","Footnotes", 2, 0).appendTo(toc);
         }
     }
 });
