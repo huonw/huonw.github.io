@@ -3,9 +3,9 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>{% if page.tab_title %} {{ page.tab_title }} | {% elsif page.title %} {{ page.title }} | {% endif %} {{ site.title }}</title>
-  <link rel="stylesheet" href="/css/normalize.css" />
-  {% if page.use_default %} <link rel="stylesheet" href="/css/default.css" />{% endif %}
-  {% for item in page.css %}<link rel="stylesheet" href="{{ item }}" />{% endfor %}
+  <link rel="stylesheet" href="/css/normalize.css" type="text/css" />
+  {% if page.use_default %} <link rel="stylesheet" href="/css/default.css" type="text/css" />{% endif %}
+  {% for item in page.css %}<link rel="stylesheet" href="{{ item }}" type="text/css" />{% endfor %}
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   {% if page.google_meta %}<meta name="google-site-verification" content="_aEgVgHsog8J7l-p6dSzdXrInvNfHQ8kdejcbuopdzE" />{% endif %}
   {% if page.no_toc %}<script type="text/javascript">window.no_toc=true;</script>{% endif %}
