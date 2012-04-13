@@ -2,28 +2,33 @@
 layout: default
 title:
 no_top_link: true
-no_toc: true
+no_toc: false
 google_meta: true
 ---
 
-You've found Huon Wilson's site.
+## about me
+
+Huon Wilson (that's me) is a university student in Australia. I try to write neat code and do neat mathematics, and occasionally appear in episodes of the Internet such as:
+
+- the [StackExchange](http://stackexchange.com/users/1308075/dbaupp) network (mostly [StackOverflow](http://stackoverflow.com/users/1256624/dbaupp) and [TeX](http://tex.stackexchange.com/users/12432/dbaupp)),
+- [LessWrong](http://lesswrong.com/user/dbaupp), and
+- [Hacker News](https://news.ycombinator.com/user?id=dbaupp)
 
 
 ## things done
 
 
 ### programming
-Here's some things I've written, or at least, been involved with. They are mostly either Python, PHP or CSS/HTML/JavaScript (or some combination of that).
 
 - **[Crossworder](https://github.com/dbaupp/crossworder)**, because formatting crosswords by hand sucks.
 - **[word explorer](http://www.ug.it.usyd.edu.au/~hwil7821/assignment3/form.html)**, because if you are
   going to do a university assignment, you might as well do a hyperbolic graph.
 - [Modifications](https://github.com/dbaupp/melville-facing-the-singularity-edition) to the
   [Melville](http://madebyraygun.com/wordpress/themes/melville/) WordPress theme for use on
-  [Facing&shy;The&shy;Singularity.com](http://facingthesingularity.com/)
-- Minor [contributions](https://github.com/dbaupp/lesswrong) to the [LessWrong](http://lesswrong.com/)
-  [code base](https://github.com/tricycle/lesswrong). (Oh, also, I'm
-  [dbaupp](http://lesswrong.com/user/dbaupp) there too)
+  [FacingTheSingularity.com](http://facingthesingularity.com/)
+- Minor [contribution(s)](https://github.com/dbaupp/lesswrong) to the [LessWrong](http://lesswrong.com/)
+  [code base](https://github.com/tricycle/lesswrong).
+- The [front-end work](https://github.com/dbaupp/dbaupp.github.com) for this site.
 
 ### &not;programming
 {:title="not programming"}
