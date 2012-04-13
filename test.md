@@ -104,3 +104,39 @@ The BBC is a Royal Charter and book publishing. The BBC is an annual television 
 
 [^BBC]: From [*BBC*](https://en.wikipedia.org/wiki/BBC).
 
+## Code
+
+### Python
+{% highlight python %}
+def f(x):
+   print(x)
+f(1)
+{% endhighlight %}
+
+### Haskell
+{% highlight haskell %}
+{- Fibonacci numbers -}
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+
+-- Naive (trial division) primality test
+isPrime n = all ((/=0) . mod n) . takeWhile (\x -> x*x <= n) $ primes
+
+-- list of all primes
+primes = 2 : [ x | x <- [3,5..], isPrime x]
+
+{- counts the number of words with more than
+   10 letters in the text supplied -}
+count_long_words :: String -> Int
+count_long_words = length . filter ((>10) . length) . words . filter (`notElem` ".,;:!?\"'()[]{}<>/\\|-")
+{% endhighlight %}
+
+## Assorted others
+
+### Definition list
+
+Term
+:   Definition
+
+Term.a
+Term.b
+:   Definition
