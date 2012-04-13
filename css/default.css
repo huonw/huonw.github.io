@@ -1,9 +1,5 @@
 ---
-use_gradient: false
-top_colour: rgb(230,230,230)
-bottom_colour: rgb(235,235,255)
-top_pos: 90
-bottom_pos: 50
+page_colour: rgb(230,230,230)
 content_colour: white
 link_colour: black #rgb(90,90,90)
 
@@ -28,7 +24,7 @@ heading_properties:
   h5: {colour: rgb(180,90,0), indent: 25px, size: 1.1em, space: 6px }
   h6: {colour: purple, indent: 25px, size: 1em, space: 6px }
 
-paragraph_like: [p, ul, ol, blockquote]
+paragraph_like: [p, ul, ol, blockquote, .highlight, dl]
 ---
 {% comment %} sets head_plus_head to h1+h1,h1+h2,h1+h3,...,h6+h6
 
@@ -39,16 +35,10 @@ paragraph_like: [p, ul, ol, blockquote]
 {% capture p_p %}{% for p in page.paragraph_like %}{% for p_ in page.paragraph_like %}{{ p }} {{ p_ }}, {% endfor %}{% endfor %} #nothing-ignorethisselector{% endcapture %}
 {% capture p_like %}{{ page.paragraph_like | join:',' }}{% endcapture %}
 
-html {
-    {% if page.use_gradient %}
-    background-image: linear-gradient(bottom, {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
-    background-image: -o-linear-gradient(bottom,  {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
-    background-image: -moz-linear-gradient(bottom,  {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
-    background-image: -webkit-linear-gradient(bottom,  {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
-    background-image: -ms-linear-gradient(bottom,  {{page.bottom_colour}} {{ page.bottom_pos }}%, {{page.top_colour}} {{ page.top_pos }}%);
-    {% endif %}
+@import "syntax.css";
 
-    background-color: {{page.top_colour}};
+html {
+    background-color: {{page.page_colour}};
     min-height:100%;
 }
 
@@ -89,6 +79,7 @@ body {
 }
 
 #toc-list {
+     padding-bottom: 5px;
      margin: 0;
      border: solid lightgrey;
      border-width: 0 0 1px 1px;
