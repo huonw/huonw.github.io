@@ -16,3 +16,22 @@ body {
     height: 100%;
     display: block;
 }
+
+body {
+    font-size: 10pt;
+}
+
+h1 {
+    margin: 0 auto;
+    font-size: 1.5em;
+}
+
+#text {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 250px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 5px;
+}

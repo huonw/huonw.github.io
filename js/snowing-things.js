@@ -1,11 +1,11 @@
 Math.signum = function(x) { return x < 0 ? -1 : (x == 0 ? 0 : 1); };
 
 function Person(at) {
-    this.default(at);
+    this.basic(at);
     this.action_queue = [];
 }
 
-Person.prototype.default = function(at) {
+Person.prototype.basic = function(at) {
     this.head = at || this.head || {x:0,y:0};
     this.lelbow = {t: 5, l: 0.5};
     this.lhand = {t: -2, l: 0.5};
@@ -19,7 +19,7 @@ Person.prototype.default = function(at) {
     this.facingRight = true;
 };
 
-Person.defaultPerson = new Person();
+Person.basicPerson = new Person();
 
 Person.prototype.draw = function(p, scale){
     scale = scale || 1;
@@ -53,7 +53,7 @@ Person.prototype.keepAnglesNormal = function() {
 	    else if (this[prop].t > 180) this[prop].t -= 360;
 	}
     }
-}
+};
 
 Person.prototype.keepJointsSensible = function() {
     if (this.facingRight) {
@@ -169,9 +169,9 @@ Person.prototype.do_actions = function() {
 Person.prototype.stop = function() {
     var time = 0,
 	velos = {};
-    for (var prop in Person.defaultPerson) {
-	if (this.hasOwnProperty(prop) && prop != 'head' && Person.defaultPerson[prop].t !== undefined) {
-	    velos[prop] = (Person.defaultPerson[prop].t - this[prop].t)/1;
+    for (var prop in Person.basicPerson) {
+	if (this.hasOwnProperty(prop) && prop != 'head' && Person.basicPerson[prop].t !== undefined) {
+	    velos[prop] = (Person.basicPerson[prop].t - this[prop].t)/1;
 	}
     }
 
@@ -180,7 +180,7 @@ Person.prototype.stop = function() {
     this.action = 'stopping';
     this.step = function(dt) {
 	if (time > 1) {
-	    this.default();
+	    this.basic();
 	    this.action_in_progress = false;
 	    return !this.do_actions();
 	}
@@ -221,22 +221,21 @@ function Particle(time, world, mass, x, y, vx, vy, airresist) {
 }
 
 Particle.prototype.inside = function(x0,x1,y0,y1) {
-    return x0 <= this.x && this.x <= x1 && y0 <= this.y && this.y <= y1;
+    return this.y <= y1 && x0 <= this.x && this.x <= x1 && y0 <= this.y;
 };
 
 Particle.prototype.velocity = function() {
     return Math.sqrt(this.vy * this.vy + this.vx * this.vx);
 };
 
-Particle.prototype.step = function(dt, p1, p2, damp) {
-    
+Particle.prototype.step = function(dt, p1, p2, damp) {    
     var x = this.x, y = this.y,
 	newx = x + this.vx * dt,
 	newy = y + this.vy * dt;
-    if (!p1 || !p2) {
+    //if (!p1 || !p2) {
 	this.x = newx;
 	this.y = newy;
-    }
+    /*}
     else {
 	var x1 = p1.x, y1 = p1.y,
      x2 = p2.x, y2 = p2.y,
@@ -255,17 +254,15 @@ Particle.prototype.step = function(dt, p1, p2, damp) {
 	    }
 	}
 	this.step(dt);
-    }
+    }*/
 
     var ratio = this.airresist / this.mass,
-	wind = this.world.wind(this.x,this.y),
-	windy = wind.y,
-	windx = wind.x,
-	windspeedy = this.vy - windy,
-	windspeedx = this.vx - windx;
+	wind = this.world.wind(x,y),
+	windspeedy = this.vy - wind.y,
+	windspeedx = this.vx - wind.x;
    
-    this.vy += (this.world.gravity - ratio * Math.abs(windspeedy*windspeedy) * Math.signum(windspeedy)) * dt; 
-    this.vx += -ratio * Math.abs(windspeedx*windspeedx) * Math.signum(windspeedx) * dt;
+    this.vy += (this.world.gravity - (windspeedy < 0 ? -ratio : ratio) * windspeedy*windspeedy ) * dt; 
+    this.vx += -ratio * windspeedx*windspeedx * (windspeedx < 0 ? -dt : dt);
 };
 
 Particle.prototype.reflect = function(surfaceAngle, damp) {
@@ -284,8 +281,10 @@ Particle.prototype.terminalVelocity = function() {
     return Math.sqrt(this.world.gravity * this.mass / this.airresist);
 };
 
+Particle.prototype.shapeType = function(p) { return  p.POINTS; };
+
 Particle.prototype.draw = function(p) {
-    p.point(this.x, this.y);
+    p.vertex(this.x, this.y);
 };
 
 function Raindrop() {
@@ -295,9 +294,10 @@ function Raindrop() {
 }
 
 Raindrop.prototype = new Particle();
+Raindrop.prototype.shapeType = function(p) { return p.LINE; };
 Raindrop.prototype.draw = function(p) {
-    p.stroke(0);
-    p.line(this.x, this.y, this.x - 0.05*this.vx, this.y - 0.05*this.vy);
+    p.vertex(this.x, this.y);
+    p.vertex(this.x - 0.05*this.vx, this.y - 0.05*this.vy);
 };
 
 function Snowflake() {
@@ -306,7 +306,3 @@ function Snowflake() {
     Particle.apply(this, args);
 }
 Snowflake.prototype = new Particle();
-Snowflake.prototype.draw = function(p) {
-    p.stroke(255);
-    p.point(this.x, this.y);
-};

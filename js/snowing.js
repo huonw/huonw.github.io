@@ -10,7 +10,7 @@ $(function() {
         GRAVITY = 20,
         SCROLLX = 0,
         SCROLLY = 0;
-    
+
     function proc(p) {
         var windfunc = function(x,y) {
             var dx = x - (camerax + p.mouseX), dy = y - (cameray + p.mouseY),
@@ -19,9 +19,9 @@ $(function() {
             if (over && !justOver) {
                 var quadrance = dx*dx+dy*dy,
       factor = Math.max(0, 10-quadrance/1000);
-                
+
                 ret =  {x: WIND + factor*(p.mouseX - p.pmouseX), y: factor*(p.mouseY -p.pmouseY)};
-                
+
             }
             return ret;
         };
@@ -45,7 +45,6 @@ $(function() {
 
             p.textFont(p.loadFont("monospace"));
         };
-
 
         p.draw  = function() {
             var t = p.millis() / 1000, dt = (t - lastt);
@@ -78,38 +77,48 @@ $(function() {
 
             p.background(180);
 
-            var edgel = Math.floor(camerax /100 - 0.1)*100,
-         edger = Math.ceil((camerax + p.width)/100 + 0.1)*100;
+            var edgel = Math.floor(camerax /100 - 0.01)*100,
+         edger = Math.ceil((camerax + p.width)/100 + 0.01)*100;
 
             p.beginShape();
             p.fill(210);
             for (var i = edgel; i <= edger; i+=100) {
                 if (!scenery.fore.hasOwnProperty(i)) {
-                    scenery.back[i] = -40 - 80 * Math.random();
+                    scenery.back[2*i] = -40 - 80 * Math.random();
+                    scenery.back[2*i+1] = -40 - 80 * Math.random();
                     scenery.fore[i] = -25 - 15 * Math.random();
                 }
-                p.vertex(i, scenery.back[i]);
+                p.vertex(i, scenery.back[2*i]);
             }
             p.vertex(edger+10, 10);
-            p.vertex(edgel+10, 10);
+            p.vertex(edgel-10, 10);
             p.endShape(p.CLOSE);
 
             var newitems = [];
             p.stroke(255);
 
-            for (var i in items) {
-                var pt = items[i];
+            var left = camerax - 100,
+                right = camerax + p.width + 100,
+                top = cameray - 10,
+                bottom = cameray+p.height;
 
-                if (!pt.inside(camerax - 100, camerax + p.width + 100, cameray-10, cameray+p.height) || t - pt.created > MAXAGE) {
-                    continue;
+            if (items.length > 0) {
+                p.beginShape(items[0].shapeType(p));
+                for (var i = items.length; i--;) {
+                    var pt = items[i];
+
+                    if (!pt.inside(left,right,top,bottom) || t - pt.created > MAXAGE) {
+                        continue;
+                    }
+
+                    pt.step(dt);
+                    pt.draw(p);
+
+                    newitems.push(pt);
                 }
-
-                pt.step(dt);
-                pt.draw(p);
-
-                newitems.push(pt);
+                p.endShape();
+                items = newitems;
             }
-            items = newitems;
 
             p.stroke(0);
             p.fill(255);
@@ -139,7 +148,7 @@ $(function() {
                 p.vertex(i, scenery.fore[i]);
             }
             p.vertex(edger+10, 10);
-            p.vertex(edgel+10, 10);
+            p.vertex(edgel-10, 10);
             p.endShape(p.CLOSE);
 
             if (over) {
@@ -147,7 +156,6 @@ $(function() {
             else {
                 //SCROLLX = SCROLLY = 0;
             }
-
 
             var todo = MAXITEMS - items.length;
             if (todo > dt * SPAWNRATE && spawned !== 0) {
@@ -183,17 +191,16 @@ $(function() {
                 }
 
                 var pt = new Snowflake(t, world, mass,
-                                       camerax + x,
-                                       cameray + y, 0, 0);
+                                      camerax + x,
+                                      cameray + y, 0, 0);
                 pt.vy = pt.terminalVelocity();
 
                 items.push(pt);
             }
             spawned += todo;
 
-
             p.fill(0);
-            p.text(fr.toFixed(1) + " FPS\n" + items.length + "/" + MAXITEMS + " items", camerax + 10, cameray + 10);
+            p.text(fr.toFixed(1) + " FPS\n" + items.length + "/" + MAXITEMS + " items", camerax + 10, cameray + 20);
             //console.log(t, dt, items);
             lastt = t;
             justOver = false;
