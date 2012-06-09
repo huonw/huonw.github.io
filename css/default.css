@@ -7,7 +7,7 @@ body_padding: 15px
 text_margin: 30px
 
 width: 800px
-wide_width: 1200px
+wide_width: 1000px
 
 thresholds: {mobile: 640px, verythin: 500px, thin: 800px, wide: 1400px}
 
