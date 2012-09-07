@@ -9,7 +9,7 @@ use_default: true
       <div class="left">
 	<span class="no-print">
 	  <!--<span>dbaupp (Huon Wilson):</span>-->
-	  <span>
+	  <span><!-- Breadcrumbs: -->
             {% capture url_parts %}{{ page.url | replace:'/'," " }}{% endcapture %}
             {% capture num_parts %}{{ url_parts | number_of_words | minus: 1 }}{% endcapture %}
             {% assign previous="" %}
