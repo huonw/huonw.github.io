@@ -10,13 +10,12 @@ google_meta: true
 
 Huon Wilson (that's me) is a university student in Australia. I try to write neat code and do neat mathematics, and occasionally appear in episodes of the Internet such as:
 
-- the [StackExchange](http://stackexchange.com/users/1308075/dbaupp) network (mostly [StackOverflow](http://stackoverflow.com/users/1256624/dbaupp) and [TeX](http://tex.stackexchange.com/users/12432/dbaupp)),
+- the [StackExchange](http://stackexchange.com/users/1308075/dbaupp) network (mostly [StackOverflow](http://stackoverflow.com/users/1256624/dbaupp) and [Mathematics](http://math.stackexchange.com/users/26567/dbaupp)),
 - [LessWrong](http://lesswrong.com/user/dbaupp), and
 - [Hacker News](https://news.ycombinator.com/user?id=dbaupp)
 
 
 ## things done
-
 
 ### programming
 
@@ -33,3 +32,7 @@ Huon Wilson (that's me) is a university student in Australia. I try to write nea
 ### &not;programming
 {:title="not programming"}
 - **[Notes](notes.html)** for [HSC](https://en.wikipedia.org/wiki/Higher_School_Certificate_%28New_South_Wales%29) physics and chemistry
+
+## contact me
+
+The best way to contact me is email: `d``b``a``u``.``p``p` at [Google's mail service](http://gmail.com).
