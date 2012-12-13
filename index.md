@@ -22,6 +22,9 @@ Huon Wilson (that's me) is a university student in Australia. I try to write nea
 - **[Crossworder](https://github.com/dbaupp/crossworder)**, because formatting crosswords by hand sucks.
 - **[word explorer](http://www.ug.it.usyd.edu.au/~hwil7821/assignment3/form.html)**, because if you are
   going to do a university assignment, you might as well do a hyperbolic graph.
+- Minor (but increasingly less so)
+  [contributions](https://github.com/dbaupp/rust) to
+  [Mozilla's Rust language](https://github.com/mozilla/rust).
 - [Modifications](https://github.com/dbaupp/melville-facing-the-singularity-edition) to the
   [Melville](http://madebyraygun.com/wordpress/themes/melville/) WordPress theme for use on
   [FacingTheSingularity.com](http://facingthesingularity.com/)
