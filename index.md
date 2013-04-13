@@ -23,6 +23,7 @@ Huon Wilson (that's me) is a university student in Australia. I try to write nea
   going to do a university assignment, you might as well do a hyperbolic graph.
 - [Crossworder](https://github.com/huonw/crossworder), because formatting crosswords by hand sucks.
 - The [front-end work](https://github.com/huonw/huonw.github.com) for this site.
+- [Miscellaneous web tidbits](http://www.ug.it.usyd.edu.au/~hwil7821/).
 
 ### &not;programming
 {:title="not programming"}
