@@ -23,7 +23,7 @@ episodes of the Internet such as:
 ## things done
 
 ### programming
-- **[Contributions](https://github.com/mozilla/rust/commits/incoming?author=huonw)**
+- **[Contributions](https://github.com/mozilla/rust/commits?author=huonw)**
   to [Mozilla's Rust language](https://github.com/mozilla/rust).
 - **[word explorer](http://www.ug.it.usyd.edu.au/~hwil7821/assignment3/form.html)**,
   because if you are going to do a university assignment, you might as
