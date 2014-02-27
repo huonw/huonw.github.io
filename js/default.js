@@ -1,7 +1,7 @@
 ---
 ---
 $(document).ready(function() {
-    /*{% include footnotes.js %}*/
+    /*{ % include footnotes.js % }*/
     {% include toc.js %}
 
     var url_target = window.location.hash.slice(1),
@@ -12,9 +12,9 @@ $(document).ready(function() {
 
     /*if (make_footnotes(ftn_ol, content)) {
         ftns.show();
-        
+
         has_ftns = true;
-        
+
         // the page may've reflown, so jump to the right place again,
         // if we are at the top of the page
         if (window.scrollY === 0) {
