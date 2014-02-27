@@ -23,15 +23,11 @@ episodes of the Internet such as:
 ## things done
 
 ### programming
-- **[Contributions](https://github.com/mozilla/rust/commits?author=huonw)**
+- **[Many contributions](https://github.com/mozilla/rust/commits?author=huonw)**
   to [Mozilla's Rust language](https://github.com/mozilla/rust).
-- **[word explorer](http://www.ug.it.usyd.edu.au/~hwil7821/assignment3/form.html)**,
-  because if you are going to do a university assignment, you might as
-  well do a hyperbolic graph.
 - [Crossworder](https://github.com/huonw/crossworder), because
   formatting crosswords by hand sucks.
 - The [front-end work](https://github.com/huonw/huonw.github.io) for this site.
-- [Miscellaneous web tidbits](http://www.ug.it.usyd.edu.au/~hwil7821/).
 
 ### &not;programming
 {:title="not programming"}
