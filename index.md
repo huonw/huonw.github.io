@@ -25,15 +25,11 @@ episodes of the Internet such as:
 ### programming
 - **[Many contributions](https://github.com/mozilla/rust/commits?author=huonw)**
   to [Mozilla's Rust language](https://github.com/mozilla/rust).
+- [2048-4D](http://huonw.github.io/2048-4D/)
 - [Crossworder](https://github.com/huonw/crossworder), because
   formatting crosswords by hand sucks.
-- The [front-end work](https://github.com/huonw/huonw.github.io) for this site.
 
-### &not;programming
-{:title="not programming"}
-- **[Notes](notes.html)** for
-    [HSC](https://en.wikipedia.org/wiki/Higher_School_Certificate_%28New_South_Wales%29)
-    physics and chemistry
+[Full list of public code](https://github.com/huonw?tab=repositories)
 
 ## contact me
 

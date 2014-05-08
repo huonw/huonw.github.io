@@ -1,5 +1,5 @@
 var make_toc_entry = function(id, text, level, depth) {
-    var link = $("<a/>").attr("href","#"+id).html(text);  
+    var link = $("<a/>").attr("href","#"+id).html(text);
 
     return $("<li/>").attr("id", "toc-" + id).attr("class","toc-level" + level + " toc-depth"+depth).html(link);
 };
@@ -14,7 +14,7 @@ var make_toc = function(element, from, to, section) {
     }
     to_select = to_select.join(",");
 
-    var headings = section ? 
+    var headings = section ?
             $(to_select, section) : $(to_select);
 
     var list = element, lastlevel, level, cur,depth = 0, prev;
@@ -35,11 +35,11 @@ var make_toc = function(element, from, to, section) {
         else if (prev) {
             prev.addClass("toc-leaf");
         }
-        
+
         make_toc_entry(cur.id, cur.innerHTML, level, depth).appendTo(list);
-        
+
         lastlevel = level;
     }
-    
+
     return headings.length;
 };

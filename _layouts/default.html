@@ -34,12 +34,20 @@ use_default: true
   </div>
   <div id="content-wrapper" >
     <h1 id="title">{{ page.title }}
-      {% if page.date %}
-        <span class="date pub-date">{{ page.date | date_to_string }}</span>
-      {% endif %}
     </h1>
     {% if page.subtitle %}
       <h2 class="subtitle">{{ page.subtitle }}</h2>
+    {% endif %}
+    {% if page.show_authorship or page.date %}
+       <div id="info-intro">
+         By Huon Wilson
+         {% if page.date %}
+           &mdash; Published <span class="date pub-date">{{ page.date | date_to_string }}</span>
+         {% endif %}
+         {% if page.updated_date %}
+           &mdash; Updated <span class="date update-date">{{ page.updated_date | date_to_string }}</span>
+         {% endif %}
+       </div>
     {% endif %}
     <div id="toc"><h2>Contents</h2><ol id="toc-list"></ol></div>
     <div id="content">

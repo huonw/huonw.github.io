@@ -1,7 +1,11 @@
 /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
 
-.highlight pre { white-space: pre; overflow-x: auto; margin: 0.1em 0.2em; }
-.highlight  { background: #fcfcfc; }
+.linenos { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+  margin: 0 0 0 0.5em;
+
+}
 .highlight .c { color: #999988; font-style: italic; } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { font-weight: bold } /* Keyword */
@@ -71,4 +75,3 @@
     display: inline-block;
     text-align: right;
 }
-

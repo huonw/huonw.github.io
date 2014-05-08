@@ -1,7 +1,7 @@
 ---
 page_colour: rgb(230,230,230)
 content_colour: white
-link_colour: black #rgb(90,90,90)
+link_colour: black # rgb(90,90,90)
 
 body_padding: 15px
 text_margin: 30px
@@ -21,15 +21,15 @@ heading_properties:
   h2: {colour: darkred, indent: 15px, size: 1.7em, space: 15px }
   h3: {colour: darkblue, indent: 20px, size: 1.4em, space: 12px }
   h4: {colour: green, indent: 25px, size: 1.2em, space: 9px }
-  h5: {colour: rgb(180,90,0), indent: 25px, size: 1.1em, space: 6px }
+  h5: {colour: "rgb(180,90,0)", indent: 25px, size: 1.1em, space: 6px }
   h6: {colour: purple, indent: 25px, size: 1em, space: 6px }
 
-paragraph_like: [p, ul, ol, blockquote, .highlight, dl]
+paragraph_like: [p, ul, ol, blockquote, dl]
 ---
 {% comment %} sets head_plus_head to h1+h1,h1+h2,h1+h3,...,h6+h6
 
    The #nothing-ignorethisselector is there to absorb the trailing comma,
-   because github doesn't cope with { { ... | split: xyz | ... }}.
+   because github doesn't cope with { { ... | split: xyz | ... }}. (' for syntax highlighting)
 {% endcomment %}
 {% capture head_plus_head %}{% for h in page.headings %}{% for h_ in page.headings %}{{ h }}+{{ h_ }}, {% endfor %}{% endfor %} #nothing-ignorethisselector{% endcapture %}
 {% capture p_p %}{% for p in page.paragraph_like %}{% for p_ in page.paragraph_like %}{{ p }} {{ p_ }}, {% endfor %}{% endfor %} #nothing-ignorethisselector{% endcapture %}
@@ -43,6 +43,7 @@ html {
 }
 
 body {
+  font-size: 1.1em;
     counter-reset: footnotes;
     margin:0px;
     font-family: "sans serif";
@@ -132,7 +133,6 @@ li {
 }
 
 .date {
-    font-family: monospace;
     font-size: 1em;
 }
 
@@ -193,10 +193,54 @@ p + p {
     text-indent: 1.5em;
 }
 
+
 /* paragraphs just below a heading */
 {{ page.headings | join:' ' | replace: ' ','+p,' | append: '+p' }} {
     margin-top: 8px;
 /*    text-indent: 0em;*/
+}
+
+/*  The authorship info */
+#info-intro {
+    margin: 0.5em 1em;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+/* code */
+
+code {
+    background: #f0f0f0;
+    padding: 0.2em;
+    font-size: 0.9em;
+}
+
+.highlighttable {
+   background: #f5f5f5;
+   border: solid #aaaaaa;
+   border-width: 1px 0;
+   padding: 0em;
+   width: 100%;
+   table-layout: fixed;
+   overflow-x: auto;
+   display: block;
+   font-size: 0.9em;
+}
+.highlighttable td {
+   padding: 0.5em 0;
+}
+
+td.linenos {
+   border-width: 0;
+   background: #bbbbbb;
+}
+.linenodiv pre {
+   margin: 0;
+   width: 25px;
+   padding-right: 5px;
+}
+.linenos code {
+   background: transparent;
 }
 
 /* quotes */
@@ -246,6 +290,7 @@ img[data-caption]:before {
     margin-top: 0px;
 }
 
+
 {% for h in page.headings %}
    {% assign hh = page.heading_properties[h] %}
    {{ h }} {
@@ -260,7 +305,7 @@ img[data-caption]:before {
 
 /* filler for noscript people */
 .footnote {
-    font-size: 0.5em;
+    font-size: 0.9em;
     display: inline;
     border: 1px solid lightgrey;
     vertical-align: sub;
@@ -411,14 +456,14 @@ and (max-width: {{page.thresholds.wide}})  {
         max-width: {{ page.wide_width }};
     }
 
-    ul,ol {
+    /*ul,ol {
         column-gap: 0;
         columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
         -moz-column-gap: 0px;
         -moz-columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
         -webkit-column-gap: 0px;
         -webkit-columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
-    }
+    }*/
     li {
     /*    margin-right:0;
         margin-left:0;*/

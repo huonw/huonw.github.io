@@ -1,5 +1,5 @@
 safe: true
-pygments: true
+highlighter: pygments
 lsi: false
 title: huonw@github
 markdown: kramdown
