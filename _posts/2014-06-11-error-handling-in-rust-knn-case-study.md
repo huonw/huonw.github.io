@@ -13,7 +13,9 @@ to briefly demonstrate a few idioms.
 
 [previouspost]: {% post_url 2014-06-10-knn-rust %}
 
-The "canonical" way is to use the types, with types like
+## What type of error handling to use?
+
+The "canonical" way is to use type system, with types like
 [`Result`][result], which is isomorphic to Haskell's `Either`. Before
 you ask: Rust lacks conventional exceptions (since these are hard to
 make memory safe without a garbage collector, as I understand it); in
