@@ -28,9 +28,9 @@ $(document).ready(function() {
     if (!window.no_toc && make_toc(toc, 2, 3, content)) {
         $("#toc").show();
 
-        if (has_ftns) {
+        /*if (has_ftns) {
             make_toc_entry("footnotes","Footnotes", 2, 0).appendTo(toc);
-        }
+        }*/
     }
 
     var to_unwrap = $(".unwrap");
