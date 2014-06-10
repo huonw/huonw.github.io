@@ -13,7 +13,7 @@ use_default: true
             {% capture url_parts %}{{ page.url | replace:'/'," " }}{% endcapture %}
             {% capture num_parts %}{{ url_parts | number_of_words | minus: 1 }}{% endcapture %}
             {% assign previous="" %}
-            {% if num_parts == "0" or num_parts == "-1" %}
+            {% if num_parts == "0" or num_parts == "-1" or page.no_breadcrumbs %}
               <a href="/">home</a> &nbsp;
             {% else %}
               <a href="/">home</a> &#187;
@@ -28,7 +28,8 @@ use_default: true
 	</span>
       </div>
       <div class="right">
-        <span class="no-print"><a href="https://github.com/huonw/huonw.github.io">site source</a></span>
+        <!-- <a href="/about">About me</a> &mdash;
+        <a href="/archives.html">Archives</a> -->
       </div>
     </div>
   </div>
@@ -65,8 +66,9 @@ use_default: true
 	</span>
       </div>
       <div class="right">
+        <span class="no-print"><a href="https://github.com/huonw/huonw.github.io">site source</a></span>
 	  <span class='no-print'>On <a href="https://github.com/huonw">github</a></span>
-	  <span>Huon Wilson &mdash; <span class="date">2013</span></span>
+	  <span>Huon Wilson &mdash; <span class="date">2014</span></span>
       </div>
     </div>
   </div>
