@@ -20,15 +20,15 @@ code; like with the code in that post, this code compiles with `rustc
 ## What type of error handling to use?
 
 The "canonical" way is to use type system, with types like
-[`Result`][result], which is isomorphic to Haskell's `Either`. Before
-you ask: Rust lacks conventional exceptions (since these are hard to
-make memory safe without a garbage collector, as I understand it); in
-safe code/by default, unwinding can only be stopped at task
-boundaries.
+[`Result<A, B>`][result], which can either be an `Ok` containing a
+value of type `A` or an `Err` containing a `B` (isomorphic to
+Haskell's `Either`), and [`Option<T>`][option], which is either a
+`Some` containing a `T`, or just `None` containing no data.
 
 [result]: http://doc.rust-lang.org/master/std/result/type.Result.html
+[option]: http://doc.rust-lang.org/master/std/option/type.Option.html
 
- The standard library uses `Result` and `Option` pervasively, meaning
+The standard library uses `Result` and `Option` pervasively, meaning
 you can essentially be guaranteed to handle all errors (and
 theoretically never crash) as long as you avoid calling
 [`unwrap`][unwrap] and the small number of similar methods. For
@@ -47,6 +47,11 @@ which just returns immediately if an error occurs (that is, if
 variable with type `Result` is an `Err`), propagating it upwards for
 the caller to handle. However, `try!` isn't the only strategy, and
 it's easy to define custom handlers, as I do below.
+
+Before you ask: Rust lacks conventional exceptions (since these are
+hard to make memory safe without a garbage collector, as I understand
+it); in safe code/by default, unwinding can only be stopped at task
+boundaries.
 
 ## The bullet-proof code
 
