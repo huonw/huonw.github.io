@@ -11,6 +11,10 @@ I got a [few](https://news.ycombinator.com/item?id=7875378)
 would you handle errors if you wanted to?". This is the perfect chance
 to briefly demonstrate a few idioms.
 
+See my [previous post][previouspost] for context and the original
+code; like with the code in that post, this code compiles with `rustc
+0.11.0-pre-nightly (e55f64f 2014-06-09 01:11:58 -0700)`
+
 [previouspost]: {% post_url 2014-06-10-knn-rust %}
 
 ## What type of error handling to use?
@@ -91,7 +95,7 @@ fn slurp_file(file: &Path) -> Result<Vec<LabelPixel>, SlurpError> {
             })
         });
 
-    result::collect(line)
+    result::collect(lines)
 }
 {% endhighlight %}
 
