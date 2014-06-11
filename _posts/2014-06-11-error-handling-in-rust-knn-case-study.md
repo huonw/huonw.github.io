@@ -32,11 +32,12 @@ The standard library uses `Result` and `Option` pervasively, meaning
 you can essentially be guaranteed to handle all errors (and
 theoretically never crash) as long as you avoid calling
 [`unwrap`][unwrap] and the small number of similar methods. For
-example, almost all IO actions return an [`IoResult<...>`][ioresult],
-which defines the possible errors via the [`IoError`][ioerror] type
-and its contained `IoErrorKind` enum.
+example, [almost all IO actions][iohandling] return an
+[`IoResult<...>`][ioresult], which defines the possible errors via the
+[`IoError`][ioerror] type and its contained `IoErrorKind` enum.
 
 [unwrap]: http://doc.rust-lang.org/master/core/result/type.Result.html#method.unwrap
+[iohandling]: http://doc.rust-lang.org/master/std/io/index.html#error-handling
 [ioresult]: http://doc.rust-lang.org/master/std/io/type.IoResult.html
 [ioerror]: http://doc.rust-lang.org/master/std/io/struct.IoError.html
 
@@ -57,8 +58,10 @@ boundaries.
 
 The `try!` macro and `IoError` form my inspiration for the code to
 handle errors in `slurp_file`: define an enum with the various failure
-conditions, and use a short custom macro that "unwrap"s or
-shortcircuits, returning the appropriate error marker.
+conditions, and [define a short custom macro][macros] that either
+"unwrap"s or short-circuits to return the appropriate error marker.
+
+[macros]: http://doc.rust-lang.org/master/guide-macros.html
 
 {% highlight rust linenos=table %}
 #![feature(macro_rules)]
@@ -133,6 +136,11 @@ fn slurp_file(file: &Path) -> Result<Vec<LabelPixel>, SlurpError> {
     result::collect(lines)
 }
 {% endhighlight %}
+
+> vbhit provides [a nice alternative implementation][vhbit] that
+> avoids defining the macro.
+
+[vhbit]: http://www.reddit.com/r/rust/comments/27tuu5/error_handling_in_rust_a_knn_case_study/ci4nvpi.
 
 The return value can then be pattern-matched where-ever `slurp_file`
 is called, and the error propagated upwards there, or handled
