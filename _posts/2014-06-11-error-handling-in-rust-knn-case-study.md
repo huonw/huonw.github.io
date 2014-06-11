@@ -28,22 +28,32 @@ boundaries.
 
 [result]: http://doc.rust-lang.org/master/std/result/type.Result.html
 
-An approximation of monadic short-circuiting is provided by
+ The standard library uses `Result` and `Option` pervasively, meaning
+you can essentially be guaranteed to handle all errors (and
+theoretically never crash) as long as you avoid calling
+[`unwrap`][unwrap] and the small number of similar methods. For
+example, almost all IO actions return an [`IoResult<...>`][ioresult],
+which defines the possible errors via the [`IoError`][ioerror] type
+and its contained `IoErrorKind` enum.
+
+[unwrap]: http://doc.rust-lang.org/master/core/result/type.Result.html#method.unwrap
+[ioresult]: http://doc.rust-lang.org/master/std/io/type.IoResult.html
+[ioerror]: http://doc.rust-lang.org/master/std/io/struct.IoError.html
+
+An approximation of monadic short-circuiting is provided for `Result`
+by
 [the `try!` macro](http://doc.rust-lang.org/master/std/result/#the-try!-macro),
 which just returns immediately if an error occurs (that is, if
 variable with type `Result` is an `Err`), propagating it upwards for
-the caller to handle. The standard library uses `Result` pervasively,
-meaning you can essentially be guaranteed to handle all errors (and
-theoretically never crash) as long as you avoid calling
-[`unwrap`](http://doc.rust-lang.org/master/core/result/type.Result.html#method.unwrap)
-and the small number of similar methods.
+the caller to handle. However, `try!` isn't the only strategy, and
+it's easy to define custom handlers, as I do below.
 
 ## The bullet-proof code
 
-This is my inspiration for the code that handles errors: define a
-short custom macro that "unwrap"s or shortcircuits, using the
-appropriate error marker. I also define an `enum` which enumerates all
-possible error conditions.
+The `try!` macro and `IoError` form my inspiration for the code to
+handle errors in `slurp_file`: define an enum with the various failure
+conditions, and use a short custom macro that "unwrap"s or
+shortcircuits, returning the appropriate error marker.
 
 {% highlight rust linenos=table %}
 #![feature(macro_rules)]
@@ -58,15 +68,35 @@ enum SlurpError {
 
 // short-circuiting macro: "unwrap" the value, an error will return
 // from the surrounding function propagating that error upwards.
+//
+// macro_rules! macros take a sequence of tokens/AST non-terminals and
+// attempt to pattern match on them, taking the first branch that
+// fits, and then effectively replace the macro invocation with the
+// right-hand side of that branch.
 macro_rules! try_slurp {
-    ($e: expr, FailedIo) => {
-        match $e {
+    // `$...` is a special variable, a "macro argument", this `value`
+    // is an expression, e.g. `1 + 2`, `foo()`, `if ... { ... } else {
+    // ... }`. Hence, to match, this arm needs to be passed an
+    // expression, a comma, then a literal `FailedIo`.
+    // e.g. `try_slurp!(foo(), FailedIo)`
+    ($value: expr, FailedIo) => {
+        // The macro expands to this code if the pattern matches. The
+        // `$value` expression is `match`d as a `Result<..., IoError>`
+        // (passing in something else will be a type error, after the
+        // macro expands). Success is unwrapped, and a failure is
+        // returned from the function/closure in which the macro is
+        // called.
+        match $value {
             Ok(x) => x,
             Err(e) => return Err(FailedIo(e))
         }
     };
-    ($e: expr, InvalidInput) => {
-        match $e {
+
+    // similarly here, this branch takes an arbitrary expression and
+    // then has to match exactly `InvalidInput`
+    ($value: expr, InvalidInput) => {
+        // as above, except handling `$value` as an `Option<...>`.
+        match $value {
             Some(x) => x,
             None => return Err(InvalidInput)
         }
