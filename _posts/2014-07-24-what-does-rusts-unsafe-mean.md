@@ -111,7 +111,7 @@ code is guaranteed to be safe due to invariants impossible to express
 in the type system, and that it satisfies
 [the invariants that Rust itself imposes](http://doc.rust-lang.org/master/rust.html#behavior-considered-unsafe).
 
-These invariants are assumed to never happen, even inside `unsafe`
+These invariants are assumed to never be broken, even inside `unsafe`
 code blocks, and the compiler compiles and optimises with this
 assumption. Thus, breaking any of those invariants is
 [undefined behaviour](https://en.wikipedia.org/wiki/Undefined_behaviour)[^ub-llvm]
