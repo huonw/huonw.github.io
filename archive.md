@@ -4,6 +4,8 @@ title: Archive
 css: ["/css/archive.css"]
 ---
 
+Text I've written.
+
 <ul class="post-list">
 {% for post in site.posts %}
     <li class="post-post">

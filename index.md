@@ -7,13 +7,6 @@ no_toc: true
 google_meta: true
 ---
 
-I'm Huon Wilson, a mathematics student who writes code a lot and text
-occasionally. I do a lot of volunteering on
-[the Rust programming language](http://rust-lang.org/), and am on
-Rust's core team.
-
-## Text
-
 <ul class="post-list">
 {% for post in site.posts limit: 4 %}
     <li class="post-post">
@@ -28,7 +21,14 @@ Rust's core team.
 
 [Archive](archive.html)
 
-## Code
+## About me
+
+I'm Huon Wilson, a mathematics student who writes code a lot and text
+occasionally. I do a lot of volunteering on
+[the Rust programming language](http://rust-lang.org/), and am on
+Rust's core team.
+
+### Code
 
 You can find me on [GitHub](https://github.com/huonw) and
 [StackOverflow](http://stackoverflow.com/users/1256624/dbaupp). I
@@ -46,7 +46,7 @@ code:
 
 [All the gory details](https://github.com/huonw?tab=repositories).
 
-## Contact me
+### Get in touch
 
 The best way to contact me is email: `d``b``a``u``.``p``p` at
 [Google's mail service](http://gmail.com).
