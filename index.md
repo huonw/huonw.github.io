@@ -1,37 +1,52 @@
 ---
 layout: default
+css: ["/css/archive.css"]
 title:
 no_top_link: true
-no_toc: false
+no_toc: true
 google_meta: true
 ---
 
-## about me
+I'm Huon Wilson, a mathematics student who writes code a lot and text
+occasionally. I do a lot of volunteering on
+[the Rust programming language](http://rust-lang.org/), and am on
+Rust's core team.
 
-Huon Wilson (that's me) is a university student in Australia. I try to
-write neat code and do neat mathematics, and occasionally appear in
-episodes of the Internet such as:
+## Text
 
-- [GitHub](https://github.com/huonw)
-- the [StackExchange](http://stackexchange.com/users/1308075/dbaupp)
-  network (mostly
-  [StackOverflow](http://stackoverflow.com/users/1256624/dbaupp) and
-  [Mathematics](http://math.stackexchange.com/users/26567/dbaupp)),
-  and
-- [Hacker News](https://news.ycombinator.com/user?id=dbaupp)
+<ul class="post-list">
+{% for post in site.posts limit: 4 %}
+    <li class="post-post">
+      <a href="{{ post.url }}" class="post-title">{{ post.title }}</a>
+      <span class="post-date">{{ post.date | date_to_string }}</span>
+        <p class="post-excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}
+            </p>
+            <a href="{{ post.url }}" class="post-more">Read more</a>
+        </li>
+{% endfor %}
+</ul>
 
-## things done
+[Archive](archive.html)
 
-### programming
-- **[Many contributions](https://github.com/mozilla/rust/commits?author=huonw)**
-  to [Mozilla's Rust language](https://github.com/mozilla/rust).
-- [2048-4D](http://huonw.github.io/2048-4D/)
-- [Crossworder](https://github.com/huonw/crossworder), because
-  formatting crosswords by hand sucks.
+## Code
 
-[Full list of public code](https://github.com/huonw?tab=repositories)
+You can find me on [GitHub](https://github.com/huonw) and
+[StackOverflow](http://stackoverflow.com/users/1256624/dbaupp). I
+wrote [2048-4D](http://huonw.github.io/2048-4D/), and a lot of Rust
+code:
 
-## contact me
+- major items in the main distribution include `std::rand` and
+  `#[deriving]`.
+- compiler lint plugins for
+  [spell-checking documentation](https://github.com/huonw/spellck) and
+  [detecting copy-paste errors](https://github.com/huonw/copypasteck)
+- a variety of macro plugins (including use<s>less</s>ful ones that handle
+  [FRACTRAN](https://github.com/huonw/fractran_macros) and
+  [brainfuck](https://github.com/huonw/brainfuck_macros))
+
+[All the gory details](https://github.com/huonw?tab=repositories).
+
+## Contact me
 
 The best way to contact me is email: `d``b``a``u``.``p``p` at
 [Google's mail service](http://gmail.com).

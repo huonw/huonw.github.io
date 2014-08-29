@@ -1,0 +1,37 @@
+ul.post-list {
+  list-style: none
+}
+
+.post-post {
+  padding: 1em;
+}
+
+.post-post:not(:first-child) {
+  border-top: 1px solid lightgrey;
+  margin-top: 1em;
+}
+
+.post-title {
+  font-weight: bold;
+  font-size: x-large;
+  font-variant: small-caps;
+}
+
+.post-date {
+  float: right
+}
+
+.post-more {
+  float: right;
+  font-style: italic;
+  font-size: small;
+}
+
+
+.post-excerpt {
+  margin: 0em 1em;
+}
+
+.footnote, .footnotes {
+  display: none
+}
