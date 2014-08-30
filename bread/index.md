@@ -1,8 +1,7 @@
 ---
 layout: default
+title: Breadcrumbs ↗
 ---
 
-# ^ Breadcrumbs
-
 Hi StackOverflow! The Liquid source is
-[here](https://github.com/dbaupp/dbaupp.github.com/blob/master/_layouts/default.html#L12).
+[here](https://github.com/dbaupp/dbaupp.github.com/blob/master/_layouts/default.html#L17).

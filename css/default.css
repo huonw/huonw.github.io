@@ -3,7 +3,9 @@ page_colour: rgb(230,230,230)
 content_colour: white
 link_colour: black # rgb(90,90,90)
 
-header_image: "/img/jump.jpg"
+header_image:
+  url: "/img/jump.jpg"
+  height: 166px
 
 body_padding: 15px
 text_margin: 30px
@@ -68,8 +70,8 @@ body {
     background: white;
     display: none;
     float: right;
-    border: 0 solid lightgrey;
-
+    border: solid lightgrey;
+    border-width: 0 0 1px 1px;
 }
 
 #toc h2 {
@@ -77,15 +79,11 @@ body {
      background-color: {{ page.toc.heading.bg_colour }};
      color: {{ page.toc.heading.colour }};
      text-align: center;
-     border: solid lightgrey;
-     border-width: 0 0 0 1px;
 }
 
 #toc-list {
      padding-bottom: 5px;
      margin: 0;
-     border: solid lightgrey;
-     border-width: 0 0 1px 1px;
 }
 
 #toc ol {
@@ -150,43 +148,91 @@ table:not(.highlighttable) thead {
     font-size: 1em;
 }
 
-.top {
-    text-align: right;
+#header {
+  position: relative;
+  border: 1px solid black;
+  height: {{ page.header_image.height }};
+  background-image: url({{ page.header_image.url }});
+  background-position: 80% 25%;
+}
+#head-link {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#info-box, #breadcrumbs {
+  position: absolute;
+  background: #333;
+  background: rgba(0, 0, 0, 0.5);
+}
+#info-box {
+  max-width: 250px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3px 8px;
+}
+#blog-title {
+  font-size: 1.2em;
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+#blog-title a {
+  text-decoration: none;
+}
+#info-list {
+  list-style: none;
+  margin: 0.2em 1em;
+}
+#info-list li {
+  margin: 0;
 }
 
-.top > div {
-    display: inline-block;
-    margin: 1px 0;
-}
-.top > .left {
-    float: left;
-    text-align: left;
+#breadcrumbs {
+  bottom: 5px;
+  right: 5px;
+  padding: 7px;
+  font-family: monospace;
+  font-size: 15px;
+  min-width: 180px;
+  max-width: 100%;
 }
 
 .headfoot {
     color: white;
-    background: rgb(60,60,60);
     font-size: 1em;
-    padding: 2px 10px;
 }
 .headfoot a[href], .headfoot a[href] {
     color: white;
 }
 
-#header {
+#footer {
+  background: rgb(60,60,60);
+  text-align: right;
+  padding: 2px 10px;
 }
-
-.headfoot span {
+#footer .left, #footer .right {
+  display: inline-block;
+}
+#footer > .left {
+  float: left;
+  text-align: left;
+}
+#footer > .right {
+  float: right;
+}
+#footer span {
     margin: 0 5px;
     display: inline-block;
 }
-.headfoot span span {
+#footer span span {
     margin: 0;
     display: inline;
 }
+.clear { clear: both; }
 
-#footer {
-}
 
 #content-wrapper{
     text-align:justify;
@@ -202,11 +248,6 @@ a[href] {
     text-decoration: underline;
 }
 
-#head-img {
-  height: 166px;
-  background-image: url({{ page.header_image }});
-  background-position: 80% 25%;
-}
 
 /* indent paragraphs that follow another paragraph */
 p + p {
@@ -525,7 +566,7 @@ and (max-width: {{page.thresholds.wide}})  {
         max-width: none !important;
     }
 
-    .footnotes a[rev="footnote"] {
+    .footnotes .reversefootnote {
          display: none !important;
     }
 }
