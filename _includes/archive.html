@@ -1,0 +1,35 @@
+{% if include.limit %}
+ {% assign limit = include.limit %}
+{% else %}
+ {% assign limit = 10000000 %}
+{% endif %}
+
+{% if include.year %}
+ {% capture search_year %}{{ include.year }}{% endcapture %}
+{% else %}
+ {% assign search_year = false %}
+{% endif %}
+
+{% if include.month %}
+ {% capture search_month %}{{ include.month }}{% endcapture %}
+{% else %}
+ {% assign search_month = false %}
+{% endif %}
+
+<ul class="post-list">
+{% for post in site.posts limit: limit %}
+ {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+ {% capture this_month %}{{ post.date | date: "%-m" }}{% endcapture %}
+
+ {% unless search_year and this_year != search_year %}
+  {% unless search_month and this_month != search_month %}
+    <li class="post-post">
+      <a href="{{ post.url }}" class="post-title">{{ post.title }}</a>
+      <span class="post-date">{{ post.date | date_to_string }}</span>
+        <p class="post-excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}</p>
+        <a href="{{ post.url }}" class="post-more">Read more</a>
+        </li>
+  {% endunless %}
+ {% endunless %}
+{% endfor %}
+</ul>

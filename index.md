@@ -7,17 +7,7 @@ no_toc: true
 google_meta: true
 ---
 
-<ul class="post-list">
-{% for post in site.posts limit: 4 %}
-    <li class="post-post">
-      <a href="{{ post.url }}" class="post-title">{{ post.title }}</a>
-      <span class="post-date">{{ post.date | date_to_string }}</span>
-        <p class="post-excerpt">{{ post.excerpt | remove: '<p>' | remove: '</p>' }}
-            </p>
-            <a href="{{ post.url }}" class="post-more">Read more</a>
-        </li>
-{% endfor %}
-</ul>
+{% include archive.html limit=4 %}
 
 [Archive](archive.html)
 
