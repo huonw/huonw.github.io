@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "Error handling in Rust: a k-NN case study"
-no_breadcrumbs: true
 ---
 
 After posting
