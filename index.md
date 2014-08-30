@@ -20,12 +20,11 @@ occasionally. I do a lot of volunteering on
 [the Rust programming language](http://rust-lang.org/), and am on
 Rust's core team.
 
-### Code
-
-You can find me on [GitHub](https://github.com/huonw) and
+If you're looking for code, you can find me on
+[GitHub](https://github.com/huonw) and on
 [StackOverflow](http://stackoverflow.com/users/1256624/dbaupp). I
-wrote [2048-4D](http://huonw.github.io/2048-4D/), and a lot of Rust
-code:
+wrote [2048-4D](http://huonw.github.io/2048-4D/), and currently write
+a lot of Rust code:
 
 - major items in the main distribution include `std::rand` and
   `#[deriving]`.
@@ -38,7 +37,6 @@ code:
 
 [All the gory details](https://github.com/huonw?tab=repositories).
 
-### Get in touch
-
 The best way to contact me is email: `d``b``a``u``.``p``p` at
-[Google's mail service](http://gmail.com).
+[Google's mail service](http://gmail.com). You can also find me as
+`huon` on #rust (etc.) on irc.mozilla.org.
