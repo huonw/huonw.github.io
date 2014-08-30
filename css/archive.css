@@ -25,7 +25,9 @@ ul.post-list {
 h2.post-title a { color: black; }
 
 .post-date {
-  float: right
+  float: right;
+  font-style: italic;
+  padding: 0.2em 1em;
 }
 
 .post-more {
