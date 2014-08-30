@@ -7,9 +7,11 @@ no_toc: true
 google_meta: true
 ---
 
-{% include archive.html limit=4 %}
+I write some things, here are most recent.
 
-[Archive](archive.html)
+{% include archive.html limit=2 %}
+
+[All posts](blog)
 
 ## About me
 

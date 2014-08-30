@@ -8,7 +8,7 @@ ul.post-list {
   margin: 0;
 }
 
-.post-post {
+.post-post:not(:first-child) {
   border-top: 1px dashed  #ddd;
   margin-top: 1em;
 }
@@ -17,7 +17,12 @@ ul.post-list {
   font-weight: bold;
   font-size: x-large;
   font-variant: small-caps;
+  background: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
 }
+h2.post-title a { color: black; }
 
 .post-date {
   float: right

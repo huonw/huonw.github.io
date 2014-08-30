@@ -14,7 +14,7 @@ See my [previous post][previouspost] for context and the original
 code; like with the code in that post, this code compiles with `rustc
 0.11.0-pre-nightly (e55f64f 2014-06-09 01:11:58 -0700)`
 
-[previouspost]: {% post_url 2014-06-10-knn-rust %}
+[previouspost]: {% post_url 2014-06-10-comparing-knn-in-rust %}
 
 ## What type of error handling to use?
 
