@@ -80,7 +80,7 @@ complete):
 
 All of these can easily cause large problems. For example, a shared
 reference `&T` is a machine pointer, but it *must* always point to a
-valid value of type `T`; all three of the above can cause this to be
+valid value of type `T`; all four of the above can cause this to be
 violated:
 
 1. There is an `unsafe` function
