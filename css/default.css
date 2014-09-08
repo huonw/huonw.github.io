@@ -374,7 +374,7 @@ blockquote p {
 }
 
 /* images */
-img {
+img:not(.inline-image) {
     display: block;
     margin: 0 auto;
     max-width: 100%;

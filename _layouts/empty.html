@@ -3,6 +3,10 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>{% if page.tab_title %} {{ page.tab_title }} | {% elsif page.title %} {{ page.title }} | {% endif %} {{ site.title }}</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/atom.rss" title="RSS feed">
+
   <link rel="stylesheet" href="/css/normalize.css" type="text/css" />
   {% if page.use_default %} <link rel="stylesheet" href="/css/default.css" type="text/css" />{% endif %}
   {% for item in page.css %}<link rel="stylesheet" href="{{ item }}" type="text/css" />{% endfor %}
