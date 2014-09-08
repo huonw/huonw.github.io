@@ -41,16 +41,59 @@ paragraph_like: [p, ul, ol, blockquote, dl, "table:not(.highlighttable)"]
 
 @import "syntax.css";
 
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Fira Sans'), url("fonts/FiraSans-Regular.woff") format('woff');
+}
+@font-face {
+    font-family: 'Fira Sans';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Fira Sans Medium'), url("fonts/FiraSans-Medium.woff") format('woff');
+}
+@font-face {
+    font-family: 'Source Serif Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Source Serif Pro'), url("fonts/SourceSerifPro-Regular.woff") format('woff');
+}
+@font-face {
+    font-family: 'Source Serif Pro';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Heuristica Italic'), url("fonts/Heuristica-Italic.woff") format('woff');
+}
+@font-face {
+    font-family: 'Source Serif Pro';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Source Serif Pro Bold'), url("fonts/SourceSerifPro-Bold.woff") format('woff');
+}
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Source Code Pro'), url("fonts/SourceCodePro-Regular.woff") format('woff');
+}
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Source Code Pro Semibold'), url("fonts/SourceCodePro-Semibold.woff") format('woff');
+}
+
 html {
     background-color: {{page.page_colour}};
     min-height:100%;
 }
 
 body {
-  font-size: 1em;
+  font-size: 1.05em;
     counter-reset: footnotes;
     margin:0px;
-    font-family: "sans serif";
+    font-family: "Source Serif Pro","serif";
     padding: {{page.body_padding}} 0;
 }
 
@@ -95,6 +138,9 @@ body {
 
 {{p_like}} {
     margin: 8px {{page.text_margin}};
+}
+em {
+  font-size: 0.98em;
 }
 
 /* nested "p p", "ol p" etc */
@@ -154,6 +200,7 @@ table:not(.highlighttable) thead {
   height: {{ page.header_image.height }};
   background-image: url({{ page.header_image.url }});
   background-position: 80% 25%;
+  font-family: "Fira Sans", "sans-serif";
 }
 #head-link {
   width: 100%;
@@ -194,7 +241,7 @@ table:not(.highlighttable) thead {
   bottom: 5px;
   right: 5px;
   padding: 7px;
-  font-family: monospace;
+  font-family: "Source Code Pro", monospace;
   font-size: 15px;
   min-width: 180px;
   max-width: 100%;
@@ -270,6 +317,10 @@ p + p {
 
 /* code */
 
+code, pre {
+  font-family: "Source Code Pro", "monospace";
+}
+
 code {
     background: #f0f0f0;
     padding: 0.2em;
@@ -338,6 +389,7 @@ img[data-caption]:before {
     margin-bottom: 0px;
     color: rgb(245,245,245);
     padding: 2px 0;
+    font-family: "Fira Sans", "sans-serif";
 }
 
 {{ page.headings | join:' a[href],' | append: ' a[href]' }} {
@@ -536,7 +588,7 @@ and (max-width: {{page.thresholds.wide}})  {
 
 @media only print {
     body {
-        font-family: serif;
+        font-family: "Source Serif Pro", serif;
     }
     #header {
         display:none !important;
