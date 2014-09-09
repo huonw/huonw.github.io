@@ -19,14 +19,23 @@ toc: {width: 300px, heading: {bg_colour: white, colour: black}, margin: 5px 10px
 
 footnotes: {width: 700px}
 
+small_caps_headings: [h1, h2]
 headings: [h1, h2, h3, h4, h5, h6]
 heading_properties:
-  h1: {colour: black, indent: 10px, size: 2.2em, space: 0 }
-  h2: {colour: "rgb(100, 0, 0)", indent: 15px, size: 1.7em, space: 15px }
-  h3: {colour: darkblue, indent: 20px, size: 1.4em, space: 12px }
-  h4: {colour: green, indent: 25px, size: 1.2em, space: 9px }
-  h5: {colour: "rgb(180,90,0)", indent: 25px, size: 1.1em, space: 6px }
-  h6: {colour: purple, indent: 25px, size: 1em, space: 6px }
+  h1: {fg: white, bg: black, indent: 10px, size: 2.2em, space: 0 }
+  h2: {fg: black, bg: white, # "rgb(100, 0, 0)",
+       indent: 20px, size: 1.7em, space: 15px }
+  h3: {fg: black, bg: white, # darkblue,
+        indent: 30px, size: 1.4em, space: 12px }
+  h4: {
+    fg: black, bg: white, # green,
+    indent: 30px, size: 1.2em, space: 9px }
+  h5: {
+    fg: black, bg: white, # "rgb(180,90,0)",
+    indent: 30px, size: 1.1em, space: 6px }
+  h6: {
+    fg: black, bg: white, # purple,
+    indent: 30px, size: 1em, space: 6px }
 
 paragraph_like: [p, ul, ol, blockquote, dl, "table:not(.highlighttable)"]
 ---
@@ -385,10 +394,12 @@ img[data-caption]:before {
 }
 
 /* HEADINGS */
+{{ page.small_caps_headings | join: ',' }} {
+  font-variant: small-caps;
+}
+
 {{ page.headings | join:',' }} {
     margin-bottom: 0px;
-    color: rgb(245,245,245);
-    padding: 2px 0;
     font-family: "Fira Sans", "sans-serif";
 }
 
@@ -406,14 +417,14 @@ img[data-caption]:before {
     margin-top: 0px;
 }
 
-
 {% for h in page.headings %}
    {% assign hh = page.heading_properties[h] %}
    {{ h }} {
       margin-top: {{ hh.space }};
-      background-color: {{ hh.colour }};
+      color: {{ hh.fg }};
+      background-color: {{ hh.bg }};
       font-size: {{ hh.size }};
-      padding-left: {{ hh.indent }};
+      padding: 2px {{ hh.indent }};
    }
 {% endfor %}
 
@@ -508,7 +519,7 @@ and (max-width: {{page.thresholds.wide}})  {
 
     {% for h in page.headings %}
         {{ h }} {
-           padding-left: {{ page.heading_properties[h].indent | divided_by:3 }}px;
+           padding: 2px {{ page.heading_properties[h].indent | divided_by:3 }}px;
         }
     {% endfor %}
 }
@@ -549,7 +560,7 @@ and (max-width: {{page.thresholds.wide}})  {
 
     {% for h in page.headings %}
         {{ h }} {
-           padding-left: {{ page.heading_properties[h].indent | divided_by:4 }}px;
+           padding: 2px {{ page.heading_properties[h].indent | divided_by:4 }}px;
         }
     {% endfor %}
 }
