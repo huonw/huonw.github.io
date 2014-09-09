@@ -365,6 +365,7 @@ td.linenos {
 }
 .linenos code {
    background: transparent;
+   padding: 0;
 }
 
 /* quotes */
