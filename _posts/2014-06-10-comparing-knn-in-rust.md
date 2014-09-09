@@ -1,6 +1,10 @@
 ---
 layout: default
 title: Comparing k-NN in Rust
+comments:
+    r_rust: "http://www.reddit.com/r/rust/comments/27s7ei/comparing_knn_in_rust/"
+    r_programming: "http://www.reddit.com/r/programming/comments/27s7g6/comparing_knn_in_rust/"
+    hn: "https://news.ycombinator.com/item?id=7872398"
 ---
 
 In my voyages around the internet, I came across [a pair][original] of
@@ -217,9 +221,4 @@ This gives a nice speed up, approximately halving the time required:
 the real time is now stable around 1.81 seconds (6.25 s of user time)
 on my machine.
 
-
-
-> _**Comments on
-> [/r/rust](http://www.reddit.com/r/rust/comments/27s7ei/comparing_knn_in_rust/),
-> [/r/programming](http://www.reddit.com/r/programming/comments/27s7g6/comparing_knn_in_rust/),
-> [HN](https://news.ycombinator.com/item?id=7872398)**_
+{% include comments.html c=page.comments %}

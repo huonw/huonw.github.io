@@ -428,6 +428,25 @@ img[data-caption]:before {
    }
 {% endfor %}
 
+/* Comment box */
+
+#comments {
+  margin: 2em 0;
+  text-align: center;
+}
+#comments-label {
+  font-weight: bold;
+}
+#comments-list {
+  display: inline;
+  list-style: none;
+  margin: 0;
+}
+.comment-service {
+  display: inline;
+  margin: 0 2px;
+}
+
 /* "Footnotes" */
 
 /* filler for noscript people */

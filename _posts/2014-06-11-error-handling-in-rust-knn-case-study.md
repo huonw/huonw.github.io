@@ -1,6 +1,10 @@
 ---
 layout: default
 title: "Error handling in Rust: a k-NN case study"
+comments:
+    r_rust: "http://www.reddit.com/r/rust/comments/27tuu5/error_handling_in_rust_a_knn_case_study/"
+    r_programming: "http://www.reddit.com/r/programming/comments/27tuw8/error_handling_in_rust_a_knn_case_study/"
+    hn: "https://news.ycombinator.com/item?id=7875793"
 ---
 
 After posting
@@ -183,7 +187,4 @@ nicely due to Rust's affine types and various low-level details.
 
 [sequence]: http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:sequence
 
-> _**Comments on
-> [/r/rust](http://www.reddit.com/r/rust/comments/27tuu5/error_handling_in_rust_a_knn_case_study/),
-> [/r/programming](http://www.reddit.com/r/programming/comments/27tuw8/error_handling_in_rust_a_knn_case_study/),
-> [HN](https://news.ycombinator.com/item?id=7875793)**_
+{% include comments.html c=page.comments %}
