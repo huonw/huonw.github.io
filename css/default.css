@@ -104,6 +104,10 @@ body {
     margin:0px;
     font-family: "Source Serif Pro","serif";
     padding: {{page.body_padding}} 0;
+
+    -moz-font-feature-settings: "kern", "liga";
+    -webkit-font-feature-settings: "kern", "liga";
+    font-feature-settings: "kern", "liga";
 }
 
 #wrapper {
@@ -417,7 +421,9 @@ img[data-caption]:before {
 
 /* HEADINGS */
 {{ page.small_caps_headings | join: ',' }} {
-  font-variant: small-caps;
+    -moz-font-feature-settings: "kern", "liga", "smcp";
+    -webkit-font-feature-settings: "kern", "liga", "smcp";
+    font-feature-settings: "kern", "liga", "smcp";
 }
 
 {{ page.headings | join:',' }} {
