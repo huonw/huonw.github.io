@@ -16,11 +16,14 @@ ul.post-list {
 .post-title {
   font-weight: bold;
   font-size: x-large;
-  font-variant: small-caps;
   background: none;
   margin: 0;
   padding: 0;
   display: inline-block;
+
+  -moz-font-feature-settings: "kern", "liga", "smcp";
+  -webkit-font-feature-settings: "kern", "liga", "smcp";
+  font-feature-settings: "kern", "liga", "smcp";
 }
 h2.post-title a { color: black; }
 
