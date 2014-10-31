@@ -1,6 +1,6 @@
 ---
 layout: default
-title: What does Rust's "unsafe" mean?
+title: What does Rust's “unsafe” mean?
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/2bhwgc/what_does_rusts_unsafe_mean/"
     r_programming: "http://www.reddit.com/r/programming/comments/2bhwhl/what_does_rusts_unsafe_mean/"
