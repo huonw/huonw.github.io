@@ -13,7 +13,10 @@ text_margin: 30px
 width: 800px
 wide_width: 1000px
 
-thresholds: {mobile: 640px, verythin: 500px, thin: 800px, wide: 1400px}
+normal_font: 17px
+small_font: 16px
+
+thresholds: {mobile: 640px, verythin: 500px, thin: 800px, wide: 140000px}
 
 toc: {width: 300px, heading: {bg_colour: white, colour: black}, margin: 5px 10px}
 
@@ -99,7 +102,6 @@ html {
 }
 
 body {
-  font-size: 1.05em;
     counter-reset: footnotes;
     margin:0px;
     font-family: "Source Serif Pro","serif";
@@ -119,7 +121,7 @@ body {
 }
 
 #toc {
-    font-size: 0.8em;
+    font-size: 0.9em;
     max-width: {{ page.toc.width }};
     width: 100%;
     margin: {{ page.toc.margin }};
@@ -138,6 +140,7 @@ body {
 }
 
 #toc-list {
+  font-size: inherit;
      padding-bottom: 5px;
      margin: 0;
 }
@@ -150,6 +153,7 @@ body {
 }
 
 {{p_like}} {
+  font-size: {{ page.normal_font }};
     margin: 8px {{page.text_margin}};
 }
 em {
@@ -269,7 +273,8 @@ table:not(.highlighttable) thead {
 }
 
 #footer {
-  background: rgb(60,60,60);
+  border-top: 1px solid black;
+  /*background: rgb(60,60,60);*/
   text-align: right;
   padding: 2px 10px;
 }
@@ -552,6 +557,7 @@ and (max-width: {{page.thresholds.wide}})  {
     }
 
     {{p_like}} {
+      font-size: {{ page.small_font }};
          margin-left: {{page.text_margin | divided_by:3}}px;
          margin-right: {{page.text_margin | divided_by:3}}px;
     }
