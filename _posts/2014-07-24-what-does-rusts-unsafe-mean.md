@@ -112,7 +112,7 @@ violated:
 An `unsafe` context is the programmer telling the compiler that the
 code is guaranteed to be safe due to invariants impossible to express
 in the type system, and that it satisfies
-[the invariants that Rust itself imposes](http://doc.rust-lang.org/master/rust.html#behavior-considered-unsafe).
+[the invariants that Rust itself imposes](http://doc.rust-lang.org/nightly/reference.html#behavior-considered-undefined).
 
 These invariants are assumed to never be broken, even inside `unsafe`
 code blocks, and the compiler compiles and optimises with this
@@ -134,7 +134,7 @@ to the programmer to ensure everything is safe.
 A non-`unsafe` function using `unsafe` internally *should* be
 implemented to be safe to call; that is, there is no circumstance or
 set of arguments that can make the function violate
-[any invariants](http://doc.rust-lang.org/master/rust.html#behavior-considered-unsafe). If
+[any invariants](http://doc.rust-lang.org/nightly/reference.html#behavior-considered-undefined). If
 there are such circumstances, it should be marked `unsafe`.
 
 This rule is most important for public, exported functions; private
@@ -294,7 +294,7 @@ The `unsafe` marker is a way to step around Rust's type system; by
 telling `rustc` that there are external conditions/invariants that
 guarantee correctness: the compiler steps back and locally leaves the
 programmer to verify that
-[various properties](http://doc.rust-lang.org/master/rust.html#behavior-considered-unsafe)
+[various properties](http://doc.rust-lang.org/reference.html#behavior-considered-undefined)
 hold. This allows Rust to write very low-level code like C, but still
 be memory safe by default, by forcing programmers to opt-in to the
 risky behaviour.
