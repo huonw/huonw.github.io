@@ -1,6 +1,9 @@
 ---
 layout: default
 title: "Error handling in Rust: a k-NN case study"
+description: >
+    Exploring idiomatic methods of handling runtime errors in Rust.
+
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/27tuu5/error_handling_in_rust_a_knn_case_study/"
     r_programming: "http://www.reddit.com/r/programming/comments/27tuw8/error_handling_in_rust_a_knn_case_study/"

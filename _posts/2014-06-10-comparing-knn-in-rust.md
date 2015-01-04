@@ -1,6 +1,10 @@
 ---
 layout: default
 title: Comparing k-NN in Rust
+description: >
+    Implementing a k-nearest neighbour algorithm in Rust, using the
+    powerful concurrency tools for simple and safe parallelisation.
+
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/27s7ei/comparing_knn_in_rust/"
     r_programming: "http://www.reddit.com/r/programming/comments/27s7g6/comparing_knn_in_rust/"

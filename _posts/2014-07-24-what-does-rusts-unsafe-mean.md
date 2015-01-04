@@ -1,6 +1,9 @@
 ---
 layout: default
 title: What does Rust's “unsafe” mean?
+description: >
+    Exploring Rust's escape hatch for writing low-level code that the
+    powerful type system of Rust cannot guarantee to be safe.
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/2bhwgc/what_does_rusts_unsafe_mean/"
     r_programming: "http://www.reddit.com/r/programming/comments/2bhwhl/what_does_rusts_unsafe_mean/"
