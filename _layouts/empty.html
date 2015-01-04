@@ -13,6 +13,14 @@
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   {% if page.google_meta %}<meta name="google-site-verification" content="ivImaTl-O1-gAOJqURoF3wVWIR8uTtIM7i2hcjDJbNo" />{% endif %}
   {% if page.no_toc %}<script type="text/javascript">window.no_toc=true;</script>{% endif %}
+
+  {% if page.title %}
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="{{ page.title }}" />
+  <meta name="twitter:description" content="{{ page.description }}" />
+  <meta name="twitter:url" content="{{ site.root }}{{ page.url }}">
+  {% endif %}
 </head>
 
 <body>
