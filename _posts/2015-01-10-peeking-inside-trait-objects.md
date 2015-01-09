@@ -5,6 +5,7 @@ description: >
     An introduction to the low-level details of trait objects in the Rust programming language.
 
 comments:
+    r_rust: "http://www.reddit.com/r/rust/comments/2rutqb/peeking_inside_trait_objects/"
 ---
 
 One of the most powerful parts of
