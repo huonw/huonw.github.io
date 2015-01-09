@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Peeking inside trait objects
+title: Peeking inside Trait Objects
 description: >
     An introduction to the low-level details of trait objects in the Rust programming language.
 
