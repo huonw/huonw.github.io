@@ -190,23 +190,37 @@ struct FooVtable {
     method: fn(*const ()) -> String,
 }
 
-fn call_method_on_u8(x: &u8) -> String {
-    x.method()
+
+// u8:
+
+fn call_method_on_u8(x: *const () -> String {
+    // the compiler guarantees that this function is only called
+    // with `x` pointing to a u8
+    let byte: &u8 = unsafe { &*(x as *const u8) };
+
+    byte.method()
 }
 
 static Foo_for_u8_vtable: FooVtable = FooVtable {
     destructor: /* compiler magic */,
     // cast to a function pointer
-    method: call_method_on_u8 as fn(&u8) -> String,
+    method: call_method_on_u8 as fn(*const ()) -> String,
 };
 
+
+// String:
+
 fn call_method_on_String(x: &String) -> String {
-    x.method()
+    // the compiler guarantees that this function is only called
+    // with `x` pointing to a String
+    let string: &String = unsafe { &*(x as *const String) };
+
+    string.method()
 }
 
 static Foo_for_String_vtable: FooVtable = FooVtable {
     destructor: /* compiler magic */,
-    method: call_method_on_String as fn(&String) -> String,
+    method: call_method_on_String as fn(*const ()) -> String,
 };
 {% endhighlight %}
 
