@@ -187,6 +187,8 @@ call of it. For example:
 {% highlight rust linenos=table %}
 struct FooVtable {
     destructor: fn(*mut ()),
+    size: usize,
+    align: usize,
     method: fn(*const ()) -> String,
 }
 
@@ -203,6 +205,9 @@ fn call_method_on_u8(x: *const () -> String {
 
 static Foo_for_u8_vtable: FooVtable = FooVtable {
     destructor: /* compiler magic */,
+    size: 1,
+    align: 1,
+
     // cast to a function pointer
     method: call_method_on_u8 as fn(*const ()) -> String,
 };
@@ -220,6 +225,10 @@ fn call_method_on_String(x: &String) -> String {
 
 static Foo_for_String_vtable: FooVtable = FooVtable {
     destructor: /* compiler magic */,
+    // values for a 64-bit computer, halve them for 32-bit ones
+    size: 24,
+    align: 8,
+
     method: call_method_on_String as fn(*const ()) -> String,
 };
 {% endhighlight %}
@@ -231,7 +240,12 @@ The `destructor` field in each vtable points to a function that will
 clean up any resources of the vtable's type, for `u8` it is trivial,
 but for `String` it will free the memory. This is necessary for owning
 trait objects like `Box<Foo>`, which need to clean-up both the `Box`
-allocation and as well as the internal type when they go out of scope.
+allocation and as well as the internal type when they go out of
+scope. The `size` and `align` fields store the size of the erased
+type, and its alignment requirements; these are essentially unused at
+the moment since the information is embedded in the destructor, but
+will be used in future, as trait objects are progressively made more
+flexible.
 
 Suppose we've got some values that implement `Foo`, the explicit form
 of construction and use of `Foo` trait objects might look a bit like
