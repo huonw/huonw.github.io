@@ -105,8 +105,8 @@ undesirable.
 
 ## Trait objects
 
-Trait objects, like `&Foo` or `Box<Foo>`, are normal values and that
-store a value of *any* type that implements the given trait, where the
+Trait objects, like `&Foo` or `Box<Foo>`, are normal values that store
+a value of *any* type that implements the given trait, where the
 precise type can only be known at runtime. The methods of the trait
 can be called on a trait object via a special record of function
 pointers (created and managed by the compiler).
