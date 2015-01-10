@@ -195,7 +195,7 @@ struct FooVtable {
 
 // u8:
 
-fn call_method_on_u8(x: *const () -> String {
+fn call_method_on_u8(x: *const ()) -> String {
     // the compiler guarantees that this function is only called
     // with `x` pointing to a u8
     let byte: &u8 = unsafe { &*(x as *const u8) };
@@ -215,7 +215,7 @@ static Foo_for_u8_vtable: FooVtable = FooVtable {
 
 // String:
 
-fn call_method_on_String(x: &String) -> String {
+fn call_method_on_String(x: *const ()) -> String {
     // the compiler guarantees that this function is only called
     // with `x` pointing to a String
     let string: &String = unsafe { &*(x as *const String) };
