@@ -11,7 +11,7 @@ use_default: true
       Maths student. Rust dev. Occasional writer.
       <ul id="info-list" class="no-print">
         <li><a href="/blog">Blog</a>
-          <small>(<img class="inline-image" src="/img/atom-rss.png"/>
+          <small>(<img class="inline-image" src="/img/atom-rss.png" alt="Feed me" />
             <a href="/blog/atom.xml">Atom</a> <a href="/blog/rss.xml">RSS</a>)</small>
         </li>
         <li><a href="https://github.com/huonw">Github</a></li>
@@ -27,7 +27,7 @@ use_default: true
           {% capture num_parts %}{{ url_parts | number_of_words | minus: 1 }}{% endcapture %}
         {% endif %}
         {% assign previous="" %}
-        <span title="print working directory">pwd</a>
+        <span title="print working directory">pwd</span>
         /<!-- Comment to ensure there's no whitespace between the parts of this "path"
         {% for unused in site.breadcrumb_list limit:num_parts %}
           {% capture first_word %}{{ url_parts | truncatewords:1 | remove:"..."}}{% endcapture %}
