@@ -9,8 +9,9 @@ comments:
 
 An important piece in my story about trait objects in
 [Rust](http://rust-lang.org)[^version] is [the `Sized` trait][sized],
-so I'm slotting in this short post after
-[my discussion of low-level details][previouspost].
+so I'm slotting in this short post between
+[my discussion of low-level details][previouspost] and
+[the post on "object safety"][nextpost].
 
 
 [^version]: Per the [previous post][previouspost], this post is
@@ -19,6 +20,7 @@ so I'm slotting in this short post after
                 rustc 1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)
 
 [previouspost]: {% post_url 2015-01-10-peeking-inside-trait-objects %}
+[nextpost]: {% post_url 2015-01-12-object-safety %}
 
 `Sized` is a (very) special compiler built-in trait that is
 automatically implemented or not based on the sizedness of a type. A
