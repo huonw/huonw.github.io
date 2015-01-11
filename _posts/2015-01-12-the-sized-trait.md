@@ -20,7 +20,7 @@ so I'm slotting in this short post between
                 rustc 1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)
 
 [previouspost]: {% post_url 2015-01-10-peeking-inside-trait-objects %}
-[nextpost]: {% post_url 2015-01-12-object-safety %}
+[nextpost]: {% post_url 2015-01-13-object-safety %}
 
 `Sized` is a (very) special compiler built-in trait that is
 automatically implemented or not based on the sizedness of a type. A
