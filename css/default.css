@@ -157,7 +157,7 @@ body {
     margin: 8px {{page.text_margin}};
 }
 em {
-  font-size: 0.98em;
+  font-size: 0.97em;
 }
 
 /* nested "p p", "ol p" etc */
@@ -340,8 +340,9 @@ code, pre {
 }
 
 code {
-    /*background: #f0f0f0;*/
-    padding: 0.2em;
+    background: #f0f0f0;
+    padding: 0.05em;
+    margin: 0.15em;
     font-size: 0.9em;
 }
 {{ page.headings | join:' code, ' | append: ' code' }} {
