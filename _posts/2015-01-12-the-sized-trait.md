@@ -38,7 +38,7 @@ example,
 
 Types for which the size is not known are called
 [dynamically sized types (DSTs)][dst], and there's two classes of
-examples in current Rust: `[T]` and `Trait`. A slice `[T]` is unsized
+examples in current Rust[^virtual]: `[T]` and `Trait`. A slice `[T]` is unsized
 because it represents an unknown-at-compile-time number of `T`s
 contiguous in memory. A `Trait` is unsized because it represents a
 value of any type that implements `Trait` and these have wildly
@@ -48,6 +48,14 @@ appear behind a pointer at runtime, like `&[T]` or `Box<Trait>`, and
 have the information required to compute their size and other relevant
 properties (the length for `[T]`, the vtable for `Trait`) stored next
 to that pointer.
+
+[^virtual]: There is the possibility that Rust will gain some form of
+            ["inheritance"][inherit], and Niko points out to me that
+            `Sized` may play an important role there too: certain
+            types (e.g. "base classes" in an conventional inheritance
+            scheme)  make sense to be unsized.
+
+[inherit]: http://discuss.rust-lang.org/t/summary-of-efficient-inheritance-rfcs/494
 
 Sized types are more flexible, since the compiler knows how to
 manipulate them directly: passing them directly into functions, moving
