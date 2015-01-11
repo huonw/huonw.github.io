@@ -264,7 +264,7 @@ makes no sense.
 There's two fundamental ways in which this can happen, as an argument
 or as a return value, in either case a reference to the `Self` type
 means that it must match the type of the `self` value, the true type
-of which is unknown at runtime. For example:
+of which is unknown at compile time. For example:
 
 {% highlight rust linenos=table %}
 trait Foo {
