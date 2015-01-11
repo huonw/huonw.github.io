@@ -35,11 +35,6 @@ at the special `Sized` trait. I strongly recommended at least glancing
 over it to be familiar with trait objects, vtables and `Sized`,
 since this post builds on those concepts.
 
-(NB. the current object safety system isn't the only possible scheme,
-and isn't even necessarily the best one, this post is just describing
-what exists now.)
-
-
 ## Motivation
 
 The notion of object safety was introduced in [RFC 255][rfc255], with
