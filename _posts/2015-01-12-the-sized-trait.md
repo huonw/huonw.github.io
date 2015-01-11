@@ -4,13 +4,19 @@ title: The Sized trait
 description: "A short summary of the Sized trait in Rust."
 
 comments:
+    r_rust: http://www.reddit.com/r/rust/comments/2s2gee/the_sized_trait/
 ---
 
 An important piece in my story about trait objects in
-[Rust](http://rust-lang.org) is [the `Sized` trait][sized], so I'm
-slotting in this short post after
+[Rust](http://rust-lang.org)[^version] is [the `Sized` trait][sized],
+so I'm slotting in this short post after
 [my discussion of low-level details][previouspost].
 
+
+[^version]: Per the [previous post][previouspost], this post is
+            designed to reflect the state of Rust at version:
+
+                rustc 1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)
 
 [previouspost]: {% post_url 2015-01-10-peeking-inside-trait-objects %}
 
