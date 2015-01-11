@@ -13,7 +13,6 @@ slotting in this short post after
 
 
 [previouspost]: {% post_url 2015-01-10-peeking-inside-trait-objects %}
-[nextpost]: {% post_url 2015-01-12-object-safety %}
 
 `Sized` is a (very) special compiler built-in trait that is
 automatically implemented or not based on the sizedness of a type. A
