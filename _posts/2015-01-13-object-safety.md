@@ -6,6 +6,7 @@ description: >
     An overview of so-called "object safety" in Rust, and why it is necessary for trait objects.
 
 comments:
+    r_rust: http://www.reddit.com/r/rust/comments/2s2okp/object_safety/
 ---
 
 A trait object in [Rust](http://rust-lang.org)[^version] can only be
