@@ -18,7 +18,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@huon_w" />
   <meta name="twitter:title" content="{{ page.title }}" />
-  <meta name="twitter:description" content="{{ page.description }}" />
+  <meta name="twitter:description" content="{{ page.description | xml_escape }}" />
   <meta name="twitter:url" content="{{ site.root }}{{ page.url }}">
   {% endif %}
 </head>
