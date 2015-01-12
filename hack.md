@@ -1,4 +1,6 @@
 ---
 layout: default
-title: > < " '
+title: "</title></head>"
 ---
+
+Twitter cards etc.
