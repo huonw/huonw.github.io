@@ -56,7 +56,7 @@ have a trait `Foo` and a function like
 fn func<T: Foo + ?Sized>(x: &T) { ... }
 {% endhighlight %}
 
-It would be nice to be able to call it like `foo(object)` where
+It would be nice to be able to call it like `func(object)` where
 `object: &Foo`; that is, take `T` to be the dynamically sized type
 `Foo`. As you might guess from the context, it is not possible to
 do this without some notion of object safety: the arbitrary piece of
