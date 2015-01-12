@@ -40,11 +40,11 @@ example,
 
 Types for which the size is not known are called
 [dynamically sized types (DSTs)][dst], and there's two classes of
-examples in current Rust[^virtual]: `[T]` and `Trait`. A slice `[T]` is unsized
-because it represents an unknown-at-compile-time number of `T`s
-contiguous in memory. A `Trait` is unsized because it represents a
-value of any type that implements `Trait` and these have wildly
-different sizes; I discussed this
+examples in current Rust[^virtual]: `[T]` and `Trait`. A slice[^str]
+`[T]` is unsized because it represents an unknown-at-compile-time
+number of `T`s contiguous in memory. A `Trait` is unsized because it
+represents a value of any type that implements `Trait` and these have
+wildly different sizes; I discussed this
 [in the previous post too][whypointers]. Unsized values must always
 appear behind a pointer at runtime, like `&[T]` or `Box<Trait>`, and
 have the information required to compute their size and other relevant
@@ -58,6 +58,12 @@ to that pointer.
             scheme)  make sense to be unsized.
 
 [inherit]: http://discuss.rust-lang.org/t/summary-of-efficient-inheritance-rfcs/494
+
+[^str]: The unsized string type `str` is usually considered a slice,
+        since it is just a `[u8]` with the guarantee that the bytes
+        are valid UTF-8.
+
+
 
 Sized types are more flexible, since the compiler knows how to
 manipulate them directly: passing them directly into functions, moving
