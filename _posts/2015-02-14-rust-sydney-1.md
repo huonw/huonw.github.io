@@ -6,6 +6,8 @@ description: >
     Rust stuff happened in Sydney, yay!
 
 comments:
+    users: "http://users.rust-lang.org/t/rust-sydneys-first-meetup-trip-report/341"
+    r_rust: "http://www.reddit.com/r/rust/comments/2vvat9/rust_sydneys_first_meetup_trip_report/"
 ---
 
 [Rust Sydney](http://meetup.com/Rust-Sydney) had its first event last
@@ -71,3 +73,5 @@ will post to [users.r-l.o](http://users.rust-lang.org) and
 
 (I have a [`rust-sydney`](https://github.com/huonw/rust-sydney/)
 repository for collecting related things.)
+
+{% include comments.html c=page.comments %}
