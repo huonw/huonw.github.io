@@ -339,6 +339,9 @@ code, pre {
   font-family: "Source Code Pro", "monospace";
 }
 
+pre {
+  background: #f0f0f0;
+}
 code {
     background: #f0f0f0;
     padding: 0.05em;
@@ -382,6 +385,9 @@ code {
 .highlight {
    z-index: 2;
 }
+.highlight > pre, .linenodiv > pre {
+  background: transparent;
+}
 
 td.linenos {
    border: solid #aaaaaa;
@@ -389,7 +395,7 @@ td.linenos {
    color: #aaaaaa;
    /*background: #bbbbbb;*/
 }
-.linenodiv pre {
+.linenodiv > pre {
    margin: 0;
    width: 25px;
    padding-right: 5px;
@@ -397,6 +403,7 @@ td.linenos {
 .linenos code {
    background: transparent;
    padding: 0;
+   margin: 0;
 }
 
 /* quotes */
