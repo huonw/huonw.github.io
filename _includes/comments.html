@@ -1,6 +1,7 @@
 <div id="comments">
   <span id="comments-label">Comments:</span>
   <ul id="comments-list">
+    {% include comment_line.html name="users" url=include.c.users %}
     {% include comment_line.html name="/r/rust" url=include.c.r_rust %}
     {% include comment_line.html name="/r/programming" url=include.c.r_programming %}
     {% include comment_line.html name="Hacker News" url=include.c.hn %}
