@@ -29,7 +29,7 @@ space and drinks, free of charge.
 
 I started off with a brief talk, covering where Rust is now (and
 [will be soon](https://github.com/rust-lang/rust/pull/22319)), built
-around the haiku:
+around the classic haiku:
 
 > a systems language<br/>
 > pursuing the trifecta<br/>
@@ -51,7 +51,7 @@ conference and was the reason I was prompted into organising
 something, so Rust Sydney could start with a bang. We got a reprisal
 of his FOSDEM talk
 ["The story of Rust"](https://fosdem.org/2015/schedule/event/the_story_of_rust/)
-which was a really interesting overview of Rust since beginning as a
+which was a really interesting overview of Rust since beginning as
 Graydon Hoare's personal project around 2007, up until the
 [impending 1.0](http://blog.rust-lang.org/2015/02/13/Final-1.0-timeline.html)
 release. [His slides](http://www.steveklabnik.com/fosdem2015/) (use
