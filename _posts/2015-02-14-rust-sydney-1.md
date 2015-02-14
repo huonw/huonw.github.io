@@ -54,9 +54,9 @@ of his FOSDEM talk
 which was a really interesting overview of Rust since beginning as a
 Graydon Hoare's personal project around 2007, up until the
 [impending 1.0](http://blog.rust-lang.org/2015/02/13/Final-1.0-timeline.html)
-release. [His slides](http://www.steveklabnik.com/fosdem2015/) are
-also online, and hopefully the recording from FOSDEM will appear in
-the near future.
+release. [His slides](http://www.steveklabnik.com/fosdem2015/) (use
+left/right arrow keys to navigate) are also online, and hopefully the
+recording from FOSDEM will appear in the near future.
 
 ![Steve Klabnik in front of his slides](steve.jpg "Steve, starting off")
 
