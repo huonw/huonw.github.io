@@ -16,8 +16,11 @@ as so-called "trait objects", that allows for dynamic polymorphism and
 heterogeneous uses of types, which I'm going to look at in more detail
 over a short series of posts.
 
+*Update 2015-02-19*: A lot of this document has been copied into
+[the main book][book], with improvements and updates.
 
 [traits]: http://doc.rust-lang.org/nightly/book/traits.html
+[book]: http://doc.rust-lang.org/nightly/book/static-and-dynamic-dispatch.html
 
 
 [^version]: It's generally good practice for Rust posts to mention
