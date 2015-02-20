@@ -206,7 +206,11 @@ both `T`s to transfer by-value between threads (double the
 unsafety!!).
 
 The general rule is that transferring a `&mut T` between threads is
-safe if and only if `T: Send`, so `&mut T` behaves *very* much like
-`T` with relation to concurrency.
+guaranteed to be safe if `T: Send`, so `&mut T` behaves *very* much
+like `T` with relation to concurrency. (It is *theoretically* possible
+to have types for which sending a `&mut T` is safe, but sending a
+plain `T` is not, meaning `&mut T: Send` but not `T: Send`, so the
+relationship is not "if and only if", as wrongerontheinternet pointed
+out on /r/rust.)
 
 {% include comments.html c=page.comments %}
