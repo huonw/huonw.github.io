@@ -4,6 +4,8 @@ title: Some notes on Send and Sync
 description: >
     The `Send` and `Sync` traits in Rust are cool, here are two edge-ish cases.
 comments:
+    users: "http://users.rust-lang.org/t/some-notes-on-send-and-sync/400"
+    r_rust: "http://www.reddit.com/r/rust/comments/2wjwcl/some_notes_on_send_and_sync/"
 ---
 
 If you've been in the `#rust-internals` IRC channel recently, you
