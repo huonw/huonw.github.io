@@ -81,10 +81,10 @@ This *can't* be used with a trait object `Bad` because the generic
 method calls are illegal. There's a possible approaches here, like
 
 1. have signatures like `<T: Foo + ?Sized>(x: &T)` not work with `T =
-  Foo` by default, for any trait,
+  Foo` by default, for any trait `Foo`,
 2. check the body of the function to see if it is legal to have `T =
-   Foo`, or
-3. ensure that we can never pass a `&Foo` into `func`.
+   Bad` when we ask for that, or
+3. ensure that we can never pass a `&Bad` into `func`.
 
 Approach 1 is what existed before object safety, and is what object
 safety was designed to solve. Approach 2 violates Rust's goal of
