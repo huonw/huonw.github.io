@@ -77,8 +77,9 @@ fn func<T: Bad + ?Sized>(x: &T) {
 }
 {% endhighlight %}
 
-This *can't* be used with a trait object `Bad` because the generic
-method calls are illegal. There's a possible approaches here, like
+The function `func` *can't* be called like `foo(obj)` where `obj` is a
+trait object `&Bad` because the generic method calls are
+illegal. There's a possible approaches here, like
 
 1. have signatures like `<T: Foo + ?Sized>(x: &T)` not work with `T =
   Foo` by default, for any trait `Foo`,
