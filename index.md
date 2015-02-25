@@ -7,9 +7,9 @@ no_toc: true
 google_meta: true
 ---
 
-I write some things, here are most recent.
+## Blog archive
 
-{% include archive.html limit=2 %}
+{% include archive.html limit=4 %}
 
 [All posts](blog)
 
