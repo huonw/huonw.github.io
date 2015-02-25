@@ -1,7 +1,7 @@
 ---
 page_colour: white #  rgb(230,230,230)
 content_colour: white
-link_colour: black # rgb(90,90,90)
+link_colour: inherit
 
 header_image:
   url: "/img/jump.jpg"
@@ -16,7 +16,7 @@ wide_width: 1000px
 normal_font: 17px
 small_font: 16px
 
-thresholds: {mobile: 640px, verythin: 500px, thin: 800px, wide: 140000px}
+thresholds: {mobile: 640px, verythin: 500px, thin: 820px, wide: 140000px}
 
 toc: {width: 300px, heading: {bg_colour: white, colour: black}, margin: 5px 10px}
 
@@ -25,19 +25,16 @@ footnotes: {width: 700px}
 small_caps_headings: [h1, h2]
 headings: [h1, h2, h3, h4, h5, h6]
 heading_properties:
-  h1: {fg: white, bg: black, indent: 10px, size: 2.2em, space: 0 }
-  h2: {fg: black, bg: white, # "rgb(100, 0, 0)",
+  h1: { indent: 10px, size: 2.2em, space: 0 }
+  h2: { # "rgb(100, 0, 0)",
        indent: 20px, size: 1.7em, space: 15px }
-  h3: {fg: black, bg: white, # darkblue,
+  h3: { # darkblue,
         indent: 30px, size: 1.4em, space: 12px }
   h4: {
-    fg: black, bg: white, # green,
     indent: 30px, size: 1.2em, space: 9px }
   h5: {
-    fg: black, bg: white, # "rgb(180,90,0)",
     indent: 30px, size: 1.1em, space: 6px }
   h6: {
-    fg: black, bg: white, # purple,
     indent: 30px, size: 1em, space: 6px }
 
 paragraph_like: [p, ul, ol, blockquote, dl, "table:not(.highlighttable)"]
@@ -129,13 +126,11 @@ body {
     display: none;
     float: right;
     border: solid lightgrey;
-    border-width: 0 0 1px 1px;
+    border-width: 1px;
 }
 
 #toc h2 {
      margin-top: 0px;
-     background-color: {{ page.toc.heading.bg_colour }};
-     color: {{ page.toc.heading.colour }};
      text-align: center;
 }
 
@@ -218,6 +213,7 @@ table:not(.highlighttable) thead {
   background-image: url({{ page.header_image.url }});
   background-position: 80% 25%;
   font-family: "Fira Sans", "sans-serif";
+  color: white;
 }
 #head-link {
   width: 100%;
@@ -268,15 +264,13 @@ table:not(.highlighttable) thead {
     color: white;
     font-size: 1em;
 }
-.headfoot a[href], .headfoot a[href] {
-    color: white;
-}
-
 #footer {
-  border-top: 1px solid black;
-  /*background: rgb(60,60,60);*/
+  /*border-top: 1px solid black;
+    background: rgb(60,60,60);*/
   text-align: right;
   padding: 2px 10px;
+  margin: 10px 0;
+  color: grey;
 }
 #footer .left, #footer .right {
   display: inline-block;
@@ -444,10 +438,6 @@ img[data-caption]:before {
     font-family: "Fira Sans", "sans-serif";
 }
 
-{{ page.headings | join:' a[href],' | append: ' a[href]' }} {
-    color: white;
-}
-
 @media not print {
     {{ head_plus_head }} {
         border-top: 1px solid black;
@@ -462,8 +452,6 @@ img[data-caption]:before {
    {% assign hh = page.heading_properties[h] %}
    {{ h }} {
       margin-top: {{ hh.space }};
-      color: {{ hh.fg }};
-      background-color: {{ hh.bg }};
       font-size: {{ hh.size }};
       padding: 2px {{ hh.indent }};
    }
@@ -560,6 +548,10 @@ and (max-width: {{page.thresholds.wide}})  {
 
 
 @media (max-width: {{ page.thresholds.thin }}) {
+    body {
+        padding:0px;
+    }
+
     #screen-ind:before {
         content: "thin";
     }
@@ -626,10 +618,7 @@ and (max-width: {{page.thresholds.wide}})  {
     {% endfor %}
 }
 
-@media screen and (max-device-width:{{page.thresholds.mobile}}) {
-    body {
-        padding:0px;
-    }
+@media screen and (max-width:{{page.thresholds.mobile}}) {
     #screen-ind:before {
         content: "mobile";
     }
@@ -658,7 +647,7 @@ and (max-width: {{page.thresholds.wide}})  {
     }
 }
 
-@media only print {
+@media only print {p
     body {
         font-family: "Source Serif Pro", serif;
     }
