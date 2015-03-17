@@ -23,7 +23,9 @@
 
  {% unless search_year and this_year != search_year %}
   {% unless search_month and this_month != search_month %}
-    {% include post_summary.html post=post %}
+    {% unless post.draft %}
+      {% include post_summary.html post=post %}
+    {% endunless %}
   {% endunless %}
  {% endunless %}
 {% endfor %}

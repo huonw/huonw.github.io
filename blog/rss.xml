@@ -12,6 +12,7 @@
         <pubDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
         <lastBuildDate>{{ site.time | date: "%a, %d %b %Y %H:%M:%S %z" }}</lastBuildDate>
         {% for post in site.posts %}
+        {% unless post.draft %}
         <item>
             <title>{{ post.title }}</title>
             <link>{{ site.root }}{{ post.url }}</link>
@@ -20,6 +21,7 @@
             <guid>{{ site.root }}{{ post.id }}</guid>
             <description>{{ post.content | xml_escape }}</description>
         </item>
+        {% endunless %}
         {% endfor %}
     </channel>
 </rss>

@@ -44,7 +44,7 @@ font_awesome: true
     {% endunless %}
   </div>
   <div id="content-wrapper" >
-    <h1 id="title">{{ page.title }}</h1>
+    <h1 id="title">{% if page.draft %}DRAFT:{% endif %} {{ page.title }}</h1>
     {% if page.subtitle %}
       <h2 class="subtitle">{{ page.subtitle }}</h2>
     {% endif %}

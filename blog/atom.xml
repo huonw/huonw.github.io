@@ -15,6 +15,7 @@
   </author>
 
   {% for post in site.posts %}
+  {% unless post.draft %}
   <entry>
     <id>{{ site.root }}{{ post.id }}</id>
     <link type="text/html" rel="alternate" href="{{ site.root }}{{ post.url }}"/>
@@ -27,6 +28,7 @@
     </author>
     <content type="html">{{ post.content | xml_escape }}</content>
   </entry>
+  {% endunless %}
   {% endfor %}
 
 </feed>
