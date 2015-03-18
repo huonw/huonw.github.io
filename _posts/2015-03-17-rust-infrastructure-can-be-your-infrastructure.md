@@ -22,8 +22,8 @@ contributors in a single week.
 It is sometimes chaotic... *often* chaotic... with
 [1.0 quickly approaching](http://blog.rust-lang.org/2015/02/13/Final-1.0-timeline.html),
 and there are definitely places where the core team (and the rest of
-the community) sometimes can't keep up, but getting
-code into rust-lang/rust is rarely one[^rollups], due to two critical robots:
+the community) sometimes can't keep up, but getting code into
+rust-lang/rust is rarely one[^rollups], due to two critical robots:
 
 - an integration bot/pull request manager, [Barosl Lee's Homu](https://github.com/barosl/homu)
 - a review assigner,
@@ -38,8 +38,9 @@ I've been wanting to experiment with using the bots for my own code,
 and yesterday I finally got around to it, and (with a small bit of
 assistance from the tool authors) got it all setup in a short time. I
 can say from experience that it isn't too hard to configure these
-tools to run on your own (or an organisation's) repos on GitHub. All
-you need is a public-facing server!
+tools to run on your own (or an organisation's) repos on GitHub, and
+they're not Rust-specific: they work with any repository. All you need
+is a public-facing server!
 
 [^rollups]: I'm being... optimistic. There's so many patches submitted
             that we only keep up via regular "rollups": landing
