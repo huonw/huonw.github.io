@@ -33,9 +33,12 @@ tests, on all first-class platforms: it won't let a patch land until
 it does. The latter makes sure that pull requests don't slip through
 the cracks, there's someone with power watching out for each one.
 
-Both of these tools can be configured to run on your own (or an
-organisation's) repos on GitHub. All you need is a public-facing
-server.
+I've been wanting to experiment with using the bots for my own code,
+and yesterday I finally got around to it, and (with a small bit of
+assistance from the tool authors) got it all setup in a short time. I
+can say from experience that it isn't too hard to configure these
+tools to run on your own (or an organisation's) repos on GitHub. All
+you need is a public-facing server!
 
 [^rollups]: I'm being... optimistic. There's so many patches submitted
             that we only keep up via regular "rollups": landing
