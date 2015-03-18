@@ -4,8 +4,9 @@ title: Rust infrastructure can be your infrastructure
 description: |
     Homu and highfive were created for rust-lang, but you can easily benefit too.
 comments:
-    users: ""
-    r_rust: ""
+    users: "http://users.rust-lang.org/t/rust-infrastructure-can-be-your-infrastructure/688"
+    # r_rust: "http://www.reddit.com/r/rust/comments/2zf8ur/rust_infrastructure_can_be_your_infrastructure/"
+    # hn: "https://news.ycombinator.com/item?id=9223141"
 ---
 
 [Rust](http://rust-lang.org) is a reasonably large project:
