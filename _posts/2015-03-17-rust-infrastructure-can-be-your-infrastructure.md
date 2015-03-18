@@ -26,7 +26,8 @@ the community) sometimes can't keep up, but getting
 code into rust-lang/rust is rarely one[^rollups], due to two critical robots:
 
 - an integration bot/pull request manager, [Barosl Lee's Homu](https://github.com/barosl/homu)
-- a review assigner, [Nick Cameron's Highfive](https://github.com/nrc/highfive)
+- a review assigner,
+  [Josh Matthews and Nick Cameron's Highfive](https://github.com/nrc/highfive)
 
 The former ensures the master tree is essentially always passing
 tests, on all first-class platforms: it won't let a patch land until
@@ -180,9 +181,12 @@ token = <api token generated for that account>
 {% endhighlight %}
 
 The API token must be protected, i.e. be careful to ensure that file
-it isn't accessible over the internet. I'm not sure of the exact
-permissions the token should have, but I suspect just `repo` is
-enough.
+it isn't accessible over the internet, and keep it out of git
+([just deleting it after committing it isn't enough](https://help.github.com/articles/remove-sensitive-data/):
+it will still appear in the history). I'm not sure of the exact
+permissions the token should have, the instance for rust-lang uses
+`notifications`, `read:org`, `repo` and `user` but I suspect just
+`repo` is enough.
 
 There are two sorts of JSON repo configuration files: `<name>.json`
 defines the set of reviewers chosen in the repo specifically called
