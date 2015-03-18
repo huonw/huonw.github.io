@@ -92,6 +92,9 @@ only get the git version to work). It supports two testing backends at
 the moment, [Buildbot](http://buildbot.net/) and
 [Travis CI](https://travis-ci.org/).
 
+Barosl tells me that he is planning Homu-as-a-service, so it is
+likely to get even simpler in future.
+
 Even if you don't need the test handling, Homu is still useful: the
 queue pages are nice pull request summary panels, especially since
 they can be combined to display pull requests across multiple repos,
