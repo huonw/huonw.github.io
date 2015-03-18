@@ -3,7 +3,6 @@ layout: default
 title: Rust infrastructure can be your infrastructure
 description: |
     Homu and highfive were created for rust-lang, but you can easily benefit too.
-draft: true
 comments:
     users: ""
     r_rust: ""
