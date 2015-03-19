@@ -38,7 +38,7 @@ I've been wanting to experiment with using the bots for my own code,
 and yesterday I finally got around to it, and (with a small bit of
 assistance from the tool authors) got it all setup in a short time. I
 can say from experience that it isn't too hard to configure these
-tools to run on your own (or an organisation's) repos on GitHub, and
+tools to run on your own repos on GitHub, and
 they're not Rust-specific: they work with any repository. All you need
 is a public-facing server!
 
@@ -52,6 +52,18 @@ is a public-facing server!
             while to land, but testing everything (including rollups)
             before landing ensures that the master branch still passes
             tests.
+
+*Update 2015-03-19*: Homu and Highfive have been
+ [deployed](http://huon.me:54857/queue/all) to the
+ [contain-rs](https://github.com/contain-rs) organisation, as
+ [@FlashCat](https://github.com/FlashCat).
+
+Also, Manish
+[points out](http://www.reddit.com/r/rust/comments/2zf8ur/rust_infrastructure_can_be_your_infrastructure/cpitcam)
+that there is actually an open
+[Operations Engineer](https://careers.mozilla.org/en-US/position/oymA0fwe)
+position for Mozilla Research, to manage the infrastructure of Rust
+and Servo.
 
 ## Homu: "Not rocket science"
 
