@@ -6,7 +6,8 @@
 
   <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.root }}">
+  {% capture canonical_url %}{{ site.root }}{{ page.url | replace:'index.html','/' }}{% unless page.url contains '.html' %}/{% endunless %}{% endcapture %}
+  <link rel="canonical" href="{{ canonical_url }}">
 
   <link rel="stylesheet" href="/css/normalize.css" type="text/css" />
   {% if page.font_awesome %}<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">{% endif %}
@@ -21,10 +22,10 @@
   <meta name="twitter:site" content="@huon_w" />
   <meta name="twitter:title" content="{{ page.title | xml_escape }}" />
   <meta name="twitter:description" content="{{ page.description | xml_escape }}" />
-  <meta name="twitter:url" content="{{ site.root }}{{ page.url }}">
+  <meta name="twitter:url" content="{{ canonical_url }}">
 
   <!-- facebook -->
-  <meta property="og:url" content="{{ site.root }}{{ page.url }}" />
+  <meta property="og:url" content="{{ canonical_url }}" />
   <meta property="og:title" content="{{ page.title | xml_escape }}" />
   <meta property="og:description" content="{{ page.description | xml_escape }}" />
   {% if page.date %}
