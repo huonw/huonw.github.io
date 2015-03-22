@@ -22,6 +22,14 @@
   <meta name="twitter:title" content="{{ page.title | xml_escape }}" />
   <meta name="twitter:description" content="{{ page.description | xml_escape }}" />
   <meta name="twitter:url" content="{{ site.root }}{{ page.url }}">
+
+  <!-- facebook -->
+  <meta property="og:url" content="{{ site.root }}{{ page.url }}" />
+  <meta property="og:title" content="{{ page.title | xml_escape }}" />
+  <meta property="og:description" content="{{ page.description | xml_escape }}" />
+  {% if page.date %}
+  <meta property="og:type" content="article" />
+  {% endif %}
   {% endif %}
 </head>
 
