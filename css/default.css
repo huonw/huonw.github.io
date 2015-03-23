@@ -533,6 +533,7 @@ img[data-caption]:before {
 /* extra info after a post */
 #more {
   margin: 2em 0 0;
+  padding: 15px 0;
   border: solid lightgray;
   border-width: 1px 0;
 
@@ -550,8 +551,20 @@ img[data-caption]:before {
 #by-line, #latest {
   display: inline-block;
 }
+#by-line > p {
+  margin: 0.4em;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin: 8px auto;
+  border-radius: 30px;
+}
 #latest {
   font-size: 0.8em;
+  margin: 8px 0;
 }
 #latest-list {
   margin: 0;
@@ -559,11 +572,12 @@ img[data-caption]:before {
   list-style: none;
 }
 #latest-heading {
-  margin: 8px 0 0;
+  margin: 0;
+  text-align: center;
 }
 .latest-post {
   font-size: 0.8em;
-  margin: 0.8em;
+  margin: 0.4em;
   padding: 0;
 }
 .latest-post > h3 {
