@@ -293,7 +293,7 @@ table:not(.highlighttable) thead {
 .clear { clear: both; }
 
 
-#content-wrapper{
+#content-wrapper {
     text-align:justify;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
@@ -530,6 +530,47 @@ img[data-caption]:before {
     margin: 0 0.3em;
 }
 
+/* extra info after a post */
+#more {
+  margin: 2em 0 0;
+  border: solid lightgray;
+  border-width: 1px 0;
+
+  -moz-column-count: 2;
+  -webkit-column-count: 2;
+  column-count: 2;
+  -moz-column-width: 300px;
+  -webkit-column-width: 300px;
+  column-width: 300px;
+  -moz-column-rule: 1px solid lightgray;
+  -webkit-column-rule: 1px solid lightgray;
+  column-rule: 1px solid lightgray;
+
+}
+#by-line, #latest {
+  display: inline-block;
+}
+#latest {
+  font-size: 0.8em;
+}
+#latest-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  margin: 8px 0 0;
+}
+.latest-post {
+  font-size: 0.8em;
+  margin: 0.8em;
+  padding: 0;
+}
+.latest-post > h3 {
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
 /* media queries */
 
 @media (min-width: {{page.thresholds.thin }})

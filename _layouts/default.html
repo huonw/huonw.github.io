@@ -65,6 +65,39 @@ font_awesome: true
     <div id="content">
       {{ content }}
     </div>
+
+    {% if page.date %}
+    <div id="more">
+      <div id="by-line">{% include byline.html %}</div>
+      {% comment %}
+      <div id="adjacent-posts">
+        {% if page.previous %}
+        <span id="prev-post">↩ <a href="{{ page.previous.url }}">{{ page.previous.title }}</a></span>
+        {% endif %}
+        {% if page.next %}
+        <span id="next-post"><a href="{{ page.next.url }}">{{ page.next.title }}</a> ↪</span>
+        {% endif %}
+        <div class="clear"></div>
+      </div>
+      {% endcomment %}
+      <div id="latest">
+        <h2 id="latest-heading">Latest posts</h2>
+        {% assign count = 0 %}
+        <ul id="latest-list"><!--
+           {% for post in site.posts %}{% unless post.url == page.url or count >= 3 %}
+              --><li class="latest-post">
+                   <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                   {{ post.description }}
+                   {% case count %}
+                   {% when 1 %}{% assign count = 2 %}
+                   {% when 0 %}{% assign count = 1 %}
+                   {% else %}{% assign count = 3 %}
+                   {% endcase %}
+            </li><!--
+          {% endunless %}{% endfor %}
+      --></ul>
+    </div>
+    {% endif %}
   </div>
 
   <div id="footer">
