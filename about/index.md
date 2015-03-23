@@ -8,10 +8,17 @@ google_meta: true
 
 ## About me
 
-I'm Huon Wilson, a mathematics student who writes code a lot and text
-occasionally. I do a lot of volunteering on
+![](/img/me-larger.jpg)
+
+I'm Huon Wilson, currently a computational statistics post-graduate
+student, previously a computational algebra honours student. I write
+code a lot and write text occasionally. I do a lot of volunteering on
 [the Rust programming language](http://rust-lang.org/), and am on
 Rust's core team.
+
+If you're looking to get in touch, I'll respond to `huon` on `#rust`
+(etc.) on irc.mozilla.org, [huon_w](http://twitter.com/huon_w) on
+twitter or `dbau.pp` at [Google's mail service](http://gmail.com).
 
 If you're looking for code, you can find me on
 [GitHub](https://github.com/huonw) and on
@@ -29,7 +36,3 @@ a lot of Rust code:
   [brainfuck](https://github.com/huonw/brainfuck_macros))
 
 [All the gory details](https://github.com/huonw?tab=repositories).
-
-The best way to contact me is email: `d``b``a``u``.``p``p` at
-[Google's mail service](http://gmail.com). You can also find me as
-`huon` on #rust (etc.) on irc.mozilla.org.
