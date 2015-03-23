@@ -702,9 +702,12 @@ and (max-width: {{page.thresholds.wide}})  {
     }
 }
 
-@media only print {p
+@media only print {
     body {
         font-family: "Source Serif Pro", serif;
+    }
+    a {
+      text-decoration: none !important;
     }
     #header {
         display:none !important;
@@ -736,5 +739,8 @@ and (max-width: {{page.thresholds.wide}})  {
 
     .footnotes .reversefootnote {
          display: none !important;
+    }
+    .highlighttable code::before {
+      content: "";
     }
 }
