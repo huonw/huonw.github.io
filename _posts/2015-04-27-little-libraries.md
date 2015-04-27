@@ -5,6 +5,7 @@ description: >
     On focused libraries in Rust.
 
 comments:
+    users: "http://users.rust-lang.org/t/little-libraries/1159"
     r_rust: "http://www.reddit.com/r/rust/comments/340dtb/little_libraries/"
     # r_programming:
     # hn:
@@ -238,10 +239,10 @@ statistics and medians).
 {% include rust-lib.html name="quickcheck" doc_link="https://github.com/BurntSushi/quickcheck#readme" %}
 
 I should plug the `quickcheck` crate: it discovered a few subtle bugs
-in my Floyd–Rivest implementation, stemming me incorrectly translate
-the copy-happy original version (presumably designed for GC'd language
-where any value can be duplicated cheaply) to a Rust version that
-avoids clones and respects ownership.
+in my Floyd–Rivest implementation, stemming from me incorrectly
+translating the copy-happy original version (presumably designed for
+GC'd languages where any value can be duplicated cheaply) to a Rust
+version that avoids clones and respects ownership.
 
 (As a bonus, neither algorithm does any allocations!)
 
