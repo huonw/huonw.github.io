@@ -201,6 +201,10 @@ table:not(.highlighttable) td {
 table:not(.highlighttable) thead {
   border-bottom: 1px solid grey;
 }
+th {
+  padding: 0 5px;
+  font-weight: normal;
+}
 
 .date {
     font-size: 1em;
@@ -420,10 +424,24 @@ img:not(.inline-image) {
     display: block;
     margin: 0 auto;
     max-width: 100%;
+    clear: both;
 }
 
 img[data-caption]:before {
     content: attr(data-caption);
+}
+figure {
+    clear: both;
+}
+figcaption {
+  margin: 0 {{ page.text_margin }};
+  padding: 0 {{ page.text_margin }};
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+figcaption p {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* HEADINGS */
@@ -456,6 +474,24 @@ img[data-caption]:before {
       padding: 2px {{ hh.indent }};
    }
 {% endfor %}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  verical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
 
 /* Comment box */
 
