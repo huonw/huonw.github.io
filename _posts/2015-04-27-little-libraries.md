@@ -5,7 +5,7 @@ description: >
     On focused libraries in Rust.
 
 comments:
-    r_rust: "x"
+    r_rust: "http://www.reddit.com/r/rust/comments/340dtb/little_libraries/"
     # r_programming:
     # hn:
 ---
