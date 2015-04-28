@@ -114,6 +114,10 @@ after_success:
 # ...
 {% endhighlight %}
 
+which makes builds look like
+
+![](travis.png)
+
 And, it's exactly the same configuration that I'm using for my other
 libraries, other than the chunk of `secure` nonsense at the end (the
 encrypted Github token).
