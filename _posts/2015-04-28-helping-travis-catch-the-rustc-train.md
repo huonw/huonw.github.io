@@ -146,4 +146,8 @@ channels.
 The [travis-cargo repo](https://github.com/huonw/travis-cargo)
 contains a README with more details, and the script itself.
 
+(Thanks to hoverbear for their original code, and bluss for
+[their similar shell script](https://users.rust-lang.org/t/psa-1-0-0-beta-2-is-out/1019/13)
+for inspiration.)
+
 {% include comments.html c=page.comments %}
