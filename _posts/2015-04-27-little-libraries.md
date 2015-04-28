@@ -103,6 +103,12 @@ env:
     secure: "Khw6CgS[...]jlPRac="
 {% endhighlight %}
 
+> *Update 2015-04-28*: see
+> [*Helping Travis catch the rustc train*][travis-train] for a neater
+> way to do this and more.
+
+[travis-train]: {% post_url 2015-04-28-helping-travis-catch-the-rustc-train %}
+
 The `after_success` section manages publishing the documentation that
 `cargo doc` renders, via
 [`ghp-import`](https://github.com/davisp/ghp-import). It is inspired
