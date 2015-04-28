@@ -143,6 +143,13 @@ and switch `doc-upload` to `--only stable`; I believe these should be
 the only changes necessary to get reliable testing against all three
 channels.
 
+Also, the manual passing of an unstable flag may become moot in
+future, if the
+[compiler itself supports a `nightly` `cfg` setting][cfgnightly],
+further reducing the necessity for this script.
+
+[cfgnightly]: https://internals.rust-lang.org/t/setting-cfg-nightly-on-nightly-by-default/1893
+
 The [travis-cargo repo](https://github.com/huonw/travis-cargo)
 contains a README with more details, and the script itself.
 
