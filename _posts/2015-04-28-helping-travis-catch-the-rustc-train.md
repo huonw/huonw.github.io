@@ -7,7 +7,8 @@ description: >
     far less annoying.
 
 comments:
-    users: ""
+    users: "https://users.rust-lang.org/t/helping-travis-catch-the-rustc-train/1167"
+    r_rust: "http://www.reddit.com/r/rust/comments/344o0e/helping_travis_catch_the_rustc_train/"
 ---
 
 I've been putting off configuring my continuous integration settings
@@ -140,3 +141,5 @@ channels.
 
 The [travis-cargo repo](https://github.com/huonw/travis-cargo)
 contains a README with more details, and the script itself.
+
+{% include comments.html c=page.comments %}
