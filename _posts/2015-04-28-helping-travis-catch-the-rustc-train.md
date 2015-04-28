@@ -114,9 +114,9 @@ after_success:
 # ...
 {% endhighlight %}
 
-which makes builds look like
+which makes builds look like (look at the two jobs!):
 
-![](travis.png)
+[![](travis.png)](travis.png)
 
 And, it's exactly the same configuration that I'm using for my other
 libraries, other than the chunk of `secure` nonsense at the end (the
