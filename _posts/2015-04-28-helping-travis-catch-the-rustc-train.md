@@ -83,7 +83,7 @@ true library name, straight from the horse's mouth.)
 
 The interesting bit of the Travis configuration I'm now using for,
 say,
-[`order-stat`](https://github.com/huonw/order-stat/blob/34be76de3672baeae474eedc6955e7d7b0efdee7/.travis.yml),
+[`order-stat`](https://github.com/huonw/order-stat/blob/eb6fd83/.travis.yml),
 looks like:
 
 {% highlight yaml linenos=table %}
@@ -102,14 +102,14 @@ before_script:
 # the main build
 script:
   - |
-      tc cargo build &&
-      tc cargo test &&
-      tc cargo bench &&
-      tc cargo doc
+      ./tc cargo build &&
+      ./tc cargo test &&
+      ./tc cargo bench &&
+      ./tc cargo doc
 after_success:
   # upload the documentation from the build with beta (automatically only actually
   # runs on the master branch)
-  - tc --only beta doc-upload
+  - ./tc --only beta doc-upload
 
 # ...
 {% endhighlight %}
