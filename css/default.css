@@ -345,6 +345,10 @@ code {
     padding: 0.05em;
     margin: 0.15em;
     font-size: 0.9em;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
 }
 {{ page.headings | join:' code, ' | append: ' code' }} {
   background: rgba(255,255,255,0.1);
