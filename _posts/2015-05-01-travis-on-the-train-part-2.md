@@ -7,6 +7,8 @@ description: >
     coveralls.io.
 
 comments:
+    users: "https://users.rust-lang.org/t/travis-on-the-train-part-2/1196"
+    r_rust: "http://www.reddit.com/r/rust/comments/34i7sr/travis_on_the_train_part_2/"
 ---
 
 After announcing [travis-cargo][travis-cargo] a few days ago in
