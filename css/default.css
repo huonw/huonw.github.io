@@ -154,6 +154,10 @@ body {
 em {
   font-size: 0.97em;
 }
+strong {
+  font-size: 0.9em;
+  font-weight: 600;
+}
 
 /* nested "p p", "ol p" etc */
 {{p_p}} {

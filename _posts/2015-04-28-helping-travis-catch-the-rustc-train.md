@@ -79,6 +79,13 @@ true library name, straight from the horse's mouth.)
 
 ## Travis-cargo by example
 
+> *Update 2015-05-01*: the details of the code here has now changed
+> but the explanation is still the same, see
+> [*Travis on the train, part 2*][next] for the up-to-date version of
+> the code.
+
+[next]: {% post_url 2015-05-01-travis-on-the-train-part-2 %}
+
 {% include rust-lib.html name="order-stat" %}
 
 The interesting bit of the Travis configuration I'm now using for,
