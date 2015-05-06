@@ -17,9 +17,8 @@ understanding into why it exists and related compiler behaviour.
 
 
 [^version]: [As usual][previouspost], this post is designed to reflect
-            the state of Rust at version:
-
-                rustc 1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)
+            the state of Rust at version `rustc 1.0.0-nightly
+            (44a287e6e 2015-01-08 17:03:40 -0800)`.
 
 
 [previouspost]: {% post_url 2015-01-10-peeking-inside-trait-objects %}

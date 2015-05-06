@@ -27,9 +27,7 @@ over a short series of posts.
             their version due to language instability, but this post
             and the series won't have much real runnable code and the
             concepts described are pretty stable... but habits die
-            hard:
-
-                rustc 1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)
+            hard: `rustc 1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)`.
 
     which should also be the 1.0.0-alpha release (speaking of which,
     the language instability should be starting to settle down now).
