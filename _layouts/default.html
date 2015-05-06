@@ -84,7 +84,7 @@ font_awesome: true
         <h2 id="latest-heading">Latest posts</h2>
         {% assign count = 0 %}
         <ul id="latest-list"><!--
-           {% for post in site.posts %}{% unless post.url == page.url or count >= 3 %}
+           {% for post in site.posts %}{% unless post.url == page.url or count >= 3 or post.draft %}
               --><li class="latest-post">
                    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
                    {{ post.description }}
