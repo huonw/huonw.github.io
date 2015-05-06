@@ -345,14 +345,15 @@ pre {
   background: #f0f0f0;
 }
 code {
-    background: #f0f0f0;
-    padding: 0.05em;
-    margin: 0.15em;
+    background: #f7f7f7;
+    padding: 0 0.1em;
     font-size: 0.9em;
     -moz-hyphens: none;
     -webkit-hyphens: none;
     -ms-hyphens: none;
     hyphens: none;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
 }
 {{ page.headings | join:' code, ' | append: ' code' }} {
   background: rgba(255,255,255,0.1);
@@ -410,6 +411,7 @@ td.linenos {
    background: transparent;
    padding: 0;
    margin: 0;
+   border: 0;
 }
 
 /* quotes */
