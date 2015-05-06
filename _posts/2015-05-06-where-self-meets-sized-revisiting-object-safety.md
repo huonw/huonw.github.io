@@ -4,11 +4,11 @@ title: "Where Self Meets Sized: Revisiting Object Safety"
 
 description: >
     Rust's `where Self: Sized` now offers new flexibility for writing
-    object safe traits.
+    object-safe traits.
 
 comments:
-  - r_rust: ""
-  - users: ""
+  users: "https://users.rust-lang.org/t/where-self-meets-sized-revisting-object-safety/1249"
+  r_rust: "http://www.reddit.com/r/rust/comments/351pil/where_self_meets_sized_revisiting_object_safety/"
 ---
 
 The concept of object safety in Rust was recently refined to be more
@@ -384,4 +384,4 @@ Sized` isn't a complete solution or the only trick: the current
 for `Box<I>` where `I: Iterator + ?Sized`, and traits using the
 `where` technique may want to adopt others that `Iterator` does.
 
-{% include comments.html c=page.comment %}
+{% include comments.html c=page.comments %}
