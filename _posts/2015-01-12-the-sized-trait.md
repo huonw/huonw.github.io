@@ -1,6 +1,6 @@
 ---
 layout: default
-title: The Sized trait
+title: The Sized Trait
 description: "A short summary of the Sized trait in Rust."
 
 comments:

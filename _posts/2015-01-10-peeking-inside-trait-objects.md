@@ -20,7 +20,7 @@ over a short series of posts.
 [the main book][book], with improvements and updates.
 
 [traits]: http://doc.rust-lang.org/nightly/book/traits.html
-[book]: http://doc.rust-lang.org/nightly/book/static-and-dynamic-dispatch.html
+[book]: http://doc.rust-lang.org/nightly/book/trait-objects.html
 
 
 [^version]: It's generally good practice for Rust posts to mention
