@@ -515,12 +515,12 @@ figcaption p {
   font-weight: bold;
 }
 .social-list {
-  display: inline;
+  display: inline-block;
   list-style: none;
   margin: 0;
 }
 .social-link {
-  display: inline;
+  display: inline-block;
   margin: 0 2px;
 }
 
