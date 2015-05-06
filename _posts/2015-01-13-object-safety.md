@@ -200,6 +200,13 @@ pub enum MethodViolationCode {
 
 Let's go through each case.
 
+*Update 2015-05-06*: [RFC 817][rfc817] added more precise control
+  over object safety via `where` clauses, see
+  [*Where Self Meets Sized: Revisiting Object Safety*][whereselfsized].
+
+[rfc817]: https://github.com/rust-lang/rfcs/pull/817
+[whereselfsized]: {% post_url 2015-05-06-where-self-meets-sized-revisiting-object-safety %}
+
 ### Sized `Self`
 
 {% highlight rust linenos=table %}
@@ -215,6 +222,12 @@ being possibly-unsized---effectively a bound `Self: ?Sized`---to make
 more traits object safe by default.
 
 ### By-value `self`
+
+*Update 2015-05-06*: this is no longer object unsafe, but it is
+  impossible to call such methods on possibly-unsized types, including
+  trait objects. That is, one can define traits with `self` methods,
+  but one is statically disallowed from call those methods on trait
+  objects (and on generics that could be trait objects).
 
 {% highlight rust linenos=table %}
 trait Foo {
