@@ -24,7 +24,7 @@ methods by using `where` clauses to restrict them to only work when
 This post is a rather belated fourth entry in my series on trait
 objects and object safety:
 [*Peeking inside Trait Objects*][trait-objects],
-[*The Sized trait*][sized] and [*Object Safety*][object-safety]. It's
+[*The Sized Trait*][sized] and [*Object Safety*][object-safety]. It's
 been long enough that a refresher is definitely in order, although this
 isn't complete coverage of the details.
 
@@ -199,6 +199,8 @@ impl<I: Iterator + ?Sized> Iterator for Box<I> {
 }
 {% endhighlight %}
 
+<div class="join"></div>
+
 (The `?Sized` ensures this applies to `Box<Iterator<...>>` trait
 objects as well as simply `Box<SomeType>` where `SomeType` is a normal
 type that implements `Iterator`.)
@@ -336,6 +338,8 @@ fn main() {
 }
 {% endhighlight %}
 
+<div class="join"></div>
+
 And also adjusted to not compile: try calling `(&1_u8 as
 &Bar).bad("foo")` in `main` and the compiler spits out an error,
 
@@ -373,6 +377,8 @@ trait Iterator {
     // etc
 }
 {% endhighlight %}
+
+<div class="join"></div>
 
 (Along with `max` and the other `where`-reliant methods from the other
 `*Iterator` traits mentioned above.)

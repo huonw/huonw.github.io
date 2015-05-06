@@ -317,15 +317,17 @@ a[href] {
 
 
 /* indent paragraphs that follow another paragraph */
-p + p {
-    text-indent: 1.5em;
+p {
+  text-indent: 1.5em;
 }
 
-
 /* paragraphs just below a heading */
-{{ page.headings | join:' ' | replace: ' ','+p,' | append: '+p' }} {
+{{ page.headings | join:' ' | replace: ' ','+p,' | append: '+p' }}, p:first-child {
     margin-top: 8px;
-/*    text-indent: 0em;*/
+    text-indent: 0em;
+}
+span.post-date + p, .join + p, ul + p, ol + p {
+    text-indent: 0em;
 }
 
 /*  The authorship info */
