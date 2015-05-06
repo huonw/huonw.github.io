@@ -87,7 +87,7 @@ font_awesome: true
            {% for post in site.posts %}{% unless post.url == page.url or count >= 3 or post.draft %}
               --><li class="latest-post">
                    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-                   {{ post.description }}
+                   {% if post.description %}{{ post.description | markdownify | replace:'<p>','' | replace:'</p>',''}}{% endif %}
                    {% case count %}
                    {% when 1 %}{% assign count = 2 %}
                    {% when 0 %}{% assign count = 1 %}
