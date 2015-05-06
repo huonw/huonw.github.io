@@ -115,7 +115,7 @@ something[^associated-type] like:
                     parameter `trait Iterator<Item> { ...` at this
                     point, and the `IntoIterator` trait didn't
                     exist. However it doesn't matter: the exact same
-                    problems existed, just with different syntax
+                    problems existed, just with different syntax.
 
 {% highlight rust linenos=table %}
 trait Iterator {
