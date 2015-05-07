@@ -507,26 +507,32 @@ figcaption p {
 
 /* Comment box */
 
-#comments {
-  margin: 2em 0;
+#comments, #share-page {
   text-align: center;
+  margin: 0;
 }
+#comments {
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+#share-page {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+}
+
 #comments-label {
   font-weight: bold;
 }
-.social-list {
+.share-list {
   display: inline-block;
   list-style: none;
   margin: 0;
 }
-.social-link {
+.share-link {
   display: inline-block;
   margin: 0 2px;
 }
 
-#share-page {
-  margin-top: 0.5em;
-}
 #share-page-label {
   font-weight: bold;
 }
