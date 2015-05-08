@@ -16,7 +16,4 @@ exclude: ["vendor"]
 root: http://huonw.github.io
 blog_description: "Huon Wilson's writings"
 
-paginate: 10
-paginate_path: "/blog/:num"
-
 defaults:
