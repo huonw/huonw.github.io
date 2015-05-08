@@ -320,6 +320,9 @@ a[href] {
 p {
   text-indent: 1.5em;
 }
+.fa {
+  text-indent: 0;
+}
 
 /* paragraphs just below a heading */
 {{ page.headings | join:' ' | replace: ' ','+p,' | append: '+p' }}, p:first-child {
