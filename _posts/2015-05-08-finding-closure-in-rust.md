@@ -17,9 +17,9 @@ a little complicated, but it slides right into Rust's normal ownership
 model so let's reinvent it from scratch.
 
 [Rust]: http://rust-lang.org
-[iteratorext]: http://doc.rust-lang.org/nightly/std/iter/trait.IteratorExt.html
-[option]: http://doc.rust-lang.org/nightly/std/option/enum.Option.html
-[spawn]: http://doc.rust-lang.org/nightly/std/thread/struct.Thread.html#method.spawn
+[iteratorext]: http://doc.rust-lang.org/std/iter/trait.Iterator.html
+[option]: http://doc.rust-lang.org/std/option/enum.Option.html
+[spawn]: http://doc.rust-lang.org/std/thread/fn.spawn.html
 [closure]: https://en.wikipedia.org/wiki/Closure_%28computer_programming%29
 
 The new design was introduced in [RFC 114][rfc], moving Rust to a
