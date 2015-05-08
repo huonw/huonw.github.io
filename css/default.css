@@ -360,6 +360,16 @@ code {
     border-radius: 3px;
     border: 1px solid lightgrey;
 }
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
 {{ page.headings | join:' code, ' | append: ' code' }} {
   background: rgba(255,255,255,0.1);
 }
