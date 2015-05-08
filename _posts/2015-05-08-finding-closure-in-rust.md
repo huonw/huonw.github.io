@@ -39,7 +39,7 @@ ownership works out.
 > totally independent explanation while I have the chance. If
 > something is confusing here, maybe they help clarify.
 
-[book-closures]: http://doc.rust-lang.org/nightly/book/closures.html
+[book-closures]: http://doc.rust-lang.org/book/closures.html
 
 ## What's a closure?
 
@@ -82,7 +82,7 @@ To illustrate the capturing, this code snippet calls
 the `i32` (if it exists) and create a new `Option` containing the
 return value of the call.
 
-[Option::map]: http://doc.rust-lang.org/nightly/std/option/enum.Option.html#method.map
+[Option::map]: http://doc.rust-lang.org/std/option/enum.Option.html#method.map
 
 {% highlight rust linenos=table %}
 fn main() {
@@ -300,9 +300,9 @@ There are three traits for closures, all of which provide the
 `operator()` in C++). They differ only by the `self` type of the call
 method, and they cover all of the `self` options listed above.
 
-- `&self` is [`Fn`](http://doc.rust-lang.org/nightly/std/ops/trait.Fn.html)
-- `&mut self` is [`FnMut`](http://doc.rust-lang.org/nightly/std/ops/trait.FnMut.html)
-- `self` is [`FnOnce`](http://doc.rust-lang.org/nightly/std/ops/trait.FnMut.html)
+- `&self` is [`Fn`](http://doc.rust-lang.org/std/ops/trait.Fn.html)
+- `&mut self` is [`FnMut`](http://doc.rust-lang.org/std/ops/trait.FnMut.html)
+- `self` is [`FnOnce`](http://doc.rust-lang.org/std/ops/trait.FnMut.html)
 
 These traits are exactly the three core ways to handle data in Rust,
 so having those three traits meshes perfectly with Rust's type-system.
@@ -639,9 +639,13 @@ In reality, there are also implicit implementations[^invalid] of
 `FnMut` and `FnOnce` for `Closure`, but `Fn` is the "fundamental" one
 for this closure.
 
-There's 3 traits, and so 7 non-empty sets of traits that *could* be
+There's three traits, and so seven non-empty sets of traits that *could*[^inherit] possibly be
 implemented... but there's actually only three interesting
 configurations:
+
+[^inherit]: I'm ignoring the inheritance, which means that certain
+            sets are actually statically illegal, i.e., without other
+            constraints there are seven possibilities.
 
 - `Fn`, `FnMut` and `FnOnce`,
 - `FnMut` and `FnOnce`,
@@ -652,7 +656,7 @@ every closure that implements `Fn` can also implement `FnMut` (if
 `&self` works, `&mut self` also works; proof: `&*self`), and similarly
 every closure implementing `FnMut` can also implement `FnOnce`. This
 hierarchy is enforced at the type level,
-e.g. [`FnMut`](http://doc.rust-lang.org/nightly/std/ops/trait.FnMut.html)
+e.g. [`FnMut`](http://doc.rust-lang.org/std/ops/trait.FnMut.html)
 has declaration:
 
 {% highlight rust linenos=table %}
