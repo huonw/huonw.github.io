@@ -6,8 +6,8 @@ description: >
     generics and ownership.
 
 comments:
-    users: ""
-    r_rust: ""
+    users: "https://users.rust-lang.org/t/finding-closure-in-rust/1285"
+    r_rust: "http://www.reddit.com/r/rust/comments/359tj5/finding_closure_in_rust/"
 ---
 
 Have you ever used an [iterator adapter][iteratorext] in [Rust][Rust]?
