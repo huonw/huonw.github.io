@@ -810,7 +810,7 @@ The final binary will have two copies of `generic_closure`, one for
 there are implementations of the `Fn*` traits for pointers, so one can
 even use a trait object directly with `generic_closure`,
 e.g. `generic_closure((&|x| { ... }) as &Fn(_))`: so users of
-higher-order functions can chose themselves which trade-off they want.
+higher-order functions can choose which trade-off they want themselves.
 
 All of this flexibility falls directly out of using traits for
 closures.
