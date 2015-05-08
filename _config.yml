@@ -1,7 +1,7 @@
 safe: true
 highlighter: pygments
 lsi: false
-title: huonw@github
+title: Huon on the internet
 markdown: kramdown
 
 kramdown:
