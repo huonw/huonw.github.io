@@ -21,6 +21,8 @@ methods by using `where` clauses to restrict them to only work when
 [sized]: {% post_url 2015-01-12-the-sized-trait %}
 [object-safety]: {% post_url 2015-01-13-object-safety %}
 
+{% include trait-objects.html n=3 %}
+
 This post is a rather belated fourth entry in my series on trait
 objects and object safety:
 [*Peeking inside Trait Objects*][trait-objects],

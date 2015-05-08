@@ -1,0 +1,1 @@
+{% if include.a == include.b %}current{% endif %}

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: The Sized Trait
-description: "A short summary of the Sized trait in Rust."
+description: "A short summary of the Sized trait and dynamically sized types in Rust."
 
 comments:
     r_rust: http://www.reddit.com/r/rust/comments/2s2gee/the_sized_trait/
@@ -12,6 +12,8 @@ An important piece in my story about trait objects in
 so I'm slotting in this short post between
 [my discussion of low-level details][previouspost] and
 [the post on "object safety"][nextpost].
+
+{% include trait-objects.html n=1 %}
 
 
 [^version]: Per the [previous post][previouspost], this post is

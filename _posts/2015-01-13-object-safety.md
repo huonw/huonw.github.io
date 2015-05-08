@@ -24,6 +24,8 @@ understanding into why it exists and related compiler behaviour.
 [previouspost]: {% post_url 2015-01-10-peeking-inside-trait-objects %}
 [sizedpost]: {% post_url 2015-01-12-the-sized-trait %}
 
+{% include trait-objects.html n=2 %}
+
 This is the second (and a half) in a short series of articles on trait
 objects. The first
 one---[Peeking inside Trait Objects][previouspost]---set the scene by

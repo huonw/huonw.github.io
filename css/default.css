@@ -135,7 +135,7 @@ body {
 }
 
 #toc-list {
-  font-size: inherit;
+     font-size: inherit;
      padding-bottom: 5px;
      margin: 0;
 }
@@ -649,6 +649,36 @@ figcaption p {
   margin: 0;
   font-weight: 500;
 }
+
+/* post series */
+
+.post-series {
+  clear: both;
+  font-size: 0.9em;
+  max-width: {{ page.toc.width }};
+  float: right;
+  border: 1px solid lightgray;
+  margin: {{ page.toc.margin }};
+}
+
+.post-series-title {
+  margin-top: 0px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  margin: 0;
+  font-size: inherit;
+}
+.post-series-list li {
+  margin: 0 15px 0 20px;
+}
+.post-series em.current {
+  font-style: normal;
+}
+
+
 /* media queries */
 
 @media (min-width: {{page.thresholds.thin }})

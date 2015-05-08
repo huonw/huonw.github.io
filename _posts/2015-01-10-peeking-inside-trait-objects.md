@@ -32,11 +32,13 @@ over a short series of posts.
     which should also be the 1.0.0-alpha release (speaking of which,
     the language instability should be starting to settle down now).
 
+{% include trait-objects.html n=0 %}
+
 This post will set the scene, with an introduction to the internals of
-a trait object; the next post will look at "object safety" in detail
-(a lot of people have encountered trouble with somewhat abstruse
-compiler errors about this recently) and then I'll see where I end up,
-and how much more I have to say.
+a trait object; the remaining posts will look at the `Sized` trait and
+"object safety" in detail (a lot of people have encountered trouble
+with somewhat abstruse compiler errors about this recently).
+
 
 ## Traits
 
