@@ -510,7 +510,7 @@ figcaption p {
 
 /* Comment box */
 
-#comments, #share-page {
+#comments, #external-page {
   text-align: center;
   margin: 0;
 }
@@ -518,7 +518,7 @@ figcaption p {
   margin-top: 2em;
   margin-bottom: 0.5em;
 }
-#share-page {
+#external-page {
   margin-top: 0.5em;
   margin-bottom: 2em;
 }
@@ -526,17 +526,17 @@ figcaption p {
 #comments-label {
   font-weight: bold;
 }
-.share-list {
+.external-list {
   display: inline-block;
   list-style: none;
   margin: 0;
 }
-.share-link {
+.external-link {
   display: inline-block;
   margin: 0 2px;
 }
 
-#share-page-label {
+#external-page-label {
   font-weight: bold;
 }
 
