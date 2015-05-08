@@ -770,7 +770,7 @@ match x {
 binary, the compiler actually optimised the second function to a
 direct call to the first.)
 
-This is all due to how Rust implements generics via minimization,
+This is all due to how Rust implements generics via monomorphisation,
 where generic functions are compiled for each way their type
 parameters are chosen, explicitly substituting the generic type with a
 concrete one. Unfortunately, this isn't always an optimisation, as it
