@@ -218,7 +218,7 @@ trait Transform<Input> {
 }
 
 fn map<X, Y, T>(option: Option<X>, transform: T) -> Option<Y>
-    where T: Transform<X, Output = T>
+    where T: Transform<X, Output = Y>
 {
     match option {
         Some(x) => Some(transform.transform(x)),
