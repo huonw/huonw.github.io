@@ -278,8 +278,8 @@ variables that need to be used in the body of `transform`.
 
 ## How do real closures work?
 
-Just like that (plus a little more flexibility and syntactic
-sugar). The real definition of `Option::map` is:
+Just like that, plus a little more flexibility and syntactic
+sugar. The real definition of `Option::map` is:
 
 {% highlight rust linenos=table %}
 impl<X> Option<X> {
@@ -292,7 +292,7 @@ impl<X> Option<X> {
 }
 {% endhighlight %}
 
-`FnOnce(T) -> U` is another name for our `Transform<X, Output = Y>`
+`FnOnce(X) -> Y` is another name for our `Transform<X, Output = Y>`
 bound, and, `f(x)` for `transform.transform(x)`.
 
 There are three traits for closures, all of which provide the
