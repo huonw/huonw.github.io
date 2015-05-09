@@ -340,11 +340,16 @@ thinks) will compile, but imposes the least on the programmer.
 ### Structs and captures
 
 If you're familiar with closures in C++11, you may recall the `[=]`
-and `[&]` capture lists: capture variables by-value and by-reference
-respectively. Rust has similar capability: variables can be captured
-by-value---the variable is moved into the closure environment---or
-by-reference---a reference to the variable is stored in the closure
-environment.
+and `[&]` capture lists: capture variables by-value[^copy] and
+by-reference respectively. Rust has similar capability: variables can
+be captured by-value---the variable is moved into the closure
+environment---or by-reference---a reference to the variable is stored
+in the closure environment.
+
+[^copy]: "By-value" in C++, including `[=]`, is really "by-copy" (with
+          some copy-elision rules to sometimes elide copies in certain
+          cases), whereas in Rust it is always "by-move", more similar
+          to rvalue references in C++.
 
 By default, the compiler looks at the closure body to see how captured
 variables are used, and uses that to infers how variables should be
