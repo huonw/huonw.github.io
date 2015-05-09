@@ -357,7 +357,8 @@ captured:
 
 - if a captured variable is only ever used through a shared reference,
   it is captured by `&` reference,
-- if it used through a mutable reference also, it is captured by `&mut` reference,
+- if it used through a mutable reference (including assignment), it is
+  captured by `&mut` reference,
 - if it is moved, it is forced to be captured by-value. (NB. using a
   [`Copy`](http://doc.rust-lang.org/std/marker/trait.Copy.html) type
   by-value only needs a `&` reference, so this rule only applies to
