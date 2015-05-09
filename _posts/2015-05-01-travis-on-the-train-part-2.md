@@ -94,7 +94,7 @@ easy: simply register/activate coveralls.io and add `sudo: required` &
 requirement is necessary to install kcov; it unfortunately makes
 Travis much slower to start builds.)
 
-[kcov]: (https://github.com/SimonKagstrom/kcov)
+[kcov]: https://github.com/SimonKagstrom/kcov
 
 `travis-cargo coveralls` should successfully handle both in-crate and
 external tests, so the Coveralls dashboard will display the total
@@ -141,10 +141,11 @@ travis-cargo's [README][readme] contains more information.
 
 [readme]: https://github.com/huonw/travis-cargo#readme
 
-(Thanks to Simon Kagstrom for assistance with getting kcov working
-properly, lifthrasiir and jscheivink for
-[their tutorials][coverage-tute] on collecting coverage, and Jan Segre
-for the assistance with packaging and feedback.)
+(Thanks to [Simon Kågström](https://github.com/SimonKagstrom) for
+assistance with getting kcov working properly, lifthrasiir and
+jscheivink for [their tutorials][coverage-tute] on collecting
+coverage, and Jan Segre for the assistance with packaging and
+feedback.)
 
 [coverage-tute]: https://users.rust-lang.org/t/tutorial-how-to-collect-test-coverages-for-rust-project/650?u=huon
 
