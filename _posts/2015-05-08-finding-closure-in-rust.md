@@ -853,6 +853,7 @@ generics, which allows them to automatically gain features like heap
 allocation and dynamic dispatch, but doesn't require them.
 
 (Thanks to Steve Klabnik and Aaron Turon for providing feedback on a
-draft.)
+draft, and many commenters on [/r/rust]({{ page.comments.r_rust }})
+and on IRC for finding inaccuracies and improvements.)
 
 {% include comments.html c=page.comments %}
