@@ -304,8 +304,9 @@ method, and they cover all of the `self` options listed above.
 - `&mut self` is [`FnMut`](http://doc.rust-lang.org/std/ops/trait.FnMut.html)
 - `self` is [`FnOnce`](http://doc.rust-lang.org/std/ops/trait.FnMut.html)
 
-These traits are exactly the three core ways to handle data in Rust,
-so having those three traits meshes perfectly with Rust's type-system.
+These traits are covering exactly the three core ways to handle data
+in Rust, so having each of them meshes perfectly with Rust's
+type-system.
 
 When you write `|args...| code...` the compiler will implicitly define
 a unique new struct type storing the captured variables, and then
