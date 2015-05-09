@@ -818,8 +818,18 @@ even use a trait object directly with `generic_closure`,
 e.g. `generic_closure((&|x| { ... }) as &Fn(_))`: so users of
 higher-order functions can choose which trade-off they want themselves.
 
-All of this flexibility falls directly out of using traits for
-closures.
+All of this flexibility falls directly out of using traits[^stdfunction] for
+closures, and the separate parts are independent and very
+compositional.
+
+[^stdfunction]: C++ has a similar choice, with `std::function` able to
+                provide type erasure/dynamic dispatch for closure
+                types, although it requires separate definition as a
+                library type, and requires allocations. The Rust trait
+                objects are a simple building block in the language,
+                and don't require allocations (e.g. `&Fn()` is a trait
+                object that can be created out of a pointer to the
+                stack).
 
 The power closures offer allow one to build high-level, "fluent" APIs
 without losing performance compared to writing out the details by
