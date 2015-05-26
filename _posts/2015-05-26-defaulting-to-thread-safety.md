@@ -21,11 +21,13 @@ closures missed an important aspect: how they interact with
 threading. This post builds on the struct desugaring in that one, the
 general concepts in [*Fearless Concurrency with Rust*][fearless] and
 the discussion of "markers" in
-[*Abstraction without overhead*][abstraction].
+[*Abstraction without overhead*][abstraction]. (I suppose I should
+link [*Some notes on Send and Sync*][snosas] too.)
 
 [closures]: {% post_url 2015-05-08-finding-closure-in-rust %}
 [fearless]: http://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html
 [abstraction]: http://blog.rust-lang.org/2015/05/11/traits.html
+[snosas]: {% post_url 2015-02-20-some-notes-on-send-and-sync %}
 
 ## Threads
 
@@ -94,6 +96,7 @@ just run the closure on a new thread, and run it exactly once, so
 using [`FnOnce`][fo] gives callers of `spawn` the most power.
 
 [fo]: http://doc.rust-lang.org/std/ops/trait.FnOnce.html
+[fn]: http://doc.rust-lang.org/std/ops/trait.Fn.html
 
 The closure is run on a new thread independent of the parent. There's
 absolutely no guarantees or relationships between how long the new
@@ -363,6 +366,74 @@ traits one can possibly use on a stable compiler.)
 [phantom]: http://doc.rust-lang.org/std/marker/struct.PhantomData.html
 
 {% include image.html src="unstable-small.jpg" link="https://www.flickr.com/photos/tm-tm/2634203419/" %}
+
+## Calling Concurrently
+
+We've been focusing on `Send` above, but there's another trait that's
+important for thread-safety: [`Sync`][sync]. This trait represents
+values that are safe to be *accessed* by multiple threads at once,
+that is, sharing.
+
+It is sometimes useful to call a single function on multiple threads,
+like a parallel map, so it would be pretty great if this was
+possible...
+
+Just like `Send`, `Sync` is a defaulted trait, and so works well with
+closures too. A closure that only captures thread-shareable values
+(like a string) is also thread-shareable:
+
+{% highlight rust linenos=table %}
+use std::sync::Arc;
+use std::thread;
+
+fn upto<F>(n: usize, func: F)
+    where F: Send + 'static + Fn(usize) + Sync
+{
+    let func = Arc::new(func);
+    for i in 0..n {
+        let f = func.clone();
+        thread::spawn(move || f(i));
+    }
+}
+
+fn main() {
+    let message = "hello";
+    upto(10, |i| println!("thread #{}: {}", i, message));
+
+    // as above, don't let `main` finish
+    thread::sleep_ms(100);
+}
+{% endhighlight %}
+
+<div class="join"></div>
+
+The output sometimes looks like:
+
+{% highlight text linenos=table %}
+thread #0: hello
+thread #7: hello
+thread #2: hello
+thread #9: hello
+thread #1: hello
+thread #4: hello
+thread #3: hello
+thread #6: hello
+thread #8: hello
+thread #5: hello
+{% endhighlight %}
+
+The `Send` and `'static` bounds are "boring", they're just required
+due to the implementation details of using `spawn` and `Arc`, it's the
+`Fn` and `Sync` bounds that are fundamental to this behaviour.
+
+We're calling the function from multiple threads at once, which means
+accessing the closure's environment concurrently, so the `Sync` bound
+is necessary to guarantee safety. Also, by nature, sharing across
+threads means we've only got access to the closure via an `&`
+reference, so we need to be able to call it via that sort of reference
+and [`Fn`][fn] is exactly the right trait for
+it. ([*Finding Closure in Rust*][closures] looks at the three closure
+traits more closely.)
 
 
 {% include comments.html c=page.comments %}
