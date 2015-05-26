@@ -3,11 +3,12 @@ layout: default
 title: "Defaulting to Thread-Safety: Closures and Concurrency"
 
 description: >
-    Rust tackles thread-safety via default traits, and this works well with its closures.
+    Rust can model properties of aggregate types with certain trait
+    tricks, which makes closures and concurrent APIs interact well.
 
 comments:
-    r_rust: ""
-    users: ""
+    r_rust: "http://www.reddit.com/r/rust/comments/37e6w2/defaulting_to_threadsafety_closures_and/"
+    users: "https://users.rust-lang.org/t/defaulting-to-thread-safety-closures-and-concurrency/1583"
 ---
 
 Rust has some powerful tricks to model properties of aggregate types
