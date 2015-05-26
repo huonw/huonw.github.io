@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Defaulting to Thread-Safety"
+title: "Defaulting to Thread-Safety: Closures and Concurrency"
 
 description: >
     Rust tackles thread-safety via default traits, and this works well with its closures.
