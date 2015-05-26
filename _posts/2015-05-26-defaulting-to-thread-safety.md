@@ -355,10 +355,10 @@ Unfortunately, this means that the only way to opt-out of a defaulted
 trait with a stable compiler is to store a non-implementing type. The
 slickest way is to use [`PhantomData<T>`][phantom], which is a
 zero-sized type (so no runtime effect) that behaves as if it stores
-its type argument. For `Send`, a field of type `PhantomData<*const
-()>` works. (However, as discussed above, this is rarely needed for
-`Send` and `Sync`, which are the only two defaulted traits one can
-possibly use on a stable compiler.)
+its type argument. For opting out of `Send`, a field of type
+`PhantomData<*const ()>` works. (However, as discussed above, this is
+rarely needed for `Send` and `Sync`, which are the only two defaulted
+traits one can possibly use on a stable compiler.)
 
 [phantom]: http://doc.rust-lang.org/std/marker/struct.PhantomData.html
 
