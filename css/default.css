@@ -319,6 +319,7 @@ a[href] {
 /* indent paragraphs that follow another paragraph */
 p {
   text-indent: 1.5em;
+  line-height: 1.35em;
 }
 .fa {
   text-indent: 0;
@@ -450,6 +451,10 @@ img:not(.inline-image) {
     margin: 0 auto;
     max-width: 100%;
     clear: both;
+}
+
+.image-positioner {
+  text-align: center;
 }
 
 img[data-caption]:before {

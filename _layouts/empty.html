@@ -10,7 +10,6 @@
   <link rel="canonical" href="{{ canonical_url }}">
 
   <link rel="stylesheet" href="/css/normalize.css" type="text/css" />
-  {% if page.font_awesome %}<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">{% endif %}
   {% if page.use_default %} <link rel="stylesheet" href="/css/default.css" type="text/css" />{% endif %}
   {% for item in page.css %}<link rel="stylesheet" href="{{ item }}" type="text/css" />{% endfor %}
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
@@ -36,6 +35,9 @@
 
 <body>
 {{ content }}
+
+
+{% if page.font_awesome %}<link rel="stylesheet" property="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">{% endif %}
 
 <!-- Start of StatCounter Code -->
 <script type="text/javascript">
