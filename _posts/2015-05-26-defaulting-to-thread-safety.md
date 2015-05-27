@@ -351,7 +351,7 @@ Unsafe traits are great and libraries should definitely use them where
 they make sense. However, the OIBIT functionality (default and
 negative implementations) are still unstable and hence only usable
 with a nightly compiler behind the `optin_builtin_traits`
-feature[^opt-out]. There's some details around them that are unclear from the
+feature. There's some details around them that are unclear from the
 RFC and even the implementation, especially how they interact with
 primitives, so I could imagine some tweaks/breaking changes in future.
 
