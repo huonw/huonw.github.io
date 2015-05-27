@@ -42,6 +42,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
         return matrix[b.length][a.length];
     };
+    var normed = function(a, b) {
+        var raw = getEditDistance(a, b);
+        return 1 - raw / Math.max(a.length, b.length);
+    };
     var posts = [
         {% for post in site.posts %}
         {% unless post.draft %}{path: "{{ post.url }}", title: "{{ post.title }}"},{% endunless %}
@@ -50,11 +54,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     var path = window.location.pathname;
     posts.forEach(function(o) {
-        var raw = getEditDistance(path, o.path);
-        o.raw_dist = raw;
-        o.dist = raw * o.path.length;
+        o.dist = normed(path, o.path) + normed(path, o.title);
     })
-    posts.sort(function(x,y) { return x.dist - y.dist; })
+    posts.sort(function(x,y) { return -(x.dist - y.dist); })
     console.log(posts);
 
     var list = document.getElementById('maybe-you-meant');
