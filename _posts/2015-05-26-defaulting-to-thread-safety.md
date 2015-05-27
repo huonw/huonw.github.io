@@ -50,7 +50,12 @@ fn main() {
 As one might hope, this prints `child prints a string from the
 parent`. Like C, an binary exits once the main thread is finished, so
 I've inserted a sleep to (usually) ensure that the child thread is
-spawned and prints before the main thread dies.
+spawned and prints before the main thread dies. (It could also call
+[`join`][join] on the return value of `spawn` to block, but there's an
+example below that the `join` strategy complicates, so `sleep_ms` it
+is.)
+
+[join]: https://doc.rust-lang.org/std/thread/struct.JoinHandle.html#method.join
 
 It's one of Rust's key guarantees that this is ensured to be
 thread-safe, statically. The standard library ensures there's no way to
