@@ -50,9 +50,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     var path = window.location.pathname;
     posts.forEach(function(o) {
-        o.dist = getEditDistance(path, o.path);
+        var raw = getEditDistance(path, o.path);
+        o.raw_dist = raw;
+        o.dist = raw * o.path.length;
     })
     posts.sort(function(x,y) { return x.dist - y.dist; })
+    console.log(posts);
 
     var list = document.getElementById('maybe-you-meant');
 
