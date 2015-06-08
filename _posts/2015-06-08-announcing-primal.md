@@ -3,12 +3,12 @@ layout: default
 title: "Announcing Primal: Putting Raw Power Into Prime Numbers"
 no_toc: true
 description: >
-    I recently released primal 0.2.0: a crate for high-performance
+    I recently released primal 0.2: a crate for high-performance
     computation of properties related to prime numbers.
 
 comments:
-    r_rust: ""
-    users: ""
+    r_rust: "http://www.reddit.com/r/rust/comments/39134l/announcing_primal_putting_raw_power_into_prime/"
+    users: "https://users.rust-lang.org/t/primal-putting-raw-power-into-prime-numbers/1747"
 ---
 
 Over the past few weeks I've been working on improving my
@@ -117,3 +117,5 @@ same task.)
 [epp]: http://huonw.github.io/primal/primal/fn.estimate_prime_pi.html
 [primes]: http://huonw.github.io/primal/primal/struct.Primes.html
 [streaming]: http://huonw.github.io/primal/primal/struct.StreamingSieve.html#method.nth_prime
+
+{% include comments.html c=page.comments %}
