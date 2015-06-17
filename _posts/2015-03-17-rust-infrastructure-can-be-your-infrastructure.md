@@ -9,6 +9,8 @@ comments:
     # hn: "https://news.ycombinator.com/item?id=9223141"
 ---
 
+> *Update 2015-06-16*: Homu is now available online: [homu.io](http://homu.io/)
+
 [Rust](http://rust-lang.org) is a reasonably large project:
 [the compiler and standard libraries](https://github.com/rust-lang/rust)
 are over 350kloc, built across nearly 40000 commits by the hands of
@@ -109,8 +111,10 @@ only get the git version to work). It supports two testing backends at
 the moment, [Buildbot](http://buildbot.net/) and
 [Travis CI](https://travis-ci.org/).
 
-Barosl tells me that he is planning Homu-as-a-service, so it is
-likely to get even simpler in future.
+Barosl tells me that he <s>is planning</s> has released
+[Homu-as-a-service](http://homu.io), so <s>it is likely to get even
+simpler in future</s> adding it to your project is easy and we live in
+the future.
 
 Even if you don't need the test handling, Homu is still useful: the
 queue pages are nice pull request summary panels, especially since
