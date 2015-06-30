@@ -108,9 +108,13 @@ fn main() {
 <div class="join"></div>
 
 It's not the most efficient way to get the nth prime, but it still
-only takes 0.9 seconds to print 1,000,000,007. (A better way is
-[`StreamingSieve::nth_prime`][streaming], which takes ~0.25s for the
+only takes <s>0.9</s> 0.52 seconds[^update] to print 1,000,000,007. (A better way is
+[`StreamingSieve::nth_prime`][streaming], which takes ~0.22s for the
 same task.)
+
+[^update]: I realised the original implementation was inefficient, and
+           using far more memory than necessary: fixing that made a
+           huge difference.
 
 [intro]: http://huonw.github.io/primal/primal/#examples
 [enp]: http://huonw.github.io/primal/primal/fn.estimate_nth_prime.html
