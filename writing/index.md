@@ -13,6 +13,14 @@ Some posts, grouped by topic. See [all posts, listed chronologically](/blog).
 : The `Send` and `Sync` traits in Rust are cool, here are two edge-ish
   cases.
 
+[*Finding Closure in Rust*][fcir]
+: Closures are powerful and flexible, building on traits,
+  generics and ownership.
+
+[*Defaulting to Thread Safety*][dtts]
+: Certain trait tricks can be used to model properties of aggregate
+  types, which makes closures and concurrent APIs interact well.
+
 [*What does Rust's unsafe mean?*][wdrum]
 : Exploring Rust's escape hatch for writing low-level code that the
     type system cannot guarantee to be safe.
@@ -51,6 +59,9 @@ Some posts, grouped by topic. See [all posts, listed chronologically](/blog).
 : travis-cargo got some improvements, including support for recording
   test coverage via coveralls.io.
 
+[*travis-cargo 0.1.3: --no-sudo*][tc013ns]
+: More improvements to travis-cargo, specifically, recording test coverage
+  without requiring `sudo`.
 
 [pito]: {% post_url 2015-01-10-peeking-inside-trait-objects %}
 [tst]: {% post_url 2015-01-12-the-sized-trait %}
@@ -62,3 +73,6 @@ Some posts, grouped by topic. See [all posts, listed chronologically](/blog).
 [snosas]: {% post_url 2015-02-20-some-notes-on-send-and-sync %}
 [wdrum]: {% post_url 2014-07-24-what-does-rusts-unsafe-mean %}
 [ll]: {% post_url 2015-04-27-little-libraries %}
+[tc013ns]: {% post_url 2015-06-30-travis-cargo-0.1.3 %}
+[fcir]: {% post_url 2015-05-08-finding-closure-in-rust %}
+[dtts]: {% post_url 2015-05-26-defaulting-to-thread-safety %}
