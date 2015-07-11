@@ -1,6 +1,5 @@
 ---
 layout: default
-draft: true
 title: "What is SIMD?"
 ---
 
@@ -16,7 +15,7 @@ necessarily familiar with programming or SIMD.)
 SIMD stands for "Single Instruction, Multiple Data", and refers to
 functionality that a lot of computer hardware has for operating on
 multiple numbers at once. (Essentially 100% of all desktops and
-laptops and many modern phones, has support for it.)
+laptops and many modern phones have support for it.)
 
 At a high-level, computers only operate on numbers. A program running
 on the computer will be executing sequences of instructions like
