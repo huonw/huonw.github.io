@@ -265,7 +265,11 @@ My long-term goal is to have `simd` provide the common cross-platform
 API, with extension traits giving access to all of the
 platform-specific instructions. All of this will have as thin an
 interface to as possible: the vast majority of functions correspond to
-one instruction.
+one instruction. (One question I haven't resolved is what to call
+these functions: I could name them directly after the instruction they
+correspond to (`pshufb`), or after the equivalent C intrinsic
+(`_mm_shuffle_epi8`), or something approximately descriptive
+(`shuffle_bytes`). Thoughts?)
 
 I'm not personally planning to build long-vector functionality on top
 of the improved short-vector functionality, but it is certainly
