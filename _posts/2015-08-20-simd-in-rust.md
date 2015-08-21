@@ -208,9 +208,9 @@ attribute, which automatically allowed the use of built-in operators
 like `+` and `*` and (sometimes) `==`. This was the full extent, and
 the only way to get anything beyond that was by relying on the
 optimiser, using inline assembly or [horrible hacks][llvmint]. Now,
-one can instead import intrinsics as foreign functions, with a special
-ABI, e.g. to support the `shuffle_bytes` function above, there's
-(internally to `simd`) definitions like:
+there are a large number of intrinsics defined by the compiler as
+foreign functions with a special ABI. The `simd` crate imports them to
+implement its functionality, e.g.:
 
 {% highlight rust linenos=table %}
 #[repr(simd)]
@@ -223,7 +223,8 @@ extern "platform-intrinsic" {
 {% endhighlight %}
 
 These intrinsics follow the pattern of
-`<architecture>_<vendor's-name>`, relying
+`<architecture>_<vendor's-name>`, relying on the definitions that CPU
+vendors give.
 
 Speaking of the optimiser, `rustc` uses LLVM, which is industrial
 strength, and supports a lot of autovectorisation: compiling scalar
