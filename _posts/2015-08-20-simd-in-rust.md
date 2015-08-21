@@ -14,9 +14,56 @@ implementation just landed as [#27169][PR27169]), and an
 [in-progress library][simdcrate] that provides a mostly-safe but
 low-level interface to that core functionality.
 
-My work is aiming to be the groundwork for things to be built-on,
-enabling more interesting functionality by providing the necessary
-tools, not being that goal functionality itself.
+It's still simple to use, the follow are kernels for rendering
+[the Mandelbrot set][mandelbrot], one scalar, one with explicit
+vectorisation, and both similar:
+
+{% highlight rust linenos=table %}
+// Scalar!
+// compute the escape time for the point `c_x + i c_y`
+fn naive(c_x: f32, c_y: f32, max_iter: u32) -> u32 {
+    let mut x = c_x;
+    let mut y = c_y;
+    let mut count = 0;
+    while count < max_iter {
+        let xy = x * y;
+        let xx = x * x;
+        let yy = y * y;
+        let sum = xx + yy;
+        if sum > 4.0 {
+            break
+        }
+        count += 1;
+        x = xx - yy + c_x;
+        y = xy * 2.0 + c_y;
+    }
+    count
+}
+
+// SIMD!
+// compute the escape time for the four point `c_x + i c_y` at once
+fn mandelbrot_vector(c_x: f32x4, c_y: f32x4, max_iter: u32) -> u32x4 {
+    let mut x = c_x;
+    let mut y = c_y;
+
+    let mut count = u32x4::splat(0);
+    for _ in 0..max_iter {
+        let xy = x * y;
+        let xx = x * x;
+        let yy = y * y;
+        let sum = xx + yy;
+        let mask = sum.lt(f32x4::splat(4.0));
+
+        if !mask.any() { break }
+        count = count + mask.to_i().select(u32x4::splat(1),
+                                           u32x4::splat(0));
+
+        x = xx - yy + c_x;
+        y = xy + xy + c_y;
+    }
+    count
+}
+{% endhighlight %}
 
 [SIMD]: https://en.wikipedia.org/wiki/SIMD
 [Rust]: https://www.rust-lang.org/
@@ -34,8 +81,9 @@ tools, not being that goal functionality itself.
 [simd-benches]: https://github.com/huonw/simd/tree/master/benches
 [simd-examples]: https://github.com/huonw/simd/tree/master/examples
 [cargo1137]: https://github.com/rust-lang/cargo/issues/1137
+[mandelbrot]: https://en.wikipedia.org/wiki/Mandelbrot_set
 
-## Why care?
+## SIMD?
 
 SIMD (Single Instruction Multiple Data) is a way to get data
 parallelism on a lot of modern hardware: CPUs have instructions that
@@ -46,71 +94,28 @@ respectively) in parallel, by operating on two 128-bit registers.
 
 {% include image.html src="vector.png" %}
 
-Parallelism is the key word here: clock speeds have mostly stabilised
-on modern CPUs and we're no longer getting the "automatic" performance
-gains that have historically occurred with CPU upgrades. Instead, CPU
-manufacturers are throwing extra die-space/power at parallelism: more
-cores, more (integrated) GPU[^gpu], and more SIMD. Hence, applications that
-care about performance and want to exploit every inch of the
-available hardware need to care about SIMD.
-
-[^gpu]: GPU programming is sometimes described a form of SIMD too (or
-        SIMT: Single Instruction Multiple Threads), so, to be clear:
-        when I say "SIMD" I mean "SIMD on the CPU".
-
-Rust is a pretty good fit for many of the headline examples of such
+Rust is a good fit for many of the headline examples of such
 applications, which are traditionally written in C/C++ (or Fortran,
-for the last):
+for the last),
 
 - media codecs (audio, video, images)
 - games/things that do a lot of 3D graphics manipulation
 - numerical software (data processing (big or not), simulations etc.)
 
-The general goal with these is to push as much onto the GPU as
-possible, however this can be difficult, and is not a panacea. One
-difficulty is that the the nature of GPUs means they are a restrictive
-programming model (even compared to SIMD) so some workloads are
-fundamentally unsuited to them, by, for example, not being able to
-saturate all execution units: GPUs are generally several times slower
-than CPUs at straight-line code, so exploiting their parallelism is
-important.
+Improved SIMD support will enable high performance Rust code: if you
+want to exploit the hardware to its limit, you need to care about
+SIMD.
 
-## SIMD is like an onion
+## Common vs. Platform-specific
 
-Layers!
+SIMD is entwined with the CPU it is running on, but still there's a
+common core of operations that is widely supported by most
+architectures with SIMD operations. On top of that foundation, there
+is a variety of useful instructions that aren't found everywhere.
 
-### Long vs. Short
-
-There's two broad classifications of vector operations:
-
-- short vector, computing with vectors of (short) fixed length,
-  e.g. doing 4 float additions at once (`addps`)
-- long vector, computing with vectors of arbitrary length
-  e.g. computing the sum of some long list of numbers (`numpy.sum`)
-
-Everything one can do with short-vectors one can also do with long
-vectors, but the former is still important: it's what CPUs work with
-directly and hence has the most control. In fact, if you look inside a
-long vector library you're likely to find short vector manipulations.
-
-Long vectors are generally more removed from the machine, with large
-dynamic allocations and libraries which one usually relies on to make
-the right choice for achieving an operation as fast as possible, while
-the short vectors are often used explicitly in places that care about
-the machine code down to the level of individual instructions.
-
-I'm only focusing on the hardware, and so only the short-vector area.
-
-### Common vs. Platform-specific
-
-That's not the only layering: there's a common core of operations that
-is widely supported by most architectures with SIMD operations, and
-then there's a variety of instructions that aren't found everywhere.
-
-The compiler doesn't care about this, but my `simd` crate does: it
-tries to provide a consistent API for the cross-platform
-functionality, and then opt-ins for platform specific things. The
-cross-platform API is based on the
+My `simd` crate tries to provide a consistent API for the
+cross-platform functionality, and then opt-ins for platform specific
+things. The cross-platform API is based on the
 [work on SIMD in JavaScript][simd.js]: they've abstracted out a basic
 set of operations that generally work efficiently, or are extremely
 useful, everywhere. It definitely doesn't cover everything, but it
@@ -163,6 +168,7 @@ C/C++:
     - inversion
     - multiplication
     - transposition
+- the Mandelbrot example above
 - some benchmarks from [the Benchmark Game][bgame], where the fastest
   programs use explicit SIMD:
     - [nbody] (fastest on single-core x86-64 is C)
