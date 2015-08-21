@@ -8,13 +8,12 @@ A new scheme for SIMD in [Rust] is available in the latest nightly
 compilers, fresh off the builders (get it while it's hot!).
 
 For the last two months, I've been interning at Mozilla Research,
-working on improving the state of [SIMD] parallelism in [Rust]. The
-result so far is a compiler with low-level support (the first
-implementation just landed as [#27169][PR27169]), and an
+working on improving the state of [SIMD] parallelism in [Rust]:
+exposing more CPU instructions in the compiler, and an
 [in-progress library][simdcrate] that provides a mostly-safe but
 low-level interface to that core functionality.
 
-It's still simple to use, the follow are kernels for rendering
+It's still simple to use; the following are kernels for rendering
 [the Mandelbrot set][mandelbrot], one scalar, one with explicit
 vectorisation, and both similar:
 
@@ -67,6 +66,7 @@ fn mandelbrot_vector(c_x: f32x4, c_y: f32x4, max_iter: u32) -> u32x4 {
 
 [SIMD]: https://en.wikipedia.org/wiki/SIMD
 [Rust]: https://www.rust-lang.org/
+[RFC1062]: https://github.com/rust-lang/rfcs/pull/1062
 [RFC1199]: https://github.com/rust-lang/rfcs/pull/1199
 [PR27169]: https://github.com/rust-lang/rust/pull/27169
 [Issue27731]: https://github.com/rust-lang/rust/issues/27731
@@ -82,6 +82,7 @@ fn mandelbrot_vector(c_x: f32x4, c_y: f32x4, max_iter: u32) -> u32x4 {
 [simd-examples]: https://github.com/huonw/simd/tree/master/examples
 [cargo1137]: https://github.com/rust-lang/cargo/issues/1137
 [mandelbrot]: https://en.wikipedia.org/wiki/Mandelbrot_set
+[llvmint]: http://huonw.github.io/llvmint/llvmint/
 
 ## SIMD?
 
@@ -102,29 +103,24 @@ for the last),
 - games/things that do a lot of 3D graphics manipulation
 - numerical software (data processing (big or not), simulations etc.)
 
-Improved SIMD support will enable high performance Rust code: if you
-want to exploit the hardware to its limit, you need to care about
-SIMD.
+Improved support for explicit SIMD enables Rust to reliably push
+hardware to its limit in these areas, and more.
 
 ## Common vs. Platform-specific
 
-SIMD is entwined with the CPU it is running on, but still there's a
-common core of operations that is widely supported by most
-architectures with SIMD operations. On top of that foundation, there
-is a variety of useful instructions that aren't found everywhere.
-
-My `simd` crate tries to provide a consistent API for the
+There's a common core of operations that is widely supported, however,
+there is a variety of useful instructions that aren't found
+everywhere. My `simd` crate tries to provide a consistent API for the
 cross-platform functionality, and then opt-ins for platform specific
-things. The cross-platform API is based on the
-[work on SIMD in JavaScript][simd.js]: they've abstracted out a basic
-set of operations that generally work efficiently, or are extremely
-useful, everywhere. It definitely doesn't cover everything, but it
-does go a long way.
+things. The cross-platform API of `simd` is based on
+[work on SIMD in JavaScript][simd.js]: they've already done the hard
+yards to abstract out a basic set of operations that generally work
+efficiently, or are extremely useful, everywhere. It definitely
+doesn't cover everything, but it does go a long way.
 
-When that isn't enough, there's glob imports. A limited-but-increasing
-amount of the platform-specific functionality is exposed via
-submodules of the `simd` crate, allowing one to opt-in to
-non-portability in a manner similar to [`std::os`][std_os]. For
+A limited-but-increasing amount of the platform-specific functionality
+is exposed via submodules of the `simd` crate, allowing one to opt-in
+to non-portability in a manner similar to [`std::os`][std_os]. For
 example, the SSSE3 instruction `pshufb` is exposed as the
 `shuffle_bytes` method on traits in `simd::x86::ssse3`:
 
@@ -136,14 +132,15 @@ pub fn shuffle(x: u8x16, y: u8x16) -> u8x16 {
 }
 {% endhighlight %}
 
-This isn't entirely portable at the moment: it requires *some* level
-of SIMD support in hardware, and requires the `simd` library to have
-support for the platform. In particular, ARM and i686 (i.e. x86) CPUs
-aren't guaranteed to have SIMD instructions, so one must opt-in via
-the `-C target-feature=+neon` (respectively `-C target-feature=+sse2`)
-argument to the compiler[^cargo]. Also, I haven't tried to implement any for
-PowerPC or MIPS, focusing only on x86, ARM and AArch64 (ARMv8-A's
-64-bit architecture).
+Caveat Programmor: even the cross-platform API isn't entirely portable
+at the moment, it requires *some* level of SIMD support in hardware,
+and requires the `simd` library to have support for the platform. The
+major example of this is ARM and i686 (i.e. x86) CPUs aren't
+guaranteed to have SIMD instructions, so one must opt-in via the `-C
+target-feature=+neon` (respectively `-C target-feature=+sse2`)
+argument to the compiler[^cargo]. Also, I haven't worked on PowerPC or
+MIPS, focusing only on x86, ARM and AArch64 (ARMv8-A's 64-bit
+architecture).
 
 [^cargo]: Passing the `-C target-feature` flag to a whole compilation
           with `cargo` is somewhat annoying at the moment. It requires
@@ -202,13 +199,72 @@ Compiler versions:
 - `Ubuntu clang version 3.6.0-2ubuntu1 (tags/RELEASE_360/final) (based on LLVM 3.6.0)`
 - `gcc (Ubuntu 4.9.2-10ubuntu13) 4.9.2`
 
+## Explicit SIMD in the Compiler
+
+My changes are a large incremental improvement over the old SIMD
+support in Rust. Previously, the only explicit SIMD supported by the
+compiler was declaring types as SIMD vectors with the `#[simd]`
+attribute, which automatically allowed the use of built-in operators
+like `+` and `*` and (sometimes) `==`. This was the full extent, and
+the only way to get anything beyond that was by relying on the
+optimiser, using inline assembly or [horrible hacks][llvmint]. Now,
+one can instead import intrinsics as foreign functions, with a special
+ABI, e.g. to support the `shuffle_bytes` function above, there's
+(internally to `simd`) definitions like:
+
+{% highlight rust linenos=table %}
+#[repr(simd)]
+struct u8x16(u8, u8, u8, u8, u8, u8, u8, u8,
+             u8, u8, u8, u8, u8, u8, u8, u8);
+
+extern "platform-intrinsic" {
+    fn x86_mm_shuffle_epi8(x: u8x16, idx: u8x16) -> u8x16;
+}
+{% endhighlight %}
+
+These intrinsics follow the pattern of
+`<architecture>_<vendor's-name>`, relying
+
+Speaking of the optimiser, `rustc` uses LLVM, which is industrial
+strength, and supports a lot of autovectorisation: compiling scalar
+code into code that uses SIMD intrinsics. The power of this can be
+seen above in the spectral-norm benchmark on AArch64, where the
+optimiser managed to make the scalar code just as efficient as the
+vector code. However, this is limited: small code changes can disturb
+vectorisation optimisations, and, more significantly, vectorisation
+may require changing the semantics slightly, and, synthesising
+complicated vector instructions is hard for a compiler[^soa].
+
+[^soa]: Another thing compilers can't easily do is layout
+        optimisations. A major one is an AoS (array-of-structs) to SoA
+        (struct-of-arrays) transformation, which is particularly
+        important for SIMD, both explicit and autovectorised.
+
+The new compiler intrinsics brings Rust essentially on par with the
+SIMD extensions in C and C++ compilers like GCC, Clang and ICC. It
+requires some more manual effort to use it directly, with manual
+`extern` imports required, but libraries like `simd` avoid that issue.
+
 ## The Future
 
+The goal for the immediate future is nailing down the design of the
+low-level functionality discussed in [RFC 1199][RFC1199], and making
+sure that the initial implementation in [#27169][PR27169] matches
+that. An unfortunate missing piece is nice support for rearranging
+vectors via shuffles and swizzles: I believe it requires
+[RFC 1062][RFC1062] or some other way to have values in generics[^shuffle].
+
+[^shuffle]: Fortunately, not all is lost: I've always seen the
+            optimiser synthesise a real shuffle from a manual series
+            of `extract`s and a `new`. It's annoying and isn't
+            *strictly* guaranteed, but it seems to be pretty reliable.
+
+
 My long-term goal is to have `simd` provide the common cross-platform
-API, with extension traits giving access to the platform-specific
-instructions. All of this will have as thin an interface to as
-possible: the vast majority of functions correspond to one
-instruction.
+API, with extension traits giving access to all of the
+platform-specific instructions. All of this will have as thin an
+interface to as possible: the vast majority of functions correspond to
+one instruction.
 
 I'm not personally planning to build long-vector functionality on top
 of the improved short-vector functionality, but it is certainly
