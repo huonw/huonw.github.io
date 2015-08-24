@@ -5,8 +5,8 @@ description: >
     An overview of my work on improving SIMD in Rust.
 
 comments:
-    r_rust: ""
-    users: ""
+    r_rust: "https://www.reddit.com/r/rust/comments/3i85lg/simd_in_rust/"
+    users: "https://users.rust-lang.org/t/improved-simd-in-rust/2604"
 ---
 
 A new scheme for SIMD in [Rust] is available in the latest nightly
