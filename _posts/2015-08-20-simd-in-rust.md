@@ -20,7 +20,7 @@ vectorisation, and both similar:
 {% highlight rust linenos=table %}
 // Scalar!
 // compute the escape time for the point `c_x + i c_y`
-fn naive(c_x: f32, c_y: f32, max_iter: u32) -> u32 {
+fn mandelbrot_naive(c_x: f32, c_y: f32, max_iter: u32) -> u32 {
     let mut x = c_x;
     let mut y = c_y;
     let mut count = 0;
@@ -64,6 +64,8 @@ fn mandelbrot_vector(c_x: f32x4, c_y: f32x4, max_iter: u32) -> u32x4 {
 }
 {% endhighlight %}
 
+{% include image.html src="mandel.png" caption="The result of both Mandelbrot kernels, running in a loop with some printing code." %}
+
 [SIMD]: https://en.wikipedia.org/wiki/SIMD
 [Rust]: https://www.rust-lang.org/
 [RFC1062]: https://github.com/rust-lang/rfcs/pull/1062
@@ -83,6 +85,7 @@ fn mandelbrot_vector(c_x: f32x4, c_y: f32x4, max_iter: u32) -> u32x4 {
 [cargo1137]: https://github.com/rust-lang/cargo/issues/1137
 [mandelbrot]: https://en.wikipedia.org/wiki/Mandelbrot_set
 [llvmint]: http://huonw.github.io/llvmint/llvmint/
+[ispc]: https://ispc.github.io/
 
 ## SIMD?
 
@@ -227,14 +230,19 @@ These intrinsics follow the pattern of
 vendors give.
 
 Speaking of the optimiser, `rustc` uses LLVM, which is industrial
-strength, and supports a lot of autovectorisation: compiling scalar
-code into code that uses SIMD intrinsics. The power of this can be
-seen above in the spectral-norm benchmark on AArch64, where the
+strength, and supports a lot of autovectorisation[^ispc]: compiling
+scalar code into code that uses SIMD intrinsics. The power of this can
+be seen above in the spectral-norm benchmark on AArch64, where the
 optimiser managed to make the scalar code just as efficient as the
 vector code. However, this is limited: small code changes can disturb
 vectorisation optimisations, and, more significantly, vectorisation
 may require changing the semantics slightly, and, synthesising
 complicated vector instructions is hard for a compiler[^soa].
+
+[^ispc]: LLVM by itself isn't as powerful as [Intel's ISPC][ispc],
+         which has its own C variant, but I could imagine a Rust
+         version too, to push the limits of compiler-driven
+         autovectorisation (among other things) here too.
 
 [^soa]: Another thing compilers can't easily do is layout
         optimisations. A major one is an AoS (array-of-structs) to SoA
