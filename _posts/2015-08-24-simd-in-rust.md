@@ -1,7 +1,12 @@
 ---
 layout: default
 title: SIMD in Rust
-draft: true
+description: >
+    An overview of my work on improving SIMD in Rust.
+
+comments:
+    r_rust: ""
+    users: ""
 ---
 
 A new scheme for SIMD in [Rust] is available in the latest nightly
@@ -292,3 +297,5 @@ are only guaranteed to support SSE2, but there's things beyond that
 with more functionality and even longer SIMD vectors (Intel's new
 AVX512 has 512-bit vectors). I've got some vague ideas in this area,
 but nothing concrete yet.
+
+{% include comments.html c=page.comments %}
