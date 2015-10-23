@@ -6,8 +6,8 @@ description: >
     updated to work on stable Rust.
 
 comments:
-    r_rust: ""
-    users: ""
+    r_rust: "https://www.reddit.com/r/rust/comments/3px8y9/simple_parallel_03_revisiting_knn/"
+    users: "https://users.rust-lang.org/t/simple-parallel-0-3-revisiting-k-nn/3383"
 
 ---
 
