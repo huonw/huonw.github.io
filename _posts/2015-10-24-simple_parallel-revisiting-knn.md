@@ -308,3 +308,5 @@ extra argument).
 [scope]: http://aturon.github.io/crossbeam-doc/crossbeam/fn.scope.html
 [scope_]: http://aturon.github.io/crossbeam-doc/crossbeam/struct.Scope.html
 [take2]: https://github.com/aturon/rfcs/blob/75db90de40849d7cd28e334388ffa74b9e7a9bcf/text/0000-scoped-take-2.md
+
+{% include comments.html c=page.comments %}
