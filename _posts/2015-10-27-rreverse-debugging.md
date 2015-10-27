@@ -7,7 +7,7 @@ description: >
 
 comments:
     r_rust: "https://www.reddit.com/r/rust/comments/3qf6j9/rreverrse_debugging/"
-    r_programming: "http://huonw.github.io/blog/2015/10/rreverse-debugging/"
+    r_programming: "https://www.reddit.com/r/programming/comments/3qf6kq/rreverrse_debugging/"
     users: "https://users.rust-lang.org/t/rreverrse-debugging/3418"
 ---
 
