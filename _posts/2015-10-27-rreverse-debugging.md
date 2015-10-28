@@ -40,8 +40,8 @@ logging.
 
 There's also a large element of just never having a tool I liked using
 (which is what this whole post is about): I don't do that much in
-managed languages like Java or C#, and I've not Visual Studio in any
-detail, all of which I've heard rumours about being top-notch.
+managed languages like Java or C#, and I've not used Visual Studio in
+any detail, all of which I've heard rumours about being top-notch.
 
 The thing I struggle with most is the disconnect between when problems
 are detected/manifest, and the fundamental cause. A typical "tricky"
@@ -121,7 +121,7 @@ executes.
 This *could* be implemented as just saving the entire state of the
 machine (memory and registers) between each step, but this would be
 super-slow, and it won't be nearly as nice to use as rr. The worst
-overhead I've noticed is the rr'd program taking 14× longer, but it's
+overhead I've noticed is the rr'd program taking <s>14× longer</s>, but it's
 a pretty dumb program, and I only came up with it for this blog post[^worst-case]:
 
 [^worst-case]: I know pretty much nothing about the internals of rr or
@@ -143,15 +143,16 @@ fn main() {
 }
 {% endhighlight %}
 
-It takes 4.2s to be recorded with rr, but only 0.3s to run
-normally. (Compiled with `rustc -g hammer.rs`, with Rust 1.3.0.) Of
-course, most programs will being doing more than reading from a file a
-*lot*, and the overhead is much smaller for more typical
-work-loads. For instance, I've been doing some work with Aatch's
-big-integer library, [ramp][ramp], and
+It takes <s>4.2s</s> 0.5s (this case [was optimised][fix]) to be
+recorded with rr, but only 0.3s to run normally. (Compiled with
+`rustc -g hammer.rs`, with Rust 1.3.0.) Of course, most programs will
+being doing more than reading from a file a *lot*, and the overhead is
+much smaller for more typical work-loads. For instance, I've been
+doing some work with Aatch's big-integer library, [ramp][ramp], and
 [the `factorial` example][factorial] (compiled in debug mode) takes
 1.8s to run under rr, and 1.5s normally.
 
+[fix]: https://github.com/mozilla/rr/commit/9bc7077e0a031a200aca7baf785dad17eba9f941
 [ramp]: https://github.com/Aatch/ramp
 [factorial]: https://github.com/Aatch/ramp/blob/7fac34b95600562a1272995568fff331eb533894/examples/factorial.rs
 
@@ -285,7 +286,7 @@ Also, rr of course has its own limitations:
 
 Reverse debugging has converted me from "meh debuggers" to "💜 rr":
 being able to dance around freely&mdash;*frolic*, even&mdash;in code
-pleases me like no other tool. It is language agnostic, I'm lead to
+pleases me like no other tool. It is language agnostic, I'm led to
 believe that anything that works in GDB itself will work with rr: I
 believe it was designed with C/C++ applications like Firefox in mind,
 but it works flawlessly with Rust, and I'm sure other languages too.
