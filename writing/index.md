@@ -7,26 +7,39 @@ no_toc: true
 Some posts, grouped by topic. See [all posts, listed chronologically](/blog).
 
 
+## Programming
+
+[*Rreverrse Debugging*][rd]
+: rr is the debugger that is is almost too good to be true.
+
 ## Rust
 
-[*Some notes on Send and Sync*][snosas]
-: The `Send` and `Sync` traits in Rust are cool, here are two edge-ish
-  cases.
-
-[*Finding Closure in Rust*][fcir]
-: Closures are powerful and flexible, building on traits,
-  generics and ownership.
-
-[*Defaulting to Thread Safety*][dtts]
-: Certain trait tricks can be used to model properties of aggregate
-  types, which makes closures and concurrent APIs interact well.
-
-[*What does Rust's unsafe mean?*][wdrum]
+[*What does Rust's "unsafe" mean?*][wdrum]
 : Exploring Rust's escape hatch for writing low-level code that the
     type system cannot guarantee to be safe.
 
 [*Little libraries*][ll]
 : On focused libraries in Rust.
+
+### Closures
+
+[*Finding Closure in Rust*][fcir]
+: Closures are powerful and flexible, building on traits,
+  generics and ownership.
+
+[*Defaulting to Thread Safety: Closures and Concurrency*][dtts]
+: Certain trait tricks can be used to model properties of aggregate
+  types, which makes closures and concurrent APIs interact well.
+
+### Concurrency/Parallelism
+
+[*Some notes on Send and Sync*][snosas]
+: The `Send` and `Sync` traits in Rust are cool, here are two edge-ish
+  cases.
+
+[*Defaulting to Thread Safety: Closures and Concurrency*][dtts]
+: Certain trait tricks can be used to model properties of aggregate
+  types, which makes closures and concurrent APIs interact well.
 
 ### Trait objects
 
@@ -76,3 +89,4 @@ Some posts, grouped by topic. See [all posts, listed chronologically](/blog).
 [tc013ns]: {% post_url 2015-06-30-travis-cargo-0.1.3 %}
 [fcir]: {% post_url 2015-05-08-finding-closure-in-rust %}
 [dtts]: {% post_url 2015-05-26-defaulting-to-thread-safety %}
+[rd]: {% post_url 2015-10-27-rreverse-debugging %}
