@@ -41,6 +41,14 @@ Some posts, grouped by topic. See [all posts, listed chronologically](/blog).
 : Certain trait tricks can be used to model properties of aggregate
   types, which makes closures and concurrent APIs interact well.
 
+#### SIMD
+
+[*What is SIMD?*][wis]
+: An introduction to SIMD (single-instruction multiple-data).
+
+[*SIMD in Rust*][sir]
+: The state of SIMD in Rust, and an introduction to the improvements I have made.
+
 ### Trait objects
 
 [*Peeking inside Trait Objects*][pito]
@@ -90,3 +98,5 @@ Some posts, grouped by topic. See [all posts, listed chronologically](/blog).
 [fcir]: {% post_url 2015-05-08-finding-closure-in-rust %}
 [dtts]: {% post_url 2015-05-26-defaulting-to-thread-safety %}
 [rd]: {% post_url 2015-10-27-rreverse-debugging %}
+[wis]: {% post_url 2015-07-10-what-is-simd %}
+[sir]: {% post_url 2015-08-24-simd-in-rust %}
