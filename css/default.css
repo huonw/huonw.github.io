@@ -37,7 +37,7 @@ heading_properties:
   h6: {
     indent: 30px, size: 1em, space: 6px }
 
-paragraph_like: [p, ul, ol, blockquote, dl, "table:not(.highlighttable)"]
+paragraph_like: [p, ul, ol, blockquote, dl]
 ---
 {% comment %} sets head_plus_head to h1+h1,h1+h2,h1+h3,...,h6+h6
 
@@ -194,15 +194,14 @@ li {
     margin: 4px 0 4px {{page.text_margin}};
 }
 
-table:not(.highlighttable) {
-  /* FIXME: !important :( */
-  margin: 0 auto !important;
+table {
+  margin: 0 auto;
 }
 
-table:not(.highlighttable) td {
+table td {
   padding: 3px 5px;
 }
-table:not(.highlighttable) thead {
+table thead {
   border-bottom: 1px solid grey;
 }
 th {
@@ -375,59 +374,60 @@ pre code {
   background: rgba(255,255,255,0.1);
 }
 
-.highlighttable {
+.highlight {
+  position: relative;
+}
+.highlight table {
    /*background: #f5f5f5;
    border: solid #aaaaaa;
    border-width: 1px 0;*/
+  font-size: 0.9em;
    padding: 0em;
    width: 100%;
    table-layout: fixed;
-   overflow-x: auto;
    overflow-y: hidden;
    display: block;
-   font-size: 0.9em;
    position: relative;
    z-index: 1;
+   margin: 0;
 }
-.highlighttable code::before {
+[data-lang]::before {
   font-family: "Fira Sans", "sans-serif";
   content: attr(data-lang);
   text-transform: capitalize;
   top: 0;
   right: 0;
   position: absolute;
-  font-size: 2em;
+  font-size: 1.5em;
   color: #f3f3f3;
-  z-index: -1;
+  z-index: 1;
 }
 
-.highlighttable td {
-   padding: 0.5em 0;
-}
-
-.highlight {
-   z-index: 2;
-}
-.highlight > pre, .linenodiv > pre {
+.highlight pre {
   background: transparent;
+  margin: 0;
+}
+.highlight td {
+  padding: 0.5em 0;
+  margin: 0;
+}
+.highlight code {
+  font-size: 1em;
 }
 
-td.linenos {
-   border: solid #aaaaaa;
+.gutter {
+   border: solid #ccc;
    border-width: 0 1px 0 0;
-   color: #aaaaaa;
+   color: #ccc;
    /*background: #bbbbbb;*/
 }
-.linenodiv > pre {
-   margin: 0;
-   width: 25px;
-   padding-right: 5px;
+.lineno {
+  width: 25px;
+  padding-right: 5px;
 }
-.linenos code {
-   background: transparent;
-   padding: 0;
-   margin: 0;
-   border: 0;
+.highlight td.code {
+  overflow-x: auto;
+  padding-left: 0.5em;
 }
 
 /* quotes */
@@ -695,6 +695,14 @@ figcaption p {
   font-style: normal;
 }
 
+/* etc. */
+#work {
+  max-width: 100%;
+  width: 500px;
+  margin: 2em auto;
+  font-style: italic;
+}
+
 
 /* media queries */
 
@@ -722,8 +730,10 @@ and (max-width: {{page.thresholds.wide}})  {
         content: "thin";
     }
 
-    {{p_like}} {
+    {{p_like}}, table {
       font-size: {{ page.small_font }};
+    }
+    {{p_like}} {
          margin-left: {{page.text_margin | divided_by:3}}px;
          margin-right: {{page.text_margin | divided_by:3}}px;
     }
@@ -851,7 +861,7 @@ and (max-width: {{page.thresholds.wide}})  {
     .footnotes .reversefootnote {
          display: none !important;
     }
-    .highlighttable code::before {
+    [data-lang]::before {
       content: "";
     }
 }

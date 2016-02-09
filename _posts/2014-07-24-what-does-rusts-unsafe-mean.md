@@ -59,7 +59,7 @@ and some external non-Rust libraries like jemalloc and libuv.
 There are two ways in which one can opt-in to these possibly dangerous
 behaviours: with an `unsafe` block, or with an `unsafe` function.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // calling some C functions imported via FFI:
 
 unsafe fn foo() {
@@ -155,7 +155,7 @@ The `Vec<T>` type is
 [defined](https://github.com/rust-lang/rust/blob/82ec1aef293ddc5c6373bd7f5ec323fafbdf7901/src/libcollections/vec.rs#L55-L59)
 as:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 pub struct Vec<T> {
     len: uint,
     cap: uint,
@@ -180,7 +180,7 @@ stated above, and so cannot be sure that
 is safe. It is implemented like so:
 
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 fn as_slice<'a>(&'a self) -> &'a [T] {
     unsafe { mem::transmute(Slice { data: self.as_ptr(), len: self.len }) }
 }
@@ -228,7 +228,7 @@ integer, carefully justifying why we know more than the compiler, and
 thus why each `unsafe` is safe (in a perfect world all `unsafe` blocks
 would be justified/proved correct).
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 extern crate libc;
 use std::ptr;
 

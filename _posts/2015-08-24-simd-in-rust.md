@@ -22,7 +22,7 @@ It's still simple to use; the following are kernels for rendering
 [the Mandelbrot set][mandelbrot], one scalar, one with explicit
 vectorisation, and both similar:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // Scalar!
 // compute the escape time for the point `c_x + i c_y`
 fn mandelbrot_naive(c_x: f32, c_y: f32, max_iter: u32) -> u32 {
@@ -132,7 +132,7 @@ to non-portability in a manner similar to [`std::os`][std_os]. For
 example, the SSSE3 instruction `pshufb` is exposed as the
 `shuffle_bytes` method on traits in `simd::x86::ssse3`:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 pub fn shuffle(x: u8x16, y: u8x16) -> u8x16 {
     use simd::x86::ssse3::*;
 
@@ -220,7 +220,7 @@ there are a large number of intrinsics defined by the compiler as
 foreign functions with a special ABI. The `simd` crate imports them to
 implement its functionality, e.g.:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 #[repr(simd)]
 struct u8x16(u8, u8, u8, u8, u8, u8, u8, u8,
              u8, u8, u8, u8, u8, u8, u8, u8);

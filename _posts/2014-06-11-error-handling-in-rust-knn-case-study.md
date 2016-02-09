@@ -69,7 +69,7 @@ conditions, and [define a short custom macro][macros] that either
 
 [macros]: http://doc.rust-lang.org/master/guide-macros.html
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 #![feature(macro_rules)]
 
 // the possible things that can go wrong
@@ -153,7 +153,7 @@ is called, and the error propagated upwards there, or handled
 appropriately e.g. the `slurp_file` calls in `main` could be changed
 to something like:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 let training_set = match slurp_file(&Path::new("trainingsample.csv")) {
     Ok(data) => data,
     Err(e) => {

@@ -42,7 +42,7 @@ A trait is object safe only if the compiler can automatically
 implement it for itself, by implementing each method as a dynamic
 function call through the vtable stored in a trait object.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo {
     fn method_a(&self) -> u8;
 
@@ -71,7 +71,7 @@ of anything it calls, not the internals---and hence object safety.
 These rules outlaw creating trait objects of, for example, traits with
 generic methods:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Bar {
     fn bad<T>(&self, x: T);
 }
@@ -119,7 +119,7 @@ something[^associated-type] like:
                     exist. However it doesn't matter: the exact same
                     problems existed, just with different syntax.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Iterator {
     type Item;
 
@@ -150,7 +150,7 @@ The solution at the time was extension traits: define a new trait
 a blanket implementation to implement it for all `Iterator`s "from the
 outside".
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Iterator {
     type Item;
 
@@ -186,7 +186,7 @@ Fortunately, those methods aren't lost on trait objects, because there
 are implementations like the following, allowing the blanket
 implementation of `IteratorExt` to kick in:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // make Box<...> an Iterator by deferring to the contents
 impl<I: Iterator + ?Sized> Iterator for Box<I> {
     type Item = I::Item;
@@ -234,7 +234,7 @@ declared right then and there. For example, one can use
 [`From`](http://doc.rust-lang.org/std/convert/trait.From.html) to
 convert *to* types with a `where` clause.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 fn convert_to_string<T>(x: T) -> String
     where String: From<T>
 {
@@ -254,7 +254,7 @@ Each of these were designed to define a few extra methods that
 required specific restrictions on the element type of the iterator,
 for example, `OrdIterator` needed `Ord` elements:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait OrdIterator: Iterator {
      fn max(&mut self) -> Option<Self::Item>;
      // ...
@@ -272,7 +272,7 @@ cleaner: all the traits above have been merged into `Iterator` itself
 with `where` clauses, e.g.
 [`max`](http://doc.rust-lang.org/nightly/std/iter/trait.Iterator.html#method.max):
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Iterator {
     type Item;
 
@@ -290,7 +290,7 @@ Notably, there's no restriction on `Item` for general `Iterator`s,
 only on `max`, so iterators retain full flexibility while still
 gaining a `max` method that only works when it should:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 struct NotOrd;
 
 fn main() {
@@ -323,7 +323,7 @@ safety.
 
 The bad example from the start can be written to compile:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Bar {
     fn bad<T>(&self, x: T)
         where Self: Sized;
@@ -345,7 +345,7 @@ fn main() {
 And also adjusted to not compile: try calling `(&1_u8 as
 &Bar).bad("foo")` in `main` and the compiler spits out an error,
 
-{% highlight text linenos=table %}
+{% highlight text linenos %}
 ...:13:21: 13:31 error: the trait `core::marker::Sized` is not implemented for the type `Bar` [E0277]
 ...:13     (&1_u8 as &Bar).bad("foo")
                            ^~~~~~~~~~
@@ -358,7 +358,7 @@ Importantly, this solves the `Iterator` problem: there's no longer a
 need to split methods into extension traits to ensure object safety,
 one can instead just guard the bad ones. `Iterator` now looks like:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Iterator {
     type Item;
 

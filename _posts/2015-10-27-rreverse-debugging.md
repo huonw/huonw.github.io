@@ -89,7 +89,7 @@ any time.
 
 With Rust/Cargo, my command line will often look like:
 
-{% highlight sh linenos=table %}
+{% highlight sh linenos %}
 $ cargo build --example foo
 ... things compiling ...
 $ rr ./target/debug/examples/foo
@@ -130,7 +130,7 @@ a pretty dumb program, and I only came up with it for this blog post[^worst-case
     result of syscalls into the operating system, so doing a lot of
     them (as opening/reading/closing a file will do) is probably slow.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // hammer.rs
 use std::fs::File;
 use std::io::prelude::*;
@@ -166,7 +166,7 @@ The recording means that the "execution" of a replay is now
 deterministic (and completely so, as far as I can tell), so you can be
 sure about a lot of things. Reading random data is fine:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // urandom.rs
 use std::fs::File;
 use std::io::prelude::*;
@@ -181,7 +181,7 @@ fn main() {
 
 Recording and playing it back gives the same result each time:
 
-{% highlight sh linenos=table %}
+{% highlight sh linenos %}
 $ rr ./urandom
 rr: Saving the execution of `./urandom' to trace directory `/home/huon/.rr/urandom-2'.
 [45, 45, 28, 0, 236]

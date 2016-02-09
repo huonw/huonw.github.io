@@ -27,7 +27,7 @@ do itself: they seem to have to be explicitly listed in the manifest.
            but I only noticed after already implementing it just today:
            sorry Jonas!
 
-{% highlight yaml linenos=table %}
+{% highlight yaml linenos %}
 addons:
   apt:
     packages:
@@ -42,7 +42,7 @@ especially around speed and latency. If you switch[^false], you can check that
 your builds are using it by looking for the following paragraph in the
 build-logs:
 
-{% highlight text linenos=table %}
+{% highlight text linenos %}
 This job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.
 If you require sudo, add 'sudo: required' to your .travis.yml
 See http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.

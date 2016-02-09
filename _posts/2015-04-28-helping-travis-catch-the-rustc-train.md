@@ -93,7 +93,7 @@ say,
 [`order-stat`](https://github.com/huonw/order-stat/blob/eb6fd83/.travis.yml),
 looks like:
 
-{% highlight yaml linenos=table %}
+{% highlight yaml linenos %}
 language: rust
 # run builds for both the nightly and beta branch
 rust:

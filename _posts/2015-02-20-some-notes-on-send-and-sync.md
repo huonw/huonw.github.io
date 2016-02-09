@@ -11,7 +11,7 @@ comments:
 If you've been in the `#rust-internals` IRC channel recently, you
 may've caught a madman raving about how much they like Rust:
 
-{% highlight irc linenos=table %}
+{% highlight irc linenos %}
 ...
 [15:50:03] <huon> I love this language
 ...
@@ -101,7 +101,7 @@ also implement `Send` (conversely, a type is only allowed to be both
 `Sync` and `Copy` if it is also `Send`).
 
 Proof:
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // we start with some `T` on the main thread
 let x: T = ...;
 
@@ -145,7 +145,7 @@ Sync`, which can be
 [expressed in code](https://github.com/rust-lang/rust/blob/522d09dfecbeca1595f25ac58c6d0178bbd21d7d/src/libcore/marker.rs#L388)
 as
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 unsafe impl<'a, T: Sync> Send for &'a T {
 {% endhighlight %}
 
@@ -177,7 +177,7 @@ goes out of scope, on the main thread.
 
 Unfortunately...
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // we start with some `T` on the main thread
 let x: T = ...;
 // wrap it up

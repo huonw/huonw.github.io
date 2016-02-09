@@ -41,7 +41,7 @@ I made no effort to remove/reduce/streamline allocations.
 
 [errorhandling]: {% post_url 2014-06-11-error-handling-in-rust-knn-case-study %}
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 use std::io::{File, BufferedReader};
 
 struct LabelPixel {
@@ -148,7 +148,7 @@ In comparison, the OCaml code has had to manually write a few
 functions (for folding and for reading lines from a file), and
 contains two possibly-concerning pieces of code:
 
-{% highlight ocaml linenos=table %}
+{% highlight ocaml linenos %}
 let v1 = unsafe_get a1 i in
 let v2 = unsafe_get a2 i in
 {% endhighlight %}
@@ -172,7 +172,7 @@ for this.
 The code can be made parallel simply by replacing the `main` function
 with the following.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // how many chunks should the validation sample be divided into? (==
 // how many futures to create.)
 static NUM_CHUNKS: uint = 32;

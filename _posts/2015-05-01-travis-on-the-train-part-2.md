@@ -35,7 +35,7 @@ installed via that medium. This works on Travis:
          Great job on getting cargo and crates.io so streamlined, Alex
          Crichton, Yehuda Katz and everyone who has contributed!
 
-{% highlight sh linenos=table %}
+{% highlight sh linenos %}
 pip install 'travis-cargo<0.2' --user && export PATH=$HOME/.local/bin:$PATH
 {% endhighlight %}
 
@@ -62,7 +62,7 @@ has been removed since the default binary is now much longer, and
 looks more like the real `cargo` program. Cargo subcommands passed to
 `travis-cargo` directly work as one would expect. Migration:
 
-{% highlight sh linenos=table %}
+{% highlight sh linenos %}
 # before
 ./tc cargo build
 # after
@@ -115,7 +115,7 @@ order-stat's [`.travis.yml`][commit] now looks like ([diff for the change][diff]
 [commit]: https://github.com/huonw/order-stat/blob/251a809/.travis.yml
 [diff]: https://github.com/huonw/order-stat/commit/251a80999b5d727224523a33847479d23048d7ab
 
-{% highlight yaml linenos=table %}
+{% highlight yaml linenos %}
 language: rust
 sudo: required
 

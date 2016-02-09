@@ -47,7 +47,7 @@ expected to return a `String`, and, in the real world, there would be
 some expectation about what the string would mean, but this is just a
 blog, so you're free to make up your own favourite meaning.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo {
     fn method(&self) -> String;
 }
@@ -58,7 +58,7 @@ types satisfy whatever behaviours the trait is trying to summarise and
 allow polymorphism over. For example, bytes and strings are `Foo`,
 apparently:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 impl Foo for u8 {
     fn method(&self) -> String { format!("u8: {}", *self) }
 }
@@ -132,7 +132,7 @@ coercions. If `T` is a type that implements a trait `Foo` (e.g. `u8`
 for the `Foo` above), then the two ways to get a `Foo` trait object
 out of a pointer to `T` look like:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 let ref_to_t: &T = ...;
 
 // `as` keyword for casting
@@ -161,7 +161,7 @@ object. The `std::raw` module contains structs with layouts that are
 the same as the complicated build-in types,
 [including trait objects][stdraw]:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 pub struct TraitObject {
     pub data: *mut (),
     pub vtable: *mut (),
@@ -187,7 +187,7 @@ implementation. A method call like `trait_object.method()` will
 retrieve the correct pointer out of the vtable and then do a dynamic
 call of it. For example:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 struct FooVtable {
     destructor: fn(*mut ()),
     size: usize,
@@ -254,7 +254,7 @@ Suppose we've got some values that implement `Foo`, the explicit form
 of construction and use of `Foo` trait objects might look a bit like
 (ignoring the type mismatches: they're all just pointers anyway):
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 let a: String = "foo".to_string();
 let x: u8 = 1;
 

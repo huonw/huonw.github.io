@@ -27,7 +27,7 @@ maintaining an idiomatic and easy-to-use interface.
 My computer takes a quarter of a second and less than 3MB of RAM to
 tell me that there 50,847,534 primes below 1 billion:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 extern crate primal;
 
 fn main() {
@@ -96,7 +96,7 @@ size). In a flash of inspiration, I realised it would be possible to
 do this reasonably efficiently with a simple wrapper around the core
 sieve. It can be used a bit like:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 extern crate primal;
 
 fn main() {

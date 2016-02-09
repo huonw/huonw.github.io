@@ -84,7 +84,7 @@ to be readable online: everything else is essentially a single `cargo
 ...` invocation. My usual configuration for Travis looks something
 like:
 
-{% highlight yaml linenos=table %}
+{% highlight yaml linenos %}
 language: rust
 sudo: false
 script:
@@ -197,7 +197,7 @@ Porting it directly[^pattern-matching] was straight-forward, resulting in
 [pattern]: https://github.com/huonw/tz-search/blob/229617cd23dc413957c5b02d027c7ce4bb2be3d0/src/lib.rs#L260-L284
 [interface]: https://github.com/bradfitz/latlong/blob/7d3ff04aa2b06b9db6947f7d99a4bb3cc66570bc/latlong.go#L157-L159
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 let timezone = tz_search::lookup(-33.8885, 151.1908).unwrap();
 println!("{}", timezone); // Australia/Sydney
 {% endhighlight %}

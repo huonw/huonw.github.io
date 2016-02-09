@@ -83,7 +83,7 @@ special: it is a default bound for type parameters in most positions,
 and so one needs some way to opt-in to a parameter not necessarily
 being sized.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 fn foo<T>() {} // can only be used with sized T
 
 fn bar<T: ?Sized>() {} // can be used with both sized and unsized T

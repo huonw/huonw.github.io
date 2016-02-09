@@ -197,7 +197,7 @@ with the `application/x-www-form-urlencoded` content type.
 
 The GitHub file should just be called `config`, and looks like:
 
-{% highlight ini linenos=table %}
+{% highlight ini linenos %}
 [github]
 user = <user name of the account to use for the bot>
 token = <api token generated for that account>
@@ -218,7 +218,7 @@ all other config files. E.g. For rust-lang,
 [`_global.json`](https://github.com/nrc/highfive/blob/7c5b73babfd0881d1c676b8f0f7dbbeed5a392ba/highfive/configs/_global.json)
 looks like:
 
-{% highlight json linenos=table %}
+{% highlight json linenos %}
 {
     "groups": {
         "core": ["@brson", "@pcwalton", "@nikomatsakis", "@alexcrichton", "@huonw"],
@@ -232,7 +232,7 @@ And
 [`rust.json`](https://github.com/nrc/highfive/blob/7c5b73babfd0881d1c676b8f0f7dbbeed5a392ba/highfive/configs/rust.json)
 looks like:
 
-{% highlight json linenos=table %}
+{% highlight json linenos %}
 {
     "groups": {
         "all": ["core"],

@@ -40,7 +40,7 @@ inspiration for something awesome.
 Taster: safely setting the values in an array stored directly on the
 stack of a parent thread, in parallel, with 4 threads.
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // (add `simple_parallel = "0.3"` to your Cargo.toml)
 extern crate simple_parallel;
 
@@ -158,7 +158,7 @@ short:
 
 [repo]: https://github.com/huonw/revisiting-knn
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 fn main() {
     let training_set = slurp_file("trainingsample.csv");
     let validation_sample = slurp_file("validationsample.csv");
@@ -191,7 +191,7 @@ the way into `main` itself).
 
 The parallel `main` isn't much longer:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 fn main() {
     // load files
     let training_set = slurp_file("trainingsample.csv");
@@ -283,7 +283,7 @@ alone. This is what `scope` does,
 
 Its signature is:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 pub fn scope<'a, F, R>(f: F) -> R
     where F: FnOnce(&Scope<'a>) -> R
 {% endhighlight %}

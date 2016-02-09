@@ -53,7 +53,7 @@ trait objects, but what is said applies to any.
 Let's look at an example of the things object safety enables: if we
 have a trait `Foo` and a function like
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 fn func<T: Foo + ?Sized>(x: &T) { ... }
 {% endhighlight %}
 
@@ -67,7 +67,7 @@ Take it on faith (for a few paragraphs) that calling a generic method
 is one example of something that can't be done on a trait object. So,
 let's define a trait and a function like:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Bad {
     fn generic_method<A>(&self, value: A);
 }
@@ -108,7 +108,7 @@ methods as normal, generic function scoped under the type/trait in
 which they are defined, for example, the UFCS function
 `Bad::generic_method` from the trait above effectively has signature:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 fn Bad::generic_method<Self: Bad + ?Sized, A>(self: &Self, x: A)
 {% endhighlight %}
 
@@ -136,7 +136,7 @@ implemented to call into the corresponding method in the vtable. In
 the explicit notation of [my previous post][previouspost], the
 situation might look something like:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo {
     fn method1(&self);
     fn method2(&mut self, x: i32, y: String) -> usize;
@@ -174,7 +174,7 @@ possible ways to be object-unsafe are described
 
 [object-unsafe]: https://github.com/rust-lang/rust/blob/2127e0d56d85ff48aafce90ab762650e46370b63/src/librustc/middle/traits/object_safety.rs#L30-L52
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 pub enum ObjectSafetyViolation<'tcx> {
     /// Self : Sized declared on the trait
     SizedSelf,
@@ -211,7 +211,7 @@ Let's go through each case.
 
 ### Sized `Self`
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo: Sized {
     fn method(&self);
 }
@@ -231,7 +231,7 @@ more traits object safe by default.
   but one is statically disallowed from call those methods on trait
   objects (and on generics that could be trait objects).
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo {
     fn method(self);
 }
@@ -252,7 +252,7 @@ to write an `impl Foo for Foo`, the signature of `method` would mean
 
 ### Static method
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo {
     fn func() -> i32;
 }
@@ -261,7 +261,7 @@ trait Foo {
 There's no way to provide a sensible implementation of `func` as a
 static method on the type `Foo`:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 impl<'a> Foo for Foo+'a {
     fn func() -> i32 {
         // what goes here??
@@ -281,7 +281,7 @@ or as a return value, in either case a reference to the `Self` type
 means that it must match the type of the `self` value, the true type
 of which is unknown at compile time. For example:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo {
     fn method(&self, other: &Self);
 }
@@ -291,7 +291,7 @@ The types of the two arguments have to match, but this can't be
 guaranteed with a trait object: the erased types of two separate
 `&Foo` values may not match:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 impl<'a> Foo for Foo+'a {
     fn method(&self, other: &(Foo+'a))
         (self.vtable.method)(self.data, /* what goes here? */)
@@ -311,7 +311,7 @@ detected.
 
 ### Generic method
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo {
     fn method<A>(&self, a: A);
 }
@@ -322,7 +322,7 @@ functions in Rust are monomorphised, that is, a copy of the function
 is created for each type used as a generic parameter. An attempted
 implementation might look like
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 impl<'a> Foo for Foo+'a {
     fn method<A>(&self, a: A) {
         (self.vtable./* ... huh ???*/)(self.data, a: A)
@@ -338,7 +338,7 @@ and then fill in the `huh` above to select the right one. This would
 be effectively implicitly adding a whole series of methods to the
 trait:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 trait Foo {
     fn method_u8(&self);     // A = u8
     fn method_i8(&self);     // A = i8

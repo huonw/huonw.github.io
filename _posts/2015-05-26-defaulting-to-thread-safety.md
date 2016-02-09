@@ -34,7 +34,7 @@ link [*Some notes on Send and Sync*][snosas] too.)
 
 Spawning a thread in Rust is easy:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 use std::thread;
 
 fn main() {
@@ -72,7 +72,7 @@ The signature of [`spawn`][spawn] is
 
 [spawn]: http://doc.rust-lang.org/std/thread/fn.spawn.html
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 pub fn spawn<F, T>(f: F) -> JoinHandle<T>
     where
         F: Send + 'static + FnOnce() -> T,
@@ -148,14 +148,14 @@ contain also implement `Trait`.
 
 Syntactically, it looks like:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 impl Trait for .. {}
 {% endhighlight %}
 
 In terms of functionality, suppose `u8` and `String` implement `Trait`
 but `i16` doesn't,
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 // implement `Trait`
 enum Good { A, B }
 struct Excellent;
@@ -181,7 +181,7 @@ The `Send` trait has one of these nifty default implementations, so
 benefits from all that machinery, and it's how closures can be used
 with `Send`. To demonstrate specifically:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 use std::rc::Rc;
 
 // can only be used with `Send` types.
@@ -204,7 +204,7 @@ check_send(g);
 
 This fails to compile, but in a particular way:
 
-{% highlight text linenos=table %}
+{% highlight text linenos %}
 ...:18:1: 18:11 error: the trait `core::marker::Send` is not implemented for the type `alloc::rc::Rc<i32>` [E0277]
 ...:18 check_send(g);
        ^~~~~~~~~~
@@ -250,7 +250,7 @@ On the other hand, the opt-out is new and different, it is done via
 *negative implementations*: to opt out of `Trait`, implement `!Trait`.
 For example, the thread-unsafe `Rc<T>` type has
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 impl<T> !Send for Rc<T> {}
 {% endhighlight %}
 
@@ -301,7 +301,7 @@ Anyway, returning to the opt in mechanism, what is stopping us from wrapping a
 thread-unsafe type (non-`Send`) in a new struct and implementing
 `Send` for it? Something like
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 use std::rc::Rc;
 
 struct Trick {
@@ -319,7 +319,7 @@ undefined behaviour via data races.
 
 Fortunately, the compiler spits out an error:
 
-{% highlight text linenos=table %}
+{% highlight text linenos %}
 ...:6:1: 6:23 error: the trait `core::marker::Send` requires an `unsafe impl` declaration [E0200]
 ...:6 impl Send for Trick {}
       ^~~~~~~~~~~~~~~~~~~~~~
@@ -328,7 +328,7 @@ Fortunately, the compiler spits out an error:
 Ah! So it's telling us that `unsafe` is in fact required. This version
 of the `impl` compiles:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 unsafe impl Send for Trick {}
 {% endhighlight %}
 
@@ -336,7 +336,7 @@ This is because `Send` is [declared][send-decl] as `unsafe`:
 
 [send-decl]: https://github.com/rust-lang/rust/blob/7cb9914fceaeaa6a39add43d3da15bb6e1d191f6/src/libcore/marker.rs#L38
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 pub unsafe trait Send {
 {% endhighlight %}
 
@@ -388,7 +388,7 @@ Just like `Send`, `Sync` is a defaulted trait, and so works well with
 closures too. A closure that only captures thread-shareable values
 (like a string) is also thread-shareable:
 
-{% highlight rust linenos=table %}
+{% highlight rust linenos %}
 use std::sync::Arc;
 use std::thread;
 
@@ -415,7 +415,7 @@ fn main() {
 
 The output sometimes looks like:
 
-{% highlight text linenos=table %}
+{% highlight text linenos %}
 thread #0: hello
 thread #7: hello
 thread #2: hello
