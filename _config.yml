@@ -1,5 +1,4 @@
 safe: true
-highlighter: pygments
 lsi: false
 title: Huon on the internet
 markdown: kramdown
