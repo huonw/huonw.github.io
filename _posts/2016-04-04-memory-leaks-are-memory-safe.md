@@ -8,9 +8,9 @@ description: >
     GC-reliant mangaed ones) have no guarantee of preventing memory leaks.
 
 comments:
-    r_rust: ""
-    r_programming: ""
-    hn: ""
+    r_rust: "https://www.reddit.com/r/rust/comments/4dgvvh/memory_leaks_are_memory_safe_huon_on_the_internet/"
+--    r_programming: ""
+--    hn: ""
 ---
 
 
@@ -182,7 +182,7 @@ Rust doesn't have C-style manual memory management, but rather
 RAII/scope-based resource management similar to C++, allowing types to
 have destructors for automatic clean-up. It does not literally have a
 `free` function users must remember to call (removing most of the
-"manual"), but the [`drop`][drop] function serves the roll of explicit
+"manual"), but the [`drop`][drop] function serves the role of explicit
 `free`, allowing one to explicitly cause the destructor to be run on a
 value, thus invalidating it. In contrast to both C and C++, the
 language prevents use of such data at compile time to avoid memory
@@ -250,4 +250,4 @@ segfault or memory corruption.
 [locks]: http://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html#locks
 [socket]: http://blog.skylight.io/rust-means-never-having-to-close-a-socket/
 
-{% comment %}{% include comments.html c=page.comments %}{% endcomment %}
+{% include comments.html c=page.comments %}
