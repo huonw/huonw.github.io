@@ -9,6 +9,7 @@ description: >
 
 comments:
     r_rust: "https://www.reddit.com/r/rust/comments/4dgvvh/memory_leaks_are_memory_safe_huon_on_the_internet/"
+    users: "https://users.rust-lang.org/t/memory-leaks-are-memory-safe/5288?u=huon"
 --    r_programming: ""
 --    hn: ""
 ---
