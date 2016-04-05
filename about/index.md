@@ -10,7 +10,7 @@ google_meta: true
 
 ![](/img/me-larger.jpg)
 
-I'm Huon Wilson, currently a [job-seeking](/job) computational
+I'm Huon Wilson, currently a computational
 statistics post-graduate student, previously a computational algebra
 honours student. I write code a lot and write text occasionally. I do
 a lot of volunteering on
