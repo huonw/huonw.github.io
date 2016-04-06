@@ -5,7 +5,7 @@ layout: default
 description: >
     Memory unsafety and memory leaks are distinct concepts, despite
     their names. Languages that are merely memory safe (both Rust and
-    GC-reliant mangaed ones) have no guarantee of preventing memory leaks.
+    GC-reliant managed ones) have no guarantee of preventing memory leaks.
 
 comments:
     r_rust: "https://www.reddit.com/r/rust/comments/4dgvvh/memory_leaks_are_memory_safe_huon_on_the_internet/"
