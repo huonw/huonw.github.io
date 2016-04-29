@@ -141,10 +141,12 @@ useful in C because such integers are often used as the induction
 variables on loops, and hence the ability to make assumptions allows
 more precise analysis of loop trip counts: `for (int i = 0; i < n;
 i++)` will repeat `n` times, as `n` can be assumed to not be
-negative. Rust sidesteps much of this by providing custom iterators,
-which, for instance, can be used to loop directly over an array `for x in some_array { ... }`,
-and these iterators can have and exploit guarantees internally without
-having to expose undefined behaviour to the user.
+negative. Rust sidesteps much of this by using unsigned integers for
+indexing (`0..n` will always be `n` steps), and also by allowing easy
+custom iterators, which can be used to loop directly over data
+structures like `for x in some_array { ... }`. These iterators can
+exploit guarantees about the data structures internally without having
+to expose undefined behaviour to the user.
 
 Another thing Rust misses compared to C is optimising `x * 2 / 2` to
 just `x`, when `x` is signed. In this case, there's no built-in
