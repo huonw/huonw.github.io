@@ -249,7 +249,11 @@ something that was not done initially because Rust tries to be
 conservative and reasonably minimal, as well as hypothetically having
 scoped disabling of overflow checking (e.g. a single function could be
 explicitly marked, and its internals would thus be unchecked in all
-modes).
+modes). There's interest in the latter particularly, from some of
+Rust's keenest (potential) users [Servo][servoo] and [Gecko][oxi].
+
+[servoo]: https://github.com/rust-lang/cargo/issues/2262
+[oxi]: https://wiki.mozilla.org/Oxidation#Rust_.2F_Cargo_nice-to-haves
 
 For code that wants overflow checking everywhere, one can either use
 `checked_add` pervasively (annoying!), or explicitly enable
