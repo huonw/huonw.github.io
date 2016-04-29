@@ -232,6 +232,8 @@ languages, memory safe and otherwise).
 [forget]: https://doc.rust-lang.org/std/mem/fn.forget.html
 [safe]: https://github.com/rust-lang/rfcs/blob/master/text/1066-safe-mem-forget.md
 
+### Not all is lost!
+
 Like modern C++, the efforts Rust makes are pretty good, with
 RAII/scope-based resource management (specifically destructors) being
 a powerful tool for managing memory and [beyond][locks] (and
