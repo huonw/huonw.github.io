@@ -1,32 +1,36 @@
 ---
 layout: default
 title: Myths and Legends about Integer Overflow in Rust
-draft: true
 
 description: >
     Integer overflow detection/handling in Rust is sometimes misunderstood.
 
 comments:
-    r_rust: ""
-    r_programming: ""
-    hn: ""
+    users: ""
+#    r_rust: ""
+#    r_programming: ""
+#    hn: ""
 ---
 
 The primitive integer types supported by CPUs are finite
-approximations to the infinite set of integers we're all used to. What
-happens when an operation gives a result that doesn't match the
-expected one from real integers, like `255_u8 + 1 == 0`? Often, this
+approximations to the infinite set of integers we're all used to. This
+approximation breaks down and some computations will give results that
+don't match real integers, like `255_u8 + 1 == 0`. Often, this
 mismatch is something the programmer didn't think about, and thus can
-easily result in bugs. Rust is a programming language designed to
-protect against such things, it does focus on outlawing the most
-insidious class of bugs---memory unsafety---but it also likes to
-assist the programmer in avoiding others: [memory leaks][ml],
-[ignoring errors][mu], and, in this case, [integer overflow][io].
+easily result in bugs.
+
+Rust is a programming language designed to protect against bugs; it
+does focus on outlawing the most insidious class of them---memory
+unsafety---but it also likes to assist the programmer in avoiding
+others: [memory leaks][ml], [ignoring errors][mu], and, in this case,
+[integer overflow][io].
 
 [qr]: https://en.wikipedia.org/wiki/Quotient_ring
 [mu]: https://doc.rust-lang.org/std/result/#results-must-be-used
 [ml]: {% post_url 2016-04-04-memory-leaks-are-memory-safe %}#not-all-is-lost
 [io]: https://en.wikipedia.org/wiki/Integer_overflow
+
+## Overflow in Rust
 
 The status of detecting and avoiding overflow in Rust changed several
 times in the lead up to the 1.0.0 release last year. That fluid
@@ -55,11 +59,25 @@ defensive about integer overflows.
 [boeing]: http://www.nytimes.com/2015/05/01/business/faa-orders-fix-for-possible-power-loss-in-boeing-787.html?_r=0
 
 The current status in Rust was decided in [RFC 560][rfc560]:
-arithmetic (`+`, `-`, etc.) on signed and unsigned primitive integers
-is checked for overflow in debug mode but left unchecked and specified
-to wrap as two's complement in release mode, by default. Overflow
-checks can be manually disabled or enabled independently of the
-compilation mode both globally and at a per-operation level.
+
+- in debug mode, arithmetic (`+`, `-`, etc.) on signed and unsigned primitive integers
+is **checked for overflow**, panicking if it occurs, and,
+- in release mode, overflow is not checked and is **specified to wrap
+  as two's complement**.
+
+These[^unconditional] overflow checks can be manually disabled or
+enabled independently of the compilation mode both globally and at a
+per-operation level.
+
+[^unconditional]: There are some unconditional and uncontrollable
+    overflow checks for arithmetic: `x / 0`, and [`MIN / -1`][mindiv] (for
+    signed integer types), and similarly for `%`. These computations
+    are actually undefined behaviour in C and LLVM (which is the
+    historical reason for why rustc has them unconditional), although,
+    it seems to me that Rust could theoretically consider the
+    latter a normal overflow and return `MIN` when the checks are off.
+
+[mindiv]: http://blog.regehr.org/archives/887
 
 By checking for overflow in some modes, overflow bugs in Rust code are
 hopefully found earlier. Furthermore, code that actually wants
@@ -138,9 +156,9 @@ and hence the whole expression can be constant-folded.
 ## Myth: overflow is unspecified
 
 Similar to leaving the result of overflow undefined, it could be left
-just unspecified, meaning the compiler can't assume it will never
-happen, but is allowed to make the operation return any particular
-result (or not return at all). Indeed, [the first version][first] of
+just unspecified, meaning the compiler must assume it could happen,
+but is allowed to make the operation return any particular result (or
+not return at all). Indeed, [the first version][first] of
 [RFC 560][rfc560] for checking integer overflow, proposed:
 
 > Change this to define them, on overflow, as either returning an
@@ -196,10 +214,10 @@ by default.
 The RFC and the standard library provide *four*
 sets of methods beyond the pure operators:
 
-- [`wrapping_add`][wa], `wrapping_sub`, ...
-- [`saturating_add`][sa], `saturating_sub`, ...
-- [`overflowing_add`][oa], `overflowing_sub`, ..
-- [`checked_add`][ca], `checked_sub`, ...
+- [`wrapping_add`][wa], [`wrapping_sub`][ws], ...
+- [`saturating_add`][sa], [`saturating_sub`][ss], ...
+- [`overflowing_add`][oa], [`overflowing_sub`][os], ..
+- [`checked_add`][ca], [`checked_sub`][cs], ...
 
 These should cover all bases of "don't want overflow to panic in some
 modes":
@@ -219,7 +237,7 @@ right thing in the most common cases.
 
 Code that truly wants two's complement wrapping can be written like
 `x.wrapping_sub(y).wrapping_add(z)`. This works, but clearly can get a
-little verbose, verbosity that can be reduce in some cases via the
+little verbose, verbosity that can be reduced in some cases via the
 standard library's [`Wrapping`][w] wrapper type.
 
 The current state isn't necessarily the final state of overflow
@@ -232,18 +250,22 @@ explicitly marked, and its internals would thus be unchecked in all
 modes).
 
 For code that wants overflow checking everywhere, one can either use
-`checked_add` pervasively (annoying!), or explicitly enable them. As
-tied to debug assertions by default, overflow checks can be turned on
-by passing `-C debug-assertions=on` to rustc, or setting the
-`debug-assertions` field of a [cargo profile][profile]. There's also
-work on having them able to be activated independently of other debug
-assertions (rustc currently has the unstable `-Z
-force-overflow-checks` flag).
+`checked_add` pervasively (annoying!), or explicitly enable
+them. Although they are tied to debug assertions by default, overflow
+checks can be turned on by passing `-C debug-assertions=on` to rustc,
+or setting the `debug-assertions` field of a
+[cargo profile][profile]. There's also work on having them able to be
+activated independently of other debug assertions (rustc currently has
+the unstable `-Z force-overflow-checks` flag).
 
 [wa]: http://doc.rust-lang.org/std/primitive.i32.html#method.wrapping_add
 [sa]: http://doc.rust-lang.org/std/primitive.i32.html#method.saturating_add
 [oa]: http://doc.rust-lang.org/std/primitive.i32.html#method.overflowing_add
 [ca]: http://doc.rust-lang.org/std/primitive.i32.html#method.checked_add
+[ws]: http://doc.rust-lang.org/std/primitive.i32.html#method.wrapping_sub
+[ss]: http://doc.rust-lang.org/std/primitive.i32.html#method.saturating_sub
+[os]: http://doc.rust-lang.org/std/primitive.i32.html#method.overflowing_sub
+[cs]: http://doc.rust-lang.org/std/primitive.i32.html#method.checked_sub
 [w]: http://doc.rust-lang.org/std/num/struct.Wrapping.html
 [fd]: https://github.com/rust-lang/rfcs/blob/master/text/0560-integer-overflow.md#alternatives-and-possible-future-directions
 [profile]: http://doc.crates.io/manifest.html#the-profile-sections
@@ -254,7 +276,7 @@ Rust aims to be as fast as possible, and the design of the current
 overflow checking approach took various performance considerations
 seriously. Performance is one of the main motivations for checks being
 disabled in release builds by default, and indeed means that there's
-no speed penalty to in the way in which Rust helps mitigate/flag
+no speed penalty to the way in which Rust helps mitigate/flag
 integer overflow bugs during development.
 
 It's an unfortunate reality that checking for overflow requires more
@@ -282,7 +304,9 @@ editing for clarity):
 [llvmbug]: https://llvm.org/bugs/show_bug.cgi?id=27571
 
 {% highlight asm linenos %}
-unchecked: leal (%rdi,%rsi), %eax retq
+unchecked:
+	leal (%rdi,%rsi), %eax
+	retq
 
 checked:
 	pushq	%rax
@@ -298,11 +322,12 @@ checked:
 
 It is definitely annoying that there are all[^extra] those extra
 instructions, as is the fact that implementations are forced to use
-`add` rather than `lea`[^lea]. However, an even bigger performance hit is
-how overflow checks inhibit other optimisations, both because the
-checks themselves serialise code (inhibiting things like loop
-unrolling/reordering and vectorisation) and because the panic/stack
-unwinding forces the compiler to [be more conservative][conservative].
+`add` rather than having the option to use `lea`[^lea]. However, an
+even bigger performance hit is how overflow checks inhibit other
+optimisations, both because the checks themselves serialise code
+(inhibiting things like loop unrolling/reordering and vectorisation)
+and because the panic/stack unwinding forces the compiler to
+[be more conservative][conservative].
 
 [^extra]: There's more instructions in the function version than there
           would be when `checked` is inlined (as it should be): the
@@ -339,11 +364,11 @@ possible is desirable.
 That said, even when the checks are enabled in release mode, the
 performance hit can be reduced like with bounds checked arrays.  For
 one, compilers can do range analysis/inductive proofs to deduce that
-certain overflow checks are sure to never fail, indeed, significant
-effort has been devoted to the topic [1]. Additionally, the
-significant pain caused by using panics can be reduced by application
-authors [converting panics into aborts][p->a], if it's appropriate for
-their domain.
+certain overflow checks are sure to never fail; indeed,
+[significant][1] [effort][swiftroc] has been [devoted][llvmo] to [the topic][gcco]. Additionally,
+the significant pain caused by using panics can be reduced by
+application authors [converting panics into aborts][p->a], if it's
+appropriate for their domain.
 
 The integer overflow RFC gives itself some room for optimisation too:
 it [allows "delayed panics"][delayed], meaning a Rust implementation
@@ -358,6 +383,9 @@ does this yet, but they could.
 [conservative]: http://danluu.com/integer-overflow/
 [p->a]: https://github.com/rust-lang/rfcs/blob/master/text/1513-less-unwinding.md
 [1]: http://blog.regehr.org/archives/1384
+[swiftroc]: https://github.com/apple/swift/blob/16b3d6c8d5b2d610cdfd72898f6ab384e632b69b/lib/SILOptimizer/Transforms/RedundantOverflowCheckRemoval.cpp
+[llvmo]: https://github.com/llvm-mirror/llvm/blob/8b47c17a53d683f313eaaa93c4a53de26d8fcba5/lib/Transforms/InstCombine/InstCombineAddSub.cpp#L893-L987
+[gcco]: https://github.com/gcc-mirror/gcc/blob/fd3211e13bbbb6882f477aa75a36eb0ccdec485f/gcc/tree-vrp.c#L9792-L9884
 
 ## Myth: the checks find no bugs
 
@@ -389,17 +417,24 @@ The overflow checks have found bugs through out the ecosystem; for instance, (no
 [servo1]: https://github.com/servo/servo/issues/6040
 
 
-Beyond Rust, there's a lot of evidence for the dangers of overflow and
-desire for detecting/protecting against them. They were on the
+Beyond Rust, there's a lot of evidence for the dangers of integer overflow and
+desire for detecting/protecting against them. It was on the
 [CWE/SANS list of top 25 errors in 2011][list], languages like Swift
 will unconditionally check for overflow, and others like Python 3 and
-Haskell will avoid overflow by default entirely, with arbitrary
-precision integers. Furthermore, in C, there are compiler options to
-both make signed overflow defined as two's complement wrapping
-(`-fwrapv`), and to catch it when it does happen
+Haskell will avoid overflow entirely by default, via arbitrary
+precision integers. Furthermore, in C, several compilers have options
+to both make signed overflow defined as two's complement wrapping
+(`-fwrapv`) and to catch it when it does happen
 (`-fsanitize=signed-integer-overflow`).
 
 [list]: http://cwe.mitre.org/top25/
 
+*Thanks to [Nicole Mazzuca][ubsan], [James Miller][aatch], and
+  [Scott Olson][scott] for reading and giving feedback on a draft of
+  this post.*
+
+[aatch]: https://github.com/Aatch
+[scott]: https://github.com/tsion
+[ubsan]: https://github.com/ubsan
 
 {% include comments.html c=page.comments %}
