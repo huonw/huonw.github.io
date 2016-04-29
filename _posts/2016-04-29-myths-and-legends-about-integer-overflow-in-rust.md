@@ -431,8 +431,8 @@ to both make signed overflow defined as two's complement wrapping
 
 [list]: http://cwe.mitre.org/top25/
 
-*Thanks to [Nicole Mazzuca][ubsan], [James Miller][aatch], and
-  [Scott Olson][scott] for reading and giving feedback on a draft of
+*Thanks to [Nicole Mazzuca][ubsan], [James Miller][aatch],
+  [Scott Olson][scott], and 👻👻👻 for reading and giving feedback on
   this post.*
 
 [aatch]: https://github.com/Aatch
