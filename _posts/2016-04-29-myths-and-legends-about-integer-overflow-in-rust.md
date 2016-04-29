@@ -6,7 +6,7 @@ description: >
     Integer overflow detection/handling in Rust is sometimes misunderstood.
 
 comments:
-    users: ""
+    users: "https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612"
 #    r_rust: ""
 #    r_programming: ""
 #    hn: ""
