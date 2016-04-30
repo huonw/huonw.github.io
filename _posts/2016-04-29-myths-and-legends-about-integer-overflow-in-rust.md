@@ -7,9 +7,9 @@ description: >
 
 comments:
     users: "https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612"
-#    r_rust: ""
-#    r_programming: ""
-#    hn: ""
+    r_rust: "https://www.reddit.com/r/rust/comments/4gz93u/myths_and_legends_about_integer_overflow_in_rust/"
+#    r_programming: "https://www.reddit.com/r/programming/comments/4gz996/myths_and_legends_about_integer_overflow_in_rust/"
+#    hn: "https://news.ycombinator.com/item?id=11595398"
 ---
 
 The primitive integer types supported by CPUs are finite
