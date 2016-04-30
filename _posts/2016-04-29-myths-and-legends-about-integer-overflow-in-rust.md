@@ -244,7 +244,7 @@ standard library's [`Wrapping`][w] wrapper type.
 
 The current state isn't necessarily the final state of overflow
 checking: the RFC even mentioned some [future directions][fd]. Rust
-could introduce operators like Swift's wrapping `+%` in future,
+could introduce operators like Swift's wrapping `&+` in future,
 something that was not done initially because Rust tries to be
 conservative and reasonably minimal, as well as hypothetically having
 scoped disabling of overflow checking (e.g. a single function could be
