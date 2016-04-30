@@ -339,10 +339,16 @@ and because the panic/stack unwinding forces the compiler to
           would be when `checked` is inlined (as it should be): the
           `pushq`/`pop`/`movl` register management wouldn't be
           necessary. Also, even without inlining I believe the
-          `pushq`/`popq` stack management isn't necessary, the
-          published Rust binaries don't use a new enough version of
-          LLVM to get its new
-          ["shrink wrapping" optimisation pass][shrink].
+          `pushq`/`popq` stack management isn't necessary, but
+          unfortunately the published Rust binaries <s>don't use a new
+          enough version of LLVM to get its new <a
+          href="http://reviews.llvm.org/D9210">"shrink wrapping"
+          optimisation pass</a></s> use a version of LLVM that
+          contains [a bug in its "shrink-wrapping" pass][shrinkwrap]
+          (thanks for [the correction][eli], Eli Friedman).
+
+[shrinkwrap]: https://llvm.org/bugs/show_bug.cgi?id=25614
+[eli]: https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612/2?u=huon
 
 [^lea]: On x86, it can be extremely useful to be able to use `lea`
     (load effective address) for arithmetic: it can do relatively
@@ -360,8 +366,6 @@ and because the panic/stack unwinding forces the compiler to
     use `lea` for arithmetic is quite nice. The downside is of course
     `lea` doesn't integrate directly with overflow detection: it
     doesn't set the CPU flags that signal it.
-
-[shrink]: http://reviews.llvm.org/D9210
 
 All these considerations explain why overflow checks are not enabled
 in release mode, where usually getting the highest performance
