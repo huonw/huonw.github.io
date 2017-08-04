@@ -4,8 +4,7 @@ title: On the market
 no_toc: true
 ---
 
-I'm coming to the end of my computational statistics Masters degree
-and looking for work in software development or related fields. Please
+I'm looking work in software development or related fields. Please
 [get in touch](mailto:dbau.pp@gmail.com) if you think my expertise and
 experience might suit you:
 
