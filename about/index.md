@@ -1,12 +1,10 @@
 ---
 layout: default
-title:
+title: About me
 no_top_link: true
 no_toc: true
 google_meta: true
 ---
-
-## About me
 
 ![](/img/me-larger.jpg)
 
