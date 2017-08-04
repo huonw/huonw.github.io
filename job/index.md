@@ -17,6 +17,7 @@ experience might suit you:
 - I'm a mathematician/statistician by training, giving me strong
   abstract reasoning skills, and making me comfortable reading and
   [writing](/honours-thesis.pdf) in that style.
+- [LinkedIn](https://www.linkedin.com/in/huon-wilson/).
 
 I have been involved with [Rust](https://rust-lang.org) at a deep
 level for several years, but I'm not a one trick pony: I'm
