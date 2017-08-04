@@ -9,7 +9,7 @@ google_meta: true
 
 {% include byline.html %}
 
-This is my blog. See [all my posts](/blog), or
+See [all my posts](/blog), or
 [selected posts grouped by topic](/writing).
 
 ## Recent posts
