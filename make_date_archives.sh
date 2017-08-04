@@ -1,5 +1,5 @@
 #!/bin/bash
-for year in 2015; do
+for year in 2017 2018; do
     echo $year
     mkdir -p blog/$year
     cat > blog/$year/index.md <<EOF
