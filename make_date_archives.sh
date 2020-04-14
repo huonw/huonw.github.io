@@ -12,7 +12,7 @@ no_toc: true
 
 {% include archive.html year=$year %}
 EOF
-    for month in {01..12}; do
+    for month in $(seq -f "%02g" 1 12); do
         mkdir -p blog/$year/$month
         echo " $month"
         cat > blog/$year/$month/index.md <<EOF
