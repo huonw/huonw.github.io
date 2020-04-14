@@ -1,4 +1,4 @@
-<figure>
+<figure class="{% if include.caption %}has-caption{% endif %}">
   <div class="image-positioner">
     <a href="{% if include.link %}{{ include.link }}{% else %}{{ include.src }}{% endif %}">
       <img class="inline-image" src="{{ include.src }}"

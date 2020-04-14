@@ -155,7 +155,6 @@ em {
   font-size: 0.97em;
 }
 strong {
-  font-size: 0.9em;
   font-weight: 600;
 }
 
@@ -465,15 +464,20 @@ img[data-caption]:before {
 figure {
     clear: both;
 }
+figure.has-caption {
+    margin-top: 1em;
+    border: solid #eee;
+    border-width: 2px 0;
+    padding: 5px;
+}
 figcaption {
   margin: 0 {{ page.text_margin }};
   padding: 0 {{ page.text_margin }};
-  border-bottom: 1px solid #eee;
   text-align: center;
+  font-style: italic;
 }
 figcaption p {
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0;
 }
 
 /* HEADINGS */
