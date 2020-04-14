@@ -531,17 +531,18 @@ figcaption p {
 
 /* Comment box */
 
+#external-links {
+    margin: 2em 0em;
+}
 #comments, #external-page {
   text-align: center;
   margin: 0;
 }
 #comments {
-  margin-top: 2em;
   margin-bottom: 0.5em;
 }
 #external-page {
   margin-top: 0.5em;
-  margin-bottom: 2em;
 }
 
 #comments-label {
