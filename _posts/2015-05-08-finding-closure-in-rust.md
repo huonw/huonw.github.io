@@ -741,9 +741,9 @@ and their benefits "on demand", via [trait objects][pito]: returning
 the `Box<Fn(i32) -> i32>` above used a trait object.
 
 {% highlight rust linenos %}
-let mut closures: Vec<Box<Fn()>> = vec![];
-
 let text = "second";
+
+let mut closures: Vec<Box<Fn()>> = vec![];
 
 closures.push(Box::new(|| println!("first")));
 closures.push(Box::new(|| println!("{}", text)));
