@@ -5,3 +5,4 @@ _site
 *.zip
 vendor
 .bundle
+.jekyll-metadata
