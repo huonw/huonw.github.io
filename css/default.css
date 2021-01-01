@@ -306,6 +306,9 @@ th {
     -ms-hyphens: auto;
     hyphens: auto;
     margin-bottom:20px;
+
+    position: relative;
+    z-index: 10;
 }
 
 a[href] {
@@ -432,11 +435,20 @@ pre code {
 /* quotes */
 
 blockquote {
-    border: solid lightgrey;
+    border: solid #eee;
     border-width: 0 1px;
     padding: 0.1em 1.2em;
-    color: rgb(30,30,30);
-    font-size: 0.95em;
+    color: #444;
+    position: relative;
+}
+blockquote::before {
+    color: #eee;
+    content: "“";
+    top: -25px;
+    left: 0;
+    position: absolute;
+    font-size: 10em;
+    z-index: -1;
 }
 
 blockquote p {
