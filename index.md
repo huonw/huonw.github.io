@@ -10,7 +10,7 @@ no_breadcrumbs: true
 
 {% include byline.html no_image=true %}
 
-See [all my posts](/blog), or
+See [all my writing](/blog), or
 [selected posts grouped by topic](/writing).
 
 ## Recent posts
