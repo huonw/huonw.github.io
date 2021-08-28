@@ -478,8 +478,6 @@ figure {
 }
 figure.has-caption {
     margin-top: 1em;
-    border: solid #eee;
-    border-width: 2px 0;
     padding: 5px;
 }
 figcaption {
