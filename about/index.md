@@ -6,17 +6,15 @@ no_toc: true
 google_meta: true
 ---
 
-![](/img/me-larger.jpg)
-
-I'm Huon Wilson, a software engineer at [CSIRO's Data61][d61] working
-on the [StellarGraph graph machine learning
-library][stellar].  I'm
+I'm Huon Wilson.  I'm
 [interested to hear from you](/job). I have degrees in computational
 statistics and also pure mathematics. I write code a lot and write
 text occasionally. I [have done a lot of volunteering][rust-prs] on
 [the Rust programming language](http://rust-lang.org/), and was on
 Rust's core team. I also [worked on the Swift programming
-language][swift-prs] as a compiler engineer at Apple.
+language][swift-prs] as a compiler engineer at Apple, and at [CSIRO's Data61][d61] working
+on the [StellarGraph graph machine learning
+library][stellar]
 
 [d61]: https://www.data61.csiro.au/
 [stellar]: https://github.com/stellargraph/stellargraph
