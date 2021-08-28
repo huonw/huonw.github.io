@@ -7,7 +7,6 @@ header_image:
   url: "/img/jump.jpg"
   height: 166px
 
-body_padding: 15px
 text_margin: 30px
 
 width: 800px
@@ -108,7 +107,6 @@ body {
     counter-reset: footnotes;
     margin:0px;
     font-family: "Source Serif Pro","serif";
-    padding: {{page.body_padding}} 0;
 
     -moz-font-feature-settings: "kern", "liga";
     -webkit-font-feature-settings: "kern", "liga";
@@ -220,62 +218,35 @@ th {
 
 #header {
   position: relative;
-  border: 1px solid black;
-  height: {{ page.header_image.height }};
-  background-image: url({{ page.header_image.url }});
-  background-position: 80% 25%;
   font-family: "Fira Sans", "sans-serif";
-  color: white;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
-#head-link {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-#info-box, #breadcrumbs {
-  position: absolute;
-  background: #333;
-  background: rgba(0, 0, 0, 0.5);
-}
-#info-box {
-  max-width: 250px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 3px 8px;
+#header a:not(:hover) {
+  text-decoration: none;
 }
 #blog-title {
-  font-size: 1.2em;
+  font-size: 1.5em;
+  font-weight: 400;
   background: none;
-  padding: 0;
-  margin: 0;
-}
-#blog-title a {
-  text-decoration: none;
+  text-align: center;
 }
 #info-list {
   list-style: none;
-  margin: 0.2em 1em;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 #info-list li {
-  margin: 0;
+  margin: 0 1em;
 }
 
 #breadcrumbs {
-  bottom: 5px;
-  right: 5px;
-  padding: 7px;
-  font-family: "Source Code Pro", monospace;
-  font-size: 15px;
-  min-width: 180px;
-  max-width: 100%;
+  flex-grow: 1;
 }
 
-.headfoot {
-    color: white;
-    font-size: 1em;
-}
 #footer {
   /*border-top: 1px solid black;
     background: rgb(60,60,60);*/
@@ -780,19 +751,8 @@ and (max-width: {{page.thresholds.wide}})  {
     }
 
     #toc {
-         float: none;
-         max-width: none;
-         width: auto;
-         border-width: 0 0 1px 0;
-    }
-    #toc h2 {
-         border: 0px;
-    }
-    #toc-list {
-         margin: 0 auto;
-         max-width: {{ page.toc.width | times: 2}}px;
-
-         border-width: 0;
+        /* we definitely want to show this never */
+        display: none !important;
     }
 
     {{p_like}} {
