@@ -7,8 +7,6 @@ no_toc: true
 google_meta: true
 ---
 
-{% include byline.html %}
-
 See [all my posts](/blog), or
 [selected posts grouped by topic](/writing).
 

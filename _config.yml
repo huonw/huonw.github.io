@@ -8,11 +8,13 @@ kramdown:
 
 highlighter: rouge
 
+domain: my-site.github.io
+url: https://huonw.github.io
+
 permalink: /blog/:year/:month/:title/
 
 twitter: huon_w
 exclude: ["vendor"]
-root: http://huonw.github.io
 blog_description: "Huon Wilson's writings"
 
 defaults:
