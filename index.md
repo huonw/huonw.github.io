@@ -8,6 +8,8 @@ google_meta: true
 no_breadcrumbs: true
 ---
 
+{% include byline.html no_image=true %}
+
 See [all my posts](/blog), or
 [selected posts grouped by topic](/writing).
 
