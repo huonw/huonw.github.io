@@ -50,55 +50,6 @@ paragraph_like: [p, ul, ol, blockquote, dl]
 {% include_relative normalize.css %}
 {% include_relative syntax.css %}
 
-@font-face {
-    font-family: 'Fira Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Fira Sans'), url("fonts/FiraSans-Regular.woff") format('woff');
-}
-@font-face {
-    font-family: 'Fira Sans';
-    font-style: normal;
-    font-weight: 500;
-    src: local('Fira Sans Medium'), url("fonts/FiraSans-Medium.woff") format('woff');
-}
-@font-face {
-    font-family: 'Source Serif Pro';
-    font-style: normal;
-    font-weight: 400;
-    src: url("fonts/SourceSerifPro-Regular.woff2") format('woff2');
-}
-@font-face {
-    font-family: 'Source Serif Pro';
-    font-style: italic;
-    font-weight: 400;
-    src: url("fonts/Heuristica-Italic.woff") format('woff');
-}
-@font-face {
-    font-family: 'Source Serif Pro';
-    font-style: normal;
-    font-weight: 700;
-    src: url("fonts/SourceSerifPro-Bold.woff2") format('woff2');
-}
-@font-face {
-    font-family: 'Source Serif Pro';
-    font-style: italic;
-    font-weight: 700;
-    src: url("fonts/SourceSerifPro-BoldItalic.woff2") format('woff2');
-}
-@font-face {
-    font-family: 'Source Code Pro';
-    font-style: normal;
-    font-weight: 400;
-    src: url("fonts/SourceCodePro-Regular.woff2") format('woff2');
-}
-@font-face {
-    font-family: 'Source Code Pro';
-    font-style: normal;
-    font-weight: 600;
-    src: url("fonts/SourceCodePro-Semibold.woff2") format('woff2');
-}
-
 html {
     background-color: {{page.page_colour}};
     min-height:100%;
@@ -107,11 +58,12 @@ html {
 body {
     counter-reset: footnotes;
     margin:0px;
-    font-family: "Source Serif Pro","serif";
+    font-family: "Georgia", serif;
 
-    -moz-font-feature-settings: "kern", "liga";
-    -webkit-font-feature-settings: "kern", "liga";
-    font-feature-settings: "kern", "liga";
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
 }
 
 #wrapper {
@@ -219,7 +171,7 @@ th {
 
 #header {
   position: relative;
-  font-family: "Fira Sans", "sans-serif";
+  font-family: "Gill Sans", sans-serif;
   margin-top: 10px;
   margin-bottom: 30px;
 }
@@ -323,7 +275,7 @@ span.post-date + p, .join + p, ul + p, ol + p {
 /* code */
 
 code, pre {
-  font-family: "Source Code Pro", "monospace";
+  font-family: monospace;
 }
 
 pre {
@@ -372,7 +324,7 @@ pre code {
    margin: 0;
 }
 [data-lang]::before {
-  font-family: "Fira Sans", "sans-serif";
+  font-family: "Gill Sans", sans-serif;
   content: attr(data-lang);
   text-transform: capitalize;
   top: 0;
@@ -470,14 +422,15 @@ figcaption p {
 
 /* HEADINGS */
 {{ page.small_caps_headings | join: ',' }} {
-    -moz-font-feature-settings: "kern", "liga", "smcp";
-    -webkit-font-feature-settings: "kern", "liga", "smcp";
-    font-feature-settings: "kern", "liga", "smcp";
+    font-variant: small-caps common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
 }
 
 {{ page.headings | join:',' }} {
     margin-bottom: 0px;
-    font-family: "Fira Sans", "sans-serif";
+    font-family: "Gill Sans", sans-serif;
 }
 
 @media not print {
@@ -657,7 +610,7 @@ figcaption p {
 .latest-post > h3 {
   padding: 0;
   margin: 0;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 /* post series */
@@ -807,7 +760,7 @@ and (max-width: {{page.thresholds.wide}})  {
 
 @media only print {
     body {
-        font-family: "Source Serif Pro", serif;
+        font-family: serif;
     }
     a {
       text-decoration: none !important;
