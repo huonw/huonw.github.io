@@ -47,7 +47,8 @@ paragraph_like: [p, ul, ol, blockquote, dl]
 {% capture p_p %}{% for p in page.paragraph_like %}{% for p_ in page.paragraph_like %}{{ p }} {{ p_ }}, {% endfor %}{% endfor %} #nothing-ignorethisselector{% endcapture %}
 {% capture p_like %}{{ page.paragraph_like | join:',' }}{% endcapture %}
 
-@import "syntax.css";
+{% include_relative normalize.css %}
+{% include_relative syntax.css %}
 
 @font-face {
     font-family: 'Fira Sans';
