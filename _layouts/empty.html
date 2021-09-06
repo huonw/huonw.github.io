@@ -9,12 +9,6 @@
   {% capture canonical_url %}{{ site.url }}{{ page.url | replace:'index.html','/' }}{% unless page.url contains '.html' %}/{% endunless %}{% endcapture %}
   <link rel="canonical" href="{{ canonical_url }}">
 
-  {% if page.use_default or layout.use_default %}
-    <link rel="stylesheet" href="/css/default.css" type="text/css" />
-  {% else %}
-    <link rel="stylesheet" href="/css/normalize.css" type="text/css" />
-  {% endif %}
-  {% for item in page.css %}<link rel="stylesheet" href="{{ item }}" type="text/css" />{% endfor %}
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   {% if page.google_meta or layout.google_meta %}<meta name="google-site-verification" content="ivImaTl-O1-gAOJqURoF3wVWIR8uTtIM7i2hcjDJbNo" />{% endif %}
   {% if page.no_toc or layout.no_toc %}<script type="text/javascript">window.no_toc=true;</script>{% endif %}
@@ -34,6 +28,14 @@
   <meta property="og:type" content="article" />
   {% endif %}
   {% endif %}
+  <style>
+    {% include normalize.css %}
+
+    {% if page.use_default or layout.use_default %}
+      {% include default.css %}
+    {% endif %}
+  </style>
+  {% for item in page.css %}<link rel="stylesheet" href="{{ item }}" type="text/css" />{% endfor %}
 </head>
 
 <body>

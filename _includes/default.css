@@ -1,5 +1,4 @@
-{% include_relative normalize.css %}
-{% include_relative syntax.css %}
+{% include syntax.css %}
 
 html {
     min-height:100%;
