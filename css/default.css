@@ -649,6 +649,56 @@ figcaption p {
   font-style: italic;
 }
 
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  margin: 0;
+}
+
+.post-post {
+  padding: 1em;
+  margin: 0;
+}
+
+.post-post:not(:first-child) {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+}
+
+.post-title {
+  font-weight: bold;
+  font-size: 22px;
+  background: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+
+  -moz-font-feature-settings: "kern", "liga", "smcp";
+  -webkit-font-feature-settings: "kern", "liga", "smcp";
+  font-feature-settings: "kern", "liga", "smcp";
+}
+h2.post-title a { color: black; }
+
+.post-date {
+  float: right;
+  font-style: italic;
+  padding: 0.2em 1em;
+}
+
+.post-more {
+  float: right;
+  font-style: italic;
+  font-size: small;
+}
+
+
+.post-excerpt {
+  margin: 0em 1em;
+}
+
+.post-list .footnote, .post-list .footnotes {
+  display: none
+}
 
 /* media queries */
 

@@ -1,7 +1,6 @@
 ---
 layout: default
 title: 2017–02
-css: ["/css/archive.css"]
 no_toc: true
 ---
 

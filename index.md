@@ -1,6 +1,5 @@
 ---
 layout: default
-css: ["/css/archive.css"]
 title:
 no_top_link: true
 no_toc: true
