@@ -1,21 +1,5 @@
 ---
-page_colour: white #  rgb(230,230,230)
-content_colour: white
-link_colour: inherit
-
-header_image:
-  url: "/img/jump.jpg"
-  height: 166px
-
 text_margin: 30px
-
-width: 800px
-wide_width: 1000px
-
-normal_font: 17px
-small_font: 16px
-
-thresholds: {mobile: 640px, verythin: 500px, thin: 820px, wide: 140000px}
 
 toc: {width: 300px, heading: {bg_colour: white, colour: black}, margin: 5px 10px}
 
@@ -51,7 +35,6 @@ paragraph_like: [p, ul, ol, blockquote, dl]
 {% include_relative syntax.css %}
 
 html {
-    background-color: {{page.page_colour}};
     min-height:100%;
 }
 
@@ -68,8 +51,7 @@ body {
 
 #wrapper {
     margin: 0 auto;
-    background: {{page.content_colour}};
-    max-width: {{page.width}};
+    max-width: 800px;
     width: 100%;
     position:relative;
 }
@@ -105,7 +87,7 @@ body {
 }
 
 {{p_like}} {
-  font-size: {{ page.normal_font }};
+  font-size: 17px;
     margin: 8px {{page.text_margin}};
 }
 em {
@@ -242,7 +224,7 @@ th {
 }
 
 a[href] {
-    color: {{ page.link_colour }};
+    color: inherit;
     text-decoration: underline;
 }
 
@@ -702,13 +684,6 @@ h2.post-title a { color: black; }
 
 /* media queries */
 
-@media (min-width: {{page.thresholds.thin }})
-and (max-width: {{page.thresholds.wide}})  {
-    #screen-ind:before{
-        content: "normal";
-    }
-}
-
 @media (max-width: {{page.footnotes.width | plus:20 }}px) {
     .footnotes {
         margin-left: 10px;
@@ -717,17 +692,13 @@ and (max-width: {{page.thresholds.wide}})  {
 }
 
 
-@media (max-width: {{ page.thresholds.thin }}) {
+@media (max-width: 820px) {
     body {
         padding:0px;
     }
 
-    #screen-ind:before {
-        content: "thin";
-    }
-
     {{p_like}}, table {
-      font-size: {{ page.small_font }};
+      font-size: 16px;
     }
     {{p_like}} {
          margin-left: {{page.text_margin | divided_by:3}}px;
@@ -749,11 +720,7 @@ and (max-width: {{page.thresholds.wide}})  {
     {% endfor %}
 }
 
-@media (max-width: {{ page.thresholds.verythin }}) {
-     #screen-ind:before {
-        content: "very thin";
-    }
-
+@media (max-width: 500px) {
     #toc {
         /* we definitely want to show this never */
         display: none !important;
@@ -779,32 +746,9 @@ and (max-width: {{page.thresholds.wide}})  {
     {% endfor %}
 }
 
-@media screen and (max-width:{{page.thresholds.mobile}}) {
-    #screen-ind:before {
-        content: "mobile";
-    }
-}
-
-@media (min-width: {{ page.thresholds.wide }}) {
-    #screen-ind:before {
-        content: "wide";
-    }
-
+@media (min-width: 140000px) {
     #wrapper {
-        max-width: {{ page.wide_width }};
-    }
-
-    /*ul,ol {
-        column-gap: 0;
-        columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
-        -moz-column-gap: 0px;
-        -moz-columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
-        -webkit-column-gap: 0px;
-        -webkit-columns: 2 {{ page.wide_width | minus:page.text_margin | minus:page.text_margin | minus:page.text_margin | times:0.5}}px;
-    }*/
-    li {
-    /*    margin-right:0;
-        margin-left:0;*/
+        max-width: 1000px;
     }
 }
 
@@ -834,9 +778,6 @@ and (max-width: {{page.thresholds.wide}})  {
 
     .no-print {
         display: none !important;
-    }
-    #screen-ind:before {
-        content: "print";
     }
 
     .footnotes {
