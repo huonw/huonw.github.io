@@ -1,7 +1,6 @@
 ---
 layout: default
 title: "Announcing Primal: Putting Raw Power Into Prime Numbers"
-no_toc: true
 description: >
     I recently released primal 0.2: a crate for high-performance
     computation of properties related to prime numbers.

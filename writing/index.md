@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Writing
-no_toc: true
 ---
 
 Some posts, grouped by topic. See [all posts, listed chronologically](/blog).

@@ -2,7 +2,6 @@
 layout: default
 title:
 no_top_link: true
-no_toc: true
 google_meta: true
 no_breadcrumbs: true
 ---

@@ -6,7 +6,6 @@ for year in 2014 2015 2016 2017 2018 2019 2020 2021; do
 ---
 layout: default
 title: $year
-no_toc: true
 ---
 
 {% include archive.html year=$year %}
@@ -18,7 +17,6 @@ EOF
 ---
 layout: default
 title: ${year}–$month
-no_toc: true
 ---
 
 {% include archive.html year=$year month=$month %}

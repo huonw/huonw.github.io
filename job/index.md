@@ -1,7 +1,6 @@
 ---
 layout: default
 title: On the market
-no_toc: true
 ---
 
 I'm looking for work in software development or related fields. Please

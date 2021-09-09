@@ -26,35 +26,6 @@ body {
     position:relative;
 }
 
-#toc {
-    font-size: 0.9em;
-    max-width: 300px;
-    width: 100%;
-    margin: 5px 10px;
-    background: white;
-    display: none;
-    float: right;
-    border: solid lightgrey;
-    border-width: 1px;
-}
-
-#toc h2 {
-     margin-top: 0px;
-     text-align: center;
-}
-
-#toc-list {
-     padding-bottom: 5px;
-     margin: 0;
-}
-
-#toc ol {
-     list-style-type: none;
-}
-#toc li {
-     margin-left: 15px;
-}
-
 ul,ol {
     padding-left: 0px;
     margin-right: 60px;
@@ -645,11 +616,6 @@ h2.post-title a { color: black; }
 }
 
 @media (max-width: 500px) {
-    #toc {
-        /* we definitely want to show this never */
-        display: none !important;
-    }
-
     ul ul li, ol ul li, ul ol li, ol ol li {
          margin: 2px 0 2px 8px;
     }
