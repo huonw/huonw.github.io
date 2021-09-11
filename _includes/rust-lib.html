@@ -5,6 +5,6 @@
   {% else %}
     "http://huonw.github.io/{{ include.name }}/{{ include.name | replace:'-','_' }}"
   {% endif %}
-  ><i class="fa fa-book"></i> {{ include.name }}</a>
+  >{{ include.name }}</a>
   <a href="https://crates.io/crates/{{ include.name }}"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/{{ include.name }}.svg" alt="{{ include.name }} on crates.io" /></a>
 </div>
