@@ -189,8 +189,8 @@ figure.image {
 }
 figcaption {
   margin: 0 auto;
-  max-width: 550px;
-  padding: 0;
+  max-width: 570px;
+  padding: 0 10px;
   text-align: center;
   font-style: italic;
   font-size: 0.9em;
