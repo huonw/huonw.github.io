@@ -1,7 +1,7 @@
-<div id="external-links">
+<div id="external-links" class="no-print">
   {% if include.c.size > 0 %}
-  <div id="comments" class="no-print">
-    <span id="comments-label">Comments:</span>
+  <div id="comments">
+    <span class="external-label">Comments:</span>
     <ul class="external-list">
       {% include comment_line.html name="users" url=include.c.users %}
       {% include comment_line.html name="/r/rust" url=include.c.r_rust %}
@@ -15,8 +15,8 @@
     </ul>
   </div>
   {% endif %}
-  <div id="external-page" class="no-print">
-    <span id="external-page-label">Share this on</span>
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
     <ul class="external-list">
       <li class="external-link"><a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}{% unless page.not_rust %}%20%23rustlang{% endunless %}&url={{ site.url }}{{ page.url }}&via={{ site.twitter }}" target="_blank" rel="nofollow" title="Share on Twitter"><i class="fa fa-twitter"></i> Twitter</a></li>
       <li class="external-link"><a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook"><i class="fa fa-facebook-official"></i> Facebook</a></li>

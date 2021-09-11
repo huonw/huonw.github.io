@@ -9,8 +9,6 @@ comments:
     # hn: "https://news.ycombinator.com/item?id=9223141"
 ---
 
-> *Update 2015-06-16*: Homu is now available online: [homu.io](http://homu.io/)
-
 [Rust](http://rust-lang.org) is a reasonably large project:
 [the compiler and standard libraries](https://github.com/rust-lang/rust)
 are over 350kloc, built across nearly 40000 commits by the hands of
@@ -20,6 +18,9 @@ repositories in
 shouldn't fall by the wayside, and, for rust-lang/rust alone, there
 are often more than 100 pull requests landing and a dozen new
 contributors in a single week.
+
+> *Update 2015-06-16*: Homu is now available online: [homu.io](http://homu.io/)
+
 
 It is sometimes chaotic... *often* chaotic... with
 [1.0 quickly approaching](http://blog.rust-lang.org/2015/02/13/Final-1.0-timeline.html),

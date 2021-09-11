@@ -24,8 +24,6 @@ understanding into why it exists and related compiler behaviour.
 [previouspost]: {% post_url 2015-01-10-peeking-inside-trait-objects %}
 [sizedpost]: {% post_url 2015-01-12-the-sized-trait %}
 
-{% include trait-objects.html n=2 %}
-
 This is the second (and a half) in a short series of articles on trait
 objects. The first
 one---[Peeking inside Trait Objects][previouspost]---set the scene by
@@ -35,6 +33,8 @@ first-and-a-half-th---[an interlude about `Sized`][sizedpost]---looked
 at the special `Sized` trait. I strongly recommended at least glancing
 over it to be familiar with trait objects, vtables and `Sized`,
 since this post builds on those concepts.
+
+{% include trait-objects.html n=2 %}
 
 ## Motivation
 
