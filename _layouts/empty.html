@@ -6,13 +6,15 @@
 
   <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
-  {% capture canonical_url %}{{ site.url }}{{ page.url | replace:'index.html','/' }}{% unless page.url contains '.html' %}/{% endunless %}{% endcapture %}
+  {% capture canonical_url %}{{ site.url }}{{ page.url | replace:'index.html','/' }}{% endcapture %}
   <link rel="canonical" href="{{ canonical_url }}">
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   {% if page.google_meta or layout.google_meta %}<meta name="google-site-verification" content="ivImaTl-O1-gAOJqURoF3wVWIR8uTtIM7i2hcjDJbNo" />{% endif %}
 
   {% if page.title %}
+  <meta name="description" content="{{ page.description | xml_escape }}" />
+
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@huon_w" />
   <meta name="twitter:title" content="{{ page.title | xml_escape }}" />
