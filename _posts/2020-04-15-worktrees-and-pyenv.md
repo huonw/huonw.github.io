@@ -100,7 +100,7 @@ git clone 'git@github.com:stellargraph/stellargraph.git' stellargraph-3
 
 I used this effectively for many years for a few different projects.
 
-{% include image.html src="many_copies.png" caption="A stylised view of the structure of multiple clones of a single repository shows they are isolated from each other." %}
+{% include image.html src="many_copies.png" caption="A stylised view of the structure of multiple clones of a single repository shows they are isolated from each other." alt="a diagram showing four repositories: one labelled remote repository with the .git subdirectories of three local repositories pointing to it, labelled 1, 2, 3" %}
 
 However, each copy is isolated, which leads to some problems in practice:
 - They each require the full git state, which is potentially large.
@@ -129,7 +129,7 @@ git worktree add ../stellargraph-3 -b 'some-new-branch'
 
 The first argument to `add` is the (sibling) directory for the new worktree, and the second optional one is the name of the branch to checkout there (to start with). Each of these `stellargraph-...` directories acts like a normal git repository, and all the usual operations like creating or switching branches, committing and stashing work just fine.
 
-{% include image.html src="worktrees.png" caption="The stylised view of worktrees shows that they all share a single main `.git` folder." %}
+{% include image.html src="worktrees.png" caption="The stylised view of worktrees shows that they all share a single main `.git` folder." alt="a diagram showing the same four repositories as before, except now the remote repository has an arrow only from the .git directory of the local repository 1, while 2 and 3 point to that .git directory" %}
 
 I use a fixed set of worktrees, numbered from 1 to 5 (at the moment).
 
@@ -156,7 +156,7 @@ I've used worktrees on all sorts of projects, including Scala, C++ and Rust. Pyt
 
 Multiple copies of a source tree is great, but also leads to some confusing circumstances if the state is mixed up. It can be easy to edit a file in the wrong directory, and then not understand why it's not applying. I know I've spent time tracking down incorrect-location edits whenever there's multiple copies of anything (functions, files, directories, ...)!
 
-{% include image.html src="dependencies.png" link="https://xkcd.com/754/" caption="Dependency management is hard enough, without having to do 5 times at once" %}
+{% include image.html src="dependencies.png" link="https://xkcd.com/754/" caption="Dependency management is hard enough, without having to do 5 times at once" alt="an xkcd cartoon showing a stylised screenshot of a college course description. Course: CPSC 432. Description: intermediate compiler design, with a focus on dependency resolution. Prereqs: CPSC 432" %}
 
 Python's common approach to dependencies makes this worse: code needs to be run in the correct [virtual environment][venv], which is, by default, managed separately to the current directory. Typically, each checkout would have its own virtual environment, in case there's differences in the exact set of dependencies used, and to allow each copy to install its exact on-disk version of StellarGraph [with `--editable`][editable].
 

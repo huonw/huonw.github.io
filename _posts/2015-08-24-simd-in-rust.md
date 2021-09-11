@@ -69,7 +69,7 @@ fn mandelbrot_vector(c_x: f32x4, c_y: f32x4, max_iter: u32) -> u32x4 {
 }
 {% endhighlight %}
 
-{% include image.html src="mandel.png" caption="The result of both Mandelbrot kernels, running in a loop with some printing code." %}
+{% include image.html src="mandel.png" caption="The result of both Mandelbrot kernels, running in a loop with some printing code." alt="a rendering of the Mandelbrot set" %}
 
 [SIMD]: https://en.wikipedia.org/wiki/SIMD
 [Rust]: https://www.rust-lang.org/
@@ -101,7 +101,7 @@ x86 CPUs offer the `addps` and `mulps` instructions to do four
 single-precision floating point additions (multiplications,
 respectively) in parallel, by operating on two 128-bit registers.
 
-{% include image.html src="vector.png" %}
+{% include image.html src="vector.png" alt="a diagram of a vector (x + y) * z, where each operand contains four values" %}
 
 Rust is a good fit for many of the headline examples of such
 applications, which are traditionally written in C/C++ (or Fortran,
@@ -197,9 +197,9 @@ fannkuch-redux benchmark requires conditionally defining a single
 operation based on the platform, which takes only a few lines on each
 listed platform.
 
-{% include image.html src="chart-x86-64.png" caption="Benchmarks on x86-64 (Intel i7-4900MQ). The Rust code was compiled with `-C opt-level=3`, the C/C++ with `-O3`. SSSE3 was enabled for fannkuch-redux only." %}
-{% include image.html src="chart-aarch64.png" caption="Benchmarks on AArch64 (Google Nexus 9). The Rust code was compiled with `-C opt-level=3`." %}
-{% include image.html src="chart-arm.png" caption="Benchmarks on ARM (Google Nexus 5). The Rust code was compiled with `-C opt-level=3 -C target-feature=+neon`." %}
+{% include image.html src="chart-x86-64.png" caption="Benchmarks on x86-64 (Intel i7-4900MQ). The Rust code was compiled with `-C opt-level=3`, the C/C++ with `-O3`. SSSE3 was enabled for fannkuch-redux only." alt="A chart for x86-64 of the speed-up over scalar code for vectorised code compiled with Rust, Clang and GCC on 3 benchmarks (nbody, spectral-norm, fannkuch-redux), and Rust only for 4 more (matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from about 1.2 for nbody to about 3 for matrix multiply and mandelbrot." %}
+{% include image.html src="chart-aarch64.png" caption="Benchmarks on AArch64 (Google Nexus 9). The Rust code was compiled with `-C opt-level=3`." alt="A chart for AArch64 of the speed-up over scalar code for vectorised code compiled with Rust for the same 7 benchmarks (nbody, spectral-norm, fannkuch-redux, matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from 1 for spectral-norm to about 3.2 for matrix multiply and mandelbrot" %}
+{% include image.html src="chart-arm.png" caption="Benchmarks on ARM (Google Nexus 5). The Rust code was compiled with `-C opt-level=3 -C target-feature=+neon`." alt="A chart for ARM of the speed-up over scalar code for vectorised code compiled with Rust for a subset of 5 benchmarks (fannkuch-redux, matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from 1.8 for fannkuch-redux to 4 for matrix multiply" %}
 
 Compiler versions:
 

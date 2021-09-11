@@ -28,7 +28,7 @@ on the computer will be executing sequences of instructions like
 Usually each instruction is a simple operation. If boxes are numbers,
 the first two steps above (which are run 100 times) might look like:
 
-{% include image.html src="scalar2.png" %}
+{% include image.html src="scalar2.png" alt="a diagram of a scalar (x + y) * z, where each operand contains one value" %}
 
 Each operation is working with just two numbers... but imagine if we
 could instead do the same operation to many pairs at the same time:
@@ -36,7 +36,7 @@ things would go faster.
 
 This is exactly what SIMD offers. The operation instead looks like:
 
-{% include image.html src="vector.png" %}
+{% include image.html src="vector.png" alt="a diagram of a vector (x + y) * z, where each operand contains four values" %}
 
 If we're doing 4 things at once, hopefully it is about 4 times faster!
 (We'd only have to repeat that 25 times to do the whole sequence
@@ -47,7 +47,7 @@ interesting parts of SIMD is how it allows doing relatively
 complicated rearragements of data efficiently. SIMD vectors can be
 shuffled, swizzled, blended, permuted...
 
-{% include image.html src="swizzle.png" %}
+{% include image.html src="swizzle.png" alt="a diagram of a vector swizzle from x y z w to y w z x" %}
 
 These shuffles allow super-linear speed-ups: even if the computer can
 only do 4 things at once, shuffles mean some operations can become 5
@@ -111,7 +111,7 @@ for initial public feedback, and then
 [a revised form as an official proposal](https://github.com/rust-lang/rfcs/pull/1199),
 but I also made some progress with the actual code.
 
-{% include image.html src="mandelbrot.png" %}
+{% include image.html src="mandelbrot.png" alt="a screenshot of an ASCII art rendering of the Mandelbrot set" %}
 
 It's a (rather basic) rendering of the
 [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set), using

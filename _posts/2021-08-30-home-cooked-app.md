@@ -26,7 +26,7 @@ I got married last October, and I wanted to have an anticipatory countdown, some
 
 [^monkeysee]: The programming language/environment for the Garmin devices is called "Monkey C", so they took the opportunity to call the compiler "Monkey Do" 🥁
 
-{% include image.html src="screenshots.png" caption="A screenshot of the watch face from Garmin's simulator (left) and on my watch (right), on the birthday of <a href='https://www.instagram.com/corgi_tales/'>Sterling</a> (pictured, excited about a tennis ball)." %}
+{% include image.html src="screenshots.png" caption="A screenshot of the watch face from Garmin's simulator (left) and on my watch (right), on the birthday of <a href='https://www.instagram.com/corgi_tales/'>Sterling</a> (pictured, excited about a tennis ball)." alt="Two images side-by-side. On the left, a digital rendering of a watch face at 17:24 on 27 December, with the text Happy Birthday, Sterling! across the top. On the right, a photo of the same watch face on a real device" %}
 
 The photo and message changes each day, usually randomly. However, on some special days, it chooses a particular message or photo, like the countdown across the 10 days leading up to our wedding. The photos are synced, so that both of us get the same photo each day[^photo-syncing]. The random messages aren't synced: instead I wrote some for my wife's watch and she for mine. It's nice to wake up each day and see what unexpected combination of photo and message I get.
 

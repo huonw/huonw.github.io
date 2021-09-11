@@ -371,7 +371,7 @@ traits one can possibly use on a stable compiler.)
 
 [phantom]: http://doc.rust-lang.org/std/marker/struct.PhantomData.html
 
-{% include image.html src="unstable-small.jpg" link="https://www.flickr.com/photos/tm-tm/2634203419/" %}
+{% include image.html src="unstable-small.jpg" link="https://www.flickr.com/photos/tm-tm/2634203419/" alt="a photo of a sign saying: danger, unstable cliff" %}
 
 ## Calling Concurrently
 

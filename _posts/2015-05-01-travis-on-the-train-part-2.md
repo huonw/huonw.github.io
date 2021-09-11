@@ -86,7 +86,7 @@ which will use the awesome [kcov][kcov] along with Rust's debuginfo
 support to record the test coverage of your libraries, and then upload
 them to [coveralls.io][coveralls].
 
-{% include image.html src="coveralls.png" caption="order-stat's test coverage: being a little library makes it easy to get high numbers." %}
+{% include image.html src="coveralls.png" caption="order-stat's test coverage: being a little library makes it easy to get high numbers." alt="A screenshot of the coveralls.io inteface showing the coverage for 4 files: 75% for lib.rs with 6 out of 8 lines covered, 97.62% for mom.rs with 41 out of 42 lines covered, 100% for quickselect with 50 out of 50 lines covered and 100% for floyd_rivest.rs with 71 out of 71 lines covered." %}
 
 kcov combines with Coveralls to make supporting this ridiculously
 easy: simply register/activate coveralls.io and add `sudo: required` &

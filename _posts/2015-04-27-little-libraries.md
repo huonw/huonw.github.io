@@ -16,7 +16,7 @@ Rust. I have a long term project to make something for displaying my
 (GPS-tagged) photos nicely and, along the way, I've discovered and
 filled in a few gaps by creating focused crates for small tasks.
 
-{% include image.html src="whole-world.jpg" title="Lots of places to go yet." caption="My travels over the last few years, as displayed by the current web interface (served to the browser via Rust, of course)." %}
+{% include image.html src="whole-world.jpg" title="Lots of places to go yet." caption="My travels over the last few years, as displayed by the current web interface (served to the browser via Rust, of course)." alt="A screenshot of a world map, with dots and coloured lines joined into a time series" %}
 
 
 Once an idea is formed, `cargo` means it only takes an hour or two to go
@@ -133,7 +133,7 @@ photos that are close in space-time, so that I could highlight the
 segments where I'm actually walking around some interesting place and
 skip the boring bits of travelling in between.
 
-{% include image.html src="scotland-circles.jpg" title="Climbing Arthur's Seat was great." caption="A few days in Scotland: Linlithgow (small circle, in the middle), Falkirk, back to Linlithgow (large) and ending in Edinburgh." %}
+{% include image.html src="scotland-circles.jpg" title="Climbing Arthur's Seat was great." caption="A few days in Scotland: Linlithgow (small circle, in the middle), Falkirk, back to Linlithgow (large) and ending in Edinburgh." alt="A screenshot of a map of a part of Scotland, with coloured dots and lines joined into a time-series, and circles around clusters of those" %}
 
 This is exactly what
 [clustering](https://en.wikipedia.org/wiki/Cluster_analysis) is
