@@ -35,8 +35,8 @@ form:
 
 || Valid data | Invalid data |
 |---------------|-------------|---------------|
-| Used           | 👍 | Memory unsafety |
-| Not used            | Memory leak | 👍 |
+| **Used**           | 👍 | Memory unsafety |
+| **Not used**            | Memory leak | 👍 |
 
 The best programs lie in the 👍 cells only: they manipulate valid
 things, and don't manipulate invalid ones. Passable programs might
@@ -197,8 +197,8 @@ similar) still has its memory leak cell.
 
 || Valid data | Invalid data |
 |---------------|-------------|---------------|
-| Used           | 👍 | Impossible |
-| Not used            | Memory leak | 👍 |
+| **Used**           | 👍 | Impossible |
+| **Not used**            | Memory leak | 👍 |
 
 I'm not including this section because I think it's a great promotion
 of Rust (being allowed to have invalid data that one can't use doesn't
