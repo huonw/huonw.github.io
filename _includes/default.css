@@ -28,8 +28,8 @@ body {
 
 #wrapper {
     margin: 0 auto;
-    max-width: 600px;
-    padding: 0.75em 5px;
+    max-width: 630px;
+    padding: 0.75em 15px;
     width: 100%;
     position:relative;
 }
