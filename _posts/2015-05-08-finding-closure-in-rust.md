@@ -190,7 +190,7 @@ flexibility, and `self` the least.
 |             | **Implementer**                | **Consumer**                                 |
 |------------:|----------------------------|-------------------------------------------------|
 |      `self` | Can move out and mutate    | Can only call method once                       |
-| `&mut self` | Can't move out, can mutate | Can call many times, only with unique access |
+| <code>&amp;mut&nbsp;self</code> | Can't move out, can mutate | Can call many times, only with unique access |
 |     `&self` | Can't move out or mutate   | Can call many times, with no restrictions       |
 
 <div class="join"></div>
