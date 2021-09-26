@@ -15,6 +15,7 @@ html {
 body {
   padding:0px;
     counter-reset: footnotes;
+    counter-reset: figure;
     margin:0px;
     font-size: 18px;
     background: white;
@@ -207,6 +208,13 @@ figcaption {
   text-align: center;
   font-style: italic;
   font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
 }
 
 .highlight table {
