@@ -51,6 +51,12 @@ table {
 td, th {
   padding: 0.1em 0.75em;
 }
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
 tr:nth-child(even) {
   background: rgba(0, 0, 0, 5%);
 }
