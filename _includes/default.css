@@ -65,6 +65,9 @@ thead {
   font-weight: bold;
 }
 
+#header {
+  margin-bottom: 1.5em;
+}
 #header a:not(:hover) {
   text-decoration: none;
 }
@@ -301,6 +304,7 @@ h4 {
 /* external links */
 
 #external-links {
+  margin-top: 2.25em;
   text-align: center;
 }
 .external-label {
@@ -321,8 +325,8 @@ h4 {
 
 /* the div that holds them */
 .footnotes {
-    /*display: none;*/
-    padding-top: 0.75em;
+    margin-top: 2.25em;
+    padding-top: 1.5em;
     border-top: 1px solid rgb(240,240,240);
     font-size: 0.9em;
 }
@@ -347,8 +351,8 @@ h4 {
 
 /* extra info after a post */
 #more {
-  margin-top: 2.25em;
-  padding-top: 0.75em;
+  margin-top: 3em;
+  padding-top: 1.5em;
   border-top: 1px solid lightgray;
 }
 #me-icon {
