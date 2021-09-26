@@ -22,7 +22,7 @@ use_default: true
        <div id="info-intro">
          By <a href="/about">Huon Wilson</a>
          {% if page.date %}
-           &mdash; Published <span class="date pub-date">{{ page.date | date_to_string }}</span>
+           &mdash; <span class="date pub-date">{{ page.date | date_to_string }}</span>
          {% endif %}
          {% if page.updated_date %}
            &mdash; Updated <span class="date update-date">{{ page.updated_date | date_to_string }}</span>
