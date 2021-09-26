@@ -160,7 +160,8 @@ blockquote {
 
 /* images/figures */
 img {
-    max-width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 img:not(.inline-image) {
     display: block;
