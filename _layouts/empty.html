@@ -28,6 +28,9 @@
   {% if page.date %}
   <meta property="og:type" content="article" />
   {% endif %}
+  {% if page.hero_image %}
+  <meta property="og:image" content="{{ canonical_url }}{{ page.hero_image }}" />
+  {% endif %}
   {% endif %}
   <style>
     {% include normalize.css %}

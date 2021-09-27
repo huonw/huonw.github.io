@@ -1,0 +1,6 @@
+<figure class="image plotly-plot {% if include.caption %}has-caption{% endif %}">
+  <div class="image-positioner">
+    <div style="width: 100%; height: {{ include.height }}" class="lazily-filled" data-plotly-data="{{ include.data }}" ></div>
+  </div>
+  {% if include.caption %}<figcaption>{{ include.caption | markdownify }}</figcaption>{% endif %}
+</figure>
