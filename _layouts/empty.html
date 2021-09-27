@@ -15,7 +15,11 @@
   {% if page.title %}
   <meta name="description" content="{{ page.description | xml_escape }}" />
 
+  {% if page.hero_image %}
+  <meta name="twitter:card" content="summary_large_image" />
+  {% else %}
   <meta name="twitter:card" content="summary" />
+  {% endif %}
   <meta name="twitter:site" content="@huon_w" />
   <meta name="twitter:title" content="{{ page.title | xml_escape }}" />
   <meta name="twitter:description" content="{{ page.description | xml_escape }}" />
