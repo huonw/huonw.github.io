@@ -1,0 +1,58 @@
+<svg height="0" viewBox="-20 -20 1270 882" width="0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin-top: 0">
+  <defs>
+    <rect id="poster-page-background" width="594.960022" height="841.919983" fill="#fff" />
+    <g id="poster-page-new">
+      <use xlink:href="#covid-safe-logo" x="64.124374" y="30" />
+      <use xlink:href="#poster-check-in" x="67.414962" y="-121.92558" />
+      <use xlink:href="#poster-community" x="66.460506" y="-126.12689" />
+      <use xlink:href="#poster-easy" transform="matrix(0.73782341,0,0,0.73821084,83.57544,253.53852)" />
+      <use xlink:href="#poster-privacy" x="0" y="62.846437" />
+    </g>
+    <g id="poster-page-original" >
+      <use xlink:href="#covid-safe-logo" x="243.852" y="24.012" />
+      <use xlink:href="#poster-check-in" />
+      <use xlink:href="#poster-community" />
+      <path
+         d="m280.002122 385.999217h233.995414v234.00062h-233.995414zm0 0"
+         fill="none"
+         stroke="#01a0d5"
+         stroke-width="16"
+         transform="matrix(.750315 0 0 .750315 0 .00002)"
+      />
+      <use xlink:href="#poster-easy" />
+      <use xlink:href="#poster-privacy" />
+    </g>
+    <!-- try to order these nicely for progressive rendering of the first image -->
+    <g id="qr-code-v05-Q-optimized-offline" transform="scale(27.02702702)" >
+      {% include blog/nsw-covid-qr/qr-code-v05-Q-optimized-offline.svg %}
+    </g>
+    <g id="qr-code-v11-Q-works-in-app" transform="scale(16.39344262)">
+      {% include blog/nsw-covid-qr/qr-code-v11-Q-works-in-app.svg %}
+    </g>
+    <g id="qr-code-v16-H-original" transform="scale(12.34567901)">
+      {% include blog/nsw-covid-qr/qr-code-v16-H-original.svg %}
+    </g>
+    {% include blog/nsw-covid-qr/poster-page-symbols.svg %}
+    <g id="qr-code-v13-Q-original" transform="scale(14.4927536232)">
+      {% include blog/nsw-covid-qr/qr-code-v13-Q-original.svg %}
+    </g>
+    <g id="qr-code-v11-M-original" transform="scale(16.39344262)">
+      {% include blog/nsw-covid-qr/qr-code-v11-M-original.svg %}
+    </g>
+    <g id="qr-code-v09-L-original" transform="scale(18.8679245283)">
+      {% include blog/nsw-covid-qr/qr-code-v09-L-original.svg %}
+    </g>
+    <g id="qr-code-v07-Q-path-encoding" transform="scale(22.2222222222)" >
+      {% include blog/nsw-covid-qr/qr-code-v07-Q-path-encoding.svg %}
+    </g>
+    <g id="qr-code-v05-Q-short-path" transform="scale(27.02702702)" >
+      {% include blog/nsw-covid-qr/qr-code-v05-Q-short-path.svg %}
+    </g>
+    <g id="qr-code-v02-Q-optimized-tiny" transform="scale(40)" >
+      {% include blog/nsw-covid-qr/qr-code-v02-Q-optimized-tiny.svg %}
+    </g>
+    <g id="qr-code-v07-Q-signed" transform="scale(22.2222222222)">
+      {% include blog/nsw-covid-qr/qr-code-v07-Q-signed.svg %}
+    </g>
+  </defs>
+</svg>

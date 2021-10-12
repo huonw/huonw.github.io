@@ -1,0 +1,74 @@
+{% assign qrs = include.qrs | split: ' ' %}
+{% assign leading = 12 %}
+{% assign between = 24 %}
+{% assign trailing = 24 %}
+{% assign total_width = include.trailing_width | default: 0 | plus: leading | plus: trailing %}
+{% for qr in qrs %}
+  {% assign components = qr | split: ':' %}
+  {% if components.size == 2 and components[1] == "qr" %}
+    {% assign total_width = total_width | plus: 842 | plus: between %}
+  {% else %}
+    {% assign total_width = total_width | plus: 595 | plus: between %}
+  {% endif %}
+{% endfor %}
+
+{% capture contents %}
+{% if include.show_switch %}
+<input class="poster-switch-checkbox" type="checkbox" id="checkbox-{{ include.show_switch }}" {% if include.switch_on_by_default %}checked{% endif %} />
+<label class="poster-switch-label" for="checkbox-{{ include.show_switch }}">
+  Switch to <strong>
+    <span class="poster-switch-posters">poster{% if qrs.size != 1 %}s{% endif %}</span>
+    <span class="poster-switch-codes">code{% if qrs.size != 1 %}s{% endif %} only</span>
+  </strong>
+</label>
+{% endif %}
+<svg
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="{{ total_width }}" height="890" viewBox="-{{ leading }} -{{ leading }} {{ total_width }} 890"
+  role="img" aria-label="[description]"
+ >
+  <desc>{{ include.alt }}</desc>
+  <filter id="blur-text" width="130%" height="130%">
+    <feOffset result="offOut" in="SourceAlpha" dx="4" dy="8" />
+    <feColormatrix result="lightened" in="offOut" values="0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0"/>
+    <feGaussianBlur result="blurOut" in="lightened" stdDeviation="12" />
+    <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+  </filter>
+  {% assign current_width = 0 %}
+  {% for qr in qrs %}
+    {% assign components = qr | split: ':' %}
+    {% if components.size == 2 and components[1] == "qr" %}
+      {% assign this_width = 842 | plus: between %}
+      {% assign poster_centering = 123.5 %}
+      {% assign poster_class = "switchable-poster" %}
+      {% assign qr_class = "switchable-qr" %}
+    {% else %}
+      {% assign this_width = 595 | plus: between %}
+      {% assign poster_centering = 0 %}
+      {% assign poster_class = "" %}
+      {% assign qr_class = "" %}
+    {% endif %}
+  <g transform="translate({{ current_width }} 0)" data-width="{{ this_width }}">
+    {% assign current_width = current_width | plus: this_width %}
+    {% if components[0] == "original" %}
+      {% assign qr_id="qr-code-v16-H-original" %}
+      {% assign poster_page="original" %}
+      {% assign qr_poster_class="qr-poster-original" %}
+    {% else %}
+      {% assign qr_id=components[0] %}
+      {% assign poster_page="new" %}
+      {% assign qr_poster_class="qr-poster-new" %}
+    {% endif %}
+
+    <g transform="translate({{ poster_centering }} 0)">
+      <use href="#poster-page-background" xlink:href="#poster-page-background" class="{{ poster_class }}"/>
+      <use href="#poster-page-{{ poster_page }}" xlink:href="#poster-page-{{ poster_page }}" class="{{ poster_class }}"/>
+    </g>
+
+    <use href="#{{ qr_id }}" xlink:href="#{{ qr_id }}" class="{{ qr_class }} {{ qr_poster_class }}"/>
+  </g>
+  {% endfor %}
+  {{ include.extra }}
+</svg>
+{% endcapture %}
+{% include image.html contents=contents caption=include.caption link=include.link %}

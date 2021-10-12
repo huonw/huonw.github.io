@@ -111,6 +111,7 @@ table {
   margin-left: auto;
   margin-right: auto;
   border-collapse: collapse;
+  text-align: left;
 }
 
 td, th {
@@ -220,7 +221,11 @@ h1 code, h2 code, h3 code, h4 code {
   background: rgba(255,255,255,0.1);
 }
 
-/* quotes */
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
 
 blockquote {
     border: solid #eee;
@@ -232,12 +237,31 @@ blockquote {
     margin-right: 0;
 }
 
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
 /* images/figures */
-img {
+img, figure svg {
   max-width: 100%;
   height: auto;
 }
-img:not(.inline-image) {
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
     display: block;
     margin: 0 auto;
     clear: both;
