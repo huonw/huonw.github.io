@@ -194,7 +194,7 @@ These QR code posters have some great attributes:
 
 1. They **exist** at all: the contact tracing situation was a mess until the Service NSW codes were rolled out and made mandatory. Some venues would require hand written entries, others would require entering personal information into random websites (of varying ease-of-use). Now, it's a single app that remembers your details.
 2. **Using a URL** (rather than just raw data) means they can be usefully interpreted by any scanner, such as a phone's camera, rather than requiring scanning with a specific app.
-4. There's a native app that can be used to do an **offline check-in** when there's no internet access, for later syncing. The QR code contains enough info to still **display a confirmation** to the user, so they know they scanned what they expected.
+4. There's a native app that could theoretically be used to do an **offline check-in** when there's no internet access, for later syncing... although this doesn't actually work in practice, with the current app. The QR code contains enough info to still **display a confirmation** to the user, so they know they scanned what they expected.
 4. The use of **high error correction** means they're theoretically resilient to 'damage', like reflections off lamination or windows, or even dirt and holes.
 5. The poster **explains** how to scan the code (it seems unthinkable now, but these codes were introduced into a world where QR codes were _not_ instantly recognisable).
 
@@ -262,7 +262,7 @@ We've done the easiest step of making the QR larger, let's now make the QR code 
   extra=extra
 %}
 
-We'll see how the "short path" QR code in green retains all of the valuable proprieties we identified above, including simple offline check-in support. The "remove name" code is even simpler, and is what is possible if we compromise offline check-ins nicely.
+We'll see how the "short path" QR code in green retains all of the valuable properties we identified above, including simple offline check-in support. The "remove name" code is even simpler, and is what is possible if we compromise offline check-ins nicely.
 
 ### Less error correction
 
@@ -543,7 +543,7 @@ For instance, a 200 bit [BLS signature][bls] may give sufficient security. To ge
 
 Every other state in Australia has a similar check-in process, including apps and QR codes on posters. Most of these use simpler QR codes than NSW, but they make other trade-offs:
 
-- It seems only Victoria supports offline check-ins too. South Australia also includes the venue name in the QR code, but it seems to require internet to actually check-in.
+- South Australia and Victoria include the venue name, and thus potentially nicely support offline check-ins too. However, SA definitely requires internet to check-in, and I'm unsure about Victoria.
 - Victoria and Western Australia seem to have real security in their QR codes (for instance, WA uses a [JSON Web Token][jwt], which includes a cryptographic signature).
 - ACT, Queensland, Northern Territory and Tasmania all have essentially the same app and QR codes, and use efficient URLs (with a lot of Numeric data), but have some seemingly unnecessary redundancy.
 - Most states use error correction level Q, but Victoria and Western Australia drop one level to M: it's probably not a coincidence these two states also have the longest URLs, similar to or longer than the NSW URLs.
