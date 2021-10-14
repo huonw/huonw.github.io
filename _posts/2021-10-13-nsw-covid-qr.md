@@ -235,6 +235,11 @@ I did some really quick shuffling and resizing of the page elements, without edi
 
 When printed on an A4 page, the code in the new version is 16cm on each side, more than three times larger, and so can probably be scanned from **three times further away**. It now consumes ~40% of the page area.
 
+(After publishing, [several][person1] [people][person2] pointed out that truly huge QR codes seem to cause difficulties with scanning in practice in some cases. One would need to actually test the design in practice to validate a particular size.)
+
+[person1]: https://news.ycombinator.com/item?id=28847827
+[person2]: https://twitter.com/nickzoic/status/1448429172242587649
+
 [quiet]: https://qrworld.wordpress.com/2011/08/09/the-quiet-zone/
 
 ## Better QR code
@@ -544,11 +549,12 @@ For instance, a 200 bit [BLS signature][bls] may give sufficient security. To ge
 Every other state in Australia has a similar check-in process, including apps and QR codes on posters. Most of these use simpler QR codes than NSW, but they make other trade-offs:
 
 - South Australia and Victoria include the venue name, and thus potentially nicely support offline check-ins too. However, SA definitely requires internet to check-in, and I'm unsure about Victoria.
-- Victoria and Western Australia seem to have real security in their QR codes (for instance, WA uses a [JSON Web Token][jwt], which includes a cryptographic signature).
+- Victoria and Western Australia seem to have real security in their QR codes (for instance, WA uses a [JSON Web Token][jwt], which includes a cryptographic signature, however, [it was pointed out][symm] that the choice of a symmetric signature makes the value questionable).
 - ACT, Queensland, Northern Territory and Tasmania all have essentially the same app and QR codes, and use efficient URLs (with a lot of Numeric data), but have some seemingly unnecessary redundancy.
 - Most states use error correction level Q, but Victoria and Western Australia drop one level to M: it's probably not a coincidence these two states also have the longest URLs, similar to or longer than the NSW URLs.
 
 [jwt]: https://jwt.io/
+[symm]: https://twitter.com/JamesHenstridge/status/1448516012379238404
 
 ## What did we learn?
 
