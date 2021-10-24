@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">06 May 2015</span>
+             &mdash; <span class="date pub-date">06 May 2015</span>
            
            
          </div>
@@ -775,8 +775,7 @@ objects: this is <a href="/blog/2015/01/object-safety/">object safety</a>.</p>
 implement it for itself, by implementing each method as a dynamic
 function call through the vtable stored in a trait object.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -793,8 +792,7 @@ function call through the vtable stored in a trait object.</p>
 15
 16
 17
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">Foo</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Foo</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">method_a</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">u8</span><span class="p">;</span>
 
     <span class="k">fn</span> <span class="nf">method_b</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span><span class="p">;</span>
@@ -811,8 +809,7 @@ function call through the vtable stored in a trait object.</p>
          <span class="k">self</span><span class="nf">.method_b</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Without the object safety rules one can write functions with type
 signatures satisfied by trait objects, where the internals make it
@@ -823,8 +820,7 @@ of anything it calls, not the internals—and hence object safety.</p>
 <p>These rules outlaw creating trait objects of, for example, traits with
 generic methods:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -844,8 +840,7 @@ generic methods:</p>
 18
 19
 20
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">Bar</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Bar</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="n">bad</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">);</span>
 <span class="p">}</span>
 
@@ -865,8 +860,7 @@ generic methods:</p>
 ...:10     &amp;1 as &amp;Bar;
            ^~
 */</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Trait object values always appear behind a pointer, like <code class="language-plaintext highlighter-rouge">&amp;SomeTrait</code>
 or <code class="language-plaintext highlighter-rouge">Box&lt;AnotherTrait&gt;</code>, since the trait value “<code class="language-plaintext highlighter-rouge">SomeTrait</code>” itself
@@ -885,8 +879,7 @@ and <code class="language-plaintext highlighter-rouge">Writer</code> at that poi
 <p>Focusing on the former, before object safety it was defined
 something<sup id="fnref:associated-type" role="doc-noteref"><a href="#fn:associated-type" class="footnote" rel="footnote">0</a></sup> like:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -904,8 +897,7 @@ something<sup id="fnref:associated-type" role="doc-noteref"><a href="#fn:associa
 16
 17
 18
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span><span class="p">;</span>
 
     <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
@@ -923,8 +915,7 @@ something<sup id="fnref:associated-type" role="doc-noteref"><a href="#fn:associa
 
     <span class="c">// etc</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The above <code class="language-plaintext highlighter-rouge">Iterator</code> isn’t object safe: it has generic methods, and so
 it isn’t possible to implement <code class="language-plaintext highlighter-rouge">Iterator</code> for <code class="language-plaintext highlighter-rouge">Iterator</code> itself. This
@@ -936,8 +927,7 @@ is unfortunate, since it is very useful to be able to create and use
 a blanket implementation to implement it for all <code class="language-plaintext highlighter-rouge">Iterator</code>s “from the
 outside”.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -960,8 +950,7 @@ outside”.</p>
 21
 22
 23
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span><span class="p">;</span>
 
     <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
@@ -984,8 +973,7 @@ outside”.</p>
 <span class="p">}</span>
 <span class="c">// blanket impl, for all iterators</span>
 <span class="k">impl</span><span class="o">&lt;</span><span class="n">I</span><span class="p">:</span> <span class="n">Iterator</span><span class="o">&gt;</span> <span class="n">IteratorExt</span> <span class="k">for</span> <span class="n">I</span> <span class="p">{}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The <code class="language-plaintext highlighter-rouge">next</code> and <code class="language-plaintext highlighter-rouge">size_hint</code> methods are object safe, so this version of
 <code class="language-plaintext highlighter-rouge">Iterator</code> can create trait objects: <code class="language-plaintext highlighter-rouge">Box&lt;Iterator&lt;Item = u8&gt;&gt;</code> is a
@@ -997,8 +985,7 @@ involved in any object considerations for it.</p>
 are implementations like the following, allowing the blanket
 implementation of <code class="language-plaintext highlighter-rouge">IteratorExt</code> to kick in:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1010,8 +997,7 @@ implementation of <code class="language-plaintext highlighter-rouge">IteratorExt
 10
 11
 12
-</pre></td>
-<td class="code"><pre><span class="c">// make Box&lt;...&gt; an Iterator by deferring to the contents</span>
+</pre></td><td class="code"><pre><span class="c">// make Box&lt;...&gt; an Iterator by deferring to the contents</span>
 <span class="k">impl</span><span class="o">&lt;</span><span class="n">I</span><span class="p">:</span> <span class="n">Iterator</span> <span class="o">+</span> <span class="o">?</span><span class="n">Sized</span><span class="o">&gt;</span> <span class="n">Iterator</span> <span class="k">for</span> <span class="nb">Box</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span> <span class="o">=</span> <span class="nn">I</span><span class="p">::</span><span class="n">Item</span><span class="p">;</span>
 
@@ -1023,8 +1009,7 @@ implementation of <code class="language-plaintext highlighter-rouge">IteratorExt
         <span class="p">(</span><span class="o">**</span><span class="k">self</span><span class="p">)</span><span class="nf">.size_hint</span><span class="p">()</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <div class="join"></div>
 
@@ -1059,20 +1044,17 @@ declared right then and there. For example, one can use
 <a href="http://doc.rust-lang.org/std/convert/trait.From.html"><code class="language-plaintext highlighter-rouge">From</code></a> to
 convert <em>to</em> types with a <code class="language-plaintext highlighter-rouge">where</code> clause.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td>
-<td class="code"><pre><span class="k">fn</span> <span class="n">convert_to_string</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span>
+</pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">convert_to_string</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span>
     <span class="k">where</span> <span class="nb">String</span><span class="p">:</span> <span class="n">From</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
 <span class="p">{</span>
     <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The important realisation was that <code class="language-plaintext highlighter-rouge">where</code> allows placing restrictions
 on <code class="language-plaintext highlighter-rouge">Self</code> directly on methods, so that certain methods only exist for
@@ -1086,8 +1068,7 @@ swathe of extra <code class="language-plaintext highlighter-rouge">Iterator</cod
 required specific restrictions on the element type of the iterator,
 for example, <code class="language-plaintext highlighter-rouge">OrdIterator</code> needed <code class="language-plaintext highlighter-rouge">Ord</code> elements:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1097,8 +1078,7 @@ for example, <code class="language-plaintext highlighter-rouge">OrdIterator</cod
 8
 9
 10
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">OrdIterator</span><span class="p">:</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">OrdIterator</span><span class="p">:</span> <span class="n">Iterator</span> <span class="p">{</span>
      <span class="k">fn</span> <span class="nf">max</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
      <span class="c">// ...</span>
 <span class="p">}</span>
@@ -1108,16 +1088,14 @@ for example, <code class="language-plaintext highlighter-rouge">OrdIterator</cod
 
     <span class="c">// ...</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The <a href="http://doc.rust-lang.org/std/iter">current <code class="language-plaintext highlighter-rouge">std::iter</code></a> is much
 cleaner: all the traits above have been merged into <code class="language-plaintext highlighter-rouge">Iterator</code> itself
 with <code class="language-plaintext highlighter-rouge">where</code> clauses, e.g.
 <a href="http://doc.rust-lang.org/nightly/std/iter/trait.Iterator.html#method.max"><code class="language-plaintext highlighter-rouge">max</code></a>:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1128,8 +1106,7 @@ with <code class="language-plaintext highlighter-rouge">where</code> clauses, e.
 9
 10
 11
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span><span class="p">;</span>
 
     <span class="c">// ...</span>
@@ -1140,15 +1117,13 @@ with <code class="language-plaintext highlighter-rouge">where</code> clauses, e.
 
     <span class="c">// ...</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Notably, there’s no restriction on <code class="language-plaintext highlighter-rouge">Item</code> for general <code class="language-plaintext highlighter-rouge">Iterator</code>s,
 only on <code class="language-plaintext highlighter-rouge">max</code>, so iterators retain full flexibility while still
 gaining a <code class="language-plaintext highlighter-rouge">max</code> method that only works when it should:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1159,8 +1134,7 @@ gaining a <code class="language-plaintext highlighter-rouge">max</code> method t
 9
 10
 11
-</pre></td>
-<td class="code"><pre><span class="k">struct</span> <span class="n">NotOrd</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">struct</span> <span class="n">NotOrd</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">10</span><span class="p">)</span><span class="nf">.max</span><span class="p">();</span> <span class="c">// ok</span>
@@ -1171,8 +1145,7 @@ gaining a <code class="language-plaintext highlighter-rouge">max</code> method t
 ...:5     (0..10).map(|_| NotOrd).max();
                                   ^~~~~
 */</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This approach works fine for normal traits like <code class="language-plaintext highlighter-rouge">Ord</code>, and also works
 equally well for “special” traits like <code class="language-plaintext highlighter-rouge">Sized</code>:
@@ -1193,8 +1166,7 @@ safety.</p>
 
 <p>The bad example from the start can be written to compile:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1208,8 +1180,7 @@ safety.</p>
 12
 13
 14
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">Bar</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Bar</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="n">bad</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span>
         <span class="k">where</span> <span class="n">Self</span><span class="p">:</span> <span class="n">Sized</span><span class="p">;</span>
 <span class="p">}</span>
@@ -1223,37 +1194,32 @@ safety.</p>
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="o">&amp;</span><span class="mi">1_u8</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Bar</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <div class="join"></div>
 
 <p>And also adjusted to not compile: try calling <code class="language-plaintext highlighter-rouge">(&amp;1_u8 as
 &amp;Bar).bad("foo")</code> in <code class="language-plaintext highlighter-rouge">main</code> and the compiler spits out an error,</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td>
-<td class="code"><pre>...:13:21: 13:31 error: the trait `core::marker::Sized` is not implemented for the type `Bar` [E0277]
+</pre></td><td class="code"><pre>...:13:21: 13:31 error: the trait `core::marker::Sized` is not implemented for the type `Bar` [E0277]
 ...:13     (&amp;1_u8 as &amp;Bar).bad("foo")
                            ^~~~~~~~~~
 ...:13:21: 13:31 note: `Bar` does not have a constant size known at compile-time
 ...:13     (&amp;1_u8 as &amp;Bar).bad("foo")
                            ^~~~~~~~~~
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Importantly, this solves the <code class="language-plaintext highlighter-rouge">Iterator</code> problem: there’s no longer a
 need to split methods into extension traits to ensure object safety,
 one can instead just guard the bad ones. <code class="language-plaintext highlighter-rouge">Iterator</code> now looks like:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1272,8 +1238,7 @@ one can instead just guard the bad ones. <code class="language-plaintext highlig
 17
 18
 19
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span><span class="p">;</span>
 
     <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
@@ -1292,8 +1257,7 @@ one can instead just guard the bad ones. <code class="language-plaintext highlig
 
     <span class="c">// etc</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <div class="join"></div>
 
@@ -1346,7 +1310,7 @@ for <code class="language-plaintext highlighter-rouge">Box&lt;I&gt;</code> where
                 parameter <code class="language-plaintext highlighter-rouge">trait Iterator&lt;Item&gt; { ...</code> at this
                 point, and the <code class="language-plaintext highlighter-rouge">IntoIterator</code> trait didn’t
                 exist. However it doesn’t matter: the exact same
-                problems existed, just with different syntax. <a href="#fnref:associated-type" class="reversefootnote" role="doc-backlink">↩</a></p>
+                problems existed, just with different syntax. <a href="#fnref:associated-type" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1370,8 +1334,7 @@ for <code class="language-plaintext highlighter-rouge">Box&lt;I&gt;</code> where
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1380,8 +1343,7 @@ for <code class="language-plaintext highlighter-rouge">Box&lt;I&gt;</code> where
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1390,8 +1352,7 @@ for <code class="language-plaintext highlighter-rouge">Box&lt;I&gt;</code> where
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1400,18 +1361,16 @@ for <code class="language-plaintext highlighter-rouge">Box&lt;I&gt;</code> where
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1424,8 +1383,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

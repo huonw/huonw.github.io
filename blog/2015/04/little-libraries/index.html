@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">27 Apr 2015</span>
+             &mdash; <span class="date pub-date">27 Apr 2015</span>
            
            
          </div>
@@ -750,7 +750,7 @@ filled in a few gaps by creating focused crates for small tasks.</p>
   <div class="image-positioner">
     
     <a href="whole-world.jpg">
-      <img src="whole-world.jpg" alt="A screenshot of a world map, with dots and coloured lines joined into a time series" title="Lots of places to go yet.">
+      <img src="whole-world.jpg" alt="A screenshot of a world map, with dots and coloured lines joined into a time series" title="Lots of places to go yet." />
     </a>
     
   </div>
@@ -784,22 +784,22 @@ for both the developers and the users.</p>
 <div class="centered-libs">
 <div class="lib-info" style="display: inline-block">
   <a class="lib-link" href="https://felixcrux.com/files/doc/rexiv2/">rexiv2</a>
-  <a href="https://crates.io/crates/rexiv2"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/rexiv2.svg" alt="rexiv2 on crates.io"></a>
+  <a href="https://crates.io/crates/rexiv2"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/rexiv2.svg" alt="rexiv2 on crates.io" /></a>
 </div>
 
 <div class="lib-info" style="display: inline-block">
   <a class="lib-link" href="http://www.rust-ci.org/jgallagher/rusqlite/doc/rusqlite/">rusqlite</a>
-  <a href="https://crates.io/crates/rusqlite"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/rusqlite.svg" alt="rusqlite on crates.io"></a>
+  <a href="https://crates.io/crates/rusqlite"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/rusqlite.svg" alt="rusqlite on crates.io" /></a>
 </div>
 
 <div class="lib-info" style="display: inline-block">
   <a class="lib-link" href="http://ironframework.io/doc/iron/">iron</a>
-  <a href="https://crates.io/crates/iron"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/iron.svg" alt="iron on crates.io"></a>
+  <a href="https://crates.io/crates/iron"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/iron.svg" alt="iron on crates.io" /></a>
 </div>
 
 <div class="lib-info" style="display: inline-block">
   <a class="lib-link" href="http://docs.nickel.rs/nickel/">nickel</a>
-  <a href="https://crates.io/crates/nickel"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/nickel.svg" alt="nickel on crates.io"></a>
+  <a href="https://crates.io/crates/nickel"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/nickel.svg" alt="nickel on crates.io" /></a>
 </div>
 
 </div>
@@ -816,8 +816,7 @@ also add some <a href="/blog/2015/03/rust-infrastructure-can-be-your-infrastruct
   <li>crates.io: add
 <a href="http://doc.crates.io/manifest.html#package-metadata">metadata</a>
 and
-<a href="http://doc.crates.io/crates-io.html#publishing-crates">publish the crate</a>
-</li>
+<a href="http://doc.crates.io/crates-io.html#publishing-crates">publish the crate</a></li>
 </ul>
 
 <p>It’s pretty simple, especially with some automation for the
@@ -827,8 +826,7 @@ to be readable online: everything else is essentially a single <code class="lang
 ...</code> invocation. My usual configuration for Travis looks something
 like:</p>
 
-<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -844,8 +842,7 @@ like:</p>
 14
 15
 16
-</pre></td>
-<td class="code"><pre><span class="na">language</span><span class="pi">:</span> <span class="s">rust</span>
+</pre></td><td class="code"><pre><span class="na">language</span><span class="pi">:</span> <span class="s">rust</span>
 <span class="na">sudo</span><span class="pi">:</span> <span class="no">false</span>
 <span class="na">script</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">cargo build --verbose &amp;&amp; cargo test --verbose &amp;&amp; cargo doc --verbose</span>
@@ -861,8 +858,7 @@ like:</p>
 <span class="na">env</span><span class="pi">:</span>
   <span class="na">global</span><span class="pi">:</span>
     <span class="na">secure</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Khw6CgS[...]jlPRac="</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <blockquote>
   <p><em>Update 2015-04-28</em>: see
@@ -889,7 +885,7 @@ and beta/stable by adding something like <code class="language-plaintext highlig
 
 <div class="lib-info" style="">
   <a class="lib-link" href="http://huonw.github.io/cogset/cogset">cogset</a>
-  <a href="https://crates.io/crates/cogset"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/cogset.svg" alt="cogset on crates.io"></a>
+  <a href="https://crates.io/crates/cogset"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/cogset.svg" alt="cogset on crates.io" /></a>
 </div>
 
 <p>The first problem that I encountered was wanting to group clusters of
@@ -901,7 +897,7 @@ skip the boring bits of travelling in between.</p>
   <div class="image-positioner">
     
     <a href="scotland-circles.jpg">
-      <img src="scotland-circles.jpg" alt="A screenshot of a map of a part of Scotland, with coloured dots and lines joined into a time-series, and circles around clusters of those" title="Climbing Arthur's Seat was great.">
+      <img src="scotland-circles.jpg" alt="A screenshot of a map of a part of Scotland, with coloured dots and lines joined into a time-series, and circles around clusters of those" title="Climbing Arthur's Seat was great." />
     </a>
     
   </div>
@@ -943,7 +939,7 @@ if it is.</p>
 
 <div class="lib-info" style="">
   <a class="lib-link" href="http://huonw.github.io/tz-search/tz_search">tz-search</a>
-  <a href="https://crates.io/crates/tz-search"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/tz-search.svg" alt="tz-search on crates.io"></a>
+  <a href="https://crates.io/crates/tz-search"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/tz-search.svg" alt="tz-search on crates.io" /></a>
 </div>
 
 <p>I discovered that my Nexus 5 records some timestamps incorrectly:
@@ -963,14 +959,11 @@ pair to the name of the timezone it is in.</p>
 <p>Porting it directly<sup id="fnref:pattern-matching" role="doc-noteref"><a href="#fn:pattern-matching" class="footnote" rel="footnote">2</a></sup> was straight-forward, resulting in
 <a href="http://huonw.github.io/tz-search/tz_search/"><code class="language-plaintext highlighter-rouge">tz-search</code></a>, which offers:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
-</pre></td>
-<td class="code"><pre><span class="k">let</span> <span class="n">timezone</span> <span class="o">=</span> <span class="nn">tz_search</span><span class="p">::</span><span class="nf">lookup</span><span class="p">(</span><span class="o">-</span><span class="mf">33.8885</span><span class="p">,</span> <span class="mf">151.1908</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="n">timezone</span> <span class="o">=</span> <span class="nn">tz_search</span><span class="p">::</span><span class="nf">lookup</span><span class="p">(</span><span class="o">-</span><span class="mf">33.8885</span><span class="p">,</span> <span class="mf">151.1908</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
 <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">timezone</span><span class="p">);</span> <span class="c">// Australia/Sydney</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Of course, just knowing the name of the timezone isn’t good enough,
 but it’s the first step of getting the UTC offset (I haven’t
@@ -980,7 +973,7 @@ investigated the remaining ones yet…).</p>
 
 <div class="lib-info" style="">
   <a class="lib-link" href="http://huonw.github.io/order-stat/order_stat">order-stat</a>
-  <a href="https://crates.io/crates/order-stat"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/order-stat.svg" alt="order-stat on crates.io"></a>
+  <a href="https://crates.io/crates/order-stat"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/order-stat.svg" alt="order-stat on crates.io" /></a>
 </div>
 
 <p>The most recent “little library” I published is <code class="language-plaintext highlighter-rouge">order-stat</code>, for
@@ -992,7 +985,7 @@ which requires the ability to do exactly that.</p>
 <p>Poking about, I found a few
 <a href="https://en.wikipedia.org/wiki/Selection_algorithm">selection algorithms</a>,
 notably <a href="https://en.wikipedia.org/wiki/Quickselect">quickselect</a> and
-<a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Rivest_algorithm">Floyd–Rivest</a>,
+<a href="https://en.wikipedia.org/wiki/Floyd–Rivest_algorithm">Floyd–Rivest</a>,
 as well as the obvious one of doing a full sort and indexing to
 retrieve the <code class="language-plaintext highlighter-rouge">k</code>th element. All offer the same interface, so decision
 between them is only guided by performance.</p>
@@ -1041,7 +1034,7 @@ statistics and medians).</p>
 
 <div class="lib-info" style="">
   <a class="lib-link" href="https://github.com/BurntSushi/quickcheck#readme">quickcheck</a>
-  <a href="https://crates.io/crates/quickcheck"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/quickcheck.svg" alt="quickcheck on crates.io"></a>
+  <a href="https://crates.io/crates/quickcheck"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/quickcheck.svg" alt="quickcheck on crates.io" /></a>
 </div>
 
 <p>I should plug the <code class="language-plaintext highlighter-rouge">quickcheck</code> crate: it discovered a few subtle bugs
@@ -1105,12 +1098,12 @@ can.)</p>
      locked until you explicitly opt-in to a version upgrade with
      <code class="language-plaintext highlighter-rouge">cargo update</code>. See
      <a href="http://doc.crates.io/guide.html#cargo.toml-vs-cargo.lock">“Cargo.toml vs Cargo.lock”</a>
-     for more details. <a href="#fnref:lock" class="reversefootnote" role="doc-backlink">↩</a></p>
+     for more details. <a href="#fnref:lock" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:unique" role="doc-endnote">
       <p>This post isn’t meant to imply that Rust is the only
        language (or even systems language) with this property. I
-       just think it’s cool that Rust has it. <a href="#fnref:unique" class="reversefootnote" role="doc-backlink">↩</a></p>
+       just think it’s cool that Rust has it. <a href="#fnref:unique" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:pattern-matching" role="doc-endnote">
       <p>It wasn’t quite a one-to-one port: I opted to use
@@ -1118,7 +1111,7 @@ can.)</p>
                  to model the different internal encodings,
                  instead of a trait object which would be the true
                  translation of the <a href="https://github.com/bradfitz/latlong/blob/7d3ff04aa2b06b9db6947f7d99a4bb3cc66570bc/latlong.go#L157-L159"><code class="language-plaintext highlighter-rouge">interface</code></a> used
-                 in the original library. <a href="#fnref:pattern-matching" class="reversefootnote" role="doc-backlink">↩</a></p>
+                 in the original library. <a href="#fnref:pattern-matching" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1142,8 +1135,7 @@ can.)</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1152,8 +1144,7 @@ can.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1162,8 +1153,7 @@ can.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1172,18 +1162,16 @@ can.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1196,8 +1184,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

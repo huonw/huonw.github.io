@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">24 Oct 2015</span>
+             &mdash; <span class="date pub-date">24 Oct 2015</span>
            
            
          </div>
@@ -755,19 +755,17 @@ inspiration for something awesome.</p>
 <div class="centered-libs">
 <div class="lib-info" style="display: inline-block">
   <a class="lib-link" href="http://huonw.github.io/simple_parallel/simple_parallel">simple_parallel</a>
-  <a href="https://crates.io/crates/simple_parallel"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/simple_parallel.svg" alt="simple_parallel on crates.io"></a>
+  <a href="https://crates.io/crates/simple_parallel"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/simple_parallel.svg" alt="simple_parallel on crates.io" /></a>
 </div>
 
 </div>
 
-<h2 id="simple_parallel-in-16-lines">
-<code class="language-plaintext highlighter-rouge">simple_parallel</code> in 16 lines</h2>
+<h2 id="simple_parallel-in-16-lines"><code class="language-plaintext highlighter-rouge">simple_parallel</code> in 16 lines</h2>
 
 <p>Taster: safely setting the values in an array stored directly on the
 stack of a parent thread, in parallel, with 4 threads.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -783,8 +781,7 @@ stack of a parent thread, in parallel, with 4 threads.</p>
 14
 15
 16
-</pre></td>
-<td class="code"><pre><span class="c">// (add `simple_parallel = "0.3"` to your Cargo.toml)</span>
+</pre></td><td class="code"><pre><span class="c">// (add `simple_parallel = "0.3"` to your Cargo.toml)</span>
 <span class="k">extern</span> <span class="n">crate</span> <span class="n">simple_parallel</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -800,8 +797,7 @@ stack of a parent thread, in parallel, with 4 threads.</p>
 
     <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">stack_array</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This is the same as writing <code class="language-plaintext highlighter-rouge">for (i, elem) in
 stack_array.iter_mut().enumerate() { ... }</code>, and the output is:
@@ -811,8 +807,7 @@ stack_array.iter_mut().enumerate() { ... }</code>, and the output is:
 values, but it demonstrates some nice properties:</p>
 
 <ul>
-  <li>
-<code class="language-plaintext highlighter-rouge">stack_array</code> is <strong>allocated directly on the stack of the main thread</strong>;
+  <li><code class="language-plaintext highlighter-rouge">stack_array</code> is <strong>allocated directly on the stack of the main thread</strong>;
 it doesn’t need to be pushed to the heap. Lifetimes and
 <code class="language-plaintext highlighter-rouge">simple_parallel</code>’s API ensures that the subthreads can’t hold
 references to it for too long statically (no GC necessary).</li>
@@ -850,8 +845,7 @@ required replacing <code class="language-plaintext highlighter-rouge">for photo 
 system. I’m confident we’ll see better libraries from better
 programmers that allow for some magical things.</p>
 
-<h2 id="k-nn">
-<em>k</em>-NN</h2>
+<h2 id="k-nn"><em>k</em>-NN</h2>
 
 <p>The very first post on this blog was
 <a href="/blog/2014/06/comparing-knn-in-rust/"><em>Comparing k-NN in Rust</em></a>, which ended with parallelising
@@ -877,8 +871,7 @@ from 0.11.0 (which wasn’t too hard at all<sup id="fnref:update" role="doc-note
 to focus on the interesting bit: <code class="language-plaintext highlighter-rouge">main</code>. The sequential version is
 short:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -889,8 +882,7 @@ short:</p>
 9
 10
 11
-</pre></td>
-<td class="code"><pre><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">training_set</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"trainingsample.csv"</span><span class="p">);</span>
     <span class="k">let</span> <span class="n">validation_sample</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"validationsample.csv"</span><span class="p">);</span>
 
@@ -901,8 +893,7 @@ short:</p>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"Percentage correct: {:.1}%"</span><span class="p">,</span>
              <span class="n">num_correct</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">/</span> <span class="n">validation_sample</span><span class="nf">.len</span><span class="p">()</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>All the work is happening in the <code class="language-plaintext highlighter-rouge">filter</code> call: the <code class="language-plaintext highlighter-rouge">classify</code>
 function is the expensive one: each call does 5000 784-dimensional
@@ -913,8 +904,7 @@ the way into <code class="language-plaintext highlighter-rouge">main</code> itse
 
 <p>The parallel <code class="language-plaintext highlighter-rouge">main</code> isn’t much longer:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -935,8 +925,7 @@ the way into <code class="language-plaintext highlighter-rouge">main</code> itse
 19
 20
 21
-</pre></td>
-<td class="code"><pre><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="c">// load files</span>
     <span class="k">let</span> <span class="n">training_set</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"trainingsample.csv"</span><span class="p">);</span>
     <span class="k">let</span> <span class="n">validation_sample</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"validationsample.csv"</span><span class="p">);</span>
@@ -957,8 +946,7 @@ the way into <code class="language-plaintext highlighter-rouge">main</code> itse
                  <span class="n">num_correct</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">/</span> <span class="n">validation_sample</span><span class="nf">.len</span><span class="p">()</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">);</span>
     <span class="p">});</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The <a href="http://huonw.github.io/simple_parallel/simple_parallel/pool/struct.Pool.html#method.unordered_map"><code class="language-plaintext highlighter-rouge">unordered_map</code></a> function is a bit more complicated than
 <code class="language-plaintext highlighter-rouge">for_</code> above: this takes an iterator over <code class="language-plaintext highlighter-rouge">A</code>s, and a function from
@@ -1020,14 +1008,11 @@ alone. This is what <code class="language-plaintext highlighter-rouge">scope</co
 
 <p>Its signature is:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
-</pre></td>
-<td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="n">scope</span><span class="o">&lt;</span><span class="nv">'a</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">R</span>
+</pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="n">scope</span><span class="o">&lt;</span><span class="nv">'a</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">R</span>
     <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nf">FnOnce</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Scope</span><span class="o">&lt;</span><span class="nv">'a</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">R</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>That is, <code class="language-plaintext highlighter-rouge">scope</code> takes one argument, which is a closure, and then
 passes a reference to a <a href="http://aturon.github.io/crossbeam-doc/crossbeam/struct.Scope.html"><code class="language-plaintext highlighter-rouge">Scope</code></a> to that closure. This
@@ -1087,20 +1072,20 @@ extra argument).</p>
            either the time to compute each value will be
            significant, so the false sharing hit is irrelevant, or
            one doesn’t need to/shouldn’t parallelise at the level
-           of individual elements. <a href="#fnref:cache-line" class="reversefootnote" role="doc-backlink">↩</a></p>
+           of individual elements. <a href="#fnref:cache-line" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:not-proved" role="doc-endnote">
       <p>Strictly speaking, “ensure” isn’t quite right: there’s
            not a formal proof that <code class="language-plaintext highlighter-rouge">Send</code>/<code class="language-plaintext highlighter-rouge">Sync</code>/… all do have
            this guarantee, but there is work on
            <a href="https://www.ralfj.de/blog/2015/10/12/formalizing-rust.html">formalisations of Rust</a> that will either
-           tackle this directly, or form important groundwork. <a href="#fnref:not-proved" class="reversefootnote" role="doc-backlink">↩</a></p>
+           tackle this directly, or form important groundwork. <a href="#fnref:not-proved" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:update" role="doc-endnote">
       <p>This code is pretty simple, so was barely affected by
        language/library changes: some import paths changed, some
        imports became necessary and others could be dropped, and
-       all the <code class="language-plaintext highlighter-rouge">.as_slice()</code> calls disappeared. <a href="#fnref:update" class="reversefootnote" role="doc-backlink">↩</a></p>
+       all the <code class="language-plaintext highlighter-rouge">.as_slice()</code> calls disappeared. <a href="#fnref:update" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:simd" role="doc-endnote">
       <p>The code is actually slower than strictly necessary: if the
@@ -1108,12 +1093,12 @@ extra argument).</p>
      d| s + d * d)</code>, it is autovectorised by LLVM to use SIMD
      instructions and runs twice as fast. However, I decided
      against doing this in the spirit of Rust 1.3 v. Rust 0.11
-     comparisons: IIRC the old code didn’t get SIMD-ified. <a href="#fnref:simd" class="reversefootnote" role="doc-backlink">↩</a></p>
+     comparisons: IIRC the old code didn’t get SIMD-ified. <a href="#fnref:simd" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:order" role="doc-endnote">
       <p>There’s also <a href="http://huonw.github.io/simple_parallel/simple_parallel/pool/struct.Pool.html#method.map">the plain old <code class="language-plaintext highlighter-rouge">map</code> function</a>, which is
       careful to return the elements in the same order as they
-      were in the original iterator. This is a bit more expensive. <a href="#fnref:order" class="reversefootnote" role="doc-backlink">↩</a></p>
+      were in the original iterator. This is a bit more expensive. <a href="#fnref:order" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1137,8 +1122,7 @@ extra argument).</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1147,8 +1131,7 @@ extra argument).</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1157,8 +1140,7 @@ extra argument).</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1167,18 +1149,16 @@ extra argument).</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1191,8 +1171,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

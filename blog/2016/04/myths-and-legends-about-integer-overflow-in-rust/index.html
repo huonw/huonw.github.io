@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">29 Apr 2016</span>
+             &mdash; <span class="date pub-date">29 Apr 2016</span>
            
            
          </div>
@@ -807,28 +807,24 @@ behaviour—is in direct contradiction to this. For one, a variable
 that is undefined does not have to have a consistent value from use to
 use:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td>
-<td class="code"><pre><span class="c">// pseudo-Rust</span>
+</pre></td><td class="code"><pre><span class="c">// pseudo-Rust</span>
 <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
 
 <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
 <span class="k">let</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
 <span class="nd">assert_eq!</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span> <span class="c">// this could fail</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This has disastrous consequences for things that rely on checking a
 value for safety, like indexing an array with bounds checks <code class="language-plaintext highlighter-rouge">foo[x]</code>:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -837,8 +833,7 @@ value for safety, like indexing an array with bounds checks <code class="languag
 7
 8
 9
-</pre></td>
-<td class="code"><pre><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
 
 <span class="c">// let y = foo[x]; is equivalent to</span>
 
@@ -847,8 +842,7 @@ value for safety, like indexing an array with bounds checks <code class="languag
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="nd">panic!</span><span class="p">(</span><span class="s">"index out of bounds"</span><span class="p">)</span>
 <span class="p">};</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>If the value of <code class="language-plaintext highlighter-rouge">x</code> isn’t consistent from the <code class="language-plaintext highlighter-rouge">x &lt; foo.len()</code>
 comparison to the actual access of the array, there’s no guarantee the
@@ -947,31 +941,23 @@ by default.</p>
 sets of methods beyond the pure operators:</p>
 
 <ul>
-  <li>
-<a href="http://doc.rust-lang.org/std/primitive.i32.html#method.wrapping_add"><code class="language-plaintext highlighter-rouge">wrapping_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.wrapping_sub"><code class="language-plaintext highlighter-rouge">wrapping_sub</code></a>, …</li>
-  <li>
-<a href="http://doc.rust-lang.org/std/primitive.i32.html#method.saturating_add"><code class="language-plaintext highlighter-rouge">saturating_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.saturating_sub"><code class="language-plaintext highlighter-rouge">saturating_sub</code></a>, …</li>
-  <li>
-<a href="http://doc.rust-lang.org/std/primitive.i32.html#method.overflowing_add"><code class="language-plaintext highlighter-rouge">overflowing_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.overflowing_sub"><code class="language-plaintext highlighter-rouge">overflowing_sub</code></a>, ..</li>
-  <li>
-<a href="http://doc.rust-lang.org/std/primitive.i32.html#method.checked_add"><code class="language-plaintext highlighter-rouge">checked_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.checked_sub"><code class="language-plaintext highlighter-rouge">checked_sub</code></a>, …</li>
+  <li><a href="http://doc.rust-lang.org/std/primitive.i32.html#method.wrapping_add"><code class="language-plaintext highlighter-rouge">wrapping_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.wrapping_sub"><code class="language-plaintext highlighter-rouge">wrapping_sub</code></a>, …</li>
+  <li><a href="http://doc.rust-lang.org/std/primitive.i32.html#method.saturating_add"><code class="language-plaintext highlighter-rouge">saturating_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.saturating_sub"><code class="language-plaintext highlighter-rouge">saturating_sub</code></a>, …</li>
+  <li><a href="http://doc.rust-lang.org/std/primitive.i32.html#method.overflowing_add"><code class="language-plaintext highlighter-rouge">overflowing_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.overflowing_sub"><code class="language-plaintext highlighter-rouge">overflowing_sub</code></a>, ..</li>
+  <li><a href="http://doc.rust-lang.org/std/primitive.i32.html#method.checked_add"><code class="language-plaintext highlighter-rouge">checked_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.checked_sub"><code class="language-plaintext highlighter-rouge">checked_sub</code></a>, …</li>
 </ul>
 
 <p>These should cover all bases of “don’t want overflow to panic in some
 modes”:</p>
 
 <ul>
-  <li>
-<code class="language-plaintext highlighter-rouge">wrapping_...</code> returns the straight two’s complement result,</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">saturating_...</code> returns the largest/smallest value (as appropriate) of
+  <li><code class="language-plaintext highlighter-rouge">wrapping_...</code> returns the straight two’s complement result,</li>
+  <li><code class="language-plaintext highlighter-rouge">saturating_...</code> returns the largest/smallest value (as appropriate) of
 the type when overflow occurs,</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">overflowing_...</code> returns the two’s
+  <li><code class="language-plaintext highlighter-rouge">overflowing_...</code> returns the two’s
 complement result along with a boolean indicating if overflow occured,
 and</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">checked_...</code> returns an <code class="language-plaintext highlighter-rouge">Option</code> that’s <code class="language-plaintext highlighter-rouge">None</code> when overflow
+  <li><code class="language-plaintext highlighter-rouge">checked_...</code> returns an <code class="language-plaintext highlighter-rouge">Option</code> that’s <code class="language-plaintext highlighter-rouge">None</code> when overflow
 occurs.</li>
 </ul>
 
@@ -1015,8 +1001,7 @@ integer overflow bugs during development.</p>
 <p>It’s an unfortunate reality that checking for overflow requires more
 code and more instructions:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1025,8 +1010,7 @@ code and more instructions:</p>
 7
 8
 9
-</pre></td>
-<td class="code"><pre><span class="nd">#[no_mangle]</span>
+</pre></td><td class="code"><pre><span class="nd">#[no_mangle]</span>
 <span class="k">pub</span> <span class="k">fn</span> <span class="nf">unchecked</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
     <span class="n">x</span><span class="nf">.wrapping_add</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="p">}</span>
@@ -1035,14 +1019,12 @@ code and more instructions:</p>
 <span class="k">pub</span> <span class="k">fn</span> <span class="nf">checked</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
     <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>With <code class="language-plaintext highlighter-rouge">-O -Z force-overflow-checks</code>, on x86<sup id="fnref:arm" role="doc-noteref"><a href="#fn:arm" class="footnote" rel="footnote">1</a></sup>, this compiles to (with some
 editing for clarity):</p>
 
-<figure class="highlight"><pre><code class="language-asm" data-lang="asm"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-asm" data-lang="asm"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1056,8 +1038,7 @@ editing for clarity):</p>
 12
 13
 14
-</pre></td>
-<td class="code"><pre>unchecked:
+</pre></td><td class="code"><pre>unchecked:
 	leal (%rdi,%rsi), %eax
 	retq
 
@@ -1071,8 +1052,7 @@ checked:
 .overflow_occurred:
 	leaq	panic_loc2994(%rip), %rdi
 	callq	_ZN9panicking5panic20h4265c0105caa1121SaME@PLT
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>It is definitely annoying that there are all<sup id="fnref:extra" role="doc-noteref"><a href="#fn:extra" class="footnote" rel="footnote">2</a></sup> those extra
 instructions, as is the fact that implementations are forced to use
@@ -1179,12 +1159,12 @@ signed integer types), and similarly for <code class="language-plaintext highlig
 are actually undefined behaviour in C and LLVM (which is the
 historical reason for why rustc has them unconditional), although,
 it seems to me that Rust could theoretically consider the
-latter a normal overflow and return <code class="language-plaintext highlighter-rouge">MIN</code> when the checks are off. <a href="#fnref:unconditional" class="reversefootnote" role="doc-backlink">↩</a></p>
+latter a normal overflow and return <code class="language-plaintext highlighter-rouge">MIN</code> when the checks are off. <a href="#fnref:unconditional" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:arm" role="doc-endnote">
       <p>On 32-bit ARM, LLVM <a href="https://llvm.org/bugs/show_bug.cgi?id=27571">currently decides</a> to emit a
 chain of redundant comparisons and register manipulations, so the
-penalty is even higher! <a href="#fnref:arm" class="reversefootnote" role="doc-backlink">↩</a></p>
+penalty is even higher! <a href="#fnref:arm" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:extra" role="doc-endnote">
       <p>There’s more instructions in the function version than there
@@ -1196,7 +1176,7 @@ penalty is even higher! <a href="#fnref:arm" class="reversefootnote" role="doc-
       enough version of LLVM to get its new <a href="http://reviews.llvm.org/D9210">"shrink wrapping"
       optimisation pass</a></s> use a version of LLVM that
       contains <a href="https://llvm.org/bugs/show_bug.cgi?id=25614">a bug in its “shrink-wrapping” pass</a>
-      (thanks for <a href="https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612/2?u=huon">the correction</a>, Eli Friedman). <a href="#fnref:extra" class="reversefootnote" role="doc-backlink">↩</a></p>
+      (thanks for <a href="https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612/2?u=huon">the correction</a>, Eli Friedman). <a href="#fnref:extra" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:lea" role="doc-endnote">
       <p>On x86, it can be extremely useful to be able to use <code class="language-plaintext highlighter-rouge">lea</code>
@@ -1214,7 +1194,7 @@ because each element is of size 4), but <code class="language-plaintext highligh
 the arithmetic without hitting memory.  All-in-all, being able to
 use <code class="language-plaintext highlighter-rouge">lea</code> for arithmetic is quite nice. The downside is of course
 <code class="language-plaintext highlighter-rouge">lea</code> doesn’t integrate directly with overflow detection: it
-doesn’t set the CPU flags that signal it. <a href="#fnref:lea" class="reversefootnote" role="doc-backlink">↩</a></p>
+doesn’t set the CPU flags that signal it. <a href="#fnref:lea" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1238,8 +1218,7 @@ doesn’t set the CPU flags that signal it. <a href="#fnref:lea" class="reverse
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1248,8 +1227,7 @@ doesn’t set the CPU flags that signal it. <a href="#fnref:lea" class="reverse
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1258,8 +1236,7 @@ doesn’t set the CPU flags that signal it. <a href="#fnref:lea" class="reverse
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1268,18 +1245,16 @@ doesn’t set the CPU flags that signal it. <a href="#fnref:lea" class="reverse
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1292,8 +1267,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

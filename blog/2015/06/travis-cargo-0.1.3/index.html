@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">30 Jun 2015</span>
+             &mdash; <span class="date pub-date">30 Jun 2015</span>
            
            
          </div>
@@ -755,22 +755,19 @@ everything necessary. Unfortunately, it does require these to be
 installed explicitly, which seems to be something <code class="language-plaintext highlighter-rouge">travis-cargo</code> can’t
 do itself: they seem to have to be explicitly listed in the manifest.</p>
 
-<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td>
-<td class="code"><pre><span class="na">addons</span><span class="pi">:</span>
+</pre></td><td class="code"><pre><span class="na">addons</span><span class="pi">:</span>
   <span class="na">apt</span><span class="pi">:</span>
     <span class="na">packages</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">libcurl4-openssl-dev</span>
       <span class="pi">-</span> <span class="s">libelf-dev</span>
       <span class="pi">-</span> <span class="s">libdw-dev</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This allows leveraging Travis’ container-based infrastructure, with
 <a href="http://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure/">all its benefits</a>,
@@ -778,16 +775,13 @@ especially around speed and latency. If you switch<sup id="fnref:false" role="do
 your builds are using it by looking for the following paragraph in the
 build-logs:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td>
-<td class="code"><pre>This job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.
+</pre></td><td class="code"><pre>This job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.
 If you require sudo, add 'sudo: required' to your .travis.yml
 See http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p><code class="language-plaintext highlighter-rouge">--no-sudo</code> is opt-in because it’d be a breaking change to do anything
 else, and because adding <code class="language-plaintext highlighter-rouge">sudo: required</code> is simpler than the whole
@@ -800,12 +794,12 @@ else, and because adding <code class="language-plaintext highlighter-rouge">sudo
        a
        <a href="https://github.com/huonw/travis-cargo/issues/7">similar observation a month ago</a>
        but I only noticed after already implementing it just today:
-       sorry Jonas! <a href="#fnref:others" class="reversefootnote" role="doc-backlink">↩</a></p>
+       sorry Jonas! <a href="#fnref:others" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:false" role="doc-endnote">
       <p>I think I have also sometimes found it necessary to also add
       <code class="language-plaintext highlighter-rouge">sudo: false</code> to forcibly opt-in to the container-based
-      infrastructure. <a href="#fnref:false" class="reversefootnote" role="doc-backlink">↩</a></p>
+      infrastructure. <a href="#fnref:false" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -829,8 +823,7 @@ else, and because adding <code class="language-plaintext highlighter-rouge">sudo
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -839,8 +832,7 @@ else, and because adding <code class="language-plaintext highlighter-rouge">sudo
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -849,8 +841,7 @@ else, and because adding <code class="language-plaintext highlighter-rouge">sudo
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -859,18 +850,16 @@ else, and because adding <code class="language-plaintext highlighter-rouge">sudo
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -883,8 +872,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

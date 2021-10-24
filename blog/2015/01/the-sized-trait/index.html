@@ -733,7 +733,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">12 Jan 2015</span>
+             &mdash; <span class="date pub-date">12 Jan 2015</span>
            
            
          </div>
@@ -762,10 +762,8 @@ parameters are known (i.e. after completing monomorphisation). For
 example,</p>
 
 <ul>
-  <li>
-<code class="language-plaintext highlighter-rouge">u8</code> is one byte,</li>
-  <li>
-<code class="language-plaintext highlighter-rouge">Vec&lt;T&gt;</code> is either 12 or 24 bytes (platforms with 32 and 64 bit
+  <li><code class="language-plaintext highlighter-rouge">u8</code> is one byte,</li>
+  <li><code class="language-plaintext highlighter-rouge">Vec&lt;T&gt;</code> is either 12 or 24 bytes (platforms with 32 and 64 bit
 pointers respectively), independent of <code class="language-plaintext highlighter-rouge">T</code>,</li>
   <li>pointers like <code class="language-plaintext highlighter-rouge">&amp;T</code> are sized too, on 64-bit platforms <code class="language-plaintext highlighter-rouge">&amp;T</code> is either
 8 or 16 bytes, for sized <code class="language-plaintext highlighter-rouge">T</code> and unsized <code class="language-plaintext highlighter-rouge">T</code> respectively. This may
@@ -804,16 +802,13 @@ special: it is a default bound for type parameters in most positions,
 and so one needs some way to opt-in to a parameter not necessarily
 being sized.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td>
-<td class="code"><pre><span class="k">fn</span> <span class="n">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{}</span> <span class="c">// can only be used with sized T</span>
+</pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{}</span> <span class="c">// can only be used with sized T</span>
 
 <span class="k">fn</span> <span class="n">bar</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="o">?</span><span class="n">Sized</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{}</span> <span class="c">// can be used with both sized and unsized T</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This bound is particularly special because adding the <code class="language-plaintext highlighter-rouge">?Sized</code> bound
 to a parameter <code class="language-plaintext highlighter-rouge">T</code> increases the number of types that can be used for
@@ -866,19 +861,19 @@ to be worth the breaking change…)</p>
     <li id="fn:version" role="doc-endnote">
       <p>Per the <a href="/blog/2015/01/peeking-inside-trait-objects/">previous post</a>, this post is
         designed to reflect the state of Rust at version: <code class="language-plaintext highlighter-rouge">rustc
-        1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)</code>. <a href="#fnref:version" class="reversefootnote" role="doc-backlink">↩</a></p>
+        1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)</code>. <a href="#fnref:version" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:virtual" role="doc-endnote">
       <p>There is the possibility that Rust will gain some form of
         <a href="http://discuss.rust-lang.org/t/summary-of-efficient-inheritance-rfcs/494">“inheritance”</a>, and Niko points out to me that
         <code class="language-plaintext highlighter-rouge">Sized</code> may play an important role there too: certain
         types (e.g. “base classes” in an conventional inheritance
-        scheme)  make sense to be unsized. <a href="#fnref:virtual" class="reversefootnote" role="doc-backlink">↩</a></p>
+        scheme)  make sense to be unsized. <a href="#fnref:virtual" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:str" role="doc-endnote">
       <p>The unsized string type <code class="language-plaintext highlighter-rouge">str</code> is usually considered a slice,
     since it is just a <code class="language-plaintext highlighter-rouge">[u8]</code> with the guarantee that the bytes
-    are valid UTF-8. <a href="#fnref:str" class="reversefootnote" role="doc-backlink">↩</a></p>
+    are valid UTF-8. <a href="#fnref:str" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -902,8 +897,7 @@ to be worth the breaking change…)</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -912,8 +906,7 @@ to be worth the breaking change…)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -922,8 +915,7 @@ to be worth the breaking change…)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -932,18 +924,16 @@ to be worth the breaking change…)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -956,8 +946,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

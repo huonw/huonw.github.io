@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">27 Oct 2015</span>
+             &mdash; <span class="date pub-date">27 Oct 2015</span>
            
            
          </div>
@@ -811,8 +811,7 @@ any time.</p>
 
 <p>With Rust/Cargo, my command line will often look like:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -823,8 +822,7 @@ any time.</p>
 9
 10
 11
-</pre></td>
-<td class="code"><pre><span class="nv">$ </span>cargo build <span class="nt">--example</span> foo
+</pre></td><td class="code"><pre><span class="nv">$ </span>cargo build <span class="nt">--example</span> foo
 ... things compiling ...
 <span class="nv">$ </span>rr ./target/debug/examples/foo
 ... rr &amp; program output ...
@@ -835,8 +833,7 @@ any time.</p>
 <span class="o">(</span>gdb<span class="o">)</span> <span class="k">continue</span>
 ... program output ...
 <span class="o">(</span>gdb<span class="o">)</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>(The <code class="language-plaintext highlighter-rouge">-d</code> flag was <a href="https://github.com/mozilla/rr/pull/1551">added</a> just after 4.0 was released. I asked
 a question about swapping in different gdbs, and was prompted to
@@ -856,8 +853,7 @@ super-slow, and it won’t be nearly as nice to use as rr. The worst
 overhead I’ve noticed is the rr’d program taking <s>14× longer</s>, but it’s
 a pretty dumb program, and I only came up with it for this blog post<sup id="fnref:worst-case" role="doc-noteref"><a href="#fn:worst-case" class="footnote" rel="footnote">0</a></sup>:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -867,8 +863,7 @@ a pretty dumb program, and I only came up with it for this blog post<sup id="fnr
 8
 9
 10
-</pre></td>
-<td class="code"><pre><span class="c">// hammer.rs</span>
+</pre></td><td class="code"><pre><span class="c">// hammer.rs</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fs</span><span class="p">::</span><span class="n">File</span><span class="p">;</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">io</span><span class="p">::</span><span class="nn">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
 
@@ -878,8 +873,7 @@ a pretty dumb program, and I only came up with it for this blog post<sup id="fnr
         <span class="nn">File</span><span class="p">::</span><span class="nf">open</span><span class="p">(</span><span class="s">"foo.txt"</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">()</span><span class="nf">.read</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="n">buffer</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>It takes <s>4.2s</s> 0.5s (this case <a href="https://github.com/mozilla/rr/commit/9bc7077e0a031a200aca7baf785dad17eba9f941">was optimised</a>) to be
 recorded with rr, but only 0.3s to run normally. (Compiled with
@@ -900,8 +894,7 @@ and ready to go.</p>
 deterministic (and completely so, as far as I can tell), so you can be
 sure about a lot of things. Reading random data is fine:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -911,8 +904,7 @@ sure about a lot of things. Reading random data is fine:</p>
 8
 9
 10
-</pre></td>
-<td class="code"><pre><span class="c">// urandom.rs</span>
+</pre></td><td class="code"><pre><span class="c">// urandom.rs</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fs</span><span class="p">::</span><span class="n">File</span><span class="p">;</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">io</span><span class="p">::</span><span class="nn">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
 
@@ -922,13 +914,11 @@ sure about a lot of things. Reading random data is fine:</p>
 
     <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">buffer</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Recording and playing it back gives the same result each time:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -937,8 +927,7 @@ sure about a lot of things. Reading random data is fine:</p>
 7
 8
 9
-</pre></td>
-<td class="code"><pre><span class="nv">$ </span>rr ./urandom
+</pre></td><td class="code"><pre><span class="nv">$ </span>rr ./urandom
 rr: Saving the execution of <span class="sb">`</span>./urandom<span class="s1">' to trace directory `/home/huon/.rr/urandom-2'</span><span class="nb">.</span>
 <span class="o">[</span>45, 45, 28, 0, 236]
 <span class="nv">$ </span>~/projects/mozilla/rr/obj/bin/rr replay <span class="nt">-d</span> rust-gdb ~/.rr/urandom-2
@@ -947,8 +936,7 @@ GNU gdb <span class="o">(</span>Ubuntu 7.10-1ubuntu2<span class="o">)</span> 7.1
 <span class="o">(</span>gdb<span class="o">)</span> c
 Continuing.
 <span class="o">[</span>45, 45, 28, 0, 236]
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Even the memory addresses of allocations, the stack and everything
 else are deterministic, so watches and watchpoints can be placed on
@@ -1078,7 +1066,7 @@ but it works flawlessly with Rust, and I’m sure other languages too.</p>
 Linux, so I have no idea if this is actually triggering a
 particularly bad case; but I do know that rr will shim in/save the
 result of syscalls into the operating system, so doing a lot of
-them (as opening/reading/closing a file will do) is probably slow. <a href="#fnref:worst-case" class="reversefootnote" role="doc-backlink">↩</a></p>
+them (as opening/reading/closing a file will do) is probably slow. <a href="#fnref:worst-case" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:rare" role="doc-endnote">
       <p>The rr developers point out this means tracking down rare
@@ -1088,7 +1076,7 @@ them (as opening/reading/closing a file will do) is probably slow. <a href="#fn
      debugger. (Again not something I’ve particularly needed to
      use yet, so I don’t speak from experience: the rarest bug
      I’ve had to tackle recently occurred in about a quarter of
-     executions.) <a href="#fnref:rare" class="reversefootnote" role="doc-backlink">↩</a></p>
+     executions.) <a href="#fnref:rare" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1112,8 +1100,7 @@ them (as opening/reading/closing a file will do) is probably slow. <a href="#fn
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1122,8 +1109,7 @@ them (as opening/reading/closing a file will do) is probably slow. <a href="#fn
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1132,8 +1118,7 @@ them (as opening/reading/closing a file will do) is probably slow. <a href="#fn
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1142,18 +1127,16 @@ them (as opening/reading/closing a file will do) is probably slow. <a href="#fn
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1166,8 +1149,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

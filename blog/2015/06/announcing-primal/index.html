@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">08 Jun 2015</span>
+             &mdash; <span class="date pub-date">08 Jun 2015</span>
            
            
          </div>
@@ -750,7 +750,7 @@ maintaining an idiomatic and easy-to-use interface.</p>
 <div class="centered-libs">
 <div class="lib-info" style="display: inline-block">
   <a class="lib-link" href="http://huonw.github.io/primal/primal">primal</a>
-  <a href="https://crates.io/crates/primal"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/primal.svg" alt="primal on crates.io"></a>
+  <a href="https://crates.io/crates/primal"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/primal.svg" alt="primal on crates.io" /></a>
 </div>
 
 </div>
@@ -758,22 +758,19 @@ maintaining an idiomatic and easy-to-use interface.</p>
 <p>My computer takes a quarter of a second and less than 3MB of RAM to
 tell me that there 50,847,534 primes below 1 billion:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td>
-<td class="code"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">primal</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">primal</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"there are {} primes below 1 billion"</span><span class="p">,</span>
              <span class="nn">primal</span><span class="p">::</span><span class="nn">StreamingSieve</span><span class="p">::</span><span class="nf">prime_pi</span><span class="p">(</span><span class="mi">1_000_000_000</span><span class="p">));</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Some of the first programming I did was <a href="http://projecteuler.net">Project Euler</a>: a site
 that has little mathematical problems designed to be solved with the
@@ -821,12 +818,10 @@ provide fast (<em>O</em>(1)) but precise bounds for the <em>n</em>th prime, and
 the number of primes below <em>k</em>:</p>
 
     <ul>
-      <li>
-<code class="language-plaintext highlighter-rouge">estimate_prime_pi(1_000_000_000)</code> returns a lower-bound of
+      <li><code class="language-plaintext highlighter-rouge">estimate_prime_pi(1_000_000_000)</code> returns a lower-bound of
 50,785,736 (0.12% below the true value) and an upper-bound of
 50,865,514 (0.04% above),</li>
-      <li>
-<code class="language-plaintext highlighter-rouge">estimate_nth_prime(50_847_535)</code> returns 999,873,297 and
+      <li><code class="language-plaintext highlighter-rouge">estimate_nth_prime(50_847_535)</code> returns 999,873,297 and
 1,000,273,162, which are 0.01% below and 0.03% above
 (respectively) the true value of 1,000,000,007.</li>
     </ul>
@@ -839,22 +834,19 @@ size). In a flash of inspiration, I realised it would be possible to
 do this reasonably efficiently with a simple wrapper around the core
 sieve. It can be used a bit like:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td>
-<td class="code"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">primal</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">primal</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"the 50,847,535th prime is {}"</span><span class="p">,</span>
              <span class="nn">primal</span><span class="p">::</span><span class="nn">Primes</span><span class="p">::</span><span class="nf">all</span><span class="p">()</span><span class="nf">.nth</span><span class="p">(</span><span class="mi">50_847_535</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">());</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <div class="join"></div>
 
@@ -899,7 +891,7 @@ same task.)</p>
     <li id="fn:update" role="doc-endnote">
       <p>I realised the original implementation was inefficient, and
        using far more memory than necessary: fixing that made a
-       huge difference. <a href="#fnref:update" class="reversefootnote" role="doc-backlink">↩</a></p>
+       huge difference. <a href="#fnref:update" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -923,8 +915,7 @@ same task.)</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -933,8 +924,7 @@ same task.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -943,8 +933,7 @@ same task.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -953,18 +942,16 @@ same task.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -977,8 +964,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

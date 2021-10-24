@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">11 Jun 2014</span>
+             &mdash; <span class="date pub-date">11 Jun 2014</span>
            
            
          </div>
@@ -788,8 +788,7 @@ handle errors in <code class="language-plaintext highlighter-rouge">slurp_file</
 conditions, and <a href="http://doc.rust-lang.org/master/guide-macros.html">define a short custom macro</a> that either
 “unwrap”s or short-circuits to return the appropriate error marker.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -860,8 +859,7 @@ conditions, and <a href="http://doc.rust-lang.org/master/guide-macros.html">defi
 69
 70
 71
-</pre></td>
-<td class="code"><pre><span class="nd">#![feature(macro_rules)]</span>
+</pre></td><td class="code"><pre><span class="nd">#![feature(macro_rules)]</span>
 
 <span class="c">// the possible things that can go wrong</span>
 <span class="k">enum</span> <span class="n">SlurpError</span> <span class="p">{</span>
@@ -932,8 +930,7 @@ conditions, and <a href="http://doc.rust-lang.org/master/guide-macros.html">defi
 
     <span class="nn">result</span><span class="p">::</span><span class="nf">collect</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <blockquote>
   <p>vbhit provides <a href="http://www.reddit.com/r/rust/comments/27tuu5/error_handling_in_rust_a_knn_case_study/ci4nvpi.">a nice alternative implementation</a> that
@@ -945,8 +942,7 @@ is called, and the error propagated upwards there, or handled
 appropriately e.g. the <code class="language-plaintext highlighter-rouge">slurp_file</code> calls in <code class="language-plaintext highlighter-rouge">main</code> could be changed
 to something like:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -957,8 +953,7 @@ to something like:</p>
 9
 10
 11
-</pre></td>
-<td class="code"><pre><span class="k">let</span> <span class="n">training_set</span> <span class="o">=</span> <span class="k">match</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="o">&amp;</span><span class="nn">Path</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="s">"trainingsample.csv"</span><span class="p">))</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="n">training_set</span> <span class="o">=</span> <span class="k">match</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="o">&amp;</span><span class="nn">Path</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="s">"trainingsample.csv"</span><span class="p">))</span> <span class="p">{</span>
     <span class="nf">Ok</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="n">data</span><span class="p">,</span>
     <span class="nf">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
         <span class="k">match</span> <span class="n">e</span> <span class="p">{</span>
@@ -969,8 +964,7 @@ to something like:</p>
         <span class="k">return</span>
     <span class="p">}</span>
 <span class="p">};</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <h2 id="collect">“collect”?</h2>
 
@@ -1045,8 +1039,7 @@ nicely due to Rust’s affine types and various low-level details.</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1055,8 +1048,7 @@ nicely due to Rust’s affine types and various low-level details.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1065,8 +1057,7 @@ nicely due to Rust’s affine types and various low-level details.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1075,18 +1066,16 @@ nicely due to Rust’s affine types and various low-level details.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1099,8 +1088,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

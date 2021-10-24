@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">24 Jul 2014</span>
+             &mdash; <span class="date pub-date">24 Jul 2014</span>
            
            
          </div>
@@ -788,8 +788,7 @@ and some external non-Rust libraries like jemalloc and libuv.</p>
 <p>There are two ways in which one can opt-in to these possibly dangerous
 behaviours: with an <code class="language-plaintext highlighter-rouge">unsafe</code> block, or with an <code class="language-plaintext highlighter-rouge">unsafe</code> function.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -803,8 +802,7 @@ behaviours: with an <code class="language-plaintext highlighter-rouge">unsafe</c
 12
 13
 14
-</pre></td>
-<td class="code"><pre><span class="c">// calling some C functions imported via FFI:</span>
+</pre></td><td class="code"><pre><span class="c">// calling some C functions imported via FFI:</span>
 
 <span class="k">unsafe</span> <span class="k">fn</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
     <span class="nf">some_c_function</span><span class="p">();</span>
@@ -818,8 +816,7 @@ behaviours: with an <code class="language-plaintext highlighter-rouge">unsafe</c
     <span class="c">// illegal, not inside an `unsafe` context</span>
     <span class="c">// yet_another_c_function();</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Being inside an <code class="language-plaintext highlighter-rouge">unsafe</code> context allows one to (not necessarily
 complete):</p>
@@ -898,34 +895,28 @@ guarantees they give. However, marking possibly-dangerous things
 <code class="language-plaintext highlighter-rouge">unsafe</code> helps the compiler help the programmer do the right thing, so
 is encouraged even for private items.</p>
 
-<h3 id="case-study-vec">Case study: <code class="language-plaintext highlighter-rouge">Vec</code>
-</h3>
+<h3 id="case-study-vec">Case study: <code class="language-plaintext highlighter-rouge">Vec</code></h3>
 
 <p>The <code class="language-plaintext highlighter-rouge">Vec&lt;T&gt;</code> type is
 <a href="https://github.com/rust-lang/rust/blob/82ec1aef293ddc5c6373bd7f5ec323fafbdf7901/src/libcollections/vec.rs#L55-L59">defined</a>
 as:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td>
-<td class="code"><pre><span class="k">pub</span> <span class="k">struct</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">struct</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="n">len</span><span class="p">:</span> <span class="nb">uint</span><span class="p">,</span>
     <span class="n">cap</span><span class="p">:</span> <span class="nb">uint</span><span class="p">,</span>
     <span class="n">ptr</span><span class="p">:</span> <span class="o">*</span><span class="k">mut</span> <span class="n">T</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>There are (at least) two invariants here:</p>
 
 <ol>
-  <li>
-<code class="language-plaintext highlighter-rouge">ptr</code> holds an allocation with enough space for <code class="language-plaintext highlighter-rouge">cap</code> values of type <code class="language-plaintext highlighter-rouge">T</code>
-</li>
+  <li><code class="language-plaintext highlighter-rouge">ptr</code> holds an allocation with enough space for <code class="language-plaintext highlighter-rouge">cap</code> values of type <code class="language-plaintext highlighter-rouge">T</code></li>
   <li>That allocation holds <code class="language-plaintext highlighter-rouge">len</code> valid values of type <code class="language-plaintext highlighter-rouge">T</code> (i.e. the
 first <code class="language-plaintext highlighter-rouge">len</code> out of <code class="language-plaintext highlighter-rouge">cap</code> of the <code class="language-plaintext highlighter-rouge">T</code>s are valid, implying <code class="language-plaintext highlighter-rouge">len &lt;=
 cap</code>)</li>
@@ -939,16 +930,13 @@ stated above, and so cannot be sure that
 <a href="https://github.com/rust-lang/rust/blob/82ec1aef293ddc5c6373bd7f5ec323fafbdf7901/src/libcollections/vec.rs#L1430">creating a slice view into the vector</a>
 is safe. It is implemented like so:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td>
-<td class="code"><pre><span class="k">fn</span> <span class="n">as_slice</span><span class="o">&lt;</span><span class="nv">'a</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">'a</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="nv">'a</span> <span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">as_slice</span><span class="o">&lt;</span><span class="nv">'a</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">'a</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="o">&amp;</span><span class="nv">'a</span> <span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="p">{</span>
     <span class="k">unsafe</span> <span class="p">{</span> <span class="nn">mem</span><span class="p">::</span><span class="nf">transmute</span><span class="p">(</span><span class="n">Slice</span> <span class="p">{</span> <span class="n">data</span><span class="p">:</span> <span class="k">self</span><span class="nf">.as_ptr</span><span class="p">(),</span> <span class="n">len</span><span class="p">:</span> <span class="k">self</span><span class="py">.len</span> <span class="p">})</span> <span class="p">}</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>And you can see that it could easily be unsafe e.g. if one
 accidentally wrote <code class="language-plaintext highlighter-rouge">self.cap</code> instead of <code class="language-plaintext highlighter-rouge">self.len</code>, the resulting
@@ -970,8 +958,7 @@ the <code class="language-plaintext highlighter-rouge">unsafe</code> parts of th
 <a href="http://doc.rust-lang.org/master/collections/vec/struct.Vec.html#method.set_len">the <code class="language-plaintext highlighter-rouge">set_len</code> method</a>
 can directly change the <code class="language-plaintext highlighter-rouge">len</code> field.</p>
 
-<h3 id="case-study-malloc">Case study: <code class="language-plaintext highlighter-rouge">malloc</code>
-</h3>
+<h3 id="case-study-malloc">Case study: <code class="language-plaintext highlighter-rouge">malloc</code></h3>
 
 <p>The C function <code class="language-plaintext highlighter-rouge">malloc</code> is described by my man page as the following:</p>
 
@@ -993,8 +980,7 @@ integer, carefully justifying why we know more than the compiler, and
 thus why each <code class="language-plaintext highlighter-rouge">unsafe</code> is safe (in a perfect world all <code class="language-plaintext highlighter-rouge">unsafe</code> blocks
 would be justified/proved correct).</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1033,8 +1019,7 @@ would be justified/proved correct).</p>
 37
 38
 39
-</pre></td>
-<td class="code"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">libc</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">libc</span><span class="p">;</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">ptr</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -1073,8 +1058,7 @@ would be justified/proved correct).</p>
 
     <span class="c">// (leaking memory is not `unsafe`.)</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>(Keen eyes will note that <code class="language-plaintext highlighter-rouge">i64</code> doesn’t have a destructor and so the
 <a href="http://doc.rust-lang.org/master/std/ptr/fn.write.html"><code class="language-plaintext highlighter-rouge">ptr::write</code></a>
@@ -1145,12 +1129,12 @@ provides guidance and tips about using <code class="language-plaintext highlight
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
     <li id="fn:version" role="doc-endnote">
-      <p>The code in this post compiles with <code class="language-plaintext highlighter-rouge">rustc 0.12.0-pre-nightly (aa0e35bc6 2014-07-22 00:26:21 +0000)</code>. <a href="#fnref:version" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>The code in this post compiles with <code class="language-plaintext highlighter-rouge">rustc 0.12.0-pre-nightly (aa0e35bc6 2014-07-22 00:26:21 +0000)</code>. <a href="#fnref:version" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:ub-llvm" role="doc-endnote">
       <p><a href="http://blog.llvm.org/2011/05/what-every-c-programmer-should-know.html">“What Every C Programmer Should Know About Undefined Behaviour”</a>
         is a series of articles highlighting how insidious undefined behaviour
-        can be, leading to subtly (or not so subtly) broken programs. <a href="#fnref:ub-llvm" class="reversefootnote" role="doc-backlink">↩</a></p>
+        can be, leading to subtly (or not so subtly) broken programs. <a href="#fnref:ub-llvm" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1174,8 +1158,7 @@ provides guidance and tips about using <code class="language-plaintext highlight
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1184,8 +1167,7 @@ provides guidance and tips about using <code class="language-plaintext highlight
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1194,8 +1176,7 @@ provides guidance and tips about using <code class="language-plaintext highlight
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1204,18 +1185,16 @@ provides guidance and tips about using <code class="language-plaintext highlight
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1228,8 +1207,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

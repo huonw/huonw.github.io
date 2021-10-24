@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">10 Jan 2015</span>
+             &mdash; <span class="date pub-date">10 Jan 2015</span>
            
            
          </div>
@@ -774,38 +774,32 @@ expected to return a <code class="language-plaintext highlighter-rouge">String</
 some expectation about what the string would mean, but this is just a
 blog, so you’re free to make up your own favourite meaning.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td>
-<td class="code"><pre><span class="k">trait</span> <span class="n">Foo</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Foo</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">method</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This can then be implemented for certain types, stating that these
 types satisfy whatever behaviours the trait is trying to summarise and
 allow polymorphism over. For example, bytes and strings are <code class="language-plaintext highlighter-rouge">Foo</code>,
 apparently:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td>
-<td class="code"><pre><span class="k">impl</span> <span class="n">Foo</span> <span class="k">for</span> <span class="nb">u8</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">impl</span> <span class="n">Foo</span> <span class="k">for</span> <span class="nb">u8</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">method</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span> <span class="nd">format!</span><span class="p">(</span><span class="s">"u8: {}"</span><span class="p">,</span> <span class="o">*</span><span class="k">self</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
 <span class="k">impl</span> <span class="n">Foo</span> <span class="k">for</span> <span class="nb">String</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">method</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span> <span class="nd">format!</span><span class="p">(</span><span class="s">"string: {}"</span><span class="p">,</span> <span class="o">*</span><span class="k">self</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>There’s two basic ways to use traits to be polymorphic:</p>
 
@@ -848,8 +842,7 @@ coercions. If <code class="language-plaintext highlighter-rouge">T</code> is a t
 for the <code class="language-plaintext highlighter-rouge">Foo</code> above), then the two ways to get a <code class="language-plaintext highlighter-rouge">Foo</code> trait object
 out of a pointer to <code class="language-plaintext highlighter-rouge">T</code> look like:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -859,8 +852,7 @@ out of a pointer to <code class="language-plaintext highlighter-rouge">T</code> 
 8
 9
 10
-</pre></td>
-<td class="code"><pre><span class="k">let</span> <span class="n">ref_to_t</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="n">ref_to_t</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
 
 <span class="c">// `as` keyword for casting</span>
 <span class="k">let</span> <span class="n">cast</span> <span class="o">=</span> <span class="n">ref_to_t</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Foo</span><span class="p">;</span>
@@ -870,8 +862,7 @@ out of a pointer to <code class="language-plaintext highlighter-rouge">T</code> 
 
 <span class="k">fn</span> <span class="nf">also_coerce</span><span class="p">(</span><span class="mi">_u</span><span class="n">nused</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Foo</span><span class="p">)</span> <span class="p">{}</span>
 <span class="nf">also_coerce</span><span class="p">(</span><span class="n">ref_to_t</span><span class="p">);</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>These trait object coercions and casts also work for pointers like
 <code class="language-plaintext highlighter-rouge">&amp;mut T</code> to <code class="language-plaintext highlighter-rouge">&amp;mut Foo</code> and <code class="language-plaintext highlighter-rouge">Box&lt;T&gt;</code> to <code class="language-plaintext highlighter-rouge">Box&lt;Foo&gt;</code>, but that’s all at
@@ -888,18 +879,15 @@ object. The <code class="language-plaintext highlighter-rouge">std::raw</code> m
 the same as the complicated build-in types,
 <a href="http://doc.rust-lang.org/nightly/std/raw/struct.TraitObject.html">including trait objects</a>:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
-</pre></td>
-<td class="code"><pre><span class="k">pub</span> <span class="k">struct</span> <span class="n">TraitObject</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">struct</span> <span class="n">TraitObject</span> <span class="p">{</span>
     <span class="k">pub</span> <span class="n">data</span><span class="p">:</span> <span class="o">*</span><span class="k">mut</span> <span class="p">(),</span>
     <span class="k">pub</span> <span class="n">vtable</span><span class="p">:</span> <span class="o">*</span><span class="k">mut</span> <span class="p">(),</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>That is, a trait object like <code class="language-plaintext highlighter-rouge">&amp;Foo</code> consists of a “data” pointer and a
 “vtable” pointer.</p>
@@ -915,8 +903,7 @@ implementation. A method call like <code class="language-plaintext highlighter-r
 retrieve the correct pointer out of the vtable and then do a dynamic
 call of it. For example:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -962,8 +949,7 @@ call of it. For example:</p>
 44
 45
 46
-</pre></td>
-<td class="code"><pre><span class="k">struct</span> <span class="n">FooVtable</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">struct</span> <span class="n">FooVtable</span> <span class="p">{</span>
     <span class="n">destructor</span><span class="p">:</span> <span class="k">fn</span><span class="p">(</span><span class="o">*</span><span class="k">mut</span> <span class="p">()),</span>
     <span class="n">size</span><span class="p">:</span> <span class="nb">usize</span><span class="p">,</span>
     <span class="n">align</span><span class="p">:</span> <span class="nb">usize</span><span class="p">,</span>
@@ -1009,8 +995,7 @@ call of it. For example:</p>
 
     <span class="n">method</span><span class="p">:</span> <span class="n">call_method_on_String</span> <span class="k">as</span> <span class="k">fn</span><span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="p">())</span> <span class="k">-&gt;</span> <span class="nb">String</span><span class="p">,</span>
 <span class="p">};</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>(The <code class="language-plaintext highlighter-rouge">call_method_on_...</code> functions could also be UFCS: <code class="language-plaintext highlighter-rouge">&lt;... as
 Foo&gt;::method</code>, but that’s somewhat less clear.)</p>
@@ -1030,8 +1015,7 @@ flexible.</p>
 of construction and use of <code class="language-plaintext highlighter-rouge">Foo</code> trait objects might look a bit like
 (ignoring the type mismatches: they’re all just pointers anyway):</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1055,8 +1039,7 @@ of construction and use of <code class="language-plaintext highlighter-rouge">Fo
 22
 23
 24
-</pre></td>
-<td class="code"><pre><span class="k">let</span> <span class="n">a</span><span class="p">:</span> <span class="nb">String</span> <span class="o">=</span> <span class="s">"foo"</span><span class="nf">.to_string</span><span class="p">();</span>
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="n">a</span><span class="p">:</span> <span class="nb">String</span> <span class="o">=</span> <span class="s">"foo"</span><span class="nf">.to_string</span><span class="p">();</span>
 <span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="nb">u8</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
 <span class="c">// let b: &amp;Foo = &amp;a;</span>
@@ -1080,8 +1063,7 @@ of construction and use of <code class="language-plaintext highlighter-rouge">Fo
 
 <span class="c">// y.method();</span>
 <span class="p">(</span><span class="n">y</span><span class="py">.vtable.method</span><span class="p">)(</span><span class="n">y</span><span class="py">.data</span><span class="p">);</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>If <code class="language-plaintext highlighter-rouge">b</code> or <code class="language-plaintext highlighter-rouge">y</code> were owning trait objects (<code class="language-plaintext highlighter-rouge">Box&lt;Foo&gt;</code>), there would be a
 <code class="language-plaintext highlighter-rouge">(b.vtable.destructor)(b.data)</code> (respectively <code class="language-plaintext highlighter-rouge">y</code>) call when they went
@@ -1154,7 +1136,7 @@ the pointer itself.</p>
         hard: <code class="language-plaintext highlighter-rouge">rustc 1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)</code>.</p>
 
       <p>This should also be the 1.0.0-alpha release (speaking of which,
-the language instability should be starting to settle down now). <a href="#fnref:version" class="reversefootnote" role="doc-backlink">↩</a></p>
+the language instability should be starting to settle down now). <a href="#fnref:version" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:upsides" role="doc-endnote">
       <p>Static dispatching isn’t <em>guaranteed</em> to be an upside:
@@ -1171,7 +1153,7 @@ static dispatch, and one can always have a thin
 statically-dispatched wrapper function that does a dynamic, but
 not vice versa, meaning static calls are more flexible. The
 standard library tries to be statically dispatched where possible
-for this reason. <a href="#fnref:upsides" class="reversefootnote" role="doc-backlink">↩</a></p>
+for this reason. <a href="#fnref:upsides" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:one-per-type" role="doc-endnote">
       <p>There’s no guarantee that there will actually be a
@@ -1180,7 +1162,7 @@ for this reason. <a href="#fnref:upsides" class="reversefootnote" role="doc-bac
              the function, since the compiler is free to combine
              copies if it can tell that sharing the code would not
              change semantics. But, in general, this optimisation
-             doesn’t trigger. <a href="#fnref:one-per-type" class="reversefootnote" role="doc-backlink">↩</a></p>
+             doesn’t trigger. <a href="#fnref:one-per-type" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1204,8 +1186,7 @@ for this reason. <a href="#fnref:upsides" class="reversefootnote" role="doc-bac
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1214,8 +1195,7 @@ for this reason. <a href="#fnref:upsides" class="reversefootnote" role="doc-bac
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1224,8 +1204,7 @@ for this reason. <a href="#fnref:upsides" class="reversefootnote" role="doc-bac
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1234,18 +1213,16 @@ for this reason. <a href="#fnref:upsides" class="reversefootnote" role="doc-bac
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1258,8 +1235,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

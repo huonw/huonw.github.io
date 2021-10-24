@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">10 Jun 2014</span>
+             &mdash; <span class="date pub-date">10 Jun 2014</span>
            
            
          </div>
@@ -763,8 +763,7 @@ the input is assumed to be valid and IO is assumed to succeed. I wrote
 <a href="/blog/2014/06/error-handling-in-rust-knn-case-study/">a follow-up post describing how one would handle errors</a>. Also,
 I made no effort to remove/reduce/streamline allocations.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -818,8 +817,7 @@ I made no effort to remove/reduce/streamline allocations.</p>
 52
 53
 54
-</pre></td>
-<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">io</span><span class="p">::{</span><span class="n">File</span><span class="p">,</span> <span class="n">BufferedReader</span><span class="p">};</span>
+</pre></td><td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">io</span><span class="p">::{</span><span class="n">File</span><span class="p">,</span> <span class="n">BufferedReader</span><span class="p">};</span>
 
 <span class="k">struct</span> <span class="n">LabelPixel</span> <span class="p">{</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -873,8 +871,7 @@ I made no effort to remove/reduce/streamline allocations.</p>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"Percentage correct: {}%"</span><span class="p">,</span>
              <span class="n">num_correct</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">/</span> <span class="n">validation_sample</span><span class="nf">.len</span><span class="p">()</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>(Prints <code class="language-plaintext highlighter-rouge">Percentage correct: 94.4%</code>, matching the OCaml.)</p>
 
@@ -942,14 +939,11 @@ code 3 times faster.</p>
 functions (for folding and for reading lines from a file), and
 contains two possibly-concerning pieces of code:</p>
 
-<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-ocaml" data-lang="ocaml"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
-</pre></td>
-<td class="code"><pre><span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">unsafe_get</span> <span class="n">a1</span> <span class="n">i</span> <span class="k">in</span>
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="n">unsafe_get</span> <span class="n">a1</span> <span class="n">i</span> <span class="k">in</span>
 <span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="n">unsafe_get</span> <span class="n">a2</span> <span class="n">i</span> <span class="k">in</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>It might be interesting to compare against
 <a href="http://leonardo-m.livejournal.com/111598.html">this D code</a>, but I
@@ -969,8 +963,7 @@ for this.</p>
 <p>The code can be made parallel simply by replacing the <code class="language-plaintext highlighter-rouge">main</code> function
 with the following.</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1014,8 +1007,7 @@ with the following.</p>
 42
 43
 44
-</pre></td>
-<td class="code"><pre><span class="c">// how many chunks should the validation sample be divided into? (==</span>
+</pre></td><td class="code"><pre><span class="c">// how many chunks should the validation sample be divided into? (==</span>
 <span class="c">// how many futures to create.)</span>
 <span class="k">static</span> <span class="n">NUM_CHUNKS</span><span class="p">:</span> <span class="nb">uint</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
 
@@ -1059,8 +1051,7 @@ with the following.</p>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"Percentage correct: {}%"</span><span class="p">,</span>
              <span class="n">num_correct</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">/</span> <span class="n">validation_sample</span><span class="nf">.len</span><span class="p">()</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>(Also prints <code class="language-plaintext highlighter-rouge">Percentage correct: 94.4%</code>.)</p>
 
@@ -1121,8 +1112,7 @@ on my machine.</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1131,8 +1121,7 @@ on my machine.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1141,8 +1130,7 @@ on my machine.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1151,18 +1139,16 @@ on my machine.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1175,8 +1161,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

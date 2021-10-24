@@ -733,7 +733,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">04 Jan 2015</span>
+             &mdash; <span class="date pub-date">04 Jan 2015</span>
            
            
          </div>
@@ -762,7 +762,7 @@ programs. Which is exactly what I did.</p>
 <p>The “full” graph of the ecosystem, as rendered by graphviz’s <code class="language-plaintext highlighter-rouge">fdp</code>, is
 busy, very busy:</p>
 
-<p><a href="most-packages.svg"><img src="most-packages-preview.png" alt="Most packages"></a></p>
+<p><a href="most-packages.svg"><img src="most-packages-preview.png" alt="Most packages" /></a></p>
 
 <p>Click for the rest of the much larger graph as an SVG with clickable
 package names, sized according to the number of dependent
@@ -781,7 +781,7 @@ pull most clusters into the very center of the graph. Eliminating them
 (specifically, crates with 15 or more dependent crates) gives a more
 reasonable graph.</p>
 
-<p><a href="fewer-packages.svg"><img src="fewer-packages-preview.png" alt="Fewer packages"></a></p>
+<p><a href="fewer-packages.svg"><img src="fewer-packages-preview.png" alt="Fewer packages" /></a></p>
 
 <p>(Click for bigger.)</p>
 
@@ -812,8 +812,7 @@ distributing information about the registered crates. Each one gets a
 file containing a series of JSON objects (one per line) looking a lot
 like:</p>
 
-<figure class="highlight"><pre><code class="language-json" data-lang="json"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -833,8 +832,7 @@ like:</p>
 18
 19
 20
-</pre></td>
-<td class="code"><pre><span class="p">{</span><span class="w">
+</pre></td><td class="code"><pre><span class="p">{</span><span class="w">
    </span><span class="nl">"cksum"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"665e3764d2f654d77382ec6ed40a2faf5a114a6e41e2d1c307ff97916924ec64"</span><span class="p">,</span><span class="w">
    </span><span class="nl">"deps"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
@@ -854,8 +852,7 @@ like:</p>
    </span><span class="nl">"name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"slow_primes"</span><span class="p">,</span><span class="w">
    </span><span class="nl">"features"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
 </span><span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>That’s the info for version 0.1.5 of
 <a href="https://crates.io/crates/slow_primes"><code class="language-plaintext highlighter-rouge">slow_primes</code></a>; it contains the
@@ -868,8 +865,7 @@ dev-dependency (<code class="language-plaintext highlighter-rouge">kind == "dev"
 <code class="language-plaintext highlighter-rouge">#[derive(RustcDecodable)]</code>, an attribute that will automatically
 create deserialization code that does the right thing:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -889,8 +885,7 @@ create deserialization code that does the right thing:</p>
 18
 19
 20
-</pre></td>
-<td class="code"><pre><span class="nd">#[derive(RustcDecodable)]</span>
+</pre></td><td class="code"><pre><span class="nd">#[derive(RustcDecodable)]</span>
 <span class="k">struct</span> <span class="n">CrateInfo</span> <span class="p">{</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
     <span class="n">vers</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span>
@@ -910,8 +905,7 @@ create deserialization code that does the right thing:</p>
     <span class="n">target</span><span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="p">,</span>
     <span class="n">kind</span><span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The graph is based on the most recent version of each package, so I
 just take the last line in each crate’s file, run it through
@@ -968,7 +962,7 @@ help/suggestions/copy-editing/catching bugs.</p>
     <li id="fn:index-works" role="doc-endnote">
       <p>Before FreeFall pointed this out, I was considering
             downloading everything on crates.io to construct the
-            graph, which would’ve been pretty fun too! <a href="#fnref:index-works" class="reversefootnote" role="doc-backlink">↩</a></p>
+            graph, which would’ve been pretty fun too! <a href="#fnref:index-works" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -992,8 +986,7 @@ help/suggestions/copy-editing/catching bugs.</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1002,8 +995,7 @@ help/suggestions/copy-editing/catching bugs.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1012,8 +1004,7 @@ help/suggestions/copy-editing/catching bugs.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1022,18 +1013,16 @@ help/suggestions/copy-editing/catching bugs.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1046,8 +1035,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

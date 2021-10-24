@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">15 Apr 2020</span>
+             &mdash; <span class="date pub-date">15 Apr 2020</span>
            
            
          </div>
@@ -752,8 +752,7 @@ a.post-heading {
 <p>We take a fairly standard approach to developing and distributing the code, which means promptness and collaboration are important:</p>
 
 <ul>
-  <li>
-<a href="https://github.com/stellargraph/stellargraph/tree/develop/demos">extensive demos</a> and documentation</li>
+  <li><a href="https://github.com/stellargraph/stellargraph/tree/develop/demos">extensive demos</a> and documentation</li>
   <li>supporting multiple versions of Python (3.6 and 3.7)</li>
   <li>all changes happen via pull request (with <a href="https://github.com/stellargraph/stellargraph/pulse/monthly">70-100 per month</a>)
     <ul>
@@ -770,8 +769,7 @@ a.post-heading {
 <ul>
   <li>reviewing others’ pull requests, so they’re not waiting for approvals and feedback; this sometimes involves checking out the pull request’s code locally to run it</li>
   <li>responding to code reviews on my own pull requests, to try to keep the “review cycle” as tight as possible; this usually involves editing the code in response</li>
-  <li>doing small fixes for annoying <a href="https://en.wikipedia.org/wiki/Paper_cut_bug">paper cuts</a>
-</li>
+  <li>doing small fixes for annoying <a href="https://en.wikipedia.org/wiki/Paper_cut_bug">paper cuts</a></li>
   <li>validating requirements and expectations for larger or more complicated features and bug fixes; this often involves doing a proof-of-concept implementation as a draft pull request</li>
 </ul>
 
@@ -785,12 +783,9 @@ a.post-heading {
 
 <p>One approach is to just do the fix in the changes for feature A, so that the eventual pull request and code that lands combines both A and B. This is suboptimal, as it leads to:</p>
 <ul>
-  <li>
-<strong>Slower code reviews</strong>: each review is larger, and it’s unclear what change was for what purpose so more detangling is required.</li>
-  <li>
-<strong>Less useful git history</strong>: if the combined A+B change appears in a <code class="language-plaintext highlighter-rouge">git blame</code> investigation, it’s just like looking at it in a code review except the author likely can’t answer questions about it, because they no longer remember (I certainly forget these sort of details quickly).</li>
-  <li>
-<strong>Slower landing</strong> of the useful small fixes: the fix for B gets caught up and delayed by the lengthier review of the A’s pull request.</li>
+  <li><strong>Slower code reviews</strong>: each review is larger, and it’s unclear what change was for what purpose so more detangling is required.</li>
+  <li><strong>Less useful git history</strong>: if the combined A+B change appears in a <code class="language-plaintext highlighter-rouge">git blame</code> investigation, it’s just like looking at it in a code review except the author likely can’t answer questions about it, because they no longer remember (I certainly forget these sort of details quickly).</li>
+  <li><strong>Slower landing</strong> of the useful small fixes: the fix for B gets caught up and delayed by the lengthier review of the A’s pull request.</li>
 </ul>
 
 <p>A better approach is to do this work on a separate branch, and thus in a separate pull request. Doing this concurrent work with a single copy of a repository is frustrating, because the book-keeping work required to do the fix dwarfs the actual effort to fix:</p>
@@ -824,16 +819,13 @@ a.post-heading {
 
 <p>One way to implement this is to clone the repository multiple times into separate directories, like <code class="language-plaintext highlighter-rouge">...-1</code>, <code class="language-plaintext highlighter-rouge">...-2</code> and so on:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td>
-<td class="code"><pre>git clone <span class="s1">'git@github.com:stellargraph/stellargraph.git'</span> stellargraph-1
+</pre></td><td class="code"><pre>git clone <span class="s1">'git@github.com:stellargraph/stellargraph.git'</span> stellargraph-1
 git clone <span class="s1">'git@github.com:stellargraph/stellargraph.git'</span> stellargraph-2
 git clone <span class="s1">'git@github.com:stellargraph/stellargraph.git'</span> stellargraph-3
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>I used this effectively for many years for a few different projects.</p>
 
@@ -841,7 +833,7 @@ git clone <span class="s1">'git@github.com:stellargraph/stellargraph.git'</span>
   <div class="image-positioner">
     
     <a href="many_copies.png">
-      <img src="many_copies.png" alt="a diagram showing four repositories: one labelled remote repository with the .git subdirectories of three local repositories pointing to it, labelled 1, 2, 3">
+      <img src="many_copies.png" alt="a diagram showing four repositories: one labelled remote repository with the .git subdirectories of three local repositories pointing to it, labelled 1, 2, 3" />
     </a>
     
   </div>
@@ -862,20 +854,17 @@ git clone <span class="s1">'git@github.com:stellargraph/stellargraph.git'</span>
 
 <p>A worktree can be created in a single command<sup id="fnref:magit" role="doc-noteref"><a href="#fn:magit" class="footnote" rel="footnote">2</a></sup>, similar to a <code class="language-plaintext highlighter-rouge">git clone</code>:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td>
-<td class="code"><pre><span class="nb">cd</span> /path/to/stellargraph-1
+</pre></td><td class="code"><pre><span class="nb">cd</span> /path/to/stellargraph-1
 <span class="c"># now inside the repository that needs multiple copies</span>
 
 git worktree add ../stellargraph-2 <span class="s1">'some-existing-branch'</span>
 git worktree add ../stellargraph-3 <span class="nt">-b</span> <span class="s1">'some-new-branch'</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The first argument to <code class="language-plaintext highlighter-rouge">add</code> is the (sibling) directory for the new worktree, and the second optional one is the name of the branch to checkout there (to start with). Each of these <code class="language-plaintext highlighter-rouge">stellargraph-...</code> directories acts like a normal git repository, and all the usual operations like creating or switching branches, committing and stashing work just fine.</p>
 
@@ -883,7 +872,7 @@ git worktree add ../stellargraph-3 <span class="nt">-b</span> <span class="s1">'
   <div class="image-positioner">
     
     <a href="worktrees.png">
-      <img src="worktrees.png" alt="a diagram showing the same four repositories as before, except now the remote repository has an arrow only from the .git directory of the local repository 1, while 2 and 3 point to that .git directory">
+      <img src="worktrees.png" alt="a diagram showing the same four repositories as before, except now the remote repository has an arrow only from the .git directory of the local repository 1, while 2 and 3 point to that .git directory" />
     </a>
     
   </div>
@@ -895,8 +884,7 @@ git worktree add ../stellargraph-3 <span class="nt">-b</span> <span class="s1">'
 
 <p>An alternative (that I’ve never tried) is to have a worktree for individual branches. If we’re starting a new feature in a new branch <code class="language-plaintext highlighter-rouge">foo</code>, the system might look something like the following:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -906,8 +894,7 @@ git worktree add ../stellargraph-3 <span class="nt">-b</span> <span class="s1">'
 8
 9
 10
-</pre></td>
-<td class="code"><pre>git worktree add ../stellargraph-foo <span class="nt">-b</span> foo
+</pre></td><td class="code"><pre>git worktree add ../stellargraph-foo <span class="nt">-b</span> foo
 <span class="nb">cd</span> ../stellargraph-foo
 
 <span class="c"># edit code...</span>
@@ -917,8 +904,7 @@ git push
 <span class="c"># finished, so the worktree isn't needed any more</span>
 <span class="nb">cd</span> ..
 <span class="nb">rm </span>stellargraph-foo
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>I’ve used worktrees on all sorts of projects, including Scala, C++ and Rust. Python brings some special challenges.</p>
 
@@ -930,7 +916,7 @@ git push
   <div class="image-positioner">
     
     <a href="https://xkcd.com/754/">
-      <img src="dependencies.png" alt="an xkcd cartoon showing a stylised screenshot of a college course description. Course: CPSC 432. Description: intermediate compiler design, with a focus on dependency resolution. Prereqs: CPSC 432">
+      <img src="dependencies.png" alt="an xkcd cartoon showing a stylised screenshot of a college course description. Course: CPSC 432. Description: intermediate compiler design, with a focus on dependency resolution. Prereqs: CPSC 432" />
     </a>
     
   </div>
@@ -942,8 +928,7 @@ git push
 
 <p>A sequence in a terminal might look like:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -952,8 +937,7 @@ git push
 7
 8
 9
-</pre></td>
-<td class="code"><pre><span class="nb">cd</span> .../stellargraph-1
+</pre></td><td class="code"><pre><span class="nb">cd</span> .../stellargraph-1
 <span class="nb">.</span> venv/bin/activate
 <span class="c"># do work, like running tests:</span>
 pytest tests/
@@ -962,8 +946,7 @@ pytest tests/
 <span class="nb">cd</span> ../stellargraph-2
 <span class="c"># run tests again</span>
 pytest tests/
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Unfortunately, I’ve made a mistake there: the <code class="language-plaintext highlighter-rouge">pytest</code> run on line 9 is running with the virtual environment from the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> worktree, not properly reflecting the state of the <code class="language-plaintext highlighter-rouge">stellargraph-2</code> source tree. I needed to run <code class="language-plaintext highlighter-rouge">. venv/bin/activate</code> again after the <code class="language-plaintext highlighter-rouge">cd</code> on line 7, using the <code class="language-plaintext highlighter-rouge">venv</code> directory in <code class="language-plaintext highlighter-rouge">stellargraph-2</code>.</p>
 
@@ -971,22 +954,18 @@ pytest tests/
 
 <p>I solve this by using <a href="https://github.com/pyenv/pyenv">pyenv</a> and <a href="https://github.com/pyenv/pyenv-virtualenv">pyenv-virtualenv</a>. Instead of creating a virtual environment in each worktree (such as in a <code class="language-plaintext highlighter-rouge">venv</code> subdirectory), I create a pyenv virtual environment for each one and associate them using <code class="language-plaintext highlighter-rouge">pyenv local</code>. For example, for the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> worktree, I ran something like:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
-</pre></td>
-<td class="code"><pre>pyenv virtualenv 3.6.10 <span class="s1">'stellargraph-1'</span>
+</pre></td><td class="code"><pre>pyenv virtualenv 3.6.10 <span class="s1">'stellargraph-1'</span>
 pyenv <span class="nb">local</span> <span class="s1">'stellargraph-1'</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>After doing this, any command that uses <code class="language-plaintext highlighter-rouge">python</code> or <code class="language-plaintext highlighter-rouge">pip</code> (like <code class="language-plaintext highlighter-rouge">pip install --editable .</code> or <code class="language-plaintext highlighter-rouge">pytest</code>) anywhere within the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> worktree will automatically use the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> virtual environment<sup id="fnref:other-libraries" role="doc-noteref"><a href="#fn:other-libraries" class="footnote" rel="footnote">3</a></sup>: I don’t need to manually activate or deactivate the virtual environments, cutting out a major piece of human error.</p>
 
 <p>Using pyenv for version management has other benefits too:</p>
 
 <ul>
-  <li>
-<a href="https://github.com/aiguofer/pyenv-jupyter-kernel">pyenv-jupyter-kernel</a> allows for automatically registering each virtual environments with <a href="https://jupyter.org/">Jupyter</a>, making it easy to test features and bug fixes in a notebook, and, more importantly, work on <a href="https://github.com/stellargraph/stellargraph/tree/develop/demos">StellarGraph’s demos</a>.</li>
+  <li><a href="https://github.com/aiguofer/pyenv-jupyter-kernel">pyenv-jupyter-kernel</a> allows for automatically registering each virtual environments with <a href="https://jupyter.org/">Jupyter</a>, making it easy to test features and bug fixes in a notebook, and, more importantly, work on <a href="https://github.com/stellargraph/stellargraph/tree/develop/demos">StellarGraph’s demos</a>.</li>
   <li>virtual environments can be easily created for different versions of Python (replace <code class="language-plaintext highlighter-rouge">3.6.10</code> with <code class="language-plaintext highlighter-rouge">3.7.7</code>). For instance, I have <code class="language-plaintext highlighter-rouge">stellargraph-1-3_7</code> to also test/compare with Python 3.7 in the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> worktree (I do not use these ones with <code class="language-plaintext highlighter-rouge">pyenv local</code>, just <code class="language-plaintext highlighter-rouge">pyenv shell</code>, which does require manual activation and deactivation).</li>
 </ul>
 
@@ -1013,16 +992,16 @@ pyenv <span class="nb">local</span> <span class="s1">'stellargraph-1'</span>
 
       <p>Many Python projects (including StellarGraph) don’t need to worrying about to refreshing/rebuilding state associated a source tree, because they often don’t have any compiled artifacts or other generated state associated with a branch. The code runs directly from the source files, without any compilation or preprocessing.</p>
 
-      <p>In a compiled languages like Scala or C++, I’ve found this benefit much more important: builds are much faster when they can be incremental, just updating the artifacts associated with the (small number of) source files that I actually changed. If switching branches and then back spuriously modifies-then-unmodifies a lot of files (or a file with a lot of dependents), the first build after doing that may be much slower than an incremental build for the real changes, without any branch switching. <a href="#fnref:incremental-compilation" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>In a compiled languages like Scala or C++, I’ve found this benefit much more important: builds are much faster when they can be incremental, just updating the artifacts associated with the (small number of) source files that I actually changed. If switching branches and then back spuriously modifies-then-unmodifies a lot of files (or a file with a lot of dependents), the first build after doing that may be much slower than an incremental build for the real changes, without any branch switching. <a href="#fnref:incremental-compilation" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:branches" role="doc-endnote">
-      <p>I always forget to delete branches after finishing with them, so I end up with dozens (or hundreds…) of local branches associated with closed and merge pull requests. These interfere with tab completion, requiring me to remember a significant amount of the name for <code class="language-plaintext highlighter-rouge">git checkout ...</code>. I find it’s easier to remember which of a handful of checkouts holds the relevant code, and even when I do forget, a brute-force approach of checking every copy is fast (skipping ahead, this is even faster with worktrees, with <code class="language-plaintext highlighter-rouge">git worktree list</code>). In some ways, this benefit is treating a symptom, not the disease… but it works for me. <a href="#fnref:branches" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>I always forget to delete branches after finishing with them, so I end up with dozens (or hundreds…) of local branches associated with closed and merge pull requests. These interfere with tab completion, requiring me to remember a significant amount of the name for <code class="language-plaintext highlighter-rouge">git checkout ...</code>. I find it’s easier to remember which of a handful of checkouts holds the relevant code, and even when I do forget, a brute-force approach of checking every copy is fast (skipping ahead, this is even faster with worktrees, with <code class="language-plaintext highlighter-rouge">git worktree list</code>). In some ways, this benefit is treating a symptom, not the disease… but it works for me. <a href="#fnref:branches" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:magit" role="doc-endnote">
-      <p>I usually use git via <a href="https://magit.vc/">magit</a> in Emacs, where these creation commands are <code class="language-plaintext highlighter-rouge">% b</code> or <code class="language-plaintext highlighter-rouge">% c</code> in the magit status buffer, and jumping between worktrees is <code class="language-plaintext highlighter-rouge">% g</code> (<a href="https://magit.vc/manual/magit.html#Worktree">relevant docs</a>). <a href="#fnref:magit" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>I usually use git via <a href="https://magit.vc/">magit</a> in Emacs, where these creation commands are <code class="language-plaintext highlighter-rouge">% b</code> or <code class="language-plaintext highlighter-rouge">% c</code> in the magit status buffer, and jumping between worktrees is <code class="language-plaintext highlighter-rouge">% g</code> (<a href="https://magit.vc/manual/magit.html#Worktree">relevant docs</a>). <a href="#fnref:magit" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:other-libraries" role="doc-endnote">
-      <p>Using pyenv for virtual environments is great for working on multiple separate libraries/code bases, even without multiple copies. The process is exactly the same: <code class="language-plaintext highlighter-rouge">pyenv virtualenv ...</code> to initialise the environment, and <code class="language-plaintext highlighter-rouge">pyenv local</code> to associate a directory with the virtual environment. <a href="#fnref:other-libraries" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>Using pyenv for virtual environments is great for working on multiple separate libraries/code bases, even without multiple copies. The process is exactly the same: <code class="language-plaintext highlighter-rouge">pyenv virtualenv ...</code> to initialise the environment, and <code class="language-plaintext highlighter-rouge">pyenv local</code> to associate a directory with the virtual environment. <a href="#fnref:other-libraries" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1046,8 +1025,7 @@ pyenv <span class="nb">local</span> <span class="s1">'stellargraph-1'</span>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1056,8 +1034,7 @@ pyenv <span class="nb">local</span> <span class="s1">'stellargraph-1'</span>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1066,8 +1043,7 @@ pyenv <span class="nb">local</span> <span class="s1">'stellargraph-1'</span>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1076,18 +1052,16 @@ pyenv <span class="nb">local</span> <span class="s1">'stellargraph-1'</span>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1100,8 +1074,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

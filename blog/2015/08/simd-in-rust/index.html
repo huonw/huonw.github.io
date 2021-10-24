@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">24 Aug 2015</span>
+             &mdash; <span class="date pub-date">24 Aug 2015</span>
            
            
          </div>
@@ -754,8 +754,7 @@ low-level interface to that core functionality.</p>
 <a href="https://en.wikipedia.org/wiki/Mandelbrot_set">the Mandelbrot set</a>, one scalar, one with explicit
 vectorisation, and both similar:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -799,8 +798,7 @@ vectorisation, and both similar:</p>
 42
 43
 44
-</pre></td>
-<td class="code"><pre><span class="c">// Scalar!</span>
+</pre></td><td class="code"><pre><span class="c">// Scalar!</span>
 <span class="c">// compute the escape time for the point `c_x + i c_y`</span>
 <span class="k">fn</span> <span class="nf">mandelbrot_naive</span><span class="p">(</span><span class="n">c_x</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">c_y</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">:</span> <span class="nb">u32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">u32</span> <span class="p">{</span>
     <span class="k">let</span> <span class="k">mut</span> <span class="n">x</span> <span class="o">=</span> <span class="n">c_x</span><span class="p">;</span>
@@ -844,14 +842,13 @@ vectorisation, and both similar:</p>
     <span class="p">}</span>
     <span class="n">count</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <figure class="image has-caption">
   <div class="image-positioner">
     
     <a href="mandel.png">
-      <img src="mandel.png" alt="a rendering of the Mandelbrot set">
+      <img src="mandel.png" alt="a rendering of the Mandelbrot set" />
     </a>
     
   </div>
@@ -872,7 +869,7 @@ respectively) in parallel, by operating on two 128-bit registers.</p>
   <div class="image-positioner">
     
     <a href="vector.png">
-      <img src="vector.png" alt="a diagram of a vector (x + y) * z, where each operand contains four values">
+      <img src="vector.png" alt="a diagram of a vector (x + y) * z, where each operand contains four values" />
     </a>
     
   </div>
@@ -910,20 +907,17 @@ to non-portability in a manner similar to <a href="http://doc.rust-lang.org/std/
 example, the SSSE3 instruction <code class="language-plaintext highlighter-rouge">pshufb</code> is exposed as the
 <code class="language-plaintext highlighter-rouge">shuffle_bytes</code> method on traits in <code class="language-plaintext highlighter-rouge">simd::x86::ssse3</code>:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td>
-<td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="nf">shuffle</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">u8x16</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">u8x16</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">u8x16</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="nf">shuffle</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">u8x16</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">u8x16</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">u8x16</span> <span class="p">{</span>
     <span class="k">use</span> <span class="nn">simd</span><span class="p">::</span><span class="nn">x86</span><span class="p">::</span><span class="nn">ssse3</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
 
     <span class="n">x</span><span class="nf">.shuffle_bytes</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Caveat Programmor: even the cross-platform API isn’t entirely portable
 at the moment, it requires <em>some</em> level of SIMD support in hardware,
@@ -958,12 +952,9 @@ C/C++:</p>
   <li>some benchmarks from <a href="http://benchmarksgame.alioth.debian.org/">the Benchmark Game</a>, where the fastest
 programs use explicit SIMD:
     <ul>
-      <li>
-<a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=nbody">nbody</a> (fastest on single-core x86-64 is C)</li>
-      <li>
-<a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=fannkuchredux">fannkuch-redux</a> (C++)</li>
-      <li>
-<a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=spectralnorm">spectral-norm</a> (C)</li>
+      <li><a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=nbody">nbody</a> (fastest on single-core x86-64 is C)</li>
+      <li><a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=fannkuchredux">fannkuch-redux</a> (C++)</li>
+      <li><a href="http://benchmarksgame.alioth.debian.org/u64/performance.php?test=spectralnorm">spectral-norm</a> (C)</li>
     </ul>
   </li>
 </ul>
@@ -989,7 +980,7 @@ listed platform.</p>
   <div class="image-positioner">
     
     <a href="chart-x86-64.png">
-      <img src="chart-x86-64.png" alt="A chart for x86-64 of the speed-up over scalar code for vectorised code compiled with Rust, Clang and GCC on 3 benchmarks (nbody, spectral-norm, fannkuch-redux), and Rust only for 4 more (matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from about 1.2 for nbody to about 3 for matrix multiply and mandelbrot.">
+      <img src="chart-x86-64.png" alt="A chart for x86-64 of the speed-up over scalar code for vectorised code compiled with Rust, Clang and GCC on 3 benchmarks (nbody, spectral-norm, fannkuch-redux), and Rust only for 4 more (matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from about 1.2 for nbody to about 3 for matrix multiply and mandelbrot." />
     </a>
     
   </div>
@@ -1001,7 +992,7 @@ listed platform.</p>
   <div class="image-positioner">
     
     <a href="chart-aarch64.png">
-      <img src="chart-aarch64.png" alt="A chart for AArch64 of the speed-up over scalar code for vectorised code compiled with Rust for the same 7 benchmarks (nbody, spectral-norm, fannkuch-redux, matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from 1 for spectral-norm to about 3.2 for matrix multiply and mandelbrot">
+      <img src="chart-aarch64.png" alt="A chart for AArch64 of the speed-up over scalar code for vectorised code compiled with Rust for the same 7 benchmarks (nbody, spectral-norm, fannkuch-redux, matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from 1 for spectral-norm to about 3.2 for matrix multiply and mandelbrot" />
     </a>
     
   </div>
@@ -1013,7 +1004,7 @@ listed platform.</p>
   <div class="image-positioner">
     
     <a href="chart-arm.png">
-      <img src="chart-arm.png" alt="A chart for ARM of the speed-up over scalar code for vectorised code compiled with Rust for a subset of 5 benchmarks (fannkuch-redux, matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from 1.8 for fannkuch-redux to 4 for matrix multiply">
+      <img src="chart-arm.png" alt="A chart for ARM of the speed-up over scalar code for vectorised code compiled with Rust for a subset of 5 benchmarks (fannkuch-redux, matrix inverse, matrix multiply, matrix transpose, mandelbrot). The speed-up ranges from 1.8 for fannkuch-redux to 4 for matrix multiply" />
     </a>
     
   </div>
@@ -1042,24 +1033,21 @@ there are a large number of intrinsics defined by the compiler as
 foreign functions with a special ABI. The <code class="language-plaintext highlighter-rouge">simd</code> crate imports them to
 implement its functionality, e.g.:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-</pre></td>
-<td class="code"><pre><span class="nd">#[repr(simd)]</span>
+</pre></td><td class="code"><pre><span class="nd">#[repr(simd)]</span>
 <span class="k">struct</span> <span class="nf">u8x16</span><span class="p">(</span><span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span>
              <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">,</span> <span class="nb">u8</span><span class="p">);</span>
 
 <span class="k">extern</span> <span class="s">"platform-intrinsic"</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">x86_mm_shuffle_epi8</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">u8x16</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="n">u8x16</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">u8x16</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>These intrinsics follow the pattern of
 <code class="language-plaintext highlighter-rouge">&lt;architecture&gt;_&lt;vendor's-name&gt;</code>, relying on the definitions that CPU
@@ -1153,25 +1141,25 @@ but nothing concrete yet.</p>
       via the <code class="language-plaintext highlighter-rouge">RUSTC</code> environment variable (for my own
       experiments, I’m doing the latter: pointing the variable to
       a shell script that runs <code class="language-plaintext highlighter-rouge">rustc -C target-feature='...'
-      "$@"</code>). This is covered by <a href="https://github.com/rust-lang/cargo/issues/1137">#1137</a>. <a href="#fnref:cargo" class="reversefootnote" role="doc-backlink">↩</a></p>
+      "$@"</code>). This is covered by <a href="https://github.com/rust-lang/cargo/issues/1137">#1137</a>. <a href="#fnref:cargo" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:ispc" role="doc-endnote">
       <p>LLVM by itself isn’t as powerful as <a href="https://ispc.github.io/">Intel’s ISPC</a>,
      which has its own C variant, but I could imagine a Rust
      version too, to push the limits of compiler-driven
-     autovectorisation (among other things) here too. <a href="#fnref:ispc" class="reversefootnote" role="doc-backlink">↩</a></p>
+     autovectorisation (among other things) here too. <a href="#fnref:ispc" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:soa" role="doc-endnote">
       <p>Another thing compilers can’t easily do is layout
     optimisations. A major one is an AoS (array-of-structs) to SoA
     (struct-of-arrays) transformation, which is particularly
-    important for SIMD, both explicit and autovectorised. <a href="#fnref:soa" class="reversefootnote" role="doc-backlink">↩</a></p>
+    important for SIMD, both explicit and autovectorised. <a href="#fnref:soa" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:shuffle" role="doc-endnote">
       <p>Fortunately, not all is lost: I’ve always seen the
         optimiser synthesise a real shuffle from a manual series
         of <code class="language-plaintext highlighter-rouge">extract</code>s and a <code class="language-plaintext highlighter-rouge">new</code>. It’s annoying and isn’t
-        <em>strictly</em> guaranteed, but it seems to be pretty reliable. <a href="#fnref:shuffle" class="reversefootnote" role="doc-backlink">↩</a></p>
+        <em>strictly</em> guaranteed, but it seems to be pretty reliable. <a href="#fnref:shuffle" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1195,8 +1183,7 @@ but nothing concrete yet.</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1205,8 +1192,7 @@ but nothing concrete yet.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1215,8 +1201,7 @@ but nothing concrete yet.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1225,18 +1210,16 @@ but nothing concrete yet.</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1249,8 +1232,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

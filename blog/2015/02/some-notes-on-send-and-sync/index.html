@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">20 Feb 2015</span>
+             &mdash; <span class="date pub-date">20 Feb 2015</span>
            
            
          </div>
@@ -744,20 +744,17 @@ a.post-heading {
       <p>If you’ve been in the <code class="language-plaintext highlighter-rouge">#rust-internals</code> IRC channel recently, you
 may’ve caught a madman raving about how much they like Rust:</p>
 
-<figure class="highlight"><pre><code class="language-irc" data-lang="irc"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-irc" data-lang="irc"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td>
-<td class="code"><pre>...
+</pre></td><td class="code"><pre>...
 [15:50:03] &lt;huon&gt; I love this language
 ...
 [20:02:07] &lt;huon&gt; did you know: Rust is awesome.
 ...
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>I was (and still am) losing my mind over how well <code class="language-plaintext highlighter-rouge">Sync</code> and <code class="language-plaintext highlighter-rouge">Send</code>
 interact with everything, especially now that
@@ -830,9 +827,7 @@ above, and compile today. I think its pretty cool what Rust can do.</p>
 by others. Now, I’ll stop distracting myself and get on to the actual
 notes I wanted to write down.</p>
 
-<h2 id="sync--copy--send">
-<code class="language-plaintext highlighter-rouge">Sync + Copy</code> ⇒ <code class="language-plaintext highlighter-rouge">Send</code>
-</h2>
+<h2 id="sync--copy--send"><code class="language-plaintext highlighter-rouge">Sync + Copy</code> ⇒ <code class="language-plaintext highlighter-rouge">Send</code></h2>
 
 <p>That is, if a type <code class="language-plaintext highlighter-rouge">T</code> implements both <code class="language-plaintext highlighter-rouge">Sync</code> and <code class="language-plaintext highlighter-rouge">Copy</code>, then it can
 also implement <code class="language-plaintext highlighter-rouge">Send</code> (conversely, a type is only allowed to be both
@@ -840,8 +835,7 @@ also implement <code class="language-plaintext highlighter-rouge">Send</code> (c
 
 <p>Proof:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -853,8 +847,7 @@ also implement <code class="language-plaintext highlighter-rouge">Send</code> (c
 10
 11
 12
-</pre></td>
-<td class="code"><pre><span class="c">// we start with some `T` on the main thread</span>
+</pre></td><td class="code"><pre><span class="c">// we start with some `T` on the main thread</span>
 <span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
 
 <span class="nn">thread</span><span class="p">::</span><span class="nf">scoped</span><span class="p">(||</span> <span class="p">{</span>
@@ -866,8 +859,7 @@ also implement <code class="language-plaintext highlighter-rouge">Send</code> (c
     <span class="k">let</span> <span class="n">z</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="o">*</span><span class="n">y</span><span class="p">;</span>
 
 <span class="p">})</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The transfer happened only using <code class="language-plaintext highlighter-rouge">Sync + Copy</code> and so must be safe (if
 it wasn’t safe <code class="language-plaintext highlighter-rouge">T</code> isn’t allowed to implement <code class="language-plaintext highlighter-rouge">Sync</code>), hence it is
@@ -888,9 +880,7 @@ memory—such as <code class="language-plaintext highlighter-rouge">Rc</code> ag
 compiler: lifetimes) and a hypothetical <code class="language-plaintext highlighter-rouge">Gc&lt;T&gt;</code> pointer. I guess we’ll
 just have to take care for <code class="language-plaintext highlighter-rouge">Gc</code>.</p>
 
-<h2 id="mut-t-send-when-t-send">
-<code class="language-plaintext highlighter-rouge">&amp;mut T: Send</code> when <code class="language-plaintext highlighter-rouge">T: Send</code>
-</h2>
+<h2 id="mut-t-send-when-t-send"><code class="language-plaintext highlighter-rouge">&amp;mut T: Send</code> when <code class="language-plaintext highlighter-rouge">T: Send</code></h2>
 
 <p>We want to work out when it is safe to transfer a mutable reference
 <code class="language-plaintext highlighter-rouge">&amp;mut T</code> between threads. For the shared reference <code class="language-plaintext highlighter-rouge">&amp;T</code> it is easy:
@@ -900,12 +890,9 @@ Sync</code>, which can be
 <a href="https://github.com/rust-lang/rust/blob/522d09dfecbeca1595f25ac58c6d0178bbd21d7d/src/libcore/marker.rs#L388">expressed in code</a>
 as</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
-</pre></td>
-<td class="code"><pre><span class="k">unsafe</span> <span class="k">impl</span><span class="o">&lt;</span><span class="nv">'a</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="n">Sync</span><span class="o">&gt;</span> <span class="nb">Send</span> <span class="k">for</span> <span class="o">&amp;</span><span class="nv">'a</span> <span class="n">T</span> <span class="p">{</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="k">unsafe</span> <span class="k">impl</span><span class="o">&lt;</span><span class="nv">'a</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="n">Sync</span><span class="o">&gt;</span> <span class="nb">Send</span> <span class="k">for</span> <span class="o">&amp;</span><span class="nv">'a</span> <span class="n">T</span> <span class="p">{</span>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>For <code class="language-plaintext highlighter-rouge">&amp;mut</code>, you might suspect that thread-safety might depend on
 <code class="language-plaintext highlighter-rouge">Sync</code> in some way since that trait is so important for the other
@@ -935,8 +922,7 @@ goes out of scope, on the main thread.</p>
 
 <p>Unfortunately…</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -948,8 +934,7 @@ goes out of scope, on the main thread.</p>
 10
 11
 12
-</pre></td>
-<td class="code"><pre><span class="c">// we start with some `T` on the main thread</span>
+</pre></td><td class="code"><pre><span class="c">// we start with some `T` on the main thread</span>
 <span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
 <span class="c">// wrap it up</span>
 <span class="k">let</span> <span class="k">mut</span> <span class="n">packet</span><span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nf">Some</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
@@ -961,8 +946,7 @@ goes out of scope, on the main thread.</p>
     <span class="c">// and then steal the `T` out!</span>
     <span class="k">let</span> <span class="n">z</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">y</span><span class="nf">.take</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>
 <span class="p">})</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>That code transfers the <code class="language-plaintext highlighter-rouge">T</code> between two threads by just transferring a
 <code class="language-plaintext highlighter-rouge">&amp;mut Option&lt;T&gt;</code>. Hence, if it is illegal to transfer a <code class="language-plaintext highlighter-rouge">T</code> between
@@ -1036,8 +1020,7 @@ out on /r/rust.)</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1046,8 +1029,7 @@ out on /r/rust.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1056,8 +1038,7 @@ out on /r/rust.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1066,18 +1047,16 @@ out on /r/rust.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1090,8 +1069,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

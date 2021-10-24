@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">01 May 2015</span>
+             &mdash; <span class="date pub-date">01 May 2015</span>
            
            
          </div>
@@ -754,12 +754,9 @@ easy.</p>
 <p>Version 0.1 of travis-cargo is now available on PyPI<sup id="fnref:pypi" role="doc-noteref"><a href="#fn:pypi" class="footnote" rel="footnote">0</a></sup> and should be
 installed via that medium. This works on Travis:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
-</pre></td>
-<td class="code"><pre>pip <span class="nb">install</span> <span class="s1">'travis-cargo&lt;0.2'</span> <span class="nt">--user</span> <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.local/bin:<span class="nv">$PATH</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre>pip <span class="nb">install</span> <span class="s1">'travis-cargo&lt;0.2'</span> <span class="nt">--user</span> <span class="o">&amp;&amp;</span> <span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.local/bin:<span class="nv">$PATH</span>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The explicit <code class="language-plaintext highlighter-rouge">&lt;0.2</code> requirement will reduce the risk of builds
 breaking due to upstream changes in future, as I will make every
@@ -784,18 +781,15 @@ has been removed since the default binary is now much longer, and
 looks more like the real <code class="language-plaintext highlighter-rouge">cargo</code> program. Cargo subcommands passed to
 <code class="language-plaintext highlighter-rouge">travis-cargo</code> directly work as one would expect. Migration:</p>
 
-<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-sh" data-lang="sh"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
-</pre></td>
-<td class="code"><pre><span class="c"># before</span>
+</pre></td><td class="code"><pre><span class="c"># before</span>
 ./tc cargo build
 <span class="c"># after</span>
 travis-cargo build
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The <code class="language-plaintext highlighter-rouge">doc-upload</code> subcommand and the <code class="language-plaintext highlighter-rouge">--only</code> and <code class="language-plaintext highlighter-rouge">-q</code> arguments have
 not been changed.</p>
@@ -816,7 +810,7 @@ them to <a href="http://coveralls.io">coveralls.io</a>.</p>
   <div class="image-positioner">
     
     <a href="coveralls.png">
-      <img src="coveralls.png" alt="A screenshot of the coveralls.io inteface showing the coverage for 4 files: 75% for lib.rs with 6 out of 8 lines covered, 97.62% for mom.rs with 41 out of 42 lines covered, 100% for quickselect with 50 out of 50 lines covered and 100% for floyd_rivest.rs with 71 out of 71 lines covered.">
+      <img src="coveralls.png" alt="A screenshot of the coveralls.io inteface showing the coverage for 4 files: 75% for lib.rs with 6 out of 8 lines covered, 97.62% for mom.rs with 41 out of 42 lines covered, 100% for quickselect with 50 out of 50 lines covered and 100% for floyd_rivest.rs with 71 out of 71 lines covered." />
     </a>
     
   </div>
@@ -837,15 +831,14 @@ imaginations). At the moment, Cargo doesn’t provide reliable
 programmatic access to everything it knows, so <code class="language-plaintext highlighter-rouge">travis-cargo
 coveralls</code> first searches the output of <code class="language-plaintext highlighter-rouge">cargo test</code> for the binaries
 it runs, and then executes those binaries under kcov. For this to work
-best, the <code class="language-plaintext highlighter-rouge">test</code> <a href="http://doc.crates.io/manifest.html#the-%5Bprofile.*%5D-sections">profile</a> must have <code class="language-plaintext highlighter-rouge">debug = true</code> (which is
+best, the <code class="language-plaintext highlighter-rouge">test</code> <a href="http://doc.crates.io/manifest.html#the-[profile.*]-sections">profile</a> must have <code class="language-plaintext highlighter-rouge">debug = true</code> (which is
 the default).</p>
 
 <h2 id="travis-cargo-by-example-the-sequel">Travis-cargo by example: the sequel</h2>
 
 <p>order-stat’s <a href="https://github.com/huonw/order-stat/blob/251a809/.travis.yml"><code class="language-plaintext highlighter-rouge">.travis.yml</code></a> now looks like (<a href="https://github.com/huonw/order-stat/commit/251a80999b5d727224523a33847479d23048d7ab">diff for the change</a>):</p>
 
-<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -864,8 +857,7 @@ the default).</p>
 17
 18
 19
-</pre></td>
-<td class="code"><pre><span class="na">language</span><span class="pi">:</span> <span class="s">rust</span>
+</pre></td><td class="code"><pre><span class="na">language</span><span class="pi">:</span> <span class="s">rust</span>
 <span class="na">sudo</span><span class="pi">:</span> <span class="s">required</span>
 
 <span class="na">rust</span><span class="pi">:</span>
@@ -884,8 +876,7 @@ the default).</p>
   <span class="pi">-</span> <span class="s">travis-cargo coveralls</span>
 
 <span class="c1"># ...</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>travis-cargo’s <a href="https://github.com/huonw/travis-cargo#readme">README</a> contains more information.</p>
 
@@ -932,7 +923,7 @@ feedback.)</p>
       <p>Incidentally, I found publishing Python packages on PyPI much
      more difficult than publishing Rust packages on crates.io.
      Great job on getting cargo and crates.io so streamlined, Alex
-     Crichton, Yehuda Katz and everyone who has contributed! <a href="#fnref:pypi" class="reversefootnote" role="doc-backlink">↩</a></p>
+     Crichton, Yehuda Katz and everyone who has contributed! <a href="#fnref:pypi" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -956,8 +947,7 @@ feedback.)</p>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -966,8 +956,7 @@ feedback.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -976,8 +965,7 @@ feedback.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -986,18 +974,16 @@ feedback.)</p>
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1010,8 +996,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

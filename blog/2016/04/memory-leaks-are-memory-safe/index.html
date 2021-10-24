@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">04 Apr 2016</span>
+             &mdash; <span class="date pub-date">04 Apr 2016</span>
            
            
          </div>
@@ -825,17 +825,12 @@ discussing memory management:</p>
 
 <blockquote>
   <ul>
-    <li>
-<strong>Dynamic memory errors</strong> - incorrect management of dynamic memory and pointers:
+    <li><strong>Dynamic memory errors</strong> - incorrect management of dynamic memory and pointers:
       <ul>
-        <li>
-<strong>Dangling pointer</strong> - a pointer storing the address of an object that has been deleted.</li>
-        <li>
-<strong>Double free</strong> - repeated calls to free may prematurely free a new object at the same address. If the exact address has not been reused, other corruption may occur, especially in allocators that use free lists.</li>
-        <li>
-<strong>Invalid free</strong> - passing an invalid address to free can corrupt the heap.</li>
-        <li>
-<strong>Null pointer accesses</strong> will cause an exception or program termination in most environments, but can cause corruption in operating system kernels or systems without memory protection, or when use of the null pointer involves a large or negative offset.</li>
+        <li><strong>Dangling pointer</strong> - a pointer storing the address of an object that has been deleted.</li>
+        <li><strong>Double free</strong> - repeated calls to free may prematurely free a new object at the same address. If the exact address has not been reused, other corruption may occur, especially in allocators that use free lists.</li>
+        <li><strong>Invalid free</strong> - passing an invalid address to free can corrupt the heap.</li>
+        <li><strong>Null pointer accesses</strong> will cause an exception or program termination in most environments, but can cause corruption in operating system kernels or systems without memory protection, or when use of the null pointer involves a large or negative offset.</li>
       </ul>
     </li>
   </ul>
@@ -1013,7 +1008,7 @@ segfault or memory corruption.</p>
       <p>More specifically, programming languages will guarantee that
 one can only get unsafety by explicitly opting in to it, in some
 form, such as via Python’s <code class="language-plaintext highlighter-rouge">ctypes</code> module, or Rust’s <code class="language-plaintext highlighter-rouge">unsafe</code>
-keyword. <a href="#fnref:optin" class="reversefootnote" role="doc-backlink">↩</a></p>
+keyword. <a href="#fnref:optin" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:lockfree" role="doc-endnote">
       <p>It also has some upsides beyond just less memory
@@ -1022,7 +1017,7 @@ write programs where the lifetime of data is unclear, which makes
 many concurrent algorithms easier to write. That said, there are
 schemes for writing such code when manual <code class="language-plaintext highlighter-rouge">free</code>s are required,
 such as <a href="https://en.wikipedia.org/wiki/Hazard_pointer">hazard pointers</a> and the simpler
-<a href="http://aturon.github.io/blog/2015/08/27/epoch/">epoch-based memory reclamation</a>. <a href="#fnref:lockfree" class="reversefootnote" role="doc-backlink">↩</a></p>
+<a href="http://aturon.github.io/blog/2015/08/27/epoch/">epoch-based memory reclamation</a>. <a href="#fnref:lockfree" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:layers" role="doc-endnote">
       <p>It’s worth noting that the detailed knowledge of memory
@@ -1032,11 +1027,11 @@ bump with a generational GC, and the ability for a moving GC to
 shift data around, improving cache locality (especially useful
 given the generally pointer-heavy nature of most managed
 languages). However, these tricks are orthogonal to both memory
-safety and memory leaks. <a href="#fnref:layers" class="reversefootnote" role="doc-backlink">↩</a></p>
+safety and memory leaks. <a href="#fnref:layers" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:moves" role="doc-endnote">
       <p>It’s pretty useful, in that it allows move semantics to
-work, but that’s an article for another time, perhaps. <a href="#fnref:moves" class="reversefootnote" role="doc-backlink">↩</a></p>
+work, but that’s an article for another time, perhaps. <a href="#fnref:moves" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1060,8 +1055,7 @@ work, but that’s an article for another time, perhaps. <a href="#fnref:moves"
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1070,8 +1064,7 @@ work, but that’s an article for another time, perhaps. <a href="#fnref:moves"
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1080,8 +1073,7 @@ work, but that’s an article for another time, perhaps. <a href="#fnref:moves"
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1090,18 +1082,16 @@ work, but that’s an article for another time, perhaps. <a href="#fnref:moves"
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1114,8 +1104,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

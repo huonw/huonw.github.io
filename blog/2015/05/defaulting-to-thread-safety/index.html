@@ -736,7 +736,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">26 May 2015</span>
+             &mdash; <span class="date pub-date">26 May 2015</span>
            
            
          </div>
@@ -759,8 +759,7 @@ link <a href="/blog/2015/02/some-notes-on-send-and-sync/"><em>Some notes on Send
 
 <p>Spawning a thread in Rust is easy:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -770,8 +769,7 @@ link <a href="/blog/2015/02/some-notes-on-send-and-sync/"><em>Some notes on Send
 8
 9
 10
-</pre></td>
-<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"from the parent"</span><span class="p">;</span>
@@ -781,8 +779,7 @@ link <a href="/blog/2015/02/some-notes-on-send-and-sync/"><em>Some notes on Send
 
     <span class="nn">thread</span><span class="p">::</span><span class="nf">sleep_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>As one might hope, this prints <code class="language-plaintext highlighter-rouge">child prints a string from the
 parent</code>. Like C, an binary exits once the main thread is finished, so
@@ -805,18 +802,15 @@ despite closures being very magic… how?</p>
 
 <p>The signature of <a href="http://doc.rust-lang.org/std/thread/fn.spawn.html"><code class="language-plaintext highlighter-rouge">spawn</code></a> is</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
-</pre></td>
-<td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="n">spawn</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">JoinHandle</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+</pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="n">spawn</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">JoinHandle</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
     <span class="k">where</span>
         <span class="n">F</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="nv">'static</span> <span class="o">+</span> <span class="nf">FnOnce</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">T</span><span class="p">,</span>
         <span class="n">T</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="nv">'static</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <div class="join"></div>
 
@@ -876,18 +870,14 @@ contain also implement <code class="language-plaintext highlighter-rouge">Trait<
 
 <p>Syntactically, it looks like:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
-</pre></td>
-<td class="code"><pre><span class="k">impl</span> <span class="n">Trait</span> <span class="k">for</span> <span class="o">..</span> <span class="p">{}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="k">impl</span> <span class="n">Trait</span> <span class="k">for</span> <span class="o">..</span> <span class="p">{}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>In terms of functionality, suppose <code class="language-plaintext highlighter-rouge">u8</code> and <code class="language-plaintext highlighter-rouge">String</code> implement <code class="language-plaintext highlighter-rouge">Trait</code>
 but <code class="language-plaintext highlighter-rouge">i16</code> doesn’t,</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -902,8 +892,7 @@ but <code class="language-plaintext highlighter-rouge">i16</code> doesn’t,</p>
 13
 14
 15
-</pre></td>
-<td class="code"><pre><span class="c">// implement `Trait`</span>
+</pre></td><td class="code"><pre><span class="c">// implement `Trait`</span>
 <span class="k">enum</span> <span class="n">Good</span> <span class="p">{</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="p">}</span>
 <span class="k">struct</span> <span class="n">Excellent</span><span class="p">;</span>
 <span class="k">struct</span> <span class="n">Wonderful</span> <span class="p">{</span> <span class="n">x</span><span class="p">:</span> <span class="nb">u8</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">String</span> <span class="p">}</span>
@@ -918,8 +907,7 @@ but <code class="language-plaintext highlighter-rouge">i16</code> doesn’t,</p>
 <span class="k">struct</span> <span class="n">Poor</span> <span class="p">{</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i16</span> <span class="p">}</span>
 <span class="k">type</span> <span class="n">Subpar</span> <span class="o">=</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">i16</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">type</span> <span class="n">Underwhelming</span> <span class="o">=</span> <span class="p">(</span><span class="nb">String</span><span class="p">,</span> <span class="nb">i16</span><span class="p">);</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This rule applies to closures too: if a closure only captures things
 that implement <code class="language-plaintext highlighter-rouge">Trait</code>, it is a struct similar to <code class="language-plaintext highlighter-rouge">Wonderful</code>, so the
@@ -929,8 +917,7 @@ that implement <code class="language-plaintext highlighter-rouge">Trait</code>, 
 benefits from all that machinery, and it’s how closures can be used
 with <code class="language-plaintext highlighter-rouge">Send</code>. To demonstrate specifically:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -948,8 +935,7 @@ with <code class="language-plaintext highlighter-rouge">Send</code>. To demonstr
 16
 17
 18
-</pre></td>
-<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">rc</span><span class="p">::</span><span class="nb">Rc</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">rc</span><span class="p">::</span><span class="nb">Rc</span><span class="p">;</span>
 
 <span class="c">// can only be used with `Send` types.</span>
 <span class="k">fn</span> <span class="n">check_send</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="nb">Send</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
@@ -967,27 +953,23 @@ with <code class="language-plaintext highlighter-rouge">Send</code>. To demonstr
     <span class="k">let</span> <span class="mi">_</span> <span class="o">=</span> <span class="n">pointer</span><span class="p">;</span> <span class="c">// make sure it is captured</span>
 <span class="p">};</span>
 <span class="nf">check_send</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This fails to compile, but in a particular way:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td>
-<td class="code"><pre>...:18:1: 18:11 error: the trait `core::marker::Send` is not implemented for the type `alloc::rc::Rc&lt;i32&gt;` [E0277]
+</pre></td><td class="code"><pre>...:18:1: 18:11 error: the trait `core::marker::Send` is not implemented for the type `alloc::rc::Rc&lt;i32&gt;` [E0277]
 ...:18 check_send(g);
        ^~~~~~~~~~
 ...:18:1: 18:11 note: `alloc::rc::Rc&lt;i32&gt;` cannot be sent between threads safely
 ...:18 check_send(g);
        ^~~~~~~~~~
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Both <code class="language-plaintext highlighter-rouge">i32</code> and <code class="language-plaintext highlighter-rouge">Vec&lt;Option&lt;String&gt;&gt;</code> are <code class="language-plaintext highlighter-rouge">Send</code> so the <code class="language-plaintext highlighter-rouge">f</code> closure is
 <code class="language-plaintext highlighter-rouge">Send</code> and <code class="language-plaintext highlighter-rouge">check_send(f)</code> compiles fine. On the other hand,
@@ -1021,12 +1003,9 @@ write for the trait if it didn’t have default implementation.</p>
 <em>negative implementations</em>: to opt out of <code class="language-plaintext highlighter-rouge">Trait</code>, implement <code class="language-plaintext highlighter-rouge">!Trait</code>.
 For example, the thread-unsafe <code class="language-plaintext highlighter-rouge">Rc&lt;T&gt;</code> type has</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
-</pre></td>
-<td class="code"><pre><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">!</span><span class="nb">Send</span> <span class="k">for</span> <span class="nb">Rc</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">!</span><span class="nb">Send</span> <span class="k">for</span> <span class="nb">Rc</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Having to opt-out might seem error-prone, but the only way a type with
 individually-thread-safe contents can be thread unsafe in aggregate is
@@ -1060,22 +1039,19 @@ interface is <a href="http://blog.rust-lang.org/2015/04/24/Rust-Once-Run-Everywh
 thread-unsafe type (non-<code class="language-plaintext highlighter-rouge">Send</code>) in a new struct and implementing
 <code class="language-plaintext highlighter-rouge">Send</code> for it? Something like</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td>
-<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">rc</span><span class="p">::</span><span class="nb">Rc</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">rc</span><span class="p">::</span><span class="nb">Rc</span><span class="p">;</span>
 
 <span class="k">struct</span> <span class="n">Trick</span> <span class="p">{</span>
     <span class="n">x</span><span class="p">:</span> <span class="nb">Rc</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span>
 <span class="p">}</span>
 <span class="k">impl</span> <span class="nb">Send</span> <span class="k">for</span> <span class="n">Trick</span> <span class="p">{}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>If this worked (spoilers: it doesn’t), we’ve “asserted” that <code class="language-plaintext highlighter-rouge">Trick</code>
 is thread-safe despite it containing a thread-unsafe type, <em>without</em>
@@ -1086,35 +1062,26 @@ undefined behaviour via data races.</p>
 
 <p>Fortunately, the compiler spits out an error:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td>
-<td class="code"><pre>...:6:1: 6:23 error: the trait `core::marker::Send` requires an `unsafe impl` declaration [E0200]
+</pre></td><td class="code"><pre>...:6:1: 6:23 error: the trait `core::marker::Send` requires an `unsafe impl` declaration [E0200]
 ...:6 impl Send for Trick {}
       ^~~~~~~~~~~~~~~~~~~~~~
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Ah! So it’s telling us that <code class="language-plaintext highlighter-rouge">unsafe</code> is in fact required. This version
 of the <code class="language-plaintext highlighter-rouge">impl</code> compiles:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
-</pre></td>
-<td class="code"><pre><span class="k">unsafe</span> <span class="k">impl</span> <span class="nb">Send</span> <span class="k">for</span> <span class="n">Trick</span> <span class="p">{}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="k">unsafe</span> <span class="k">impl</span> <span class="nb">Send</span> <span class="k">for</span> <span class="n">Trick</span> <span class="p">{}</span>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This is because <code class="language-plaintext highlighter-rouge">Send</code> is <a href="https://github.com/rust-lang/rust/blob/7cb9914fceaeaa6a39add43d3da15bb6e1d191f6/src/libcore/marker.rs#L38">declared</a> as <code class="language-plaintext highlighter-rouge">unsafe</code>:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
-</pre></td>
-<td class="code"><pre><span class="k">pub</span> <span class="k">unsafe</span> <span class="k">trait</span> <span class="nb">Send</span> <span class="p">{</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">unsafe</span> <span class="k">trait</span> <span class="nb">Send</span> <span class="p">{</span>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>An <em>unsafe trait</em> is unsafe to implement, but not to use. It is
 designed to allow representing classes of types with absolute
@@ -1149,7 +1116,7 @@ traits one can possibly use on a stable compiler.)</p>
   <div class="image-positioner">
     
     <a href="https://www.flickr.com/photos/tm-tm/2634203419/">
-      <img src="unstable-small.jpg" alt="a photo of a sign saying: danger, unstable cliff">
+      <img src="unstable-small.jpg" alt="a photo of a sign saying: danger, unstable cliff" />
     </a>
     
   </div>
@@ -1171,8 +1138,7 @@ possible…</p>
 closures too. A closure that only captures thread-shareable values
 (like a string) is also thread-shareable:</p>
 
-<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1192,8 +1158,7 @@ closures too. A closure that only captures thread-shareable values
 18
 19
 20
-</pre></td>
-<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">sync</span><span class="p">::</span><span class="nb">Arc</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">sync</span><span class="p">::</span><span class="nb">Arc</span><span class="p">;</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="n">upto</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">usize</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span>
@@ -1213,15 +1178,13 @@ closures too. A closure that only captures thread-shareable values
     <span class="c">// as above, don't let `main` finish</span>
     <span class="nn">thread</span><span class="p">::</span><span class="nf">sleep_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <div class="join"></div>
 
 <p>The output sometimes looks like:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -1231,8 +1194,7 @@ closures too. A closure that only captures thread-shareable values
 8
 9
 10
-</pre></td>
-<td class="code"><pre>thread #0: hello
+</pre></td><td class="code"><pre>thread #0: hello
 thread #7: hello
 thread #2: hello
 thread #9: hello
@@ -1242,8 +1204,7 @@ thread #3: hello
 thread #6: hello
 thread #8: hello
 thread #5: hello
-</pre></td>
-</tr></tbody></table></code></pre></figure>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The <code class="language-plaintext highlighter-rouge">Send</code> and <code class="language-plaintext highlighter-rouge">'static</code> bounds are “boring”, they’re just required
 due to the implementation details of using <code class="language-plaintext highlighter-rouge">spawn</code> and <code class="language-plaintext highlighter-rouge">Arc</code>, it’s the
@@ -1294,7 +1255,7 @@ traits more closely.)</p>
     <li id="fn:almost" role="doc-endnote">
       <p>They’re currently still “lang-items” (i.e. known to the
        compiler), but Niko Matsakis tells me “it’s because compiler
-       needs refactoring”, i.e. an implementation detail. <a href="#fnref:almost" class="reversefootnote" role="doc-backlink">↩</a></p>
+       needs refactoring”, i.e. an implementation detail. <a href="#fnref:almost" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:vast" role="doc-endnote">
       <p>There’s only 3 negative implementations (approximated by
@@ -1308,7 +1269,7 @@ traits more closely.)</p>
 
       <p>(That said, there’s always the possibility that there <em>should</em> be
 a lot more negative impls, and there’s a large number of broken
-libraries in the ecosystem… however, this would surprise me greatly.) <a href="#fnref:vast" class="reversefootnote" role="doc-backlink">↩</a></p>
+libraries in the ecosystem… however, this would surprise me greatly.) <a href="#fnref:vast" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -1332,8 +1293,7 @@ libraries in the ecosystem… however, this would surprise me greatly.) <a href
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -1342,8 +1302,7 @@ libraries in the ecosystem… however, this would surprise me greatly.) <a href
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -1352,8 +1311,7 @@ libraries in the ecosystem… however, this would surprise me greatly.) <a href
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/08/home-cooked-app/">
@@ -1362,18 +1320,16 @@ libraries in the ecosystem… however, this would surprise me greatly.) <a href
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -1386,8 +1342,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

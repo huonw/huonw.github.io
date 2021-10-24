@@ -733,7 +733,7 @@ a.post-heading {
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             — <span class="date pub-date">30 Aug 2021</span>
+             &mdash; <span class="date pub-date">30 Aug 2021</span>
            
            
          </div>
@@ -758,7 +758,7 @@ a.post-heading {
   <div class="image-positioner">
     
     <a href="screenshots.png">
-      <img src="screenshots.png" alt="Two images side-by-side. On the left, a digital rendering of a watch face at 17:24 on 27 December, with the text Happy Birthday, Sterling! across the top. On the right, a photo of the same watch face on a real device">
+      <img src="screenshots.png" alt="Two images side-by-side. On the left, a digital rendering of a watch face at 17:24 on 27 December, with the text Happy Birthday, Sterling! across the top. On the right, a photo of the same watch face on a real device" />
     </a>
     
   </div>
@@ -784,8 +784,7 @@ a.post-heading {
 <p>Instead, I didn’t do it properly, because it’s an app to run on two and only two devices. I can break all the rules: I can hardcode content, I include private information<sup id="fnref:private" role="doc-noteref"><a href="#fn:private" class="footnote" rel="footnote">2</a></sup>, I can make assumptions about devices. For instance:</p>
 
 <ul>
-  <li>the app directly embeds all 25 background images<sup id="fnref:size" role="doc-noteref"><a href="#fn:size" class="footnote" rel="footnote">3</a></sup>
-</li>
+  <li>the app directly embeds all 25 background images<sup id="fnref:size" role="doc-noteref"><a href="#fn:size" class="footnote" rel="footnote">3</a></sup></li>
   <li>our two devices are different models, so the messages for each of us are conditionalised based on the device qualifiers using build system functionality</li>
   <li>those two models are the only ones supported, so a minimal CI that builds for those devices is all that’s needed</li>
   <li>the app can be easily sideloaded: plug the watch into a computer and copy the compiled <code class="language-plaintext highlighter-rouge">.prg</code> file onto it (I think this is a critical component of “home cooking” code: one must have sufficient control over the devices to run arbitrary code, without expensive or complicated processes managed by external corporations)</li>
@@ -820,16 +819,16 @@ a.post-heading {
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
     <li id="fn:monkeysee" role="doc-endnote">
-      <p>The programming language/environment for the Garmin devices is called “Monkey C”, so they took the opportunity to call the compiler “Monkey Do” 🥁 <a href="#fnref:monkeysee" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>The programming language/environment for the Garmin devices is called “Monkey C”, so they took the opportunity to call the compiler “Monkey Do” 🥁 <a href="#fnref:monkeysee" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:photo-syncing" role="doc-endnote">
-      <p>The photo for any particular day is chosen by hashing the <a href="https://en.wikipedia.org/wiki/Unix_time">Unix time</a> of midnight on that day and using this as a “random” index into the list of photos. All these factors (reference time, hashing algorithm, and order of photos) are the same on both watches, so the chosen photo always matches on the two devices. <a href="#fnref:photo-syncing" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>The photo for any particular day is chosen by hashing the <a href="https://en.wikipedia.org/wiki/Unix_time">Unix time</a> of midnight on that day and using this as a “random” index into the list of photos. All these factors (reference time, hashing algorithm, and order of photos) are the same on both watches, so the chosen photo always matches on the two devices. <a href="#fnref:photo-syncing" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:private" role="doc-endnote">
-      <p>I still wouldn’t (and don’t) include credentials or other valuable personal information, but I can at least feel free to include sickly sweet messages for my wife. <a href="#fnref:private" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>I still wouldn’t (and don’t) include credentials or other valuable personal information, but I can at least feel free to include sickly sweet messages for my wife. <a href="#fnref:private" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:size" role="doc-endnote">
-      <p>Unsurprisingly, an app containing 25 images ends up as a large artefact, even when they’re reduced to the limited fidelity the devices can display (4 or 8 bits per pixel and circles with diameters of 208 or 240 pixels). There doesn’t seem to be much documentation, but I can report that watch faces of the following sizes seem to work in practice: 718KB for a Garmin Forerunner 45 (FR45), 1.78MB for a Garmin Forerunner 245 Music (FR245M). <a href="#fnref:size" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>Unsurprisingly, an app containing 25 images ends up as a large artefact, even when they’re reduced to the limited fidelity the devices can display (4 or 8 bits per pixel and circles with diameters of 208 or 240 pixels). There doesn’t seem to be much documentation, but I can report that watch faces of the following sizes seem to work in practice: 718KB for a Garmin Forerunner 45 (FR45), 1.78MB for a Garmin Forerunner 245 Music (FR245M). <a href="#fnref:size" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -853,8 +852,7 @@ a.post-heading {
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       
       <nav>
-        <ul id="latest-list">
-<!--
+        <ul id="latest-list"><!--
            
            --><li class="latest-post">
                 <a href="/blog/2021/10/nsw-covid-qr/">
@@ -863,8 +861,7 @@ a.post-heading {
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2021/09/qr-error-correction/">
@@ -873,8 +870,7 @@ a.post-heading {
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
            --><li class="latest-post">
                 <a href="/blog/2020/04/worktrees-and-pyenv/">
@@ -883,18 +879,16 @@ a.post-heading {
 </p>
                    
                  </a>
-            </li>
-<!--
+            </li><!--
           
-      -->
-</ul>
+      --></ul>
       </nav>
     </footer>
     
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson — <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
   </footer>
 </div>
 
@@ -907,8 +901,15 @@ var sc_project=7439209;
 var sc_invisible=1;
 var sc_security="b96244c7";
 </script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
-<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
