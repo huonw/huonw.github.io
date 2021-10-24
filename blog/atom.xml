@@ -4,7 +4,7 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2021-10-24T07:26:05+00:00</updated>
+  <updated>2021-10-24T21:57:55+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
@@ -34,7 +34,7 @@
       
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;1893&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 1893 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three pages placed horizontally. They all contain a 'we're covid safe' logo, text like 'please check in before entering our premises.' and a QR code. The left-most one labelled 'original' in red has a very small QR and dense code; the centre one labelled 'works now' in green has a much larger QR code that's slightly less dense; the right-most one labelled 'with planning' in orange also has a large QR code, that is much less dense.&lt;/desc&gt;
+  &lt;desc&gt;Three pages placed horizontally. They all contain a &apos;we&apos;re covid safe&apos; logo, text like &apos;please check in before entering our premises.&apos; and a QR code. The left-most one labelled &apos;original&apos; in red has a very small QR and dense code; the centre one labelled &apos;works now&apos; in green has a much larger QR code that&apos;s slightly less dense; the right-most one labelled &apos;with planning&apos; in orange also has a large QR code, that is much less dense.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -113,7 +113,7 @@
 
 &lt;aside data-icon=&quot;⚠️&quot;&gt;
 
-There's been a lot written about whether these QR codes/contact tracing is government overreach and about the governmental response to the pandemic more generally, and I am not adding to that here: these QR codes serve as an easy example of the technology.
+There&apos;s been a lot written about whether these QR codes/contact tracing is government overreach and about the governmental response to the pandemic more generally, and I am not adding to that here: these QR codes serve as an easy example of the technology.
 
 &lt;/aside&gt;
 
@@ -136,7 +136,7 @@ There's been a lot written about whether these QR codes/contact tracing is gover
 &lt;/label&gt;
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;1376&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 1376 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;An image with two panels. On the left, a page as above with text like 'please check in before entering our premises'. On the right, a screenshot of a mobile app: the page is titled 'COVID Safe Check-in', there's an info box saying 'Checking in to Test NSW Government QR code'  &lt;/desc&gt;
+  &lt;desc&gt;An image with two panels. On the left, a page as above with text like &apos;please check in before entering our premises&apos;. On the right, a screenshot of a mobile app: the page is titled &apos;COVID Safe Check-in&apos;, there&apos;s an info box saying &apos;Checking in to Test NSW Government QR code&apos;  &lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -222,7 +222,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
   &lt;div class=&quot;image-positioner&quot;&gt;
     
     &lt;a href=&quot;service-nsw-scan-header.png&quot;&gt;
-      &lt;img src=&quot;service-nsw-scan-header.png&quot; alt=&quot;An image containing a crop of only the top region of the Service NSW app screenshot above. It focuses on the page title 'COVID Safe Check-in' and a box that says 'Checking in to Test NSW Government QR code' and 'Not the right venue? scan again'.&quot; width=&quot;800&quot; height=&quot;392&quot; /&gt;
+      &lt;img src=&quot;service-nsw-scan-header.png&quot; alt=&quot;An image containing a crop of only the top region of the Service NSW app screenshot above. It focuses on the page title &apos;COVID Safe Check-in&apos; and a box that says &apos;Checking in to Test NSW Government QR code&apos; and &apos;Not the right venue? scan again&apos;.&quot; width=&quot;800&quot; height=&quot;392&quot; /&gt;
     &lt;/a&gt;
     
   &lt;/div&gt;
@@ -257,7 +257,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
       
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;1274&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 1274 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Two pages placed horizontally. As above, they both contain a 'we're covid safe' logo, text like 'please check in before entering our premises.' and a QR code. The left-most one labelled 'original' has a very small QR and dense code; the right one labelled 'rearranged' has a much larger QR code with the surrounding text rearranged slightly.&lt;/desc&gt;
+  &lt;desc&gt;Two pages placed horizontally. As above, they both contain a &apos;we&apos;re covid safe&apos; logo, text like &apos;please check in before entering our premises.&apos; and a QR code. The left-most one labelled &apos;original&apos; has a very small QR and dense code; the right one labelled &apos;rearranged&apos; has a much larger QR code with the surrounding text rearranged slightly.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -321,7 +321,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
       
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;2634&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 2634 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three QR codes placed horizontally. They get less dense from left to right, and are labelled: 'original' in red, 'error correction Q' in orange, 'without address' in orange.&lt;/desc&gt;
+  &lt;desc&gt;Three QR codes placed horizontally. They get less dense from left to right, and are labelled: &apos;original&apos; in red, &apos;error correction Q&apos; in orange, &apos;without address&apos; in orange.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -392,7 +392,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
       
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;2634&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 2634 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three QR codes placed horizontally. They get less dense from left to right, and are labelled: 'better encoding' in orange, 'short path' in green, 'remove name' in orange, &lt;/desc&gt;
+  &lt;desc&gt;Three QR codes placed horizontally. They get less dense from left to right, and are labelled: &apos;better encoding&apos; in orange, &apos;short path&apos; in green, &apos;remove name&apos; in orange, &lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -689,7 +689,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 &lt;/label&gt;
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;2634&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 2634 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled 'original' and 'previous' have denser patterns than the right one labelled 'remove address'.&lt;/desc&gt;
+  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled &apos;original&apos; and &apos;previous&apos; have denser patterns than the right one labelled &apos;remove address&apos;.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -910,7 +910,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 &lt;/label&gt;
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;2634&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 2634 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled 'original' and 'previous' have denser patterns than the right one labelled 'better encoding'.&lt;/desc&gt;
+  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled &apos;original&apos; and &apos;previous&apos; have denser patterns than the right one labelled &apos;better encoding&apos;.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -1028,7 +1028,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 &lt;/label&gt;
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;2634&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 2634 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled 'original' and 'previous' have denser patterns than the right one labelled 'shorter path'.&lt;/desc&gt;
+  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled &apos;original&apos; and &apos;previous&apos; have denser patterns than the right one labelled &apos;shorter path&apos;.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -1159,7 +1159,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 &lt;/label&gt;
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;2634&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 2634 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three QR codes placed horizontally. The left one labelled 'original' has denser patterns than the right two labelled 'previous' and 'better domain'.&lt;/desc&gt;
+  &lt;desc&gt;Three QR codes placed horizontally. The left one labelled &apos;original&apos; has denser patterns than the right two labelled &apos;previous&apos; and &apos;better domain&apos;.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -1246,7 +1246,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 &lt;/label&gt;
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;2634&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 2634 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled 'original' and 'previous' have denser patterns than the right one labelled 'without name'.&lt;/desc&gt;
+  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled &apos;original&apos; and &apos;previous&apos; have denser patterns than the right one labelled &apos;without name&apos;.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -1364,7 +1364,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 &lt;/label&gt;
 
 &lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; xmlns:xlink=&quot;http://www.w3.org/1999/xlink&quot; width=&quot;2634&quot; height=&quot;890&quot; viewBox=&quot;-12 -12 2634 890&quot; role=&quot;img&quot; aria-label=&quot;[description]&quot;&gt;
-  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled are labelled 'original' and 'insecure', while the right one is labelled 'signed'. The right one is slightly denser than the center, but much less dense than the first.&lt;/desc&gt;
+  &lt;desc&gt;Three QR codes placed horizontally. The left two labelled are labelled &apos;original&apos; and &apos;insecure&apos;, while the right one is labelled &apos;signed&apos;. The right one is slightly denser than the center, but much less dense than the first.&lt;/desc&gt;
   &lt;filter id=&quot;blur-text&quot; width=&quot;130%&quot; height=&quot;130%&quot;&gt;
     &lt;feOffset result=&quot;offOut&quot; in=&quot;SourceAlpha&quot; dx=&quot;4&quot; dy=&quot;8&quot; /&gt;
     &lt;feColormatrix result=&quot;lightened&quot; in=&quot;offOut&quot; values=&quot;0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0&quot; /&gt;
@@ -1680,7 +1680,7 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
   &lt;div class=&quot;image-positioner&quot;&gt;
     
     &lt;a href=&quot;v1-v18-v40.png&quot;&gt;
-      &lt;img src=&quot;v1-v18-v40.png&quot; alt=&quot;An image showing three QR codes placed horizontally, the left most one consists of only a very large modules, while they're barely distinguishable in the right most one.&quot; width=&quot;1110&quot; height=&quot;378&quot; /&gt;
+      &lt;img src=&quot;v1-v18-v40.png&quot; alt=&quot;An image showing three QR codes placed horizontally, the left most one consists of only a very large modules, while they&apos;re barely distinguishable in the right most one.&quot; width=&quot;1110&quot; height=&quot;378&quot; /&gt;
     &lt;/a&gt;
     
   &lt;/div&gt;
@@ -2165,9 +2165,9 @@ eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZH
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;git clone &lt;span class=&quot;s1&quot;&gt;'git@github.com:stellargraph/stellargraph.git'&lt;/span&gt; stellargraph-1
-git clone &lt;span class=&quot;s1&quot;&gt;'git@github.com:stellargraph/stellargraph.git'&lt;/span&gt; stellargraph-2
-git clone &lt;span class=&quot;s1&quot;&gt;'git@github.com:stellargraph/stellargraph.git'&lt;/span&gt; stellargraph-3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;git clone &lt;span class=&quot;s1&quot;&gt;&apos;git@github.com:stellargraph/stellargraph.git&apos;&lt;/span&gt; stellargraph-1
+git clone &lt;span class=&quot;s1&quot;&gt;&apos;git@github.com:stellargraph/stellargraph.git&apos;&lt;/span&gt; stellargraph-2
+git clone &lt;span class=&quot;s1&quot;&gt;&apos;git@github.com:stellargraph/stellargraph.git&apos;&lt;/span&gt; stellargraph-3
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;I used this effectively for many years for a few different projects.&lt;/p&gt;
@@ -2205,8 +2205,8 @@ git clone &lt;span class=&quot;s1&quot;&gt;'git@github.com:stellargraph/stellarg
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /path/to/stellargraph-1
 &lt;span class=&quot;c&quot;&gt;# now inside the repository that needs multiple copies&lt;/span&gt;
 
-git worktree add ../stellargraph-2 &lt;span class=&quot;s1&quot;&gt;'some-existing-branch'&lt;/span&gt;
-git worktree add ../stellargraph-3 &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'some-new-branch'&lt;/span&gt;
+git worktree add ../stellargraph-2 &lt;span class=&quot;s1&quot;&gt;&apos;some-existing-branch&apos;&lt;/span&gt;
+git worktree add ../stellargraph-3 &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;some-new-branch&apos;&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;The first argument to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;add&lt;/code&gt; is the (sibling) directory for the new worktree, and the second optional one is the name of the branch to checkout there (to start with). Each of these &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stellargraph-...&lt;/code&gt; directories acts like a normal git repository, and all the usual operations like creating or switching branches, committing and stashing work just fine.&lt;/p&gt;
@@ -2244,7 +2244,7 @@ git worktree add ../stellargraph-3 &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&
 git push
 &lt;span class=&quot;c&quot;&gt;# (repeat from 4 until finished)&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;# finished, so the worktree isn't needed any more&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# finished, so the worktree isn&apos;t needed any more&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
 &lt;span class=&quot;nb&quot;&gt;rm &lt;/span&gt;stellargraph-foo
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -2285,7 +2285,7 @@ git push
 &lt;span class=&quot;c&quot;&gt;# do work, like running tests:&lt;/span&gt;
 pytest tests/
 
-&lt;span class=&quot;c&quot;&gt;# finished there, let's move&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# finished there, let&apos;s move&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../stellargraph-2
 &lt;span class=&quot;c&quot;&gt;# run tests again&lt;/span&gt;
 pytest tests/
@@ -2299,8 +2299,8 @@ pytest tests/
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;pyenv virtualenv 3.6.10 &lt;span class=&quot;s1&quot;&gt;'stellargraph-1'&lt;/span&gt;
-pyenv &lt;span class=&quot;nb&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'stellargraph-1'&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;pyenv virtualenv 3.6.10 &lt;span class=&quot;s1&quot;&gt;&apos;stellargraph-1&apos;&lt;/span&gt;
+pyenv &lt;span class=&quot;nb&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;stellargraph-1&apos;&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;After doing this, any command that uses &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip&lt;/code&gt; (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip install --editable .&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pytest&lt;/code&gt;) anywhere within the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stellargraph-1&lt;/code&gt; worktree will automatically use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stellargraph-1&lt;/code&gt; virtual environment&lt;sup id=&quot;fnref:other-libraries&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:other-libraries&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;: I don’t need to manually activate or deactivate the virtual environments, cutting out a major piece of human error.&lt;/p&gt;
@@ -2794,7 +2794,7 @@ penalty is even higher! &lt;a href=&quot;#fnref:arm&quot; class=&quot;reversefo
       &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pushq&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;movl&lt;/code&gt; register management wouldn’t be
       necessary. Also, even without inlining I believe the
       &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pushq&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;popq&lt;/code&gt; stack management isn’t necessary, but
-      unfortunately the published Rust binaries &lt;s&gt;don't use a new
+      unfortunately the published Rust binaries &lt;s&gt;don&apos;t use a new
       enough version of LLVM to get its new &lt;a href=&quot;http://reviews.llvm.org/D9210&quot;&gt;&quot;shrink wrapping&quot;
       optimisation pass&lt;/a&gt;&lt;/s&gt; use a version of LLVM that
       contains &lt;a href=&quot;https://llvm.org/bugs/show_bug.cgi?id=25614&quot;&gt;a bug in its “shrink-wrapping” pass&lt;/a&gt;
@@ -3331,7 +3331,7 @@ sure about a lot of things. Reading random data is fine:&lt;/p&gt;
 8
 9
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rr ./urandom
-rr: Saving the execution of &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;./urandom&lt;span class=&quot;s1&quot;&gt;' to trace directory `/home/huon/.rr/urandom-2'&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+rr: Saving the execution of &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;./urandom&lt;span class=&quot;s1&quot;&gt;&apos; to trace directory `/home/huon/.rr/urandom-2&apos;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;45, 45, 28, 0, 236]
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;~/projects/mozilla/rr/obj/bin/rr replay &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; rust-gdb ~/.rr/urandom-2
 GNU gdb &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Ubuntu 7.10-1ubuntu2&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 7.10
@@ -3610,7 +3610,7 @@ the task of validating a &lt;em&gt;k&lt;/em&gt;-nearest neighbour (&lt;em&gt;k&l
 using the safe-but-crude tools Rust-circa-0.11 offered at the time. We
 now live in a promised land, with &lt;a href=&quot;http://blog.rust-lang.org/2015/05/15/Rust-1.0.html&quot;&gt;language stability&lt;/a&gt;,
 &lt;a href=&quot;https://crates.io/&quot;&gt;Cargo &amp;amp; thousands of crates&lt;/a&gt;, and
-&lt;a href=&quot;https://github.com/rust-lang/rfcs/blob/master/text/0458-send-improvements.md&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt; without &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'static&lt;/code&gt;&lt;/a&gt;, so there’s shiny new
+&lt;a href=&quot;https://github.com/rust-lang/rfcs/blob/master/text/0458-send-improvements.md&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt; without &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;static&lt;/code&gt;&lt;/a&gt;, so there’s shiny new
 safe-and-less-crude tools!&lt;/p&gt;
 
 &lt;p&gt;The example above disguised the role of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;crossbeam&lt;/code&gt;, but the
@@ -3767,8 +3767,8 @@ alone. This is what &lt;code class=&quot;language-plaintext highlighter-rouge&qu
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;FnOnce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;FnOnce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scope&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;That is, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scope&lt;/code&gt; takes one argument, which is a closure, and then
@@ -4183,7 +4183,7 @@ implement its functionality, e.g.:&lt;/p&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;These intrinsics follow the pattern of
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;architecture&amp;gt;_&amp;lt;vendor's-name&amp;gt;&lt;/code&gt;, relying on the definitions that CPU
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;architecture&amp;gt;_&amp;lt;vendor&apos;s-name&amp;gt;&lt;/code&gt;, relying on the definitions that CPU
 vendors give.&lt;/p&gt;
 
 &lt;p&gt;Speaking of the optimiser, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rustc&lt;/code&gt; uses LLVM, which is industrial
@@ -4273,7 +4273,7 @@ but nothing concrete yet.&lt;/p&gt;
       a custom target spec or intercepting how &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rustc&lt;/code&gt; is called
       via the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RUSTC&lt;/code&gt; environment variable (for my own
       experiments, I’m doing the latter: pointing the variable to
-      a shell script that runs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rustc -C target-feature='...'
+      a shell script that runs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rustc -C target-feature=&apos;...&apos;
       &quot;$@&quot;&lt;/code&gt;). This is covered by &lt;a href=&quot;https://github.com/rust-lang/cargo/issues/1137&quot;&gt;#1137&lt;/a&gt;. &lt;a href=&quot;#fnref:cargo&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:ispc&quot; role=&quot;doc-endnote&quot;&gt;
@@ -4525,8 +4525,8 @@ build-logs:&lt;/p&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;This job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.
-If you require sudo, add 'sudo: required' to your .travis.yml
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;This job is running on container-based infrastructure, which does not allow use of &apos;sudo&apos;, setuid and setguid executables.
+If you require sudo, add &apos;sudo: required&apos; to your .travis.yml
 See http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -4801,8 +4801,8 @@ despite closures being very magic… how?&lt;/p&gt;
 4
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;spawn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;JoinHandle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;'static&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;FnOnce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;'static&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;static&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;FnOnce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;static&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;div class=&quot;join&quot;&gt;&lt;/div&gt;
@@ -4813,7 +4813,7 @@ parameters:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;the type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;F&lt;/code&gt; can be any function/closure that returns a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T&lt;/code&gt;
 (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FnOnce() -&amp;gt; T&lt;/code&gt;), can be safely transferred between threads
-(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt;) and contains no short-lived references (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'static&lt;/code&gt;),&lt;/li&gt;
+(&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt;) and contains no short-lived references (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;static&lt;/code&gt;),&lt;/li&gt;
   &lt;li&gt;the type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T&lt;/code&gt; can be any type at all, as long as it can be transferred
 between threads and doesn’t contain short-lived references.&lt;/li&gt;
 &lt;/ul&gt;
@@ -4830,7 +4830,7 @@ using &lt;a href=&quot;http://doc.rust-lang.org/std/ops/trait.FnOnce.html&quot;&
 absolutely no guarantees or relationships between how long the new
 thread runs for, and how long the stack frames of the parent last, so
 the new thread cannot have any references to the parent’s stack. This
-is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'static&lt;/code&gt; requirement: only data that can live for arbitrary
+is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;static&lt;/code&gt; requirement: only data that can live for arbitrary
 long can be passed via the new closure.&lt;/p&gt;
 
 &lt;p&gt;The last bound is &lt;a href=&quot;http://doc.rust-lang.org/std/marker/trait.Send.html&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt;&lt;/a&gt;: the closure is executed on a new thread, so
@@ -4839,7 +4839,7 @@ what &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;
 
 &lt;p&gt;The return type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;T&lt;/code&gt; can be anything, as long as it can be transferred
 from the child thread back to the parent (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt;) and as long as it is
-also independent of any stack frames (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'static&lt;/code&gt;).&lt;/p&gt;
+also independent of any stack frames (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;static&lt;/code&gt;).&lt;/p&gt;
 
 &lt;p&gt;This all sounds fine and dandy. But there’s one hitch: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt;
 trait is defined entirely&lt;sup id=&quot;fnref:almost&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:almost&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;0&lt;/a&gt;&lt;/sup&gt; in the standard library. The
@@ -4892,7 +4892,7 @@ but &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i16&lt;/c
 &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Splendid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Option&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;u8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Brilliant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;u8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;// don't implement `Trait`&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// don&apos;t implement `Trait`&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Bad&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;u8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -4937,7 +4937,7 @@ with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Option&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;vec!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;move&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// make sure they're captured&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// make sure they&apos;re captured&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 &lt;span class=&quot;nf&quot;&gt;check_send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
@@ -5155,7 +5155,7 @@ closures too. A closure that only captures thread-shareable values
 &lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;upto&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;usize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;'static&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;usize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sync&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;where&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Send&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;static&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;usize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sync&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Arc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -5168,7 +5168,7 @@ closures too. A closure that only captures thread-shareable values
     &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;upto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;thread #{}: {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
 
-    &lt;span class=&quot;c&quot;&gt;// as above, don't let `main` finish&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// as above, don&apos;t let `main` finish&lt;/span&gt;
     &lt;span class=&quot;nn&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sleep_ms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -5199,7 +5199,7 @@ thread #8: hello
 thread #5: hello
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'static&lt;/code&gt; bounds are “boring”, they’re just required
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Send&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;static&lt;/code&gt; bounds are “boring”, they’re just required
 due to the implementation details of using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spawn&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Arc&lt;/code&gt;, it’s the
 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fn&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sync&lt;/code&gt; bounds that are fundamental to this behaviour.&lt;/p&gt;
 
@@ -5905,9 +5905,9 @@ since &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/c
 11
 12
 13
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;'y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;x&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;y&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
@@ -5993,8 +5993,8 @@ compiler is inferring that the code can look like:&lt;/p&gt;
 7
 8
 9
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Closure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Closure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;cm&quot;&gt;/* impl of Fn for Closure */&lt;/span&gt;
@@ -6220,12 +6220,12 @@ fine.&lt;/p&gt;
 &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;closure&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;// explicit form&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Vec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;span class=&quot;c&quot;&gt;// let's try implementing `Fn`&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// let&apos;s try implementing `Fn`&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Fn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Environment&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;.v&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// error: cannot borrow data mutably&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -6459,9 +6459,9 @@ and on IRC for finding inaccuracies and improvements.)&lt;/p&gt;
              easier time when inferring types. Using an associated
              type for the input value too would be too
              restrictive: it is very useful for the output type to
-             depend on the input type, e.g. a transformation &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;'a
-             [i32]&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;'a i32&lt;/code&gt; (by e.g. indexing) has the two
-             types connected via the generic lifetime &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;'a&lt;/code&gt;. &lt;a href=&quot;#fnref:assoc-vs-not&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+             depend on the input type, e.g. a transformation &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;&apos;a
+             [i32]&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;&apos;a i32&lt;/code&gt; (by e.g. indexing) has the two
+             types connected via the generic lifetime &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;a&lt;/code&gt;. &lt;a href=&quot;#fnref:assoc-vs-not&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:i-think&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;This statement isn’t precisely true in practice,
@@ -6609,7 +6609,7 @@ function call through the vtable stored in a trait object.&lt;/p&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;// automatically inserted by the compiler&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method_a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
          &lt;span class=&quot;c&quot;&gt;// dynamic dispatch to `method_a` of erased type&lt;/span&gt;
          &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.method_a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
@@ -7153,7 +7153,7 @@ easy.&lt;/p&gt;
 installed via that medium. This works on Travis:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'travis-cargo&amp;lt;0.2'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/bin:&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;travis-cargo&amp;lt;0.2&apos;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOME&lt;/span&gt;/.local/bin:&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;The explicit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;0.2&lt;/code&gt; requirement will reduce the risk of builds
@@ -7262,7 +7262,7 @@ the default).&lt;/p&gt;
   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;nightly&lt;/span&gt;
   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;beta&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;before_script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pip install 'travis-cargo&amp;lt;0.2' --user &amp;amp;&amp;amp; export PATH=$HOME/.local/bin:$PATH&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pip install &apos;travis-cargo&amp;lt;0.2&apos; --user &amp;amp;&amp;amp; export PATH=$HOME/.local/bin:$PATH&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;|&lt;/span&gt;
       &lt;span class=&quot;s&quot;&gt;travis-cargo build &amp;amp;&amp;amp;&lt;/span&gt;
@@ -7448,7 +7448,7 @@ looks like:&lt;/p&gt;
 &lt;span class=&quot;c1&quot;&gt;# load travis-cargo&lt;/span&gt;
 &lt;span class=&quot;na&quot;&gt;before_script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;git clone --depth 1 https://github.com/huonw/travis-cargo&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# make a short alias (`alias` itself doesn't work)&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# make a short alias (`alias` itself doesn&apos;t work)&lt;/span&gt;
   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ln -s ./travis-cargo/travis-cargo.py tc&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;# the main build&lt;/span&gt;
@@ -7662,7 +7662,7 @@ like:&lt;/p&gt;
   &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;|&lt;/span&gt;
         &lt;span class=&quot;s&quot;&gt;[ $TRAVIS_BRANCH = master ] &amp;amp;&amp;amp;&lt;/span&gt;
         &lt;span class=&quot;s&quot;&gt;[ $TRAVIS_PULL_REQUEST = false ] &amp;amp;&amp;amp;&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;echo '&amp;lt;meta http-equiv=refresh content=0;url=[CRATE NAME]/index.html&amp;gt;' &amp;gt; target/doc/index.html &amp;amp;&amp;amp;&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;echo &apos;&amp;lt;meta http-equiv=refresh content=0;url=[CRATE NAME]/index.html&amp;gt;&apos; &amp;gt; target/doc/index.html &amp;amp;&amp;amp;&lt;/span&gt;
         &lt;span class=&quot;s&quot;&gt;git clone https://github.com/davisp/ghp-import &amp;amp;&amp;amp;&lt;/span&gt;
         &lt;span class=&quot;s&quot;&gt;./ghp-import/ghp-import -n target/doc &amp;amp;&amp;amp;&lt;/span&gt;
         &lt;span class=&quot;s&quot;&gt;git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages&lt;/span&gt;
@@ -7709,7 +7709,7 @@ skip the boring bits of travelling in between.&lt;/p&gt;
   &lt;div class=&quot;image-positioner&quot;&gt;
     
     &lt;a href=&quot;scotland-circles.jpg&quot;&gt;
-      &lt;img src=&quot;scotland-circles.jpg&quot; alt=&quot;A screenshot of a map of a part of Scotland, with coloured dots and lines joined into a time-series, and circles around clusters of those&quot; title=&quot;Climbing Arthur's Seat was great.&quot; /&gt;
+      &lt;img src=&quot;scotland-circles.jpg&quot; alt=&quot;A screenshot of a map of a part of Scotland, with coloured dots and lines joined into a time-series, and circles around clusters of those&quot; title=&quot;Climbing Arthur&apos;s Seat was great.&quot; /&gt;
     &lt;/a&gt;
     
   &lt;/div&gt;
@@ -8404,7 +8404,7 @@ also implement &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&g
     &lt;span class=&quot;c&quot;&gt;// and transfer a reference to a subthread (safe, since T: Sync)&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
-    &lt;span class=&quot;c&quot;&gt;// now use `T: Copy` to duplicate the data out, meaning we've&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// now use `T: Copy` to duplicate the data out, meaning we&apos;ve&lt;/span&gt;
     &lt;span class=&quot;c&quot;&gt;// transferred `x` by-value into this new thread&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
@@ -8441,7 +8441,7 @@ Sync&lt;/code&gt;, which can be
 as&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;unsafe&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sync&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Send&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;unsafe&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Sync&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Send&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;For &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;mut&lt;/code&gt;, you might suspect that thread-safety might depend on
@@ -8653,9 +8653,9 @@ repository for collecting related things.)&lt;/p&gt;
   &lt;div id=&quot;external-page&quot;&gt;
     &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
     &lt;ul class=&quot;external-list&quot;&gt;
-      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Rust%20Sydney's%20first%20meetup:%20trip%20report%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2015/02/rust-sydney-1/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Rust%20Sydney&apos;s%20first%20meetup:%20trip%20report%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2015/02/rust-sydney-1/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
       &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2015/02/rust-sydney-1/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
-      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2015/02/rust-sydney-1/&amp;amp;title=Rust%20Sydney's%20first%20meetup:%20trip%20report&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2015/02/rust-sydney-1/&amp;amp;title=Rust%20Sydney&apos;s%20first%20meetup:%20trip%20report&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/section&gt;
@@ -8831,7 +8831,7 @@ situation might look something like:&lt;/p&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;// autogenerated impl&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;c&quot;&gt;// `self` is an `&amp;amp;Foo` trait object.&lt;/span&gt;
 
@@ -8882,12 +8882,12 @@ possible ways to be object-unsafe are described
 21
 22
 23
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ObjectSafetyViolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'tcx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ObjectSafetyViolation&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;tcx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;c&quot;&gt;/// Self : Sized declared on the trait&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;SizedSelf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
 
     &lt;span class=&quot;c&quot;&gt;/// Method has someting illegal&lt;/span&gt;
-    &lt;span class=&quot;nf&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Rc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;ty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'tcx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MethodViolationCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Rc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;ty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;tcx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MethodViolationCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;/// Reasons a method might not be object-safe.&lt;/span&gt;
@@ -8968,7 +8968,7 @@ static method on the type &lt;code class=&quot;language-plaintext highlighter-ro
 3
 4
 5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;c&quot;&gt;// what goes here??&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -9004,8 +9004,8 @@ guaranteed with a trait object: the erased types of two separate
 3
 4
 5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;other&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;.vtable.method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;.data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* what goes here? */&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -9041,7 +9041,7 @@ implementation might look like&lt;/p&gt;
 3
 4
 5
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;.vtable&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;cm&quot;&gt;/* ... huh ???*/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;.data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -10183,7 +10183,7 @@ is safe. It is implemented like so:&lt;/p&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
 3
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_slice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;'a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;as_slice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;a&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;unsafe&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;mem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;transmute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Slice&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.as_ptr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;.len&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -10274,9 +10274,9 @@ would be justified/proved correct).&lt;/p&gt;
 
 &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pointer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i64&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unsafe&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c&quot;&gt;// rustc doesn't know what `malloc` does, and so doesn't know&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;// rustc doesn&apos;t know what `malloc` does, and so doesn&apos;t know&lt;/span&gt;
         &lt;span class=&quot;c&quot;&gt;// that calling it with argument 8 is always safe; but we do,&lt;/span&gt;
-        &lt;span class=&quot;c&quot;&gt;// so we override the compiler's concern with&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;// so we override the compiler&apos;s concern with&lt;/span&gt;
         &lt;span class=&quot;c&quot;&gt;// `unsafe`. (`malloc` returns a `*mut libc::c_void` so we&lt;/span&gt;
         &lt;span class=&quot;c&quot;&gt;// need to cast it to the type we want.)&lt;/span&gt;
         &lt;span class=&quot;nn&quot;&gt;libc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i64&lt;/span&gt;
@@ -10369,9 +10369,9 @@ provides guidance and tips about using &lt;code class=&quot;language-plaintext h
   &lt;div id=&quot;external-page&quot;&gt;
     &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
     &lt;ul class=&quot;external-list&quot;&gt;
-      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=What%20does%20Rust's%20%E2%80%9Cunsafe%E2%80%9D%20mean?%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2014/07/what-does-rusts-unsafe-mean/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=What%20does%20Rust&apos;s%20%E2%80%9Cunsafe%E2%80%9D%20mean?%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2014/07/what-does-rusts-unsafe-mean/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
       &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2014/07/what-does-rusts-unsafe-mean/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
-      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2014/07/what-does-rusts-unsafe-mean/&amp;amp;title=What%20does%20Rust's%20%E2%80%9Cunsafe%E2%80%9D%20mean?&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2014/07/what-does-rusts-unsafe-mean/&amp;amp;title=What%20does%20Rust&apos;s%20%E2%80%9Cunsafe%E2%80%9D%20mean?&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/div&gt;
 &lt;/section&gt;
@@ -10527,7 +10527,7 @@ conditions, and &lt;a href=&quot;http://doc.rust-lang.org/master/guide-macros.ht
 &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SlurpError&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;c&quot;&gt;// The input was malformed (could have line/column number info too)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;InvalidInput&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;// Some piece of IO failed (e.g. couldn't open a file)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// Some piece of IO failed (e.g. couldn&apos;t open a file)&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;FailedIo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;IoError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
@@ -10577,7 +10577,7 @@ conditions, and &lt;a href=&quot;http://doc.rust-lang.org/master/guide-macros.ht
         &lt;span class=&quot;nf&quot;&gt;.map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;try_slurp!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FailedIo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-            &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;splits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.as_slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.trim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;from_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;splits&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.as_slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.trim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&apos;,&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;from_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
 
             &lt;span class=&quot;c&quot;&gt;// .and_then is flattening Option&amp;lt;Option&amp;lt;int&amp;gt;&amp;gt; to Option&amp;lt;int&amp;gt;.&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;label&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;try_slurp!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;splits&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.and_then&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InvalidInput&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -10619,7 +10619,7 @@ to something like:&lt;/p&gt;
     &lt;span class=&quot;nf&quot;&gt;Ok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;Err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;nf&quot;&gt;FailedIo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Couldn't read file: {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+            &lt;span class=&quot;nf&quot;&gt;FailedIo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Couldn&apos;t read file: {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;InvalidInput&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Invalid file format&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
         &lt;span class=&quot;nn&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set_exit_status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -10787,7 +10787,7 @@ I made no effort to remove/reduce/streamline allocations.&lt;/p&gt;
         &lt;span class=&quot;nf&quot;&gt;.map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.unwrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;mut&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.as_slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.trim&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-                &lt;span class=&quot;nf&quot;&gt;.split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;','&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;nf&quot;&gt;.split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&apos;,&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
                 &lt;span class=&quot;nf&quot;&gt;.map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;from_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.unwrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
 
             &lt;span class=&quot;n&quot;&gt;LabelPixel&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
