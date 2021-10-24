@@ -4,60 +4,66 @@ use_default: true
 ---
 
 <div id="wrapper">
-  <div id="header">
+  <header>
     <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
-    <ul id="info-list" class="no-print">
-      <li><a href="/about">About</a></li>
-      <li><a href="/blog">Blog</a></li>
-      <li><a href="https://github.com/huonw">GitHub</a></li>
-      <li><a href="https://twitter.com/huon_w">Twitter</a></li>
-    </ul>
-  </div>
-  <div id="content-wrapper" >
-    <h1 id="title">{% if page.draft %}DRAFT:{% endif %} {{ page.title }}</h1>
-    {% if page.subtitle %}
-      <h2 class="subtitle">{{ page.subtitle }}</h2>
-    {% endif %}
-    {% if page.show_authorship or page.date %}
-       <div id="info-intro">
-         By <a href="/about">Huon Wilson</a>
-         {% if page.date %}
-           &mdash; <span class="date pub-date">{{ page.date | date_to_string }}</span>
-         {% endif %}
-         {% if page.updated_date %}
-           &mdash; Updated <span class="date update-date">{{ page.updated_date | date_to_string }}</span>
-         {% endif %}
-       </div>
-    {% endif %}
-    <div id="content">
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      {% if page.title %}
+        <h1 id="title">{% if page.draft %}DRAFT:{% endif %} {{ page.title }}</h1>
+        {% if page.subtitle %}
+          <h2 class="subtitle">{{ page.subtitle }}</h2>
+        {% endif %}
+      {% endif %}
+      {% if page.show_authorship or page.date %}
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           {% if page.date %}
+             &mdash; <span class="date pub-date">{{ page.date | date_to_string }}</span>
+           {% endif %}
+           {% if page.updated_date %}
+             &mdash; Updated <span class="date update-date">{{ page.updated_date | date_to_string }}</span>
+           {% endif %}
+         </div>
+      {% endif %}
       {{ content }}
-    </div>
+    </article>
 
     {% if page.date %}
-    <div id="more" class="no-print">
+    <footer id="more" class="no-print">
       <div id="by-line">{% include byline.html %}</div>
       <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
       {% assign count = 0 %}
-      <ul id="latest-list"><!--
-         {% for post in site.posts %}{% unless post.url == page.url or count >= 3 or post.draft %}
-         --><li class="latest-post">
-              <a href="{{ post.url }}">
-                 <h3>{{ post.title }}</h3>
-                   <p>{% if post.description %}{{ post.description | markdownify | replace:'<p>','' | replace:'</p>',''}}{% endif %}</p>
-                 {% case count %}
-                 {% when 1 %}{% assign count = 2 %}
-                 {% when 0 %}{% assign count = 1 %}
-                 {% else %}{% assign count = 3 %}
-                 {% endcase %}
-               </a>
-          </li><!--
-        {% endunless %}{% endfor %}
-       --></ul>
-    </div>
+      <nav>
+        <ul id="latest-list"><!--
+           {% for post in site.posts %}{% unless post.url == page.url or count >= 3 or post.draft %}
+           --><li class="latest-post">
+                <a href="{{ post.url }}">
+                   <h3>{{ post.title }}</h3>
+                     <p>{% if post.description %}{{ post.description | markdownify | replace:'<p>','' | replace:'</p>',''}}{% endif %}</p>
+                   {% case count %}
+                   {% when 1 %}{% assign count = 2 %}
+                   {% when 0 %}{% assign count = 1 %}
+                   {% else %}{% assign count = 3 %}
+                   {% endcase %}
+                 </a>
+            </li><!--
+          {% endunless %}{% endfor %}
+      --></ul>
+      </nav>
+    </footer>
     {% endif %}
-  </div>
+  </main>
 
-  <div id="footer">
+  <footer id="page-footer">
     <span>Huon Wilson &mdash; <span class="date">2021</span></span>
-  </div>
+  </footer>
 </div>

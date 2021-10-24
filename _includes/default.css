@@ -131,16 +131,19 @@ thead {
   font-weight: bold;
 }
 
-#header {
+header {
   margin-bottom: 1.5em;
 }
-#header a:not(:hover) {
+header a:not(:hover) {
   text-decoration: none;
 }
 #blog-title {
+  hyphens: none;
+  font-variant: small-caps;
   font-size: 1.5em;
   font-weight: normal;
   text-align: center;
+  line-height: 1em;
 }
 #info-list {
   list-style: none;
@@ -153,7 +156,7 @@ thead {
   margin: 0 1em;
 }
 
-#footer {
+#page-footer {
   border-top: 1px solid lightgrey;
   padding-top: 0.75em;
   color: grey;
@@ -163,7 +166,7 @@ thead {
 .clear { clear: both; margin: 0; }
 
 
-#content-wrapper {
+main {
     text-align:justify;
     -moz-hyphens: auto;
     -webkit-hyphens: auto;
@@ -571,7 +574,7 @@ a.post-heading {
     a {
       text-decoration: none !important;
     }
-    #header {
+    header {
         display:none !important;
     }
 

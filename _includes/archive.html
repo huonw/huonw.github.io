@@ -16,6 +16,7 @@
  {% assign search_month = false %}
 {% endif %}
 
+<nav>
 <ul class="post-list">
 {% for post in site.posts limit: limit %}
  {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
@@ -30,3 +31,4 @@
  {% endunless %}
 {% endfor %}
 </ul>
+</nav>
