@@ -1,5 +1,7 @@
 safe: true
 lsi: false
+future: true
+
 title: Huon on the internet
 markdown: kramdown
 
