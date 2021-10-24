@@ -1,0 +1,1210 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  simple_parallel 0.3: Revisiting k-NN |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2015/10/simple_parallel-revisiting-knn/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="Two examples of using `simple_parallel`, which was recently updated to work on stable Rust.
+" />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="simple_parallel 0.3: Revisiting k-NN" />
+  <meta name="twitter:description" content="Two examples of using `simple_parallel`, which was recently updated to work on stable Rust.
+" />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2015/10/simple_parallel-revisiting-knn/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2015/10/simple_parallel-revisiting-knn/" />
+  <meta property="og:title" content="simple_parallel 0.3: Revisiting k-NN" />
+  <meta property="og:description" content="Two examples of using `simple_parallel`, which was recently updated to work on stable Rust.
+" />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> simple_parallel 0.3: Revisiting k-NN</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             — <span class="date pub-date">24 Oct 2015</span>
+           
+           
+         </div>
+      
+      <p>I recently released version 0.3 of my
+<a href="https://crates.io/crates/simple_parallel"><code class="language-plaintext highlighter-rouge">simple_parallel</code></a> crate, which builds on
+<a href="https://crates.io/crates/crossbeam">Aaron Turon’s <code class="language-plaintext highlighter-rouge">crossbeam</code></a> to resolve
+<a href="https://users.rust-lang.org/t/simple-parallel-now-partially-compiles-on-stable/1536">the stability and safety difficulties</a>: the crate now works
+with Rust 1.3.0 stable, and offers safe data-parallel <code class="language-plaintext highlighter-rouge">for</code> loops and
+<code class="language-plaintext highlighter-rouge">map</code>s.</p>
+
+<p>I still don’t recommend it for general use, but I think it’s a neat
+demonstration of what Rust’s type system allows, and hopefully
+inspiration for something awesome.</p>
+
+<div class="centered-libs">
+<div class="lib-info" style="display: inline-block">
+  <a class="lib-link" href="http://huonw.github.io/simple_parallel/simple_parallel">simple_parallel</a>
+  <a href="https://crates.io/crates/simple_parallel"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/simple_parallel.svg" alt="simple_parallel on crates.io"></a>
+</div>
+
+</div>
+
+<h2 id="simple_parallel-in-16-lines">
+<code class="language-plaintext highlighter-rouge">simple_parallel</code> in 16 lines</h2>
+
+<p>Taster: safely setting the values in an array stored directly on the
+stack of a parent thread, in parallel, with 4 threads.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+<td class="code"><pre><span class="c">// (add `simple_parallel = "0.3"` to your Cargo.toml)</span>
+<span class="k">extern</span> <span class="n">crate</span> <span class="n">simple_parallel</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">pool</span> <span class="o">=</span> <span class="nn">simple_parallel</span><span class="p">::</span><span class="nn">Pool</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">stack_array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span> <span class="mi">10</span><span class="p">];</span>
+
+    <span class="k">let</span> <span class="n">large_complicated_thing</span> <span class="o">=</span> <span class="nd">vec!</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">];</span>
+
+    <span class="n">pool</span><span class="nf">.for_</span><span class="p">(</span><span class="n">stack_array</span><span class="nf">.iter_mut</span><span class="p">()</span><span class="nf">.enumerate</span><span class="p">(),</span> <span class="p">|(</span><span class="n">i</span><span class="p">,</span> <span class="n">elem</span><span class="p">)|</span> <span class="p">{</span>
+        <span class="o">*</span><span class="n">elem</span> <span class="o">=</span> <span class="n">large_complicated_thing</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="mi">4</span><span class="p">]</span>
+    <span class="p">});</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">stack_array</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>This is the same as writing <code class="language-plaintext highlighter-rouge">for (i, elem) in
+stack_array.iter_mut().enumerate() { ... }</code>, and the output is:
+<code class="language-plaintext highlighter-rouge">[4, 3, 2, 1, 4, 3, 2, 1, 4, 3]</code>.</p>
+
+<p>It is a rather complicated way to initialise an array with those
+values, but it demonstrates some nice properties:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">stack_array</code> is <strong>allocated directly on the stack of the main thread</strong>;
+it doesn’t need to be pushed to the heap. Lifetimes and
+<code class="language-plaintext highlighter-rouge">simple_parallel</code>’s API ensures that the subthreads can’t hold
+references to it for too long statically (no GC necessary).</li>
+  <li>the <code class="language-plaintext highlighter-rouge">large_complicated_thing</code> <code class="language-plaintext highlighter-rouge">Vec</code> is safely shared between all
+threads, no copies necessary. Each thread gets a <code class="language-plaintext highlighter-rouge">&amp;Vec&lt;_&gt;</code>
+reference, and they all point to the same <code class="language-plaintext highlighter-rouge">large_complicated_thing</code>
+value stored on the main thread’s stack. Again lifetimes ensure that
+the references won’t be dangling, but more interestingly the vector
+can be read without needing to copy or lock: <strong>zero-overhead
+immutable shared data</strong>.</li>
+  <li>the <code class="language-plaintext highlighter-rouge">iter_mut</code> method creates an iterator over <code class="language-plaintext highlighter-rouge">&amp;mut</code> references to
+the elements of <code class="language-plaintext highlighter-rouge">stack_array</code>. The closure is called on each of them
+in parallel, and the references are
+disjoint/not-aliasing<sup id="fnref:cache-line" role="doc-noteref"><a href="#fn:cache-line" class="footnote" rel="footnote">0</a></sup>, meaning each call is
+manipulating a different section of memory. <strong>No atomics or locks
+are needed</strong> to mutate what the iterator feeds the closure.</li>
+  <li>the <code class="language-plaintext highlighter-rouge">simple_parallel</code> APIs all consume (nearly) arbitrary iterators:
+I can take the slice iterator and create a new (lazy) iterator via
+<code class="language-plaintext highlighter-rouge">enumerate</code>, pairing the output of the slice iterator with
+indices. (There are of course restrictions about the thread-safety
+properties of the iterator and its elements, necessary to get points
+above safely.)</li>
+</ul>
+
+<p>Some of this is driven by <code class="language-plaintext highlighter-rouge">simple_parallel</code>, some of it is
+<code class="language-plaintext highlighter-rouge">crossbeam</code>, but most of it is the power of Rust’s type system: it
+<a href="/blog/2015/02/some-notes-on-send-and-sync/">comes together just right</a> to ensure<sup id="fnref:not-proved" role="doc-noteref"><a href="#fn:not-proved" class="footnote" rel="footnote">1</a></sup>
+<a href="http://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html">concurrency can be done fearlessly</a>.</p>
+
+<p>It’s not perfect, it’s not even <em>great</em>—there’s
+unnecessary overhead and it doesn’t offer many operations—but
+has been useful for me (e.g. speeding up processing some pictures just
+required replacing <code class="language-plaintext highlighter-rouge">for photo in photos</code> with <code class="language-plaintext highlighter-rouge">pool.for_(photos,
+|photo|</code>) and serves as a neat little exploration into Rust’s type
+system. I’m confident we’ll see better libraries from better
+programmers that allow for some magical things.</p>
+
+<h2 id="k-nn">
+<em>k</em>-NN</h2>
+
+<p>The very first post on this blog was
+<a href="/blog/2014/06/comparing-knn-in-rust/"><em>Comparing k-NN in Rust</em></a>, which ended with parallelising
+the task of validating a <em>k</em>-nearest neighbour (<em>k</em>-NN) classifier,
+using the safe-but-crude tools Rust-circa-0.11 offered at the time. We
+now live in a promised land, with <a href="http://blog.rust-lang.org/2015/05/15/Rust-1.0.html">language stability</a>,
+<a href="https://crates.io/">Cargo &amp; thousands of crates</a>, and
+<a href="https://github.com/rust-lang/rfcs/blob/master/text/0458-send-improvements.md"><code class="language-plaintext highlighter-rouge">Send</code> without <code class="language-plaintext highlighter-rouge">'static</code></a>, so there’s shiny new
+safe-and-less-crude tools!</p>
+
+<p>The example above disguised the role of <code class="language-plaintext highlighter-rouge">crossbeam</code>, but the
+<code class="language-plaintext highlighter-rouge">simple_parallel</code>/<code class="language-plaintext highlighter-rouge">crossbeam</code> combo means it’s easy to process a
+stream in parallel, sharing data from parent threads with no overhead
+at all. The <em>k</em>-NN code loads <a href="https://github.com/c4fsharp/Dojo-Digits-Recognizer/tree/1eb4297a49dbd82a952c1523f5413519b8f1d62a/Dojo">two files</a> into <code class="language-plaintext highlighter-rouge">Vec</code>s of
+784-dimensional “pixels” via <code class="language-plaintext highlighter-rouge">slurp_file</code>—one of 5000 pixels of training
+data and one of 500 samples to test the classifier against—and then
+uses the <code class="language-plaintext highlighter-rouge">classify</code> function to predict a label for each of the
+validation samples based on the training ones, finally printing how
+many were predicted correctly.</p>
+
+<p>The full code is available at <a href="https://github.com/huonw/revisiting-knn">huonw/revisiting-knn</a>, updated
+from 0.11.0 (which wasn’t too hard at all<sup id="fnref:update" role="doc-noteref"><a href="#fn:update" class="footnote" rel="footnote">2</a></sup>), so I’m just going
+to focus on the interesting bit: <code class="language-plaintext highlighter-rouge">main</code>. The sequential version is
+short:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td>
+<td class="code"><pre><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">training_set</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"trainingsample.csv"</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">validation_sample</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"validationsample.csv"</span><span class="p">);</span>
+
+    <span class="k">let</span> <span class="n">num_correct</span> <span class="o">=</span> <span class="n">validation_sample</span><span class="nf">.iter</span><span class="p">()</span>
+        <span class="nf">.filter</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="nf">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">training_set</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="py">.pixels</span><span class="p">)</span> <span class="o">==</span> <span class="n">x</span><span class="py">.label</span><span class="p">)</span>
+        <span class="nf">.count</span><span class="p">();</span>
+
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Percentage correct: {:.1}%"</span><span class="p">,</span>
+             <span class="n">num_correct</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">/</span> <span class="n">validation_sample</span><span class="nf">.len</span><span class="p">()</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>All the work is happening in the <code class="language-plaintext highlighter-rouge">filter</code> call: the <code class="language-plaintext highlighter-rouge">classify</code>
+function is the expensive one: each call does 5000 784-dimensional
+<a href="https://github.com/huonw/revisiting-knn/blob/219ad78a9b15554b10d08c4e626e11e09256b8dd/src/main.rs#L44">vector distance calculations</a>. <code class="language-plaintext highlighter-rouge">perf</code>’s instruction level
+profiling tells me that nearly 95% of the time is spent in
+<a href="https://github.com/huonw/revisiting-knn/blob/219ad78a9b15554b10d08c4e626e11e09256b8dd/src/main.rs#L36">the loop</a><sup id="fnref:simd" role="doc-noteref"><a href="#fn:simd" class="footnote" rel="footnote">3</a></sup> for that calculation (which actually gets inlined all
+the way into <code class="language-plaintext highlighter-rouge">main</code> itself).</p>
+
+<p>The parallel <code class="language-plaintext highlighter-rouge">main</code> isn’t much longer:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td>
+<td class="code"><pre><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c">// load files</span>
+    <span class="k">let</span> <span class="n">training_set</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"trainingsample.csv"</span><span class="p">);</span>
+    <span class="k">let</span> <span class="n">validation_sample</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"validationsample.csv"</span><span class="p">);</span>
+
+    <span class="c">// create a thread pool</span>
+    <span class="k">let</span> <span class="k">mut</span> <span class="n">pool</span> <span class="o">=</span> <span class="nn">simple_parallel</span><span class="p">::</span><span class="nn">Pool</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+
+    <span class="nn">crossbeam</span><span class="p">::</span><span class="nf">scope</span><span class="p">(|</span><span class="n">scope</span><span class="p">|</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">num_correct</span> <span class="o">=</span>
+            <span class="n">pool</span><span class="nf">.unordered_map</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">validation_sample</span><span class="p">,</span> <span class="p">|</span><span class="n">x</span><span class="p">|</span> <span class="p">{</span>
+                <span class="c">// is it classified right? (in parallel)</span>
+                <span class="nf">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">training_set</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="py">.pixels</span><span class="p">)</span> <span class="o">==</span> <span class="n">x</span><span class="py">.label</span>
+            <span class="p">})</span>
+            <span class="nf">.filter</span><span class="p">(|</span><span class="n">t</span><span class="p">|</span> <span class="n">t</span><span class="na">.1</span><span class="p">)</span>
+            <span class="nf">.count</span><span class="p">();</span>
+
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Percentage correct: {:.1}%"</span><span class="p">,</span>
+                 <span class="n">num_correct</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">/</span> <span class="n">validation_sample</span><span class="nf">.len</span><span class="p">()</span> <span class="k">as</span> <span class="nb">f64</span> <span class="o">*</span> <span class="mf">100.0</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>The <a href="http://huonw.github.io/simple_parallel/simple_parallel/pool/struct.Pool.html#method.unordered_map"><code class="language-plaintext highlighter-rouge">unordered_map</code></a> function is a bit more complicated than
+<code class="language-plaintext highlighter-rouge">for_</code> above: this takes an iterator over <code class="language-plaintext highlighter-rouge">A</code>s, and a function from
+<code class="language-plaintext highlighter-rouge">A</code> to any type <code class="language-plaintext highlighter-rouge">B</code>, and returns an iterator of <code class="language-plaintext highlighter-rouge">(usize, B)</code>s, in some
+random order<sup id="fnref:order" role="doc-noteref"><a href="#fn:order" class="footnote" rel="footnote">4</a></sup>. For above, <code class="language-plaintext highlighter-rouge">B</code> is a <code class="language-plaintext highlighter-rouge">bool</code>: whether the
+predicted classification was correct or not.</p>
+
+<p>The hardest part of parallelising that was working out where to put
+the <code class="language-plaintext highlighter-rouge">crossbeam::scope</code>: as I wrote it above, or <code class="language-plaintext highlighter-rouge">let num_correct =
+crossbeam::scope(...);</code>. It was correct and ran in parallel the first
+time!</p>
+
+<p>Interestingly, this code benefits greatly from being able to share
+stacks: firstly, each <code class="language-plaintext highlighter-rouge">x</code> in the loop is just a pointer into the
+<code class="language-plaintext highlighter-rouge">validation_sample</code> <code class="language-plaintext highlighter-rouge">Vec</code>, it can point right to the large chunk of
+memory (for a 784D vector) owned by the main thread without having to
+copy. Secondly, and even better, all the parallel <code class="language-plaintext highlighter-rouge">classify</code> calls can
+read share the one huge <code class="language-plaintext highlighter-rouge">training_set</code> array without needing to copy
+it, which is 5000 of those high-dimensional vectors.</p>
+
+<h3 id="numbers">Numbers</h3>
+
+<p>Discussing parallelism means nothing without proving it is doing
+something useful: making things run faster. The sequential code took
+1.86s, and the parallel version slashed that to 0.69s, 2.7× faster.</p>
+
+<p>I’m running 1.3.0 stable, and compiled the <a href="https://github.com/huonw/revisiting-knn">the code</a> with
+<code class="language-plaintext highlighter-rouge">cargo build --release --features sequential</code> and <code class="language-plaintext highlighter-rouge">cargo build
+--release</code> for the two <code class="language-plaintext highlighter-rouge">main</code> functions above, the rest of the code
+stayed the same. I measured the time to run with <code class="language-plaintext highlighter-rouge">perf stat -r 5
+...</code>.</p>
+
+<p>I’m on a different/faster computer to the <a href="/blog/2014/06/comparing-knn-in-rust/">previous post</a>,
+and the original Rust code no longer compiles. However, the OCaml code
+still does: with the same compiler, it takes approximately 8.5 seconds
+on this one, about 1.6-1.7× faster. The sequential Rust code is
+nearly 2× faster than the old version—meaning the
+compiler/standard library has likely improved—and the parallel
+version even more… but this computer has more cores so the
+comparison isn’t so interesting.</p>
+
+<h2 id="crossbeamscope"><code class="language-plaintext highlighter-rouge">crossbeam::scope</code></h2>
+
+<p>The key trick that allowed me to get the APIs to be safe is
+<a href="http://aturon.github.io/crossbeam-doc/crossbeam/fn.scope.html">this <code class="language-plaintext highlighter-rouge">scope</code> function</a>. It was somewhat infamously
+<a href="https://github.com/rust-lang/rust/issues/24292">realised</a> that destructors cannot be relied upon for
+scope-based memory safety: it is possible to leave a scope without
+running a destructor, in safe code, e.g. get the value stuck in a
+reference cycle of <code class="language-plaintext highlighter-rouge">Rc</code>s. This means that if a library ever hands away
+an instance of something with a destructor, it has to be sure that
+things won’t go completely wrong if that destructor never executes.</p>
+
+<p>The alternative used in <code class="language-plaintext highlighter-rouge">crossbeam</code> was
+<a href="https://github.com/aturon/rfcs/blob/75db90de40849d7cd28e334388ffa74b9e7a9bcf/text/0000-scoped-take-2.md">described in a Rust RFC</a> (that never landed in Rust itself)
+written by Aaron, <code class="language-plaintext highlighter-rouge">crossbeam</code>’s author. The approach is to be a
+control freak: never let anyone else control your value, only hand off
+<code class="language-plaintext highlighter-rouge">&amp;</code> references to it, so what runs when is in your power, and yours
+alone. This is what <code class="language-plaintext highlighter-rouge">scope</code> does,</p>
+
+<p>Its signature is:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="n">scope</span><span class="o">&lt;</span><span class="nv">'a</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">R</span>
+    <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nf">FnOnce</span><span class="p">(</span><span class="o">&amp;</span><span class="n">Scope</span><span class="o">&lt;</span><span class="nv">'a</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">R</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>That is, <code class="language-plaintext highlighter-rouge">scope</code> takes one argument, which is a closure, and then
+passes a reference to a <a href="http://aturon.github.io/crossbeam-doc/crossbeam/struct.Scope.html"><code class="language-plaintext highlighter-rouge">Scope</code></a> to that closure. This
+<code class="language-plaintext highlighter-rouge">Scope</code> object allows for spawning threads/deferring functions, with
+the guarantee that the thread will exit/the function will run before
+<code class="language-plaintext highlighter-rouge">scope</code> returns.</p>
+
+<p>Only the iterator <em>adapters</em> like <code class="language-plaintext highlighter-rouge">unordered_map</code> (rather than
+consumers like <code class="language-plaintext highlighter-rouge">for_</code>) in <code class="language-plaintext highlighter-rouge">simple_parallel</code> need to think about this
+externally: they act asynchronously, and so return an object that
+can’t live too long and needs to control the threads spawned to do the
+parallel processing, where as the consumers can just block. By taking
+a <code class="language-plaintext highlighter-rouge">Scope</code> argument, these iterator adapters can defer functions that
+do the thread control, giving the nice iterator APIs with a fairly
+minimal usage overhead (wrapping the calls in a closure and passing an
+extra argument).</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="comments">
+    <span class="external-label">Comments:</span>
+    <ul class="external-list">
+      
+<li class="external-link"><a href="https://users.rust-lang.org/t/simple-parallel-0-3-revisiting-k-nn/3383">users</a></li>
+
+
+      
+<li class="external-link"><a href="https://www.reddit.com/r/rust/comments/3px8y9/simple_parallel_03_revisiting_knn/">/r/rust</a></li>
+
+
+      
+
+      
+
+      
+    </ul>
+  </div>
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=simple_parallel%200.3:%20Revisiting%20k-NN%20%23rustlang&amp;url=https://huonw.github.io/blog/2015/10/simple_parallel-revisiting-knn/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2015/10/simple_parallel-revisiting-knn/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2015/10/simple_parallel-revisiting-knn/&amp;title=simple_parallel%200.3:%20Revisiting%20k-NN" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:cache-line" role="doc-endnote">
+      <p>The pointers are disjoint, so safety/semantically
+           everything is cool, but in the real world there are
+           performance concerns, like false sharing: the values
+           are all adjacent in memory and so probably share a
+           cache-line. In practice, this shouldn’t be a problem:
+           either the time to compute each value will be
+           significant, so the false sharing hit is irrelevant, or
+           one doesn’t need to/shouldn’t parallelise at the level
+           of individual elements. <a href="#fnref:cache-line" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:not-proved" role="doc-endnote">
+      <p>Strictly speaking, “ensure” isn’t quite right: there’s
+           not a formal proof that <code class="language-plaintext highlighter-rouge">Send</code>/<code class="language-plaintext highlighter-rouge">Sync</code>/… all do have
+           this guarantee, but there is work on
+           <a href="https://www.ralfj.de/blog/2015/10/12/formalizing-rust.html">formalisations of Rust</a> that will either
+           tackle this directly, or form important groundwork. <a href="#fnref:not-proved" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:update" role="doc-endnote">
+      <p>This code is pretty simple, so was barely affected by
+       language/library changes: some import paths changed, some
+       imports became necessary and others could be dropped, and
+       all the <code class="language-plaintext highlighter-rouge">.as_slice()</code> calls disappeared. <a href="#fnref:update" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:simd" role="doc-endnote">
+      <p>The code is actually slower than strictly necessary: if the
+     <code class="language-plaintext highlighter-rouge">fold</code> is separated into <code class="language-plaintext highlighter-rouge">.map(|(&amp;a, &amp;b)| a - b).fold(0, |s,
+     d| s + d * d)</code>, it is autovectorised by LLVM to use SIMD
+     instructions and runs twice as fast. However, I decided
+     against doing this in the spirit of Rust 1.3 v. Rust 0.11
+     comparisons: IIRC the old code didn’t get SIMD-ified. <a href="#fnref:simd" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:order" role="doc-endnote">
+      <p>There’s also <a href="http://huonw.github.io/simple_parallel/simple_parallel/pool/struct.Pool.html#method.map">the plain old <code class="language-plaintext highlighter-rouge">map</code> function</a>, which is
+      careful to return the elements in the same order as they
+      were in the original iterator. This is a bit more expensive. <a href="#fnref:order" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <strong>Huon Wilson</strong> <a href="https://twitter.com/huon_w">@huon_w</a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list">
+<!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2021/10/nsw-covid-qr/">
+                   <h3>Mechanical sympathy for QR codes: making NSW check-in better</h3>
+                     <p>QR codes are now critical infrastructure here in NSW, Australia. Let’s learn how to make them better.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/09/qr-error-correction/">
+                   <h3>QR error correction helps and hinders scanning</h3>
+                     <p>A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/08/home-cooked-app/">
+                   <h3>The joy of cooking (an app)</h3>
+                     <p>I’ve been writing a bunch of code designed to enhance the life of just me and my wife. It’s great fun.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+      -->
+</ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson — <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>

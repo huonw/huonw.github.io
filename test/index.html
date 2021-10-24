@@ -1,0 +1,934 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Experiments? Experiments! |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/test/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="" />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Experiments? Experiments!" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:url" content="https://huonw.github.io/test/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/test/" />
+  <meta property="og:title" content="Experiments? Experiments!" />
+  <meta property="og:description" content="" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Experiments? Experiments!</h1>
+        
+      
+      
+      <p>This page is for testing stuff… So it should have an example of everything that could occur, like:</p>
+
+<ul>
+  <li><a href="#heading_testing">headings</a> of all levels (consecutively or otherwise)</li>
+  <li><a href="#footnotes">footnotes</a><sup id="fnref:long" role="doc-noteref"><a href="#fn:long" class="footnote" rel="footnote">0</a></sup></li>
+  <li><a href="#quotes">quotes</a></li>
+  <li>lists, including:
+    <ul>
+      <li>bullet points</li>
+      <li>numbered lists</li>
+      <li>list nested to:
+        <ul>
+          <li>a depth of 2</li>
+          <li>a depth of 3</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#images">images</a></li>
+  <li><a href="#toc">table of contents</a></li>
+</ul>
+
+<h2 id="quotes">Quotes</h2>
+
+<h3 id="the-count-of-monte-cristo"><em>The Count of Monte Cristo</em></h3>
+
+<p>This is a brief extract from <em>The Count of Monte Cristo</em> by Alexandre Dumas, Pere.<sup id="fnref:tcomc" role="doc-noteref"><a href="#fn:tcomc" class="footnote" rel="footnote">1</a></sup></p>
+
+<blockquote>
+  <p>On the 24th of February, 1815, the look-out at Notre-Dame de la Garde signalled the three-master, the Pharaon from Smyrna, Trieste, and Naples.</p>
+
+  <p>As usual, a pilot put off immediately, and rounding the Chateau d’If, got on board the vessel between Cape Morgion and Rion island.</p>
+
+  <p>Immediately, and according to custom, the ramparts of Fort Saint-Jean were covered with spectators; it is always an event at Marseilles for a ship to come into port, especially when this ship, like the Pharaon, has been built, rigged, and laden at the old Phocee docks, and belongs to an owner of the city.</p>
+
+  <p>The ship drew on and had safely passed the strait, which some volcanic shock has made between the Calasareigne and Jaros islands; had doubled Pomegue, and approached the harbor under topsails, jib, and spanker, but so slowly and sedately that the idlers, with that instinct which is the forerunner of evil, asked one another what misfortune could have happened on board. However, those experienced in navigation saw plainly that if any accident had occurred, it was not to the vessel herself, for she bore down with all the evidence of being skilfully handled, the anchor a-cockbill, the jib-boom guys already eased off, and standing by the side of the pilot, who was steering the Pharaon towards the narrow entrance of the inner port, was a young man, who, with activity and vigilant eye, watched every motion of the ship, and repeated each direction of the pilot.</p>
+</blockquote>
+
+<h3 id="the-time-machine"><em>The Time Machine</em></h3>
+<p>This is a brief extract from <em>The Time Machine</em> by H. G. Wells.<sup id="fnref:ttm" role="doc-noteref"><a href="#fn:ttm" class="footnote" rel="footnote">2</a></sup></p>
+
+<blockquote>
+  <p>The Time Traveller (for so it will be convenient to speak of him) was expounding a recondite matter to us. His grey eyes shone and twinkled, and his usually pale face was flushed and animated. The fire burned brightly, and the soft radiance of the incandescent lights in the lilies of silver caught the bubbles that flashed and passed in our glasses. Our chairs, being his patents, embraced and caressed us rather than submitted to be sat upon, and there was that luxurious after-dinner atmosphere when thought roams gracefully free of the trammels of precision. And he put it to us in this way–marking the points with a lean forefinger–as we sat and lazily admired his earnestness over this new paradox (as we thought it) and his fecundity.</p>
+
+  <p>‘You must follow me carefully. I shall have to controvert one or two ideas that are almost universally accepted. The geometry, for instance, they taught you at school is founded on a misconception.’</p>
+</blockquote>
+
+<h2 id="images">Images</h2>
+
+<h3 id="display-testing">Display testing</h3>
+
+<h4 id="lunar-earthrise">Lunar Earthrise</h4>
+<p>Earthrise from the moon, during the Apollo 10 mission.<sup id="fnref:nasa" role="doc-noteref"><a href="#fn:nasa" class="footnote" rel="footnote">3</a></sup></p>
+
+<p><img src="/img/earthrise.jpg" alt="" class="unwrap" /></p>
+
+<p>Notice how that image stretches to the edge of the page? Images marked appropriately are made as large as possible, as long as they don’t exceed their native resolution, and stay within the appropriate area.</p>
+
+<h4 id="tropical-beach">Tropical Beach</h4>
+<p>A panorama of a Thai beach.<sup id="fnref:thai" role="doc-noteref"><a href="#fn:thai" class="footnote" rel="footnote">4</a></sup></p>
+
+<p><img src="/img/phra_nang_beach_panorama.jpg" alt="" /></p>
+
+<p>Look, this image is displayed differently! It is restricted to stay within the same area as the text.</p>
+
+<h3 id="caption-testing">Caption testing</h3>
+<p><code class="language-plaintext highlighter-rouge">fail "Not implemented" :: Either String HTML</code></p>
+
+<h2 id="heading-testing">Heading testing</h2>
+<p>I’m testing how the headings work here. To do so, I need text, so I shoved the introductions of a variety of Wikipedia pages through a <a href="http://www.doctornerve.org/cgi-bin/markov.cgi">Markov text generator</a>.</p>
+
+<h3 id="third-level-of-headings">Third level of headings</h3>
+<p>In category theory, quotient groups are the cyclic group and quotient objects, which are the two primary ways of quotient group, the identity element is always isomorphic to subobjects. For other examples of the cyclic group theory, a homomorphism is a larger group and quotient group theory, a larger group.<sup id="fnref:quotgrp" role="doc-noteref"><a href="#fn:quotgrp" class="footnote" rel="footnote">5</a></sup></p>
+
+<h4 id="level-4">Level 4</h4>
+<p>Formally, a discrete set of Markov property. Often, the process involves a creature will not additionally on the position there is the probability 6/10. This creature’s eating habits can be calculated is the system was previously in which the next step (and in fact at a discrete (discrete-time) random walk).<sup id="fnref:markov" role="doc-noteref"><a href="#fn:markov" class="footnote" rel="footnote">6</a></sup></p>
+
+<h3 id="again-the-third">Again, the third</h3>
+
+<h4 id="déjà-vu">Déjà vu?</h4>
+<p>The main implementation of functions. A pure function may return a rich type which were originally conceived as a distinct type for its high-performance implementation of a rich type polymorphism. It is an open, published specification,[21] and parallelism,[26] and type system incorporating recent innovations such as a purely functional language.<sup id="fnref:haskell" role="doc-noteref"><a href="#fn:haskell" class="footnote" rel="footnote">7</a></sup></p>
+
+<h5 id="heading-level-5">Heading level #5</h5>
+<p>The origins range from all directions, hiding any clue of the discovery of heavier elements. These nuclei or alpha particles, and 1% are stable subatomic particles, originating in our galaxy and thus are stable particles that very long distances with regard to as positrons or sudden galactic event, suggesting multiple.<sup id="fnref:cosmic" role="doc-noteref"><a href="#fn:cosmic" class="footnote" rel="footnote">8</a></sup></p>
+
+<h6 id="last-one-6">Last one (6)</h6>
+<p>The BBC is a Royal Charter and book publishing. The BBC is an annual television broadcasts; the corporation. The former is charged to refer to all British government. These grants were determined independently of Man. The Corporation’s ‘guaranteed’ income from the BBC World Service in the domestic services, particularly for.<sup id="fnref:BBC" role="doc-noteref"><a href="#fn:BBC" class="footnote" rel="footnote">9</a></sup></p>
+
+<h2 id="code">Code</h2>
+
+<h3 id="python">Python</h3>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+   <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></code></pre></figure>
+
+<h3 id="haskell">Haskell</h3>
+
+<figure class="highlight"><pre><code class="language-haskell" data-lang="haskell"><span class="cm">{- Fibonacci numbers -}</span>
+<span class="n">fibs</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">:</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">zipWith</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="n">fibs</span> <span class="p">(</span><span class="n">tail</span> <span class="n">fibs</span><span class="p">)</span>
+
+<span class="c1">-- Naive (trial division) primality test</span>
+<span class="n">isPrime</span> <span class="n">n</span> <span class="o">=</span> <span class="n">all</span> <span class="p">((</span><span class="o">/=</span><span class="mi">0</span><span class="p">)</span> <span class="o">.</span> <span class="n">mod</span> <span class="n">n</span><span class="p">)</span> <span class="o">.</span> <span class="n">takeWhile</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">)</span> <span class="o">$</span> <span class="n">primes</span>
+
+<span class="c1">-- list of all primes</span>
+<span class="n">primes</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">:</span> <span class="p">[</span> <span class="n">x</span> <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;-</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="o">..</span><span class="p">],</span> <span class="n">isPrime</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="cm">{- counts the number of words with more than
+   10 letters in the text supplied -}</span>
+<span class="n">count_long_words</span> <span class="o">::</span> <span class="kt">String</span> <span class="o">-&gt;</span> <span class="kt">Int</span>
+<span class="n">count_long_words</span> <span class="o">=</span> <span class="n">length</span> <span class="o">.</span> <span class="n">filter</span> <span class="p">((</span><span class="o">&gt;</span><span class="mi">10</span><span class="p">)</span> <span class="o">.</span> <span class="n">length</span><span class="p">)</span> <span class="o">.</span> <span class="n">words</span> <span class="o">.</span> <span class="n">filter</span> <span class="p">(`</span><span class="n">notElem</span><span class="p">`</span> <span class="s">".,;:!?</span><span class="se">\"</span><span class="s">'()[]{}&lt;&gt;/</span><span class="se">\\</span><span class="s">|-"</span><span class="p">)</span></code></pre></figure>
+
+<h2 id="assorted-others">Assorted others</h2>
+
+<h3 id="definition-list">Definition list</h3>
+
+<dl>
+  <dt>Term</dt>
+  <dd>Definition</dd>
+  <dt>Term.a</dt>
+  <dt>Term.b</dt>
+  <dd>Definition</dd>
+</dl>
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:long" role="doc-endnote">
+
+      <p>I’m even allowed to have very long footnotes that repeat themselves, because I’m allowed to have repetitious long footnotes. Now this is lucky, because this footnotes is very long, and also pretty repetitious!</p>
+
+      <p>This is the next paragraph of this long footnote. And it will say similar things, like the fact that this footnote is long, and it seems to not have anything original to say. <a href="#fnref:long" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:tcomc" role="doc-endnote">
+      <p>Published in 1844. <a href="http://www.gutenberg.org/ebooks/1184">Source</a>. <a href="#fnref:tcomc" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:ttm" role="doc-endnote">
+      <p>Published in 1898. <a href="http://www.gutenberg.org/ebooks/35">Source</a>. <a href="#fnref:ttm" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:nasa" role="doc-endnote">
+      <p>Original image by NASA; accessible <a href="https://commons.wikimedia.org/wiki/File:Apollo_10_earthrise.jpg">here</a>. <a href="#fnref:nasa" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:thai" role="doc-endnote">
+      <p>Image by <a href="https://commons.wikimedia.org/wiki/User:Kallerna">kallerna</a>; accessible <a href="https://commons.wikimedia.org/wiki/File:Phra_Nang_beach_panorama_3.jpg">here</a>. <a href="#fnref:thai" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:quotgrp" role="doc-endnote">
+      <p>From <a href="https://en.wikipedia.org/wiki/Quotient_group"><em>Quotient group</em></a>. <a href="#fnref:quotgrp" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:markov" role="doc-endnote">
+      <p>From <a href="https://en.wikipedia.org/wiki/Markov_chain#Introduction"><em>Markov Chain</em></a>. <a href="#fnref:markov" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:haskell" role="doc-endnote">
+      <p>From <a href="https://en.wikipedia.org/wiki/Haskell_(programming_language)#Features"><em>Haskell</em></a>. <a href="#fnref:haskell" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:cosmic" role="doc-endnote">
+      <p>From <a href="https://en.wikipedia.org/wiki/Cosmic_rays"><em>Cosmic rays</em></a>. <a href="#fnref:cosmic" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:BBC" role="doc-endnote">
+      <p>From <a href="https://en.wikipedia.org/wiki/BBC"><em>BBC</em></a>. <a href="#fnref:BBC" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>

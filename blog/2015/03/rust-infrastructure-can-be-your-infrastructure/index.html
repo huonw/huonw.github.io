@@ -1,0 +1,1179 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Rust infrastructure can be your infrastructure |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="Homu and highfive were created for rust-lang, but you can easily benefit too.
+" />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Rust infrastructure can be your infrastructure" />
+  <meta name="twitter:description" content="Homu and highfive were created for rust-lang, but you can easily benefit too.
+" />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/" />
+  <meta property="og:title" content="Rust infrastructure can be your infrastructure" />
+  <meta property="og:description" content="Homu and highfive were created for rust-lang, but you can easily benefit too.
+" />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Rust infrastructure can be your infrastructure</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             — <span class="date pub-date">17 Mar 2015</span>
+           
+           
+         </div>
+      
+      <p><a href="http://rust-lang.org">Rust</a> is a reasonably large project:
+<a href="https://github.com/rust-lang/rust">the compiler and standard libraries</a>
+are over 350kloc, built across nearly 40000 commits by the hands of
+around 900 contributors. Not only that: there are more than 30 other
+repositories in
+<a href="https://github.com/rust-lang">the rust-lang GitHub organisation</a> that
+shouldn’t fall by the wayside, and, for rust-lang/rust alone, there
+are often more than 100 pull requests landing and a dozen new
+contributors in a single week.</p>
+
+<blockquote>
+  <p><em>Update 2015-06-16</em>: Homu is now available online: <a href="http://homu.io/">homu.io</a></p>
+</blockquote>
+
+<p>It is sometimes chaotic… <em>often</em> chaotic… with
+<a href="http://blog.rust-lang.org/2015/02/13/Final-1.0-timeline.html">1.0 quickly approaching</a>,
+and there are definitely places where the core team (and the rest of
+the community) sometimes can’t keep up, but getting code into
+rust-lang/rust is rarely one<sup id="fnref:rollups" role="doc-noteref"><a href="#fn:rollups" class="footnote" rel="footnote">0</a></sup>, due to two critical robots:</p>
+
+<ul>
+  <li>an integration bot/pull request manager, <a href="https://github.com/barosl/homu">Barosl Lee’s Homu</a>
+</li>
+  <li>a review assigner,
+<a href="https://github.com/nrc/highfive">Josh Matthews and Nick Cameron’s Highfive</a>
+</li>
+</ul>
+
+<p>The former ensures the master tree is essentially always passing
+tests, on all first-class platforms: it won’t let a patch land until
+it does. The latter makes sure that pull requests don’t slip through
+the cracks, there’s someone with power watching out for each one.</p>
+
+<p>I’ve been wanting to experiment with using the bots for my own code,
+and yesterday I finally got around to it, and (with a small bit of
+assistance from the tool authors) got it all setup in a short time. I
+can say from experience that it isn’t too hard to configure these
+tools to run on your own repos on GitHub, and
+they’re not Rust-specific: they work with any repository. All you need
+is a public-facing server!</p>
+
+<p><em>Update 2015-03-19</em>: Homu and Highfive have been
+ <a href="http://huon.me:54857/queue/all">deployed</a> to the
+ <a href="https://github.com/contain-rs">contain-rs</a> organisation, as
+ <a href="https://github.com/FlashCat">@FlashCat</a>.</p>
+
+<p>Also, Manish
+<a href="http://www.reddit.com/r/rust/comments/2zf8ur/rust_infrastructure_can_be_your_infrastructure/cpitcam">points out</a>
+that there is actually an open
+<a href="https://careers.mozilla.org/en-US/position/oymA0fwe">Operations Engineer</a>
+position for Mozilla Research, to manage the infrastructure of Rust
+and Servo.</p>
+
+<h2 id="homu-not-rocket-science">Homu: “Not rocket science”</h2>
+
+<p>Homu is a reimplementation/extension of the original
+<a href="https://github.com/graydon/bors">bors</a> bot. Bors was implemented by
+<a href="http://graydon.livejournal.com/186550.html">Graydon Hoare (Rust’s original designer) in 2013 (or so)</a>
+to apply Ben Elliston’s “not rocket science” rule to Rust:</p>
+
+<blockquote>
+  <p>The Not Rocket Science Rule Of Software Engineering:</p>
+
+  <p>automatically maintain a repository of code that always passes all the tests</p>
+</blockquote>
+
+<p>The <a href="http://buildbot.rust-lang.org/homu/">core idea</a> is simple: the
+correct way for anyone (including core developers) to land code into
+rust-lang/rust is to submit a pull request to that repo.  Someone on
+the reviewers whitelist will review the code and, once it looks good,
+write a “review approved” comment:
+<a href="https://github.com/rust-lang/rust/pull/23415#issuecomment-81877665"><code class="language-plaintext highlighter-rouge">@bors r+</code></a><sup id="fnref:bors" role="doc-noteref"><a href="#fn:bors" class="footnote" rel="footnote">1</a></sup>. Homu
+will take the pull request, merge it with master into a new branch,
+and submit that branch to a testing backend. If the tests pass, Homu
+fast-forwards to the merge commit and starts on the next patch in
+<a href="http://buildbot.rust-lang.org/homu/queue/rust">its queue</a>.</p>
+
+<p>The process of code review and landing gated on testing works wonders
+for Rust: only really subtly—or transiently—broken patches get
+into master, other forms of brokenness are eliminated before touching
+mainline at all and backing out/reverting of patches once landed is
+rarely needed.<sup id="fnref:no-free-lunch" role="doc-noteref"><a href="#fn:no-free-lunch" class="footnote" rel="footnote">2</a></sup></p>
+
+<p>Having tests always passing sounds great, right? It’s even better
+because it’s not hard to use Homu with your own repos: just follow the
+<a href="https://github.com/barosl/homu#usage">usage instructions</a> (I could
+only get the git version to work). It supports two testing backends at
+the moment, <a href="http://buildbot.net/">Buildbot</a> and
+<a href="https://travis-ci.org/">Travis CI</a>.</p>
+
+<p>Barosl tells me that he <s>is planning</s> has released
+<a href="http://homu.io">Homu-as-a-service</a>, so <s>it is likely to get even
+simpler in future</s> adding it to your project is easy and we live in
+the future.</p>
+
+<p>Even if you don’t need the test handling, Homu is still useful: the
+queue pages are nice pull request summary panels, especially since
+they can be combined to display pull requests across multiple repos,
+e.g. the
+<a href="http://buildbot.rust-lang.org/homu/">rust-lang Homu instance</a> manages
+two repositories, <code class="language-plaintext highlighter-rouge">cargo</code> and <code class="language-plaintext highlighter-rouge">rust</code>, and there’s a variety of ways to
+digest that:</p>
+
+<ul>
+  <li><a href="http://buildbot.rust-lang.org/homu/queue/cargo">…/queue/cargo</a></li>
+  <li><a href="http://buildbot.rust-lang.org/homu/queue/cargo+rust">…/queue/cargo+rust</a></li>
+  <li><a href="http://buildbot.rust-lang.org/homu/queue/all">…/queue/all</a></li>
+</ul>
+
+<p>I easily lose track of pull requests against my own repos, so I’ve
+registered a lot of my repos with my Homu instance, and the <code class="language-plaintext highlighter-rouge">/all</code>
+endpoint shows me everything I want to know.</p>
+
+<p>Which brings me on to highfive:</p>
+
+<h2 id="highfive-welcome-you-should-hear-from-huonw-soon">Highfive: “welcome! You should hear from <a href="https://github.com/huonw" class="user-mention">@huonw</a> soon.”</h2>
+
+<p>As I said, I easily lose track of pull requests against my own
+repos. My GitHub news feed and emails is very busy with all
+development and discussion in rust-lang/rust, so small pull requests
+in other repositories can get drowned out and lost. Fortunately, Rust
+(and Servo) itself had this problem and has made progress on it
+already: <a href="https://github.com/nrc/highfive">Nick Cameron</a> built on
+<a href="https://github.com/jdm/highfive">Josh Matthew’s script</a> for greeting
+new contributors to create
+<a href="https://github.com/rust-highfive">@rust-highfive</a>, a bot that still
+<a href="https://github.com/rust-lang/rust/pull/23364#issuecomment-80426067">says hi</a>,
+but also manages
+<a href="https://github.com/rust-lang/rust/pull/23430#event-256365835">assigning potential reviewers to PRs</a>.</p>
+
+<p>The bot randomly chooses a person (out of a small per-repo whitelist)
+and uses GitHub’s assignment feature to make the pull request their
+responsibility. The theory is that, for people who don’t know who
+should review the code, the randomly chosen reviewer will either do
+the review themselves or will know someone more appropriate, so things
+rarely get left in limbo for weeks or months, especially not small
+patches like edits to documentation.</p>
+
+<p>Of course, in single-person projects like my own, finding other
+reviewers doesn’t make so much sense, the goal is to be friendly, and
+have pull requests automatically assigned to me, so that they show up
+in the list that GitHub can show.</p>
+
+<h3 id="setting-it-up">Setting it up</h3>
+
+<p>Highfive is currently mainly designed for use as an internal rust-lang
+tool, and so isn’t as well documented as Homu which was written to be
+more generic from the start. I’ll write down a bit of docs here, but
+they’re just an overview, so don’t be afraid to look at/edit the
+source if you do wish to deploy it: it is easy to customize. Of
+course, as an internal tool, it is designed to cater just for the
+needs of rust-lang and support/patches not needed for that use case
+may not be accepted upstream.</p>
+
+<p>Highfive lives as CGI script <code class="language-plaintext highlighter-rouge">newpr.py</code>, using a basic configuration
+file to authenticate with GitHub and JSON files to control the
+possible reviewers on a per repo basis. The script selects a person
+out of a set of eligible reviewers it determines by looking at the
+JSON files, and the directory that has the most code changes in the
+pull request.</p>
+
+<p>Highfive also supports pinging reviewers on IRC to… encourage them
+to make progress on the PR: the upstream repo is currently
+<a href="https://github.com/nrc/highfive/blob/7c5b73babfd0881d1c676b8f0f7dbbeed5a392ba/highfive/newpr.py#L109-L114">hard-coded</a>
+to <code class="language-plaintext highlighter-rouge">#rust-bots</code> on <code class="language-plaintext highlighter-rouge">irc.mozilla.org</code>. (It’s an internal tool!) <strong>Any deployment should
+disable/change this.</strong></p>
+
+<p>It interacts with GitHub via
+<a href="https://help.github.com/articles/about-webhooks/">webhooks</a>: to add
+Highfive to a repository, create a webhook under the repo’s
+settings pointing to whereever <code class="language-plaintext highlighter-rouge">newpr.py</code> is exposed to the internet,
+with the <code class="language-plaintext highlighter-rouge">application/x-www-form-urlencoded</code> content type.</p>
+
+<h4 id="configuration-files">Configuration files</h4>
+
+<p>The GitHub file should just be called <code class="language-plaintext highlighter-rouge">config</code>, and looks like:</p>
+
+<figure class="highlight"><pre><code class="language-ini" data-lang="ini"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="code"><pre><span class="nn">[github]</span>
+<span class="py">user</span> <span class="p">=</span> <span class="s">&lt;user name of the account to use for the bot&gt;</span>
+<span class="py">token</span> <span class="p">=</span> <span class="s">&lt;api token generated for that account&gt;</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>The API token must be protected, i.e. be careful to ensure that file
+it isn’t accessible over the internet, and keep it out of git
+(<a href="https://help.github.com/articles/remove-sensitive-data/">just deleting it after committing it isn’t enough</a>:
+it will still appear in the history). I’m not sure of the exact
+permissions the token should have, the instance for rust-lang uses
+<code class="language-plaintext highlighter-rouge">notifications</code>, <code class="language-plaintext highlighter-rouge">read:org</code>, <code class="language-plaintext highlighter-rouge">repo</code> and <code class="language-plaintext highlighter-rouge">user</code> but I suspect just
+<code class="language-plaintext highlighter-rouge">repo</code> is enough.</p>
+
+<p>There are two sorts of JSON repo configuration files: <code class="language-plaintext highlighter-rouge">&lt;name&gt;.json</code>
+defines the set of reviewers chosen in the repo specifically called
+<code class="language-plaintext highlighter-rouge">&lt;name&gt;</code>, while <code class="language-plaintext highlighter-rouge">_global.json</code> defines groups of reviewers in scope in
+all other config files. E.g. For rust-lang,
+<a href="https://github.com/nrc/highfive/blob/7c5b73babfd0881d1c676b8f0f7dbbeed5a392ba/highfive/configs/_global.json"><code class="language-plaintext highlighter-rouge">_global.json</code></a>
+looks like:</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"core"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@brson"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@pcwalton"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@nikomatsakis"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@alexcrichton"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@huonw"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"crates"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@huonw"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@alexcrichton"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"doc"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@steveklabnik"</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>And
+<a href="https://github.com/nrc/highfive/blob/7c5b73babfd0881d1c676b8f0f7dbbeed5a392ba/highfive/configs/rust.json"><code class="language-plaintext highlighter-rouge">rust.json</code></a>
+looks like:</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+<td class="code"><pre><span class="p">{</span><span class="w">
+    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"all"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"core"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"compiler"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@pnkfelix"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@nick29581"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@eddyb"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@Aatch"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"syntax"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@pnkfelix"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@nick29581"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@sfackler"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@kmc"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"libs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@aturon"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"dirs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"doc"</span><span class="p">:</span><span class="w">              </span><span class="p">[</span><span class="s2">"doc"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"liballoc"</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="s2">"libs"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"libarena"</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="s2">"libs"</span><span class="p">],</span><span class="w">
+        </span><span class="nl">"libbacktrace"</span><span class="p">:</span><span class="w">     </span><span class="p">[],</span><span class="w">
+        </span><span class="nl">"libcollections"</span><span class="p">:</span><span class="w">   </span><span class="p">[</span><span class="s2">"libs"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@Gankro"</span><span class="p">],</span><span class="w">
+        </span><span class="err">...</span><span class="w">
+        </span><span class="nl">"librustc"</span><span class="p">:</span><span class="w">         </span><span class="p">[</span><span class="s2">"compiler"</span><span class="p">],</span><span class="w">
+        </span><span class="err">...</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>As one might guess, <code class="language-plaintext highlighter-rouge">groups</code> defines groups of reviewers, in terms of
+GitHub handles and other groups. The <code class="language-plaintext highlighter-rouge">dirs</code> dictionary lists
+directories under <code class="language-plaintext highlighter-rouge">src</code> in the repo, Highfive will determine which
+directory contains the most changed files in the patch, and select
+those groups/users, so that people with particular areas of expertise
+get to review those patches (heuristically).</p>
+
+<p>The people in the <code class="language-plaintext highlighter-rouge">all</code> group are considered eligible for any review,
+and so are added to the pool no matter what. As such the <code class="language-plaintext highlighter-rouge">dirs</code> field
+is completely optional, if it is missing (or any directories are
+missing) Highfive will select from only the <code class="language-plaintext highlighter-rouge">all</code> group.  I’ve
+used this to
+<a href="https://github.com/huonw/highfive/tree/8bf65450821629fd5815fe7bbc3aab3ae69a449a/highfive/configs">configure my Highfive</a>
+to assign me for everything (makes sense…).</p>
+
+<h2 id="batch-configuration">Batch configuration</h2>
+
+<p>It’s pretty annoying to use GitHub’s web interface to manually add to
+each repo your robot collaborator, and then add the webhooks necessary
+for Homu and Highfive, so I wrote
+<a href="https://github.com/huonw/repo-admin">a few Python scripts</a> to
+help. The code has some examples of using them to set-up these two pieces of
+infrastructure.</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="comments">
+    <span class="external-label">Comments:</span>
+    <ul class="external-list">
+      
+<li class="external-link"><a href="http://users.rust-lang.org/t/rust-infrastructure-can-be-your-infrastructure/688">users</a></li>
+
+
+      
+<li class="external-link"><a href="http://www.reddit.com/r/rust/comments/2zf8ur/rust_infrastructure_can_be_your_infrastructure/">/r/rust</a></li>
+
+
+      
+
+      
+
+      
+    </ul>
+  </div>
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Rust%20infrastructure%20can%20be%20your%20infrastructure%20%23rustlang&amp;url=https://huonw.github.io/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/&amp;title=Rust%20infrastructure%20can%20be%20your%20infrastructure" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:rollups" role="doc-endnote">
+      <p>I’m being… optimistic. There’s so many patches submitted
+        that we only keep up via regular “rollups”: landing
+        several pull requests in a single batch (usually created
+        by the hard-working
+        <a href="https://github.com/Manishearth">Manish Goregaokar</a>). This
+        is a curse and a blessing of the design of the testing
+        infrastructure: serialized testing means things take a
+        while to land, but testing everything (including rollups)
+        before landing ensures that the master branch still passes
+        tests. <a href="#fnref:rollups" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:bors" role="doc-endnote">
+      <p>Why <code class="language-plaintext highlighter-rouge">@bors</code> if its now Homu? The Homu back-end listens for
+     mentions of the account it is registered to use, and
+     rust-lang still uses <a href="https://github.com/bors">@bors</a>. <a href="#fnref:bors" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:no-free-lunch" role="doc-endnote">
+      <p>Unfortunately, there’s no free lunch, and the test
+              guarantees come at a cost of scalability, as landing
+              patches to master is serialised
+              (<a href="#fn:rollups">see above too</a>). <a href="#fnref:no-free-lunch" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <strong>Huon Wilson</strong> <a href="https://twitter.com/huon_w">@huon_w</a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list">
+<!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2021/10/nsw-covid-qr/">
+                   <h3>Mechanical sympathy for QR codes: making NSW check-in better</h3>
+                     <p>QR codes are now critical infrastructure here in NSW, Australia. Let’s learn how to make them better.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/09/qr-error-correction/">
+                   <h3>QR error correction helps and hinders scanning</h3>
+                     <p>A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/08/home-cooked-app/">
+                   <h3>The joy of cooking (an app)</h3>
+                     <p>I’ve been writing a bunch of code designed to enhance the life of just me and my wife. It’s great fun.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+      -->
+</ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson — <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>

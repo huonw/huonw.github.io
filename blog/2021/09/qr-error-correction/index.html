@@ -1,0 +1,1223 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  QR error correction helps and hinders scanning |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2021/09/qr-error-correction/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!" />
+
+  
+  <meta name="twitter:card" content="summary_large_image" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="QR error correction helps and hinders scanning" />
+  <meta name="twitter:description" content="A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!" />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2021/09/qr-error-correction/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2021/09/qr-error-correction/" />
+  <meta property="og:title" content="QR error correction helps and hinders scanning" />
+  <meta property="og:description" content="A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!" />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  <meta property="og:image" content="https://huonw.github.io/blog/2021/09/qr-error-correction/hero.png" />
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> QR error correction helps and hinders scanning</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             — <span class="date pub-date">28 Sep 2021</span>
+           
+           
+         </div>
+      
+      <p>Error correction sounds good. It means fewer errors, right? When it comes to QR codes, that’ll mean easier scanning for people, surely? It seems like that’s not the whole story.</p>
+
+<p>I wondered about this, and couldn’t find an answer, so I did some exploration, and found there’s two factors in tension: the error correction on one hand, and the resulting data density on the other:</p>
+
+<ol>
+  <li>For fixed data, like a particular URL, it’s <strong>easier</strong> to read a QR code with <strong>lower</strong> error correction, but only when there’s minimal damage to the code (like reflections and dirt).</li>
+  <li>Error correction works as advertised when there’s damage: <strong>higher</strong> error correction means <strong>more</strong> codes can be read.</li>
+</ol>
+
+<p>The rest of this article explores what this means.</p>
+
+<h2 id="quick-intro-to-quick-response">Quick intro to quick response</h2>
+
+<p>QR (quick response) codes are now extremely widespread in Australia, because they’re used for COVID contact tracing check-ins and placed in every shop window, but they’re somewhat magic. Before diving into the details, Wikipedia says <a href="https://en.wikipedia.org/wiki/QR_code">a whole lot about QR codes</a>; the summary is: a QR code is a pattern of black and white squares that encodes some data (often a URL), that cameras can read.</p>
+
+<p>The article even has diagrams. Here’s one with a whole lot of detail, highlighting a bunch of key concepts going into a QR code, however there’s two that are most important when considering how easy it is to scan a QR code: <strong>version</strong> and <strong>error correction</strong>.</p>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="https://commons.wikimedia.org/wiki/File:QR_Code_Structure_Example_3.svg">
+      <img src="1024px-QR_Code_Structure_Example_3.svg.png" alt="A graphic containing a QR code, with highlighted areas. These areas are labelled as: 1 version information, 2 format information, 3 data and error correction key, 4 required patterns, 4.1 position, 4.2 alignment, 4.3 timing, 5 quiet zone" width="1024" height="574">
+    </a>
+    
+  </div>
+  <figcaption><p>A diagram of the functional parts of a QR code. <a href="https://commons.wikimedia.org/wiki/File:QR_Code_Structure_Example_3.svg">source</a></p>
+</figcaption>
+</figure>
+
+<p>What are these two factors?</p>
+
+<ul>
+  <li>
+    <p><strong>error correction</strong> (EC): a measure of redundancy in the QR code, translating into how much “damage” it can tolerate and still be readable. This is how images and logos can be directly embedded into QR codes, without any special consideration. This is <strong>chosen</strong> when creating the QR code. The number of modules that can be damaged for each level is:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>EC</th>
+          <th style="text-align: right">max damage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>L (low)</td>
+          <td style="text-align: right">7%</td>
+        </tr>
+        <tr>
+          <td>M (medium)</td>
+          <td style="text-align: right">15%</td>
+        </tr>
+        <tr>
+          <td>Q (quartile)</td>
+          <td style="text-align: right">25%</td>
+        </tr>
+        <tr>
+          <td>H (high)</td>
+          <td style="text-align: right">30%</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p><strong>version</strong>: the number of little squares (modules) along each side of the big square. This is normally <strong>computed</strong> automatically when creating the QR code (from the data and error correction).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="text-align: right">version</th>
+          <th style="text-align: right">modules</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: right">1</td>
+          <td style="text-align: right">21</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">2</td>
+          <td style="text-align: right">25</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">…</td>
+          <td style="text-align: right">…</td>
+        </tr>
+        <tr>
+          <td style="text-align: right"><em>n</em></td>
+          <td style="text-align: right">4<em>n</em> + 17</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">…</td>
+          <td style="text-align: right">…</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">39</td>
+          <td style="text-align: right">173</td>
+        </tr>
+        <tr>
+          <td style="text-align: right">40</td>
+          <td style="text-align: right">177</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="v1-v18-v40.png">
+      <img src="v1-v18-v40.png" alt="An image showing three QR codes placed horizontally, the left most one consists of only a very large modules, while they're barely distinguishable in the right most one." width="1110" height="378">
+    </a>
+    
+  </div>
+  <figcaption><p>Three QR codes, using versions 1, 18 and 40 (from left to right).</p>
+</figcaption>
+</figure>
+
+<p>Together, the version and error correction dictate how much data a given QR code can store<sup id="fnref:modes" role="doc-noteref"><a href="#fn:modes" class="footnote" rel="footnote">0</a></sup>:</p>
+
+<figure class="image plotly-plot has-caption">
+  <div class="image-positioner">
+    <div style="width: 100%; height: 300px" class="lazily-filled" data-plotly-data="eJzNVk1v20YQ/SsEe3ALjIGd/V7fgiBACrSHNmgvRQ4raWVtQ5EGSTtSDf33vqEUtwXiHIIArgGR1HLnvTfzZlZ+bDd5zu3NH49tV/vS3jy20y7f4aHdPbTUfqybedfe2BO1+zx+KKPsWA/dgIf2u+0qrZRv5eWwkRjBmBDW5718/QmPB4AzaTJkyZGnQJESsSJmYk1siC2xI/bEgTgSJ9KKNGI0aUPaknakPelAOpJOZBQZJgNIQ8aScWQ8mUAmkklk1Xtqj0IaZI8zFICpgG6EB58kuGAIAoKPD2RBYV0kB2YXPXlrKUBLwN6I9aRFsoJWlSCbg2gP+CrBbD3kO4hjL5cAWo4WGSYHKuWhmmMUUkkH2rXzePIJmUaFS3IGoufjUvdpnecZhT7RV3my3lprv+DJzy/qiZUoq8mjrvZsCyBRPLAIAbAdWCIiBQ/bLARZB1sUtHqFSEveQzO0hpBgT6CE55SgVDmkwdDGnJCN9uAwAU9WGJx5skgvhNgsoZyi5Cd2LApA/c3sCJHXfvO8Hb+8qB0sONhm0fKKgiX0PisQAIBhBAcgLl0rTSvQgASpQWFNsmRhpY2YMpTSYQo8EL2HMVAbEB+VAySyAWbCPlYCzJIUYxneyyXKIAmb1ZIqfGAHZ9n7bzcWSv7s8z68fUkf5AyRaCMVxQGE80fGI0XpY+lgsLrFDEbRtXBiInB2AB0fQUNxLYyyAgsDHCQ70LlkMDFIRkCBF2BYwGhE3CO+JzncpP5K6q+wmxkQrIUXJ9xn6o+lLh+H+1nqux368z3va3eUbcdpLvvr+0rNdb6768r1eYWu3pXboTS//XhFza/DapgHat6W7qHMdZ2peTXW3FEz5X66nspYt9RcvZL45rVY2LzZD39WhD7BXFZg21T/gkC+GH9bexEEVShTuzrfuvYGVzSCwqau3JZ+s2yqc7c00lwOCGjfvJYGGcZa+jnPdeilt8BwzP16t/QRdM/Dvl1sY3TM04uubOdzCwnFbngoY5dXpft/FOl0Eq2HOn0u69/LOEmu2AOaD3dj2dbDP+uNlHg3fPzPu20dJ8lXFi8DlccxHy9LD7mblmHCz+gyQGYZmrQMipPhkLGwMgrLEIy5vy3nAPX+JAV/Ruu7eRjLppF/WprvV8e5TD980j3db8/ammX9X6qf3vQDzo1P9lxkH5r7vm5rwRl9+hu9UFWV"></div>
+  </div>
+  <figcaption><p>The number of bytes a QR code can store, at each version and EC level. (This can be read horizontally too: for a given number of bytes, what version is required?)</p>
+</figcaption>
+</figure>
+
+<p>(The plots in this article are interactive: hover/tap for more info, tap or double tap the legend to toggle series’ visibility, tap-and-drag to zoom, and hit the ‘home’ icon to reset.)</p>
+
+<p>That plot indicates a QR code using EC level H can store <strong>less than half</strong> the data of one using level L: the closest they get is at version 3 (53 vs. 24 bytes). The other levels have less overhead, but it’s still a cost that’s paid:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>EC</th>
+      <th style="text-align: right">max bytes (version 40)</th>
+      <th style="text-align: right">storage relative to L (mean)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>L</td>
+      <td style="text-align: right">2953</td>
+      <td style="text-align: right">100%</td>
+    </tr>
+    <tr>
+      <td>M</td>
+      <td style="text-align: right">2331</td>
+      <td style="text-align: right">79%</td>
+    </tr>
+    <tr>
+      <td>Q</td>
+      <td style="text-align: right">1663</td>
+      <td style="text-align: right">57%</td>
+    </tr>
+    <tr>
+      <td>H</td>
+      <td style="text-align: right">1273</td>
+      <td style="text-align: right">43%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>That’s some hefty overhead: presumably it is useful for something… I did some experiments.</p>
+
+<h2 id="experiments">Experiments</h2>
+
+<p>I set up a little Rust program that ran <a href="http://zbar.sourceforge.net/">ZBar</a> against an exhaustive set of different QR configurations: all 40 versions and all 4 EC levels. For each of these 160 configurations:</p>
+
+<ol>
+  <li>scale the QR code to given size</li>
+  <li>place it into a <a href="https://www.flickr.com/photos/_mia/5612839179">background image</a>, to simulate “real world” conditions</li>
+  <li>pass the resulting image into ZBar and check if it scans successfully</li>
+  <li>repeat at different sizes to find the smallest size at which the QR code scans successfully, or determine that it couldn’t be scanned at any size</li>
+</ol>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="qr-example-7-h-full.png">
+      <img src="qr-example-7-h-800.jpg" alt="An photo of a shopfront window with some text and reflection of the person. There is a large obviously-CGI QR code overlaid on part of the shopfront." width="800" height="400">
+    </a>
+    
+  </div>
+  <figcaption><p>An excerpt of an example of the generated image: the code is EC level H and version 7, and has been scaled to 700 pixels on each size. Tap for full size.</p>
+</figcaption>
+</figure>
+
+<h2 id="error-correction-makes-scanning-more-reliable">Error correction makes scanning more reliable</h2>
+
+<p>Error correction sounds useful for scanning: if the QR code is further away or smaller, then there’s more likely to be blurriness or other “damage”, and so higher error-correction will make it easier to read… right?</p>
+
+<p>A camera generally doesn’t care about the actual distance, as it just “thinks” in the pixels it sees. Thus, it’s the size of the QR code within the overall image that matters. I call this the <em>field of view</em>. Example, for the full sized version of Figure 4:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th style="text-align: right">size (px)</th>
+      <th style="text-align: right">total (px)</th>
+      <th style="text-align: right">field of view</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>full image</td>
+      <td style="text-align: right">2592 × 1944</td>
+      <td style="text-align: right">5.04m</td>
+      <td style="text-align: right">100%</td>
+    </tr>
+    <tr>
+      <td>QR code</td>
+      <td style="text-align: right">700 × 700</td>
+      <td style="text-align: right">0.49m</td>
+      <td style="text-align: right">9.7%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Under the reasonable assumption that the camera is close to <a href="https://en.wikipedia.org/wiki/Rectilinear_lens">rectilinear</a>, this gives a measure of how close the user has to be that scales smoothly with the physical size of the QR code: if the device can read a 10cm QR code from 1m away, it’ll be able to read a 1m code from 10m. Similarly, fields of view can be used to predict distance: given two codes, where the first needs 4% field of view and the second only needs 1%, the second can likely be scanned from about twice as far<sup id="fnref:quadratic" role="doc-noteref"><a href="#fn:quadratic" class="footnote" rel="footnote">1</a></sup>.</p>
+
+<p>Error correction definitely allows scanning a given QR code from further away. At version 40, a level H QR code only requires 1.7% field of view, while a level L one requires 2.4%.</p>
+
+<figure class="image plotly-plot has-caption">
+  <div class="image-positioner">
+    <div style="width: 100%; height: 300px" class="lazily-filled" data-plotly-data="eJzNl9tu20YQhl+FYGG4BdbCng+6C4IALlBfOEV7E+SCliibDS0KEn1QDb17Z/4VqaRRkaQJYBvQaD174C6//WdGT+W86qty+u6pvOnu63WzXHTltNx8aFalKNv6ul7Or9fd3Yqcv5Hntlp/qNfl9KmcdW1HjfKnxVW6kp76ulU1a/ptOZUTv6Oh3bym/jxjQ/3L6rbeL7O56R7y4uV0UbWbWpSPtAkltDDCCie8CCKKJJQUSgmlhTJCWaGcUF6oIFQUKgkthaY5WmgjtBXaCe2FDkJHoZMwUhglDC1phLHCOGG8MEGYKEwSVr4XJW32nZxIK8h4NpGM4g8MuzS3NI+g55AJbBIZWpUMDzHsMzw18GDn2PAMz/9Gnhbj0Ercm+zYohNN+HAT2jS16GPZODr7JLCf3Y4ONLH0FiaJTopRtISe0Dk0TaST9NsVv9zNrOp7AkTsmmXNnB6aeX9TTu1uJ76C8cVxxrOFtfYbGF+8UMb8xmXYM5ZMUcUR9IExWjzW6IExuwy7LE+wamzxIoGXHD5xwB24KzJHPDKh5Zk0fxitGWlzy/NViHGPPAaGrNH6cXwvj/MNUc38/Ov5Xr48vuYTvhDyQc1MUKVP+YaRrxrYGjuwNTzYjrwB2LHxPMPDp0fGTNcMopXMjM/JD1McK/Ytw8YfcOuBMmTu/Y+jfH6csuQ/+/WUz18yZTco+EDZDZQh6kwZJo6U7Uh5VPExyAjjY0A/QM7/EOMBMR+Tr9I+hhvEb9a4zVGbubL5H4D7+nbVVj0PP3naTid6d3I0JQ8rfJ6QxzVHxDz2X6n4OWlCTDIgNCNkKmBVoKYsVAsCKoFoTr4OQk5mzMEBLDVggiGCvXPc6ZHXvQfLTBlBGgkY41JgIUpkV5WhImhrkDOZJlTs0OslQ/YIzSFaiJh7Ey2s6TRsVURedkjR5nPu3wT54hjkMSN/EfLFc0NGYRX8R5A1KiwoFfAUtKYiSi1cAY3IrCFEnRClNUotn6MzUi9KLgt1Os2wnU9QLzS8Z57zM/dGlG0xIhlb1iZIyoASDPw1vw8Ch3Dt2G8R12WAnLOMeWZwPDCanKSZs1T2OzlfHuM8ZuYvcr58Zs6IstLmCI3ADKXJFA60Lch7eCBgnctrBxuhZiRrA4/BfbEgb8HTIbs79LoEaeOJPiFQ2xyuQRvhI0n2JJdpB+DO0RoSR67Wnj3GsJStRE2GjOysQ8JOkDv3hgDqNn0n6fNjpMfs/EXS589MOpfSAJ3FjR82MgFxLqjNWFYrhFqNVK1RSmsPhadcYKMMA3I4LIRvQTn/mNJA7YAatRcKbdRrIbKNmB5jgq7tPj1LMOftkEWA1pC4QQluEPQx2EnE9oiojsos6CMV945cbbXt7nqmtuiW+bu6bdotD9tuiPzZXSOKs2q1auuz7BGnv9fXXV388eupKN52V13fieK8bu/rvplVoni1bqpWFJtquTnbUFW3EMXpK55fvOaLUby57f5qaOq4zN7DpVnzN21Q4Z5U6+tmyRuiXRHm8ip/tVTiiZKul9wNdxCDmr7F5evrR5pQvnlN97fs1k297Ku+6Wil8oaesK2WsxvcTtp3392WuAKKbt/Y0daLPl9HfgQU0FZXdfsyXhJVU7TXx2Zz7NR/UrHLZ6Ux9JgPq3W9aB4P/mJf/X7St2jWGz4vO/firNbrart33VOFDGFaEiSL0UCACaJzLDSWmGVZQVDranld5wny/Y5f+H/s9fJtsWjqdl50i+K+qR+Kn09+GTa+uVvkzZ18tOPRuewozgxo9lt+LO6WDa03pxf0D07LbKM="></div>
+  </div>
+  <figcaption><p>The field of view required to scan a QR code of a given version, at each EC level (lower is better).</p>
+</figcaption>
+</figure>
+
+<p>This seems to all come back to the size of the individual modules (the small squares that make up the overall QR code):</p>
+
+<figure class="image plotly-plot has-caption">
+  <div class="image-positioner">
+    <div style="width: 100%; height: 300px" class="lazily-filled" data-plotly-data="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"></div>
+  </div>
+  <figcaption><p>The field of view of an individual module required to scan a QR code of a given version, at each EC level (lower is better).</p>
+</figcaption>
+</figure>
+
+<p>The lines of best fit look pretty flat, and quantitative measures like the parameter confidence intervals agree (except for level L, the 95% confidence intervals on the slope coefficient include 0). In other words: a QR code is scannable if its modules are sufficiently large, and that size threshold doesn’t change much as the version changes.</p>
+
+<p>On the other hand, the size threshold <em>does</em> change with EC level: level L modules need to be 25-35% larger than level H ones, matching the intuition about the benefits of higher error correction.</p>
+
+<p>Cool, hypothesis confirmed: error correction makes scanning more reliable…</p>
+
+<h2 id="error-correction-makes-scanning-less-reliable">Error correction makes scanning less reliable</h2>
+
+<p>Not so fast! When creating a QR code, versions and module sizes usually don’t matter, it’s the data that matters: one will usually choose the data and error correction, and then have the version computed automatically, as the smallest that works.</p>
+
+<p>The overhead of higher error correction matters a lot.</p>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="v3l-v6h.png">
+      <img src="v3l-v6h.png" alt="" width="716" height="364">
+    </a>
+    
+  </div>
+  <figcaption><p>This post’s URL encoded at EC level L (left) and EC level H. At level L, the data fits in a version 3 code, while level H requires version 6, resulting in smaller modules (half the area/field of view).</p>
+</figcaption>
+</figure>
+
+<p>If we change from looking at the version to the actual data stored, the ordering reverses, and EC level L works best!</p>
+
+<figure class="image plotly-plot has-caption">
+  <div class="image-positioner">
+    <div style="width: 100%; height: 300px" class="lazily-filled" data-plotly-data="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"></div>
+  </div>
+  <figcaption><p>The field of view required to scan a QR code containing a given amount of data, at each EC level (lower is better).</p>
+</figcaption>
+</figure>
+
+<p>If one is trying to “send” 1000 bytes via QR code, using level H requires a field of view of 1.4%, while level L only needs half that (approximately), at 0.8%. This means a device can be further away and still read the L code successfully.</p>
+
+<p>This doesn’t seem to match the results in Figures 5 and 6. What’s going on? The level L code uses version 22 with 105<sup>2</sup> ≈ 11k modules, while level H requires version 36 with 161<sup>2</sup> ≈ 26k modules. This ratio (2.35) is much larger than the ratio between the module sizes (~1.3), so, sure, level H allows the individual modules to be smaller, but it requires using so many more that the overall QR code is larger than the level L ones<sup id="fnref:consistency" role="doc-noteref"><a href="#fn:consistency" class="footnote" rel="footnote">2</a></sup>.</p>
+
+<p>This seems to apply consistently across versions, as might be expected from Figure 3: a QR code at level L can store twice as much data as one at level H, for the same version. The data storage overhead of error correction doesn’t seem be worth the apparently dubious benefits.</p>
+
+<p>Nice. <em>This</em> hypothesis—error correction makes scanning less reliable—is correct, right?</p>
+
+<h2 id="error-correction-really-does-make-scanning-more-reliable">Error correction really does make scanning more reliable</h2>
+
+<p>There is more to the story. Those measures had no noise introduced to the QR codes. They’re the easy cases. What happens if we turn up the noise?</p>
+
+<p>I generated 10 different noise patterns, and thresholded them at 8 different levels, and overlaid this noise across each of the QR codes, for a total of 160 × 80 = 12800 configurations. This is meant to simulate reflections and dirt that could make it harder for a device to read the code.</p>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="qr-example-7-h-noise-together.jpg">
+      <img src="qr-example-7-h-noise-together.jpg" alt="Three QR codes overlaid; from left to right: 1, the QR code displayed in Figure 4; 2, the same QR code with some white and black regions of damage; 3, the same QR code with larger and more regions of damage." width="800" height="286">
+    </a>
+    
+  </div>
+  <figcaption><p>Three levels of damage to the example QR code in Figure 4: no damage (<a href="qr-example-7-h-full.png">full</a>), some regions of white and black noise (<a href="qr-example-7-h-noise-less-full.png">full</a>), even more and larger regions of noise (<a href="qr-example-7-h-noise-full.png">full</a>).</p>
+</figcaption>
+</figure>
+
+<p>Across all of these experiments, <strong>60% more</strong> EC level H QR codes could be scanned successfully than level L ones:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>EC</th>
+      <th style="text-align: right">number successfully scanned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>L</td>
+      <td style="text-align: right">1257</td>
+    </tr>
+    <tr>
+      <td>M</td>
+      <td style="text-align: right">1600</td>
+    </tr>
+    <tr>
+      <td>Q</td>
+      <td style="text-align: right">1839</td>
+    </tr>
+    <tr>
+      <td>H</td>
+      <td style="text-align: right">2001</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This is driven by resilience to damage: the QR code at level H is more likely to be able to be read when there’s significant damage. The following plot has a point for each successful scan, against the percentage of pixels damaged.</p>
+
+<figure class="image plotly-plot has-caption">
+  <div class="image-positioner">
+    <div style="width: 100%; height: 300px" class="lazily-filled" data-plotly-data="eJztnWuPHVd2nv8KwUAYBy619/0iDAYwHAMOkHxIDH8a+EOTakpttdgE2bKpCPzvqfU+a9fpPodzS2ZGM0ZrgC6eqtq3tdf1XWvX/PTy6+uH65df/fqnl6/uP767v3378OHlVy+v7+5ebi/f3N7dvb6/u3+/33n/zavrvwmb/vdf92ff3v/7zfvbt2/u92cfvrt9t9/6t9uHh5v93bi9vLt9e/Pyq59efr71p+3l99fvv7N3T6/8l2D/FXv49vr7vfXLf9r71Ize3e9zCtvLj/s8w1XoW4xXdW7lqsQt1qs4t9iu4n57XrW61asxtpiuZttiuYr7v/NVHvZK2/LVnHa3JvsdpprHLcWruXcVrnK2t9P+9lXJdiOULYWroUZ7J+OqFWvTsnqZNs6wIefeZKjbetXztje0wcKwqfZufdRqXY+tXfWqLor9LnXrV3oraM6dn/vjvatuN7Otcl7lvrcsDDhswvu07VneBw9azUhGAPv3Tp1uk59l0yT7Va6aXrEFzH120ZZS1UOzKRlNs425d5y12D72jpP+maKmMvZ2ydaa2z6frvntb9nSonW537hKeV91i3uPse4jDBG/pH0GbSzKTv3dV2gUqqJy1Y19LfvidWOnabrqbe8i2vSGtmWf+d54Vhus73+Ghp17L8WIE6pm1DbNdX/fOGJcJbFBtg6LTXyfYjOSFiMYm5E0ea1m3/diQ9sWFpHANqh1e5zL/r6RRGTfKb5PJSVbQrIRm23c/pb1t4+0/9VMxQz21MYo1qbbRuybRK9Rg1ajxd61MVy1V7vRZ39p2KBRDJ2KDcr25H1PbK37AsSJbV/Pvn2SjrAz+s4lzdmy2sS7TWTvLnWxSrM3I6vNYkXboGr3iglON5JOE5Zsk+3GSiZGmsHOz+KSahMw4tk6gw1e8hrcpLDZ2MGIbOwn5rDWcY1dxSzW2TAujptmOsSMwWQpm5ztLKCxk3GaCfxVTs7zRROKMEKyNU3tZrK5ZNuWbB0PCC8emZIOm9iwrnapz7btgzf3n0OTDWK2bGSWhMBGQZRqki5jYklJMypon4u1D5qTbUiwiYq3kwluFXsVox4qS3KzT2R/dWeDkiBLspGy5qzdizZmEw2CJHFITG0O1cRkv1ukkqS0gkm80TDaTGp29aOJJ1E92YvBdiHZplZf6BBNNYjRWEtJ0hM+qyYO7dZLNnU0IJfTpBg/7C/5KrV0EwObhdipm9YZfdEj25/ZEY1gC802VpUmkAapEuKg3aiPqFPFSiZ/1qoZQyMTQdsiPjHRqbZEI1mHLZIRTyOZYtREtJhuxK6PJmKq2Ng4mqqTcMVyRpu+JhNtGcMYVdMwnR1caUKPwjyGJpzZim5Pgolu7ktvzgSNMnIkGmmELjMiZrJmOzVsf4M1laHBPFQZLoZOpprX/EwGJJShuxrdH5v+ExmCGFIvVdv/JnaKzXZeYlpsHibAzShklEUzxWOOxhXJ9lZqM9pS1VIiOGyRCZG0SUb1n2Q7JfciRZY6qfurMyJNNrUs0bBOtT7uRtTZWMNrS7VbVfxs2qK09VSya79aZRgpfxjWpA6TITuxD+CKkAnbpjrlzM5Cviaimemf7HyUVE/rVy6I6NJg72bSFdCN6jua2MhSivGi3csmrpqSMeyu6qe9K8JFzJPMH8KfJWdFZjYhCVra/iY8Is+hGCtM+2krK6YvYAXb37E/abJSozBqYo+LiYGtES8F82cbxMQLKpb3zX5GqeiImcmIuCS+6ak5LPgqJlBs49hcncyO7A7Trl3qL0sVjiut0HS0Pa8mVEPboZ0KRt/kXgsaw8jUzGRhYKKWJkNQOkY5s4lmF2xa7REPwjM7OaR8o9in2p/pPCs+QbVoZ2WpY8WsoOO6/MkqQlecjCSlmkwQpFlPuqbacjVyaoeSwpmV8ZzIV3a9UJaRycVlWwKW3SViLVM94EddmT3NDTssnyKZmA3Tu1EabOCdGLXEaclILLmXATSXRtwoHWqrky1rppekDjG3U7Oty3wm8Ye8w8zbuIxrRdZaXlSU+YGtjdWLiJ4wDNlmhUm0LpL53ENuRzNmHVJeVXZFzG7aYVFba6ziHdm6jL0S5eQ2NnFZtT6dOL26eXfVERt7H12T1Yo66KbOdvY7pmsECRPZlUTI/cg2kX26mqIpmiDVbCHItCUuXRaM3NW2Lcv2S7NLCw4bq0jANslAdwmSQTAuNP8wGb8Fk0/zLpskQK5SgoYSRDFvjxjo6aZY7o6CkqwtlhAiQ1OOQbV700OYJElqErUxMfrVKDPcE5TPMxr71N2VM2aVHkoSR2OJbASq6OaCVzRgyyZ2CTxM1tLEA0+3m2IdUqxd1kOuvdyHeaxgKdFh3AuNpwxwkRocxTVKQ512Y4hurDKlUWTSRFFxjoxvjThVjZBM1iJLsiS/A9FVGNNEKe2bhEMWv8tvc+dMxE/4QXIYI5GK67FUYNBdI8slaQfvNKIuCZO9NKdvUcZxlzczG6w9tDr5vFEWXi5PlBUX16NIhunlJqmU61eM4tkCropUHqqP+AWX2Y24C4oaZrTtVLdNreV2RikC2yWRk5DCVHM30S+ERiK5ESxUApxm6xpX2mQz8QNNKx3ZidiKxJIIaZgs1ug8z2CugJoC6YiDI06YzkxF5CwmN9JXtaEH3Z9s4AhTCmaXKOlaxYwQtlYX1OgBoYXoVVG2ZBFJih6SyLvI8HdM7hkUEw16lbsnFy1C2THd8YruTCkyzb6YSLgwPWQwZ2xftfZlululdpL3YkSaUrOY1Uj01ZdPbVxlA1eJgr0qqWnqxAyP1E5PCN9wBWTTbphRrSAYZykGVHg4m3OWDKq8KbkL3UPrKnhkaRn5RtKguNSmIBLxX0cdmA/X5BMEd1fNp3FLX91yiMfE5yJaLKjLalMaZtma+LDK9HV7HhQ+74o8y22RxAZ7Dwss4CIYWeTgVtf1zSYxJJynACJfaSNNj0mpVEIDGVmiH1zcKIlcEfiJfaamAogAE07RvS/HocnUAGvhTRfiqGw3E3tV5WM2D3xsVQpHu60+OkmnOXyhLERCCwxE0IKRivvVWZKbk4NGEaccHVrBJbo0kXE04aapWqKn2LCSFaduSDSyQs/Z8Ap88glDWw60xJc/zGWoNneC0WB0H25FEy5NYPeiQoUIeCROzcODlilFIREhwGk4MqGz1TIGOGkBF2vORftk5l+ebTBli7egGEabPpbfI/e3AMZNYQlFZqYT/RYcHXmA5j3NkzlS6AfHV4e5jLAZyKXX5eFLITcPRLPkANuWXeKqccPUfhZuBo8bfeAKL7GK5LhddNM51KP2PzqC2qUGBACZtBUmWIdbN4GDQyIXwQ6iwtF4AAq2aW4mOlGGrbq52+7BXFSPsp8xg+8Jx8mykifxgjEF4VX45FhLwH+LghJYS7J5CZntYoRo7ra5UJkIYnhMkjRhj8WDFI3oZ10ptFAooYHRbOohuYMuvBGmGsKCs2/7yG7rEnhYSm5B3Xwj3EZiU5rmERWjVsfgVDypuAKjLgYyChRgnO4OdwP2sSfJFj6rR8QrThoHXKjgR15WIr4ejg7PiL9UDh80yo8ciseiwlrwwmxK08PuZC5BFKnkFofT/hR2QBZ8OqKpZQib7QOs3ccUm6VybFCcqzV4ThMoZrhVUiQZ4DTJb1TUumKjXg8W64rENZuGaRGfjelgsq+BKJMXJvHnaQ026hJ6bHp+sh3y2rWE2ti3mIiDtRPGn6U6k1VHus1/LNKfvf7r9vLhx3eWzXh1//Hlp+3nT7P0EV+3rx+lWf7X59IseBlDCkYYAckWgfkkW4R8mPERFwdilcquy3mZkvhdu7hBPWVULE9jnNdJj0QX7SF2l3tPRiKh1TJZFZuO6UrxeV+hVvMwWwBclwJNhQ2Xx/E4aaKUQSGQQw+BYMr0ZEUFaXqsHRwrloutSD8rZKzyUgUVpOkMM/BsU91WugHQIj1KhgC3DU/bJKWLFDvIIQhD6I2c4EnEesp5dHDU2B9lOgZNWAXaaToi2TFkw904Uhyy+VjEU4qjnsA54SyWIXO/xA38WJQJIEbKZijmHiKJVEfR8HKvTnmMShpD9niaV1eJc0Z37yTiwQjFukxaFAiHGfzNSQvA9E6+guVdJCykuk4Ji9+RqkgaMVbXhhepCuneCKCi9ZgakEVvoM9m9RoYnTtM4cgP1L6dEhVulVeKgoxEcM7ux9Cw6BwrohSIJwCpTvykKGA+ynZE/G86tT6EnAvSrMfahY4qwSe3LR5yXMFLD6A92EaJPx5nIFZGIB0ZiAr4MpbJ6245g+f3Vgqi4zto1Dbx5h1VrzABQ0/ctgmQKq2qjGUu50mGgJoSpcKBCwshVtwLw1aPsTJusWcWMN6PF5wAIZQiPOUUxPG+3sdJhXiQpm++Q0qu/obEwimlkElTk1JI/Qi1V04h4wM2ENWxOdxcHmU1hAJVEgnKIbj/tDIHhqsIQlaaMxD3icEVegFgBjRnWUMnwUoFR1W71jwqe5QpkKE7MgVHjiAQhsrQt3zMJOGmO+jeiaUkDebNrxRG9kxrVN58SSypYOXUlM6a6cgR1MWxnTyfdpi9Cv0AAk85gkcwfD0YUngO8dznswTkPuSmCl0TFKgYeBzZgbmyAz2T8p1AxNHVzWSv2uJK0Thk7Fh1nk0L2s0HLG8TNuEyfbDSABCdTNJvzwIAVssxju6HCcE7MgCeBlwZgA5elPOjNECEMx6lAc4zAImen6QAMlF1KKcUgOCbtlIAeTtLAawENY418L5QgZSe5gDSgZ0JJQ4FbpWnYrOFklJ0yTV9A/bHbVkAdV6w/6hHjCNYIccD9i/xgP3TAQB2s7sKApo2QVOtj0F/1pxBhhboH0HOHuH9YkdF5POUoo0HZFYPvF9etvIWXXMT9ys07v2YqyBJBcnC+4T7E4pLhYoth4uSi0rxlPcJ6xcpwVSyF5FI6EpdeTqpsOEAdRoHwG9TFAtRDhNO5GxeHvMY4Acx99qYAAAaxoIcPKiLRzAlFb8AfXcNKa6AuYpA5rGyFAGL56ntae2GBYjJkXz0qUwjkVwkPyNgsC00TwytqoC5JmlwgHTOkZwqBiNKOS38Xn8KursvcMAB5HqqlJhK05hAtw5uX0w4EQBHYg/w0gQR2L462OhMUReipg5jXZi75/mJpubKX5+w+lhIWAvqzpOEKT6WE1LeYWseZMfpSH3C6ZjWeJUpJQI3kPrsuyJoMiCALT5F6fvyLKPnHHBdxWPpwOenu+aP8XnTmNiv4o6+B7vm1zo+X5cwlOL4vKQ9m31c+Hw+Zg1EXA6ESStTaQfc6vDYBCmAXUmrelIigumpmmwugEri6ik10KyIW5cATSxL576GwG1SxYtiypQ5ngEomg4YTHZkHLIuVkhxwfFFqG+Wj53GAlq7CGziX2y47vtzQPBkwZWsRHcLx83HVDPIknbH4XesR/XQxfEMzXU0Tw8l8tyTmLs8gdodroMxNyV1FAgtXhdBterk7mQmrHwKqRt/nxD1BHhFjmAecQPpySeAuvu9golR/2mJvxATgWJxW8hVFYDi6Jgp6rF56WEzak6prNLWxsj3jtYGvIrctlArueAyWZT2CGBSUqZ5dCZOUSKqe8j2CFSlJqlDkSJV5ihuBqWYXu+oGrdVuxQDAV+nNgngHKdMkHlrK5oUyLZSUAuzHajBRPACaCsaylmY1UEqAR4CWCdgWUHL2YsHUC74uLvbNp3d8vDKrEjKTMhjmU9g/QRaNTyjQU2TvF5Iqsis4msW44i2GM8zGidYfGWbxMHxyEOoGEk69gRfsn8IemkeCUUSlVFIKwA/aFr0SQzfTd/TuB3Iq3GR/KtiRoApqrEbgGgr9/KdCfwx2RnZEIC1uNBjD80zKQXSenE6eLzyNnkljApxUzaTmPFPnRWnODkCNE4pvwXiTQxbwcssR4LTSys3r0UiZq50Q+ieiB7kgcs9NmMRjoSXMGLI230zzG5TuOKgsGDHFD2FcNICffkeirGnNIaX+ylVmQ9UOANYNddHQepBWeYKtqJIqju8S01sW2oPxdA9XZFlkns+RCw1+olywRekqYmryAdUROU/c3paSdWHLSNkmSofxeKrklW2D9+qAOVTwox/JZyj1wPHVphKtru6tg6O6jff+0ROCxA7s7ski4NXUWjAal5pAjTyulsx+Qmmjs2Tk17VpbSBY9GPUWp1J91CpNxW8hf+HGA8gdKqtnKlHvgoBST7kQlGHJIu7kUbCQ09AxWch0MzqHv1gAM3dzwhqwKuuAD1itucCIgywpaUa+gsuGNoqd30gDwmvGoh0OLitgovVi64R69L9FRAzMgu5TYJI6AsWMiOOsuYkRWR8yOopisTdaToo6q38QuXJ+XRQCSiiCsoHuMvD2x+/aaU0h6Bzf/zs2CzbHp32CbjEA1wPSkdQLkgjlowe18FD+59iMpAKqATKq1XaJ6oQKhgniozn8VTc6qKb64JnY2L29soNSFfMoNDGRd2r0rwDgUwT0yUS8TEySiCnToIakeiFJXOBWpxlKHJzh5Z1OLugrzc6RD4xII3DByVVN2rBN1xkKRXz8arxF2unKDRTqVyA/wCAgDKLNageJ9xGQ2PAxoCphS/jHGg3jqTEPaqadW0aNtiglbu1jWHhCsPVNwtmmpJ2MiFAwvidhy4OtzZV2FM9DMVDv76jDhAsMDe5PaxrTqjxzBvBVlmTOqbD9RLNSVK6HrFefcsgJapfLXKatCAB3gLxGo2tSbH/SMKcqGJDcAvPsFqgUSJ4cRQGlrR10JpveJYRVAF+7QqURb0uiWnmpBnBWxeuhTcAWYjToXf7olQfX8QBPwV6GqR2CECCCHlqxgP3ezaNbnHEQBbBFupRq0deOuUnY9ez+TFMifS9IIZe4KrCpFQEb7CzvEYTXWLCqqrYEo2cfMqBykMzxLKHg5SN6onoWgzbl7XIuMg31dlrUPCuj2pvdbIdS2NimGNZXN3I9+9/tgRHqeAYre0LICA2bYCwiLcZ7CghUoqaFkDC3OReZKLn9LCmLNbDC99yi6Ek6g9wYSK8CoJdSisDDCo9ADe9JCAVP2Bkmo+lBA6XpPgTNUnybGiONoRpkAlypEa6mAJAX/P41Zkr3vRiptGi6I3L/ScXlVcyS4RcMhdrMsHphYmyCt0lBb8KGXiIivZmkDT4msp4n7CUeMJ15xeuqo5+vNGtZ9QzIJ2OmJiajKFKgjRJpRKbjxUGSQPPsGJAzFW9gLPIaK1K9E/oHY5/IqOhkjU78hQUHJEGD1VqiOYVvWDqq6SE6eQMHiVRCIMF3CN0+Kwo6D+QaZVxY6MXxGdCO1UBCxgfHSQ+4ru7hWkbTluHd9SKsEsp73S0Oceeg3VVmwnSFGAQXWanuClsRAt8bWqIhWlxQwku9A529Z+jH8Mk1cRqp9iQ1XLbbdetGdzO4GGldLTdvi4ua1ZFCFxk1eESDpSmKZrvKHFqn40HPibErFkoGyXxlHyRZRbMhM8AwYbTK3EHpiVh8knuCpTFLrAQHBAwiCOBcxF3RMEqLAeNX5kfFRx0k5OshdbyNZ0V9YC5Zd9A1PzIjIZ+gpABkjqeMBwlMxLh7JXe00xg0IF4e01rUpEsY9DeBUEUHCXpGFVqVK2rnSywrzk/tcCwNZ2uw+gbIKbDUc7NHu5253hKySUvIYFBjdjT9mjfEBHQUXsbdE8CdRKC4RpmWqZLokMZZFAkEjPK3QWx+RV7AvWFlEcJ6jNq6h6xvNxfgFaE9Hlxh8AoA5tKhSQJywLJ8s6gSc1TPY35FY2qrNTxBYUDgdI5GVQhQmPgVDPR1rNy6kUwBYiGimFshbftCvsx/RiUcd1BEU2ChusaG96YYKm56WyKtejEGosFlSxfJc/VRYWkVblWZoHbtM3LwTT0Qk/45QQxujFv2mtS2EguTf5esnjxaPE0g9zCsaq26kwccEbOjk6sVKOI45OqwFAooy6gF7SmQUKeHFKypsfF6jOjXI6ir3nFX/hkEe5H3ESAR7wxSr9SgQ91OMpXtAwpPfqIp5UkmDofljFvpYpB0WwnmgitgJVKnBe5xSsJpyNdlR4LHYAnfbAxdmhrol0Vw0DrFgnN7L7A45tdqz6IN7CK1KaSeGvDg0oMU5E7CcQFQWNxyVYHgdLIEI+wnaphrHCMJlNTV96Mrtv4UVayibJqCk6GmUFmPPwblPEj/Y01CDbIgs5bQv8KNa4OhUguiVwXF0JS2llOb8qf4un+GrgTprBSCTKAZbyShILarNTJn6kUz5EwXp2NN/w2jvnnXCYGbCOfMynbKvydW5eanBAR45EqcpZGRox0vSCELFJRl/Kc+yJvgZnumJ8jBjJmZR500FzyZ+nKxZUlJZ7ojmJOSZeTOWgkCpFlDuO3gDtrpaarxSXQgZth/xcyGP91qG6Xl//7DiQCw7yGM9JNE+1fNkBBAJe2lVPkIP3yb2qfrRQIVImM5bm5jWUoguIUcVJHgBoqkSXhGl/5JKgrwvIZfPK6LJor40TyACRxiLSgAJ+zvUvEeJ582q+Co8hnv/xOYjH82lSStFPpWTAC9m/KmTcCKpwRGiM5zqrY/yyq15VU0y7OpSje3Iox3Jhgpc2+zlBuXOCUMgkYe+L68SycnZIDyo9S+FxKFSIhe7D5QUXX+ZHxeV+yCnLDCtXogNacoEXHlFwmuQRB9fFkZy7Dm3r9DNJNzlAKobqCwpBaXqpkh9LL2j64EU2wsDylo8D9pmUuJAkubbBHbPstV+bp4b1bgekCCBh8twUbwX/mEWDZOMUxQt6BXko6HL807I51pAcydH5/0rvksbSyK8mUDnqCooH3W39aWkBbKeWsv0DG+pHqKSNtfCYj+i6LLiAU14T5mi4mhlyexUVKZ2jKLm7YBaSOuEUuElbCnxRcrp43UviX6foXxq4Ehgp4TO9TCpyNmj4AeWA1VbuSplVcimJTtchTj9sU1BwxyG6CuEyOyhXM/sIzbMdlDRU2FAHyUZfjqfqGXUGpvsXH4RzFz/eELd0JGIDR44pQZX5wlagJuUjcxBflRpzxWHJI3avRkh9RfrdNz94NbZ/J8VFifLuCaoWcLjka2kPObXW1hgik9xT5fqG+yLRU4gN8qy8KoQRFqneG/r3OH80fP2kS4n4GxzhbKEqA3ijbX4wmr4TUk1v1cFa6v2L87Lronw6U6h6g7qivkPdL1DE971C4JXEVyq3EiIVfB6BdALHCavRs/4Jl7aqz7S9UoL4rpF/BXBGEhBlxabMd665CeYECUr8jG4H7UHxoFVl/AW1gY8rPCmD0rqXXRxoy+Q9O9qUT+zgqZI4knOgc5ty5jfyTt0X52DpPPR89OWrgrUQxI3jDHjAhyPhTC1DdSvg+9tc7FfWbC4XTZZB1l/eyKomiAwb8PBcc2t2Sk1Pt+dO/5SXQBbZIy+EkOdT4fmxorvZli8iY9W9KrF64KOCj7wc7HogcSIu40ibF74Oc6QYZTL43kJeG9fcLlZiDcl+68sGRC/rq56CnstPyR5UOnCBR+WfrQnAC0qEjHaMtgyc4h9ZxEQsX+CjccxTUyxer7PKaOfh7SvedaC4Lp2t9LM00nD9LJ+NnGJFSKujlsepUqFPAiwUr0SUpJfuCZnNuKDuukDWSjmDfM/gO1Wujl2QRyEuLjgllTRydk0QUVLjlEysTh7Vqukkq5vkwtpPIhX8GwZ+hk5AuNRH8MLCTECnuAeWrld5iQCQjdu16mcRFDPkbdUbX8Q/kgwpCmtTD8xaRlazUPTdEP2MfpXqEgdlj4yiF16OtaHNdVHm5eycFvCpNEt5NrIaZF7z5odXqfNrHs+4MIG1xIUoRXebq7ZVfr92zBIdR/jtC5KF5+MKFXfCOUKiqsoxfXUI2RG8JmcBq+PCWCCzGwGpPOmh6h8YiI6TlkVwwShr9zK80PxLMAkU58m2ZXcL2+YHGstR8NBWAkGorqofEdO5QGOB1Gof0h8zgPj4tw83Hx/WzbvrVzd3Fhq8+uYz33TTK/dv95s+mN96uPn+3d31g03ol69+9cVPfvPjw6df/t2rX734j9uHb1/88O7Fw/2LL376+OmLF19ff3/9zc0v9xfeX//ql3/H9dTZPp2vft2nwVFDH1Ub2bT0KCZlo+pvMx9mDDvAMab9nUF/7VMp2yz2/qz8NQx+NgMAZ9e/1WpOHaMNQSdSg+Un9kviV+ZZ5dKE4oeuT7kFjRZj0LPI991i4ibtYlGD2AIXfg2ezcRF7VLQr8ToidFTUrlaorNUKhf1kiqvVJp3fvXMhVcGnU2/NH2ATtSJmYFy1Js5cWGgdSlcKu2YfKbPDM1K0LMS/aLplkQFEJMvuXLRPAuzLpVXKq80OuuBC88GbzL5Ih6INXBJiUvmotFrDlx4lnmz8AvS1aJJ1MpNFlYZvTJsZW/r4MLoldEbpGvKee2XwqVxUYPGxjVm1jK/mERj9MaiW+MXG9c6r3RGGPnJhQaTX/BLD4FL46LN6Rxj6mxqhxV7okHmJnPpMFGHr3uLXLjZNV5n9M7ofTIePD+QlQElBrw0GH0w+kiFi5oPKDGypjsKv9iVATOM6r9o3uiTKQ02Z7A5A9YYTHAwwQFdJnSZ0GVCl8kHGScTRDPs4seb7NhxyVxozqxn5iYsPKHgRDpm4U32dsLe6Jv9wivw2bqwsAnXzVY/d/E3mSdiMeGQCSUmjHJc2pMLc+njcxcIMsKTC11Dz+PCBAcjIA8TWs9BL/DEcYlPLulzl/xbLowHg/1el/Z7Xf71hImF/ydM7OKV3/FBU3OrNnIAOTz9jxM4QR5me/pIsOTlLUB1kVQFqunpK8o8mp9w3lKfRdSXLfplC5ULnbcACsDdTOczVyRyvpYkn12hrUXdly3meQvbaZxzhW/nLfLlGNmRuKyE5sUY+XIMj0+e3lY4tXHuoHgY3i5fkVP25G70MMVCw4s+qxzmfNagCssT8nHZQLDARQOVE1nwdd6gcWbtrAElXjrhe9lAyPJFAyVcDF49b9AB/88adMorLV102UDHRS4aUBU9dFIlnT0dJHQND1ZdyzjjSnuDfIzcMtWAnPcxVaijRIAlLi+envc4rygkwkaFs5Vz7vLyFt8M8/z7uZBy9OPyFsex/LO/8XKkc7H1Wr6onL0kNV6OdC65kY9wWe3V5l7i5UjpcqTk37DlPKOVy16+cTFS4jyQf7/FSsTP38iXIxmkbgcodI5O52Iv37gYyYIdOx+04U6dSy6fObq8pWJile3zgarLNy5GKnxQcfph73N51gGmi5Es5rbvT/CFungu03rjYqTKR5/1xZ/gn6FqHCbXV6mearnkZ6Z0Xl9fANbXdNqZaltfkLZPMMTOp6P0oZ+L3vTNOKsisI8g67ta+szU+Wu4TVf6Gol+Zn1i7fI1fW1aH0oQmKCPHVz0hkdgvZ2Lrr7roT8XfZssRxXRn8svHwPR9/bOGsltS/pc5bkE82UYfVn4spFypnwM9bKRPidxMZLqTZTBPJfgrE9r25+LkfSBPDO96VyCMx+NSefGN22KZ5Ks77kEZ7ulPxcjyf7KAJ9LsN4f9udipCyP6M8IGpy+UPJnBQ3kJ3e5rQ4diMhDkS5xyFAkNhSIDbnCY8r+iMWmIhd8/5kBE/RUXv1suq/oDTfaneIAHBD8ixJEv4GAJxD6BRz7gIcdcJgjAEBEtUeipwUjELtFgRkxEmREOot0FvH994BJFw/5CYZSABXAEiZmlgj5U3ZQgQaEMYlQLDFCImJJBCCJmCEx+URAkAgB0gQjcGwhOZoA4FD0Zia8y4Q4mdgm03UmmsmMkKFnJq4rrKEE/wVw4LiDAw4Qq0CsQmBWCHQLCEwh6C4E3aU77sDN4bgDv1hRITgpxBOVSVSiykoAWVnmgTvwjOjwABwcaaAB0XaFrBVKVOZSCW0rw1Zioka03aJfwAgYdkEM2X8BKsAorQJUAHc0otHGXBrxZyO+PuAHfhEPNhjzAByACtjbjvXoUL4DvfTsvxxp4Bf70JlEB67qcEFvvAIJOpzcmUuHIB2CdKaEPJ/ACJ5BrA6xHKHo7FiHIwfCNYKjF6AQMNHZZUEaDnAAMeCbHAAHb7L9x4UGEOT8Up9cGN2BEcTwwEfSb7nk/78La0Aa/5BL+0Mv/Xdfxl/y5U+GGHz221zPiMGjFs+IwUWDZ8TgGTF4Rgye3HpGDJ4Rg2fE4D8tYnA6Zv5nRQxEUkIZ0qNd8W9XsEhSdCigHor/cO7JYZK0HIpjyFUOxeOrLAFsQRiCAtgpwZwK4Z5gC44q6P+iQqG8J7tWVQLqISA7gczuqlEg7AoEvKE64sArxFuBQCsQYQUC3jC8mgHkgAA7YgOjG6jkoATPcJUjkMEqcSC6jAS1kbg+knSMxHCRgSIrOkAJhyEceKCMoXkZA28yTy9jyATDOfrF6xeAE1bhAs/Iwh6IA///ewT7R/0CUb6jCg4nEM2uigU6K8AXBXoWJliIngvzLOAWhYxpYYRKyFmxihWFXAkWKwFhJQSshICVsOuoX+AmQXQtfpMGkLwC1lTAmsrMVlGDgwvMs7IrFfTjKHjw8geHIcZnLgTfdZQnFxqMJ/USwxvMxxei9Tod2kh/lEv+Y17KX8Kl/qyX9ode+h/lMv7KL38yrOCzn1Z5xgoetXjGCi4aPGMFz1jBM1bw5NYzVvCMFTxjBf9psYLTeeU/J1bQFOY2les2hX1NfjTl2ORIu2JSxxMUS3aFb9RckwElAdrVT1d01hWHUXtNfpOE5lD6lUprEolD8fco1DAIYWggD4/+UtUwOCIhPEFpzinVQZXzLKpeUD9T/Tj+QNi2jkUAAYTsFQw88/MQRDCRtGpE9CNR9FGzwDOC8EjoGbufh3BcgJvrPITDA5QZkEhNABCJhGhiLkfpAq+U8uTSfu/LeHKZf+CFVPtvv8Tni1/S8+Wv7JJ/nkv5K7/8yeCBz36W4xkeeNTiGR64aPAMDzzDA8/wwJNbz/DAMzzwDA/8fPDA/vPu+sf7Hx7M6Xlz/5br9fe3dz/aN81+/LCH71/+cLu9+PL63bu7my+5s/3in2++ub958S///Rfbi/99/+r+4X578U83d/9+83D7+np78ffvb6/vthcfrt9++PLDzfvbN9uLX/y9tX/xD+ZXvfjH7+//7XZvenTjd3an6sPt/9knFwve2De3b21C+6zS7mO94nInh8tcuv2lu5tvbt5+rZduH+7k3gESvPzHfzB/7f797c3bh+uHW0ET3+4j/Hj99vW3cu72eT/cf2+39L22j8eDu5s3hnp8ZIin4MfPT6RPn2wRH28/fHbV79/vbV/fv39/81qL/mRwz8ebr99fv/1mf/Hh/Q83n2ytv6H9fxP88uJvvpC3641+/aVEKO/c8uHb+//48O72u5sP9LXfsV/f339tPIUD/bfXr9/ffzAEiDffXr/bn73+4f2Hnbp+8+Hb29ffvb3Z3/oq+a2vrz98u7/39f3Deml54a/url9/t9/cCffdhx/e7OvZb37xktk8ufn2fnfxP/Fgscab67sPN76NPs+PC1D6+vbDw77t+70v46dP/xf8EF6R"></div>
+  </div>
+  <figcaption><p>The amount of damage sustained by successfully scanned QR codes. The hover information displays the number of points to the left of the line (number of successful scans up to and including that amount of damage).</p>
+</figcaption>
+</figure>
+
+<p>Under these experimental conditions, level L codes become much less readable above ~6% damage, level M above ~12%, level Q above ~18% and level H above ~20%. This correlates with the resilience I quoted in the table above.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>I’ve learnt that the four different QR error correction levels influence both <strong>data volume</strong> and <strong>ability to scan</strong>. For a given QR version, increasing error correction allows storing less data, but makes scanning easier and more reliable. However, for storing a fixed amount of data, like a particular URL, the version is computed automatically, and the easier scanning can <strong>trade off</strong> against the data volume. This ties back to the size of the individual modules (little squares): there is a minimum certain size before a code is scannable, and so a denser code needs to be larger.</p>
+
+<h2 id="experimental-caveats">Experimental caveats</h2>
+
+<p>The results I’ve talked about here are all empirical, and there’s a bunch of reasons that they’re not perfect:</p>
+
+<ol>
+  <li>I tested only one method of reading QR codes, <a href="http://zbar.sourceforge.net/">ZBar</a>, although some quick experiments with my iPhone seem to correlate with the results here.</li>
+  <li>I also tested only one background image, so the behaviour may differ greatly with QR codes contained in different surrounds.</li>
+  <li>The QR codes are generated to be perfectly rectangular and aligned to the image pixel grid, which is unlikely to happen in the real world.</li>
+  <li>The noise generated is random Perlin noise, which isn’t likely to be what occurs in the real world.</li>
+  <li>The overlaying of the noise carefully skips damaging the position patterns (the big squares in three corners), because the performance is catastrophically worse if they can be damaged too.</li>
+</ol>
+
+<section id="external-links" class="no-print">
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=QR%20error%20correction%20helps%20and%20hinders%20scanning&amp;url=https://huonw.github.io/blog/2021/09/qr-error-correction/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2021/09/qr-error-correction/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2021/09/qr-error-correction/&amp;title=QR%20error%20correction%20helps%20and%20hinders%20scanning" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<script id="plotly-template" type="application/zlib">
+eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZHj9toxnX0+LSNhNZK/3zDolpJBYWRXsz+SnJi/x6iHXGYzaeYFdcvQiNEtp04hbIkJfZJ2UNEote2McvoMf6RQc01N0boDqvMWylXqoHqkfpHaMk3AO7bdyigMbwp2Tat2WBNtoOqZrNGLLZl90zw/1pJ17BvJjQSQVY1/BDGcuL8re1RrugaZHXZmiRa6Lbx316XrRFQFuJ92artlL4E7g3X5mMNO7TVzVBxRnN2siZbKq3WUqBPnpzjbMBuIzVYYd5hULutXz4ij9+kAE+W43uPfhxM3zbCfXVyWEDjoNtSUZ1Rg74iDyukr7kENk9P8Q+QbSOWQLRmD9EzwbKcFWkWV2WcVIxmeeUwKaEZSalDUZalVUyrPC7KNKFJMaLSAkKfZIVHlSVLMlallBZ5WsT5iCooYSUpmEOxQFuJ2kdUVZAkJqVHoZJQ6QiioA5RlUdZPdler0NlMWEFqTz7NFCGyh2qAPaMlKVDZWH7WJY5Q8QJYTkpvMbsWCFzKOAFxsi9JT4wKrixyEnueeXVsUpvekZoXJAicbAiMClq9jBwUZKRynuyDJsIij0sIzQHicxbttzrG63rcTkB/4HXvdojnUmWeBxYDZpNy7GtdB9VaHTsB1kMH54PWeDCPkiBoB+7bkIeqUdCS8HNiq+nnJxy8p5y0od9kAILOSXBlAR3mAQQ+DYN2t6ohearkyn/70/hD5KP9LBmSrgp4e4q4YLQP0mFaW00ZcR9Z0S4TFqJfplcc3hwdJxepLDmulZKN71lcbTv9T+zOdA5cLCMWjHufA1GwfC8aEGa0YM4wAGAQEhqHLJPxvHrUvccAj7OoVc25TcbwEWT+xWs+7+ZV7AF4EoWQt0CMaQRspI3QUqGnGDOPFNvt8DLMQm4Xdq0/xZqh037sOA23OmpBOxwicP15hbYeSqW3aDnvBbTtHCaFt7TtNCHPaaA4TPpEkBI2ft9iPNTSIgYfNLYnoSdnlSOZ2iYbUvBmzG9L8mhZULsg5HwqRzHdeS3e0Ys30BeIZp3nTLctKprxJwP0ljeXGv1GirLC/Aa6MIYgPo4s0Op3bCaCY1p2hvd1iZyaenPGa/ULYVdwTbqxd+D6EzL5dQxTB3DtTuGQ/St2m7opxCcQvC6Iej7w1eOk8QxDkADBdKF7VtHs1FoA7NeH0tKZAss4tSXIMOiDCCUVU5OtS8CUpTFpDpIpiAEbEDRPB4UE/fsUTGIQZV0X5HGgCghYmNr12iuOvPp7SO7DtxGs8XZVRX+cnZVRfKuOR6Fj+4C9Uv1itV6v1MxFnTN/vcwG7rWnAyuMEaP5wszYcdnLtsFDFqRFHOz/+oOImqpetHjELnma6F/nvNeS2WC4gs03aIJh+3FAK9+nP3VCzvYKsTu92Pc0GovB32mWPMGerSvU7fD9YwYJyxvXuyM1y8LrYZPPXVJN5b5+cDHTA7iQydf5Eeid6HVuSCgvfmj2L7/QWwxJpaQGuFEFCe+H81DD1NeP6cECWrNa3eyh9f69qvl4B7elyTL1TKv/tKk2+fa+d7sb8vHV+Om4Aa6TjWfR48UvfDfyXQLdHa7fwEhtg6y
+</script>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:modes" role="doc-endnote">
+      <p>There’s also the concept of the <em>mode</em>: Numeric, Alphanumeric, Binary or Kanji. However, they all store an (approximately) equal number of bits, so I’ll just use the Binary mode, because I’m far more used to talking about bytes than bits.</p>
+
+      <p>Details: each mode defines an input character set and then an efficient way to encode those characters. For example, for Numeric, the permitted characters are 0, 1, …, 9, and they’re encoded with 3 digits in 10 bits. The Binary mode is probably familiar: one input byte is encoded into 8 bits in the QR code. To convert numbers in this post into bits, multiply by 8. To convert the number of bits to the number of input characters in each mode, divide by the appropriate coefficient (Numeric: 10/3; Alphanumeric: 11/2, Binary: 8, Kanji: 13). <a href="#fnref:modes" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:quadratic" role="doc-endnote">
+      <p>For fixed field of view, the distance scales linearly with the side length of the QR code and the field of view is proportional to the area, which scales (close to) quadratically with the side length, so the permitted distance is approximately inversely proportional to the square root of the required field of view: quadrupling the required field of view requires being half the distance (approximately). <a href="#fnref:quadratic" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:consistency" role="doc-endnote">
+      <p>The various numbers flying around here match up: level L modules need to be ~30% larger than level H ones, and the level H QR code requires 2.35× more modules. This predicts that the level H code would have to be 2.35/1.3 = 1.81 times larger than level L one, and that’s pretty close to what we observed: 1.4/0.8 = 1.75. <a href="#fnref:consistency" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <strong>Huon Wilson</strong> <a href="https://twitter.com/huon_w">@huon_w</a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list">
+<!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2021/10/nsw-covid-qr/">
+                   <h3>Mechanical sympathy for QR codes: making NSW check-in better</h3>
+                     <p>QR codes are now critical infrastructure here in NSW, Australia. Let’s learn how to make them better.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/08/home-cooked-app/">
+                   <h3>The joy of cooking (an app)</h3>
+                     <p>I’ve been writing a bunch of code designed to enhance the life of just me and my wife. It’s great fun.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2020/04/worktrees-and-pyenv/">
+                   <h3>Git worktrees and pyenv: developing Python libraries faster</h3>
+                     <p>Git worktrees and pyenv are effective tools to minimise the cost of a mental context switch when working on a Python library.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+      -->
+</ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson — <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+<script src="/js/plotly.js" type="text/javascript"></script>
+</body> </html>

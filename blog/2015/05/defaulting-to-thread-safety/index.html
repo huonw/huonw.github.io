@@ -1,0 +1,1405 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Defaulting to Thread-Safety: Closures and Concurrency |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2015/05/defaulting-to-thread-safety/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="Rust can model properties of aggregate types with certain trait tricks, which makes closures and concurrent APIs interact well.
+" />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Defaulting to Thread-Safety: Closures and Concurrency" />
+  <meta name="twitter:description" content="Rust can model properties of aggregate types with certain trait tricks, which makes closures and concurrent APIs interact well.
+" />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2015/05/defaulting-to-thread-safety/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2015/05/defaulting-to-thread-safety/" />
+  <meta property="og:title" content="Defaulting to Thread-Safety: Closures and Concurrency" />
+  <meta property="og:description" content="Rust can model properties of aggregate types with certain trait tricks, which makes closures and concurrent APIs interact well.
+" />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Defaulting to Thread-Safety: Closures and Concurrency</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             — <span class="date pub-date">26 May 2015</span>
+           
+           
+         </div>
+      
+      <p>Rust has some powerful tricks to model properties of aggregate types
+via unsafe traits with default and negative implementations. These
+features motivated by offering flexible concurrency/parallelism, and
+allow powerful closure-based APIs without losing any thread-safety (or
+memory-safety) guarantees at all.</p>
+
+<p>I realised that <a href="/blog/2015/05/finding-closure-in-rust/">my recent post</a> on the low-level details of
+closures missed an important aspect: how they interact with
+threading. This post builds on the struct desugaring in that one, the
+general concepts in <a href="http://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html"><em>Fearless Concurrency with Rust</em></a> and
+the discussion of “markers” in
+<a href="http://blog.rust-lang.org/2015/05/11/traits.html"><em>Abstraction without overhead</em></a>. (I suppose I should
+link <a href="/blog/2015/02/some-notes-on-send-and-sync/"><em>Some notes on Send and Sync</em></a> too.)</p>
+
+<h2 id="threads">Threads</h2>
+
+<p>Spawning a thread in Rust is easy:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"from the parent"</span><span class="p">;</span>
+    <span class="nn">thread</span><span class="p">::</span><span class="nf">spawn</span><span class="p">(</span><span class="k">move</span> <span class="p">||</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"child prints a string {}"</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="nn">thread</span><span class="p">::</span><span class="nf">sleep_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>As one might hope, this prints <code class="language-plaintext highlighter-rouge">child prints a string from the
+parent</code>. Like C, an binary exits once the main thread is finished, so
+I’ve inserted a sleep to (usually) ensure that the child thread is
+spawned and prints before the main thread dies. (It could also call
+<a href="http://doc.rust-lang.org/std/thread/struct.JoinHandle.html#method.join"><code class="language-plaintext highlighter-rouge">join</code></a> on the return value of <code class="language-plaintext highlighter-rouge">spawn</code> to block, but there’s an
+example below that the <code class="language-plaintext highlighter-rouge">join</code> strategy complicates, so <code class="language-plaintext highlighter-rouge">sleep_ms</code> it
+is.)</p>
+
+<p>It’s one of Rust’s key guarantees that this is ensured to be
+thread-safe, statically. The standard library ensures there’s no way to
+pass references between threads that get invalidated and even there’s
+no way to mutate things without using atomics or locks (among other
+assurances).</p>
+
+<p>This all works automatically with closures without too much magic,
+despite closures being very magic… how?</p>
+
+<h2 id="trait-bounds">Trait bounds</h2>
+
+<p>The signature of <a href="http://doc.rust-lang.org/std/thread/fn.spawn.html"><code class="language-plaintext highlighter-rouge">spawn</code></a> is</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="n">spawn</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">JoinHandle</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+    <span class="k">where</span>
+        <span class="n">F</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="nv">'static</span> <span class="o">+</span> <span class="nf">FnOnce</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">T</span><span class="p">,</span>
+        <span class="n">T</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="nv">'static</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<div class="join"></div>
+
+<p>In words, <code class="language-plaintext highlighter-rouge">spawn</code> is a generic function with one argument and two type
+parameters:</p>
+
+<ul>
+  <li>the type <code class="language-plaintext highlighter-rouge">F</code> can be any function/closure that returns a <code class="language-plaintext highlighter-rouge">T</code>
+(<code class="language-plaintext highlighter-rouge">FnOnce() -&gt; T</code>), can be safely transferred between threads
+(<code class="language-plaintext highlighter-rouge">Send</code>) and contains no short-lived references (<code class="language-plaintext highlighter-rouge">'static</code>),</li>
+  <li>the type <code class="language-plaintext highlighter-rouge">T</code> can be any type at all, as long as it can be transferred
+between threads and doesn’t contain short-lived references.</li>
+</ul>
+
+<p>The <a href="http://doc.rust-lang.org/std/thread/struct.JoinHandle.html"><code class="language-plaintext highlighter-rouge">JoinHandle&lt;T&gt;</code></a> allows for retrieving the <code class="language-plaintext highlighter-rouge">T</code> that <code class="language-plaintext highlighter-rouge">f</code>
+returns, via its <a href="http://doc.rust-lang.org/std/thread/struct.JoinHandle.html#method.join"><code class="language-plaintext highlighter-rouge">join</code> method</a>.</p>
+
+<p>Why each bound on <code class="language-plaintext highlighter-rouge">F</code>? Well, <code class="language-plaintext highlighter-rouge">f</code> needs to be a function/callable of some
+sort, so we need one of the <code class="language-plaintext highlighter-rouge">Fn*</code> closure traits, and <code class="language-plaintext highlighter-rouge">spawn</code> will
+just run the closure on a new thread, and run it exactly once, so
+using <a href="http://doc.rust-lang.org/std/ops/trait.FnOnce.html"><code class="language-plaintext highlighter-rouge">FnOnce</code></a> gives callers of <code class="language-plaintext highlighter-rouge">spawn</code> the most power.</p>
+
+<p>The closure is run on a new thread independent of the parent. There’s
+absolutely no guarantees or relationships between how long the new
+thread runs for, and how long the stack frames of the parent last, so
+the new thread cannot have any references to the parent’s stack. This
+is the <code class="language-plaintext highlighter-rouge">'static</code> requirement: only data that can live for arbitrary
+long can be passed via the new closure.</p>
+
+<p>The last bound is <a href="http://doc.rust-lang.org/std/marker/trait.Send.html"><code class="language-plaintext highlighter-rouge">Send</code></a>: the closure is executed on a new thread, so
+it definitely needs to be safe to transfer to that new thread. This is
+what <code class="language-plaintext highlighter-rouge">Send</code> guarantees.</p>
+
+<p>The return type <code class="language-plaintext highlighter-rouge">T</code> can be anything, as long as it can be transferred
+from the child thread back to the parent (<code class="language-plaintext highlighter-rouge">Send</code>) and as long as it is
+also independent of any stack frames (<code class="language-plaintext highlighter-rouge">'static</code>).</p>
+
+<p>This all sounds fine and dandy. But there’s one hitch: the <code class="language-plaintext highlighter-rouge">Send</code>
+trait is defined entirely<sup id="fnref:almost" role="doc-noteref"><a href="#fn:almost" class="footnote" rel="footnote">0</a></sup> in the standard library. The
+compiler doesn’t know anything about it. But, somehow, even the purely
+compiler-internal types constructed for closures can implement it.</p>
+
+<h2 id="witchcraft">Witchcraft?</h2>
+
+<p>The main protagonist here is OIBIT.</p>
+
+<p>Ok, fine, it’s really default impls, but OIBIT is more fun to say.</p>
+
+<p>Previously, <code class="language-plaintext highlighter-rouge">Send</code> was a super-special compiler built-in trait with
+powers unseen by human eyes. Then, everything changed when the
+<a href="https://github.com/rust-lang/rfcs/blob/master/text/0019-opt-in-builtin-traits.md">opt-in built-in traits (OIBIT)</a> nation attacked. This
+introduced the concept of <a href="https://github.com/rust-lang/rfcs/blob/master/text/0019-opt-in-builtin-traits.md#default-and-negative-impls">a “default impl”</a> for marker
+traits (traits that don’t contain any items). A <em>default
+implementation</em> for <code class="language-plaintext highlighter-rouge">Trait</code> means that <code class="language-plaintext highlighter-rouge">Trait</code> will automatically be
+implemented by aggregate types where all (if any) the other types they
+contain also implement <code class="language-plaintext highlighter-rouge">Trait</code>.</p>
+
+<p>Syntactically, it looks like:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="code"><pre><span class="k">impl</span> <span class="n">Trait</span> <span class="k">for</span> <span class="o">..</span> <span class="p">{}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>In terms of functionality, suppose <code class="language-plaintext highlighter-rouge">u8</code> and <code class="language-plaintext highlighter-rouge">String</code> implement <code class="language-plaintext highlighter-rouge">Trait</code>
+but <code class="language-plaintext highlighter-rouge">i16</code> doesn’t,</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td>
+<td class="code"><pre><span class="c">// implement `Trait`</span>
+<span class="k">enum</span> <span class="n">Good</span> <span class="p">{</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="p">}</span>
+<span class="k">struct</span> <span class="n">Excellent</span><span class="p">;</span>
+<span class="k">struct</span> <span class="n">Wonderful</span> <span class="p">{</span> <span class="n">x</span><span class="p">:</span> <span class="nb">u8</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">String</span> <span class="p">}</span>
+<span class="k">type</span> <span class="n">Splendid</span> <span class="o">=</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">u8</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">type</span> <span class="n">Brilliant</span> <span class="o">=</span> <span class="p">(</span><span class="nb">u8</span><span class="p">,</span> <span class="nb">String</span><span class="p">);</span>
+
+<span class="c">// don't implement `Trait`</span>
+<span class="k">enum</span> <span class="n">Bad</span> <span class="p">{</span>
+    <span class="nf">X</span><span class="p">(</span><span class="nb">i16</span><span class="p">),</span>
+    <span class="nf">Y</span><span class="p">(</span><span class="nb">u8</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="k">struct</span> <span class="n">Poor</span> <span class="p">{</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i16</span> <span class="p">}</span>
+<span class="k">type</span> <span class="n">Subpar</span> <span class="o">=</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">i16</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">type</span> <span class="n">Underwhelming</span> <span class="o">=</span> <span class="p">(</span><span class="nb">String</span><span class="p">,</span> <span class="nb">i16</span><span class="p">);</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>This rule applies to closures too: if a closure only captures things
+that implement <code class="language-plaintext highlighter-rouge">Trait</code>, it is a struct similar to <code class="language-plaintext highlighter-rouge">Wonderful</code>, so the
+(implicit) closure type implements <code class="language-plaintext highlighter-rouge">Trait</code> too.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">Send</code> trait has one of these nifty default implementations, so
+benefits from all that machinery, and it’s how closures can be used
+with <code class="language-plaintext highlighter-rouge">Send</code>. To demonstrate specifically:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td>
+<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">rc</span><span class="p">::</span><span class="nb">Rc</span><span class="p">;</span>
+
+<span class="c">// can only be used with `Send` types.</span>
+<span class="k">fn</span> <span class="n">check_send</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="nb">Send</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i32</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">let</span> <span class="n">vec</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="nd">vec!</span><span class="p">[</span><span class="nb">None</span><span class="p">,</span> <span class="nb">None</span><span class="p">,</span> <span class="nb">None</span><span class="p">];</span>
+
+<span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="k">move</span> <span class="p">||</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="mi">_</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vec</span><span class="p">);</span> <span class="c">// make sure they're captured</span>
+<span class="p">};</span>
+<span class="nf">check_send</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+
+<span class="k">let</span> <span class="n">pointer</span><span class="p">:</span> <span class="nb">Rc</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">Rc</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">g</span> <span class="o">=</span> <span class="k">move</span> <span class="p">||</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="mi">_</span> <span class="o">=</span> <span class="n">pointer</span><span class="p">;</span> <span class="c">// make sure it is captured</span>
+<span class="p">};</span>
+<span class="nf">check_send</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>This fails to compile, but in a particular way:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="code"><pre>...:18:1: 18:11 error: the trait `core::marker::Send` is not implemented for the type `alloc::rc::Rc&lt;i32&gt;` [E0277]
+...:18 check_send(g);
+       ^~~~~~~~~~
+...:18:1: 18:11 note: `alloc::rc::Rc&lt;i32&gt;` cannot be sent between threads safely
+...:18 check_send(g);
+       ^~~~~~~~~~
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>Both <code class="language-plaintext highlighter-rouge">i32</code> and <code class="language-plaintext highlighter-rouge">Vec&lt;Option&lt;String&gt;&gt;</code> are <code class="language-plaintext highlighter-rouge">Send</code> so the <code class="language-plaintext highlighter-rouge">f</code> closure is
+<code class="language-plaintext highlighter-rouge">Send</code> and <code class="language-plaintext highlighter-rouge">check_send(f)</code> compiles fine. On the other hand,
+<code class="language-plaintext highlighter-rouge">Rc</code> is not <code class="language-plaintext highlighter-rouge">Send</code>,
+so <code class="language-plaintext highlighter-rouge">g</code> doesn’t get the default implementation.</p>
+
+<p>The <a href="http://doc.rust-lang.org/std/rc/"><code class="language-plaintext highlighter-rouge">Rc</code> type</a> is a reference counted pointer where reference count
+adjustments happen non-atomically. This means that manipulating them
+from multiple threads will be a data-race: undefined behaviour. An
+<code class="language-plaintext highlighter-rouge">Rc</code> handle can’t transfer between threads due to this risk, and this
+is statically guaranteed since the type doesn’t implement <code class="language-plaintext highlighter-rouge">Send</code>. (The
+<a href="http://doc.rust-lang.org/std/sync/struct.Arc.html"><code class="language-plaintext highlighter-rouge">Arc</code> type</a> is a thread-safe version, using atomic reference
+counting.)</p>
+
+<h3 id="opting-out-or-in">Opting out or in</h3>
+
+<p>It’s nice that <code class="language-plaintext highlighter-rouge">Send</code> is automatically implemented for a type when the
+contents are entirely <code class="language-plaintext highlighter-rouge">Send</code>, but this isn’t always perfect: it is
+possible to use <code class="language-plaintext highlighter-rouge">unsafe</code> code make a thread-unsafe type, even if it
+is composed entirely of primitives. Similarly, it is possible to have
+a type composed of non-<code class="language-plaintext highlighter-rouge">Send</code> internals which is actually thread-safe,
+by imposing extra constraints on how it manipulates data.</p>
+
+<p>Hence, two important parts of the OIBIT proposal are making it
+possible to fill in a “gap” that the default impl doesn’t cover, and
+also forcibly opt out of the default implementation. The former is
+so interesting: itcan be performed with normal <code class="language-plaintext highlighter-rouge">impl</code>, as one would
+write for the trait if it didn’t have default implementation.</p>
+
+<p>On the other hand, the opt-out is new and different, it is done via
+<em>negative implementations</em>: to opt out of <code class="language-plaintext highlighter-rouge">Trait</code>, implement <code class="language-plaintext highlighter-rouge">!Trait</code>.
+For example, the thread-unsafe <code class="language-plaintext highlighter-rouge">Rc&lt;T&gt;</code> type has</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="code"><pre><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">!</span><span class="nb">Send</span> <span class="k">for</span> <span class="nb">Rc</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>Having to opt-out might seem error-prone, but the only way a type with
+individually-thread-safe contents can be thread unsafe in aggregate is
+if there is some <code class="language-plaintext highlighter-rouge">unsafe</code> code somewhere. Considering thread-safety is
+an important part of writing <code class="language-plaintext highlighter-rouge">unsafe</code> code in Rust, and if you’re
+building safe abstractions, you need to be careful to have the right
+trait implementations.</p>
+
+<p>However, it’s not as scary as it sounds. Safety is still the
+(sometimes conservative) default in the <em>vast</em> majority<sup id="fnref:vast" role="doc-noteref"><a href="#fn:vast" class="footnote" rel="footnote">1</a></sup> of
+low-level cases. The standard library has negative implementations of
+<code class="language-plaintext highlighter-rouge">Send</code> for the raw pointer types <code class="language-plaintext highlighter-rouge">*const T</code> and <code class="language-plaintext highlighter-rouge">*mut T</code>, so data
+structures containing them need to explicitly opt <em>in</em> if they are in
+fact thread-safe. (<code class="language-plaintext highlighter-rouge">Rc</code> actually falls into this category, so the
+implementation above isn’t strictly required.)</p>
+
+<p>There’s one slight hole here: the type of a closure is unnameable, so
+there’s no way to opt-out of a defaulted trait like <code class="language-plaintext highlighter-rouge">Send</code>. That is, a
+closure could capture only <code class="language-plaintext highlighter-rouge">Send</code> types, but use <code class="language-plaintext highlighter-rouge">unsafe</code> code to be
+thread unsafe. This is somewhat unfortunate, but closures are not
+designed to be the abstraction boundary for safety. I’d personally try
+to wrap the unsafety up into a real type with the correct trait
+(un)implementations to help the compiler help me as much as
+possible. Also, as I said above, this rarely happens, due to the
+negative implementations in the standard library; I imagine the the
+most common way that isn’t necessarily caught by that is calling
+non-reentrant FFI function, but wrapping C libraries in a safe
+interface is <a href="http://blog.rust-lang.org/2015/04/24/Rust-Once-Run-Everywhere.html#safe-abstractions">a nice idea</a>.</p>
+
+<p>Anyway, returning to the opt in mechanism, what is stopping us from wrapping a
+thread-unsafe type (non-<code class="language-plaintext highlighter-rouge">Send</code>) in a new struct and implementing
+<code class="language-plaintext highlighter-rouge">Send</code> for it? Something like</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">rc</span><span class="p">::</span><span class="nb">Rc</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">Trick</span> <span class="p">{</span>
+    <span class="n">x</span><span class="p">:</span> <span class="nb">Rc</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span>
+<span class="p">}</span>
+<span class="k">impl</span> <span class="nb">Send</span> <span class="k">for</span> <span class="n">Trick</span> <span class="p">{}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>If this worked (spoilers: it doesn’t), we’ve “asserted” that <code class="language-plaintext highlighter-rouge">Trick</code>
+is thread-safe despite it containing a thread-unsafe type, <em>without</em>
+mentioning <code class="language-plaintext highlighter-rouge">unsafe</code> anywhere. This would introduce a very real risk of
+undefined behaviour via data races.</p>
+
+<h3 id="unsafe-traits">Unsafe traits</h3>
+
+<p>Fortunately, the compiler spits out an error:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="code"><pre>...:6:1: 6:23 error: the trait `core::marker::Send` requires an `unsafe impl` declaration [E0200]
+...:6 impl Send for Trick {}
+      ^~~~~~~~~~~~~~~~~~~~~~
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>Ah! So it’s telling us that <code class="language-plaintext highlighter-rouge">unsafe</code> is in fact required. This version
+of the <code class="language-plaintext highlighter-rouge">impl</code> compiles:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="code"><pre><span class="k">unsafe</span> <span class="k">impl</span> <span class="nb">Send</span> <span class="k">for</span> <span class="n">Trick</span> <span class="p">{}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>This is because <code class="language-plaintext highlighter-rouge">Send</code> is <a href="https://github.com/rust-lang/rust/blob/7cb9914fceaeaa6a39add43d3da15bb6e1d191f6/src/libcore/marker.rs#L38">declared</a> as <code class="language-plaintext highlighter-rouge">unsafe</code>:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="code"><pre><span class="k">pub</span> <span class="k">unsafe</span> <span class="k">trait</span> <span class="nb">Send</span> <span class="p">{</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>An <em>unsafe trait</em> is unsafe to implement, but not to use. It is
+designed to allow representing classes of types with absolute
+guarantees, that users of the trait can rely on even if it risks
+memory unsafety: it is up to the implementers to ensure they satisfy
+the requirements. It’s not unsafe to <em>not</em> implement an unsafe trait,
+so negative implementations don’t need <code class="language-plaintext highlighter-rouge">unsafe</code>.</p>
+
+<p>The guarantee for <code class="language-plaintext highlighter-rouge">Send</code> is thread-safety: a type should only
+implement <code class="language-plaintext highlighter-rouge">Send</code> if it is absolutely sure.</p>
+
+<h3>⚠⚠⚠</h3>
+
+<p>Unsafe traits are great and libraries should definitely use them where
+they make sense. However, the OIBIT functionality (default and
+negative implementations) are still unstable and hence only usable
+with a nightly compiler behind the <code class="language-plaintext highlighter-rouge">optin_builtin_traits</code>
+feature. There’s some details around them that are unclear from the
+RFC and even the implementation, especially how they interact with
+primitives, so I could imagine some tweaks/breaking changes in future.</p>
+
+<p>Unfortunately, this means that the only way to opt-out of a defaulted
+trait with a stable compiler is to store a non-implementing type. The
+slickest way is to use <a href="http://doc.rust-lang.org/std/marker/struct.PhantomData.html"><code class="language-plaintext highlighter-rouge">PhantomData&lt;T&gt;</code></a>, which is a
+zero-sized type (so no runtime effect) that behaves as if it stores
+its type argument. For opting out of <code class="language-plaintext highlighter-rouge">Send</code>, a field of type
+<code class="language-plaintext highlighter-rouge">PhantomData&lt;*const ()&gt;</code> works. (However, as discussed above, this is
+rarely needed for <code class="language-plaintext highlighter-rouge">Send</code> and <code class="language-plaintext highlighter-rouge">Sync</code>, which are the only two defaulted
+traits one can possibly use on a stable compiler.)</p>
+
+<figure class="image ">
+  <div class="image-positioner">
+    
+    <a href="https://www.flickr.com/photos/tm-tm/2634203419/">
+      <img src="unstable-small.jpg" alt="a photo of a sign saying: danger, unstable cliff">
+    </a>
+    
+  </div>
+  
+</figure>
+
+<h2 id="calling-concurrently">Calling Concurrently</h2>
+
+<p>We’ve been focusing on <code class="language-plaintext highlighter-rouge">Send</code> above, but there’s another trait that’s
+important for thread-safety: <a href="http://doc.rust-lang.org/std/marker/trait.Sync.html"><code class="language-plaintext highlighter-rouge">Sync</code></a>. This trait represents
+values that are safe to be <em>accessed</em> by multiple threads at once,
+that is, sharing.</p>
+
+<p>It is sometimes useful to call a single function on multiple threads,
+like a parallel map, so it would be pretty great if this was
+possible…</p>
+
+<p>Just like <code class="language-plaintext highlighter-rouge">Send</code>, <code class="language-plaintext highlighter-rouge">Sync</code> is a defaulted trait, and so works well with
+closures too. A closure that only captures thread-shareable values
+(like a string) is also thread-shareable:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td>
+<td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">sync</span><span class="p">::</span><span class="nb">Arc</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="n">upto</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">usize</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span>
+    <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="nv">'static</span> <span class="o">+</span> <span class="nf">Fn</span><span class="p">(</span><span class="nb">usize</span><span class="p">)</span> <span class="o">+</span> <span class="n">Sync</span>
+<span class="p">{</span>
+    <span class="k">let</span> <span class="n">func</span> <span class="o">=</span> <span class="nn">Arc</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">func</span><span class="p">);</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="mi">0</span><span class="o">..</span><span class="n">n</span> <span class="p">{</span>
+        <span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="n">func</span><span class="nf">.clone</span><span class="p">();</span>
+        <span class="nn">thread</span><span class="p">::</span><span class="nf">spawn</span><span class="p">(</span><span class="k">move</span> <span class="p">||</span> <span class="nf">f</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"hello"</span><span class="p">;</span>
+    <span class="nf">upto</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">|</span><span class="n">i</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"thread #{}: {}"</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">message</span><span class="p">));</span>
+
+    <span class="c">// as above, don't let `main` finish</span>
+    <span class="nn">thread</span><span class="p">::</span><span class="nf">sleep_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<div class="join"></div>
+
+<p>The output sometimes looks like:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+<td class="code"><pre>thread #0: hello
+thread #7: hello
+thread #2: hello
+thread #9: hello
+thread #1: hello
+thread #4: hello
+thread #3: hello
+thread #6: hello
+thread #8: hello
+thread #5: hello
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>The <code class="language-plaintext highlighter-rouge">Send</code> and <code class="language-plaintext highlighter-rouge">'static</code> bounds are “boring”, they’re just required
+due to the implementation details of using <code class="language-plaintext highlighter-rouge">spawn</code> and <code class="language-plaintext highlighter-rouge">Arc</code>, it’s the
+<code class="language-plaintext highlighter-rouge">Fn</code> and <code class="language-plaintext highlighter-rouge">Sync</code> bounds that are fundamental to this behaviour.</p>
+
+<p>We’re calling the function from multiple threads at once, which means
+accessing the closure’s environment concurrently, so the <code class="language-plaintext highlighter-rouge">Sync</code> bound
+is necessary to guarantee safety. Also, by nature, sharing across
+threads means we’ve only got access to the closure via an <code class="language-plaintext highlighter-rouge">&amp;</code>
+reference, so we need to be able to call it via that sort of reference
+and <a href="http://doc.rust-lang.org/std/ops/trait.Fn.html"><code class="language-plaintext highlighter-rouge">Fn</code></a> is exactly the right trait for
+it. (<a href="/blog/2015/05/finding-closure-in-rust/"><em>Finding Closure in Rust</em></a> looks at the three closure
+traits more closely.)</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="comments">
+    <span class="external-label">Comments:</span>
+    <ul class="external-list">
+      
+<li class="external-link"><a href="https://users.rust-lang.org/t/defaulting-to-thread-safety-closures-and-concurrency/1583">users</a></li>
+
+
+      
+<li class="external-link"><a href="http://www.reddit.com/r/rust/comments/37e6w2/defaulting_to_threadsafety_closures_and/">/r/rust</a></li>
+
+
+      
+
+      
+
+      
+    </ul>
+  </div>
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Defaulting%20to%20Thread-Safety:%20Closures%20and%20Concurrency%20%23rustlang&amp;url=https://huonw.github.io/blog/2015/05/defaulting-to-thread-safety/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2015/05/defaulting-to-thread-safety/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2015/05/defaulting-to-thread-safety/&amp;title=Defaulting%20to%20Thread-Safety:%20Closures%20and%20Concurrency" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:almost" role="doc-endnote">
+      <p>They’re currently still “lang-items” (i.e. known to the
+       compiler), but Niko Matsakis tells me “it’s because compiler
+       needs refactoring”, i.e. an implementation detail. <a href="#fnref:almost" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:vast" role="doc-endnote">
+      <p>There’s only 3 negative implementations (approximated by
+     matches for <code class="language-plaintext highlighter-rouge">/\bimpl.*!/</code>) in my <code class="language-plaintext highlighter-rouge">projects</code> folder, which
+     contains 100-200 Rust libraries over 1.3 million lines,
+     written by me and others, mainly others. All three are for
+     <code class="language-plaintext highlighter-rouge">Send</code>’s sibling <a href="http://doc.rust-lang.org/std/marker/trait.Sync.html"><code class="language-plaintext highlighter-rouge">Sync</code></a> which uses exactly the same
+     default/negative impl set-up, and, in fact, one of them is on
+     a type that is already not <code class="language-plaintext highlighter-rouge">Sync</code> (it has non-<code class="language-plaintext highlighter-rouge">Sync</code>
+     contents).</p>
+
+      <p>(That said, there’s always the possibility that there <em>should</em> be
+a lot more negative impls, and there’s a large number of broken
+libraries in the ecosystem… however, this would surprise me greatly.) <a href="#fnref:vast" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <strong>Huon Wilson</strong> <a href="https://twitter.com/huon_w">@huon_w</a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list">
+<!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2021/10/nsw-covid-qr/">
+                   <h3>Mechanical sympathy for QR codes: making NSW check-in better</h3>
+                     <p>QR codes are now critical infrastructure here in NSW, Australia. Let’s learn how to make them better.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/09/qr-error-correction/">
+                   <h3>QR error correction helps and hinders scanning</h3>
+                     <p>A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/08/home-cooked-app/">
+                   <h3>The joy of cooking (an app)</h3>
+                     <p>I’ve been writing a bunch of code designed to enhance the life of just me and my wife. It’s great fun.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+      -->
+</ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson — <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>

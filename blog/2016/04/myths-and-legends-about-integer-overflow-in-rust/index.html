@@ -1,0 +1,1311 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Myths and Legends about Integer Overflow in Rust |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="Integer overflow detection/handling in Rust is sometimes misunderstood.
+" />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Myths and Legends about Integer Overflow in Rust" />
+  <meta name="twitter:description" content="Integer overflow detection/handling in Rust is sometimes misunderstood.
+" />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/" />
+  <meta property="og:title" content="Myths and Legends about Integer Overflow in Rust" />
+  <meta property="og:description" content="Integer overflow detection/handling in Rust is sometimes misunderstood.
+" />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Myths and Legends about Integer Overflow in Rust</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             — <span class="date pub-date">29 Apr 2016</span>
+           
+           
+         </div>
+      
+      <p>The primitive integer types supported by CPUs are finite
+approximations to the infinite set of integers we’re all used to. This
+approximation breaks down and some computations will give results that
+don’t match real integers, like <code class="language-plaintext highlighter-rouge">255_u8 + 1 == 0</code>. Often, this
+mismatch is something the programmer didn’t think about, and thus can
+easily result in bugs.</p>
+
+<p>Rust is a programming language designed to protect against bugs; it
+does focus on outlawing the most insidious class of them—memory
+unsafety—but it also likes to assist the programmer in avoiding
+others: <a href="/blog/2016/04/memory-leaks-are-memory-safe/#not-all-is-lost">memory leaks</a>, <a href="https://doc.rust-lang.org/std/result/#results-must-be-used">ignoring errors</a>, and, in this case,
+<a href="https://en.wikipedia.org/wiki/Integer_overflow">integer overflow</a>.</p>
+
+<h2 id="overflow-in-rust">Overflow in Rust</h2>
+
+<p>The status of detecting and avoiding overflow in Rust changed several
+times in the lead up to the 1.0.0 release last year. That fluid
+situation means there’s still quite a bit of confusion about exactly
+how overflow is handled and mitigated, and what the consequences are.</p>
+
+<p>Before 1.0.0-alpha, overflow was handled by wrapping, giving the
+result one would expect from a two’s complement representation (as
+most modern CPUs use). However, this was thought to be suboptimal:
+unexpected and unintended overflow is a common source of bugs. It is
+particularly bad in C and C++ due to signed overflow being undefined,
+and the lack of protection against memory safety violations—overflow
+can easily cascade into memory corruption—but it is still
+problematic in more defensive languages like Rust: there are numerous
+examples of overflows, they’ve cropped up in many video games (in
+<a href="http://www.gamasutra.com/blogs/MaxWoolf/20130508/191959/Diablo_III_Economy_Broken_by_an_Integer_Overflow_Bug.php">their economies</a>, in <a href="http://www.codeproject.com/Articles/802368/Integer-Overflow-in-Hearthstone">health bars</a>, and more),
+<a href="http://googleresearch.blogspot.com.au/2006/06/extra-extra-read-all-about-it-nearly.html">binary search</a> and even <a href="http://www.nytimes.com/2015/05/01/business/faa-orders-fix-for-possible-power-loss-in-boeing-787.html?_r=0">aircraft</a>. More prosaically,
+code like <code class="language-plaintext highlighter-rouge">max(x - y, z)</code> turns up semiregularly, and it can give
+wildly wrong results when the numbers are unsigned and <code class="language-plaintext highlighter-rouge">x - y</code>
+overflows through 0. Thus, there was a push to make Rust more
+defensive about integer overflows.</p>
+
+<p>The current status in Rust was decided in <a href="https://github.com/rust-lang/rfcs/pull/560">RFC 560</a>:</p>
+
+<ul>
+  <li>in debug mode, arithmetic (<code class="language-plaintext highlighter-rouge">+</code>, <code class="language-plaintext highlighter-rouge">-</code>, etc.) on signed and unsigned primitive integers
+is <strong>checked for overflow</strong>, panicking if it occurs, and,</li>
+  <li>in release mode, overflow is not checked and is <strong>specified to wrap
+as two’s complement</strong>.</li>
+</ul>
+
+<p>These<sup id="fnref:unconditional" role="doc-noteref"><a href="#fn:unconditional" class="footnote" rel="footnote">0</a></sup> overflow checks can be manually disabled or
+enabled independently of the compilation mode both globally and at a
+per-operation level.</p>
+
+<p>By checking for overflow in some modes, overflow bugs in Rust code are
+hopefully found earlier. Furthermore, code that actually wants
+wrapping behaviour is explicit about this requirement, meaning fewer
+false positives for both future static analyses and for code that
+enables overflow checking in all modes.</p>
+
+<h2 id="myth-overflow-is-undefined">Myth: overflow is undefined</h2>
+
+<p>One way to allow compilers to catch overflow is to make it
+<em>undefined</em>, that is, there’s absolutely no guarantees about behaviour
+when overflow occurs and hence it is legal to panic instead of trying
+to return something. However, Rust’s core goal is ensuring memory
+safety, and leaving things <em>undefined</em> —in the sense of C undefined
+behaviour—is in direct contradiction to this. For one, a variable
+that is undefined does not have to have a consistent value from use to
+use:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="code"><pre><span class="c">// pseudo-Rust</span>
+<span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
+
+<span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+<span class="k">let</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+<span class="nd">assert_eq!</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span> <span class="c">// this could fail</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>This has disastrous consequences for things that rely on checking a
+value for safety, like indexing an array with bounds checks <code class="language-plaintext highlighter-rouge">foo[x]</code>:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+<td class="code"><pre><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
+
+<span class="c">// let y = foo[x]; is equivalent to</span>
+
+<span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">foo</span><span class="nf">.len</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">unsafe</span> <span class="p">{</span> <span class="o">*</span><span class="n">foo</span><span class="nf">.get_unchecked</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nd">panic!</span><span class="p">(</span><span class="s">"index out of bounds"</span><span class="p">)</span>
+<span class="p">};</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>If the value of <code class="language-plaintext highlighter-rouge">x</code> isn’t consistent from the <code class="language-plaintext highlighter-rouge">x &lt; foo.len()</code>
+comparison to the actual access of the array, there’s no guarantee the
+access will be in-bounds: the comparison might be <code class="language-plaintext highlighter-rouge">0 &lt; foo.len()</code>,
+while the index might be <code class="language-plaintext highlighter-rouge">foo.get_unchecked(123456789)</code>. Problematic!</p>
+
+<p>Therefore, unlike signed integers in C, integer overflow cannot be
+undefined in Rust. In other words, compilers must assume that overflow
+may happen (unless they can prove otherwise). This has a
+possibly unintuitive consequence that <code class="language-plaintext highlighter-rouge">x + 1 &gt; x</code> is not always true,
+something C compilers <em>do</em> assume is true if <code class="language-plaintext highlighter-rouge">x</code> is signed.</p>
+
+<p>“But what about performance?” I hear you ask. It is true that
+undefined behaviour drives optimisations by allowing the compiler to
+make assumptions, and hence removing this ability could impact
+speed. Overflow of signed integers being undefined is particularly
+useful in C because such integers are often used as the induction
+variables on loops, and hence the ability to make assumptions allows
+more precise analysis of loop trip counts: <code class="language-plaintext highlighter-rouge">for (int i = 0; i &lt; n;
+i++)</code> will repeat <code class="language-plaintext highlighter-rouge">n</code> times, as <code class="language-plaintext highlighter-rouge">n</code> can be assumed to not be
+negative. Rust sidesteps much of this by using unsigned integers for
+indexing (<code class="language-plaintext highlighter-rouge">0..n</code> will always be <code class="language-plaintext highlighter-rouge">n</code> steps), and also by allowing easy
+custom iterators, which can be used to loop directly over data
+structures like <code class="language-plaintext highlighter-rouge">for x in some_array { ... }</code>. These iterators can
+exploit guarantees about the data structures internally without having
+to expose undefined behaviour to the user.</p>
+
+<p>Another thing Rust misses compared to C is optimising <code class="language-plaintext highlighter-rouge">x * 2 / 2</code> to
+just <code class="language-plaintext highlighter-rouge">x</code>, when <code class="language-plaintext highlighter-rouge">x</code> is signed. In this case, there’s no built-in
+feature for getting the optimisation (beyond just writing <code class="language-plaintext highlighter-rouge">x</code> instead
+of the complicated arithmetic of course), however in my experience,
+expressions like that most often occur with <code class="language-plaintext highlighter-rouge">x</code> known at compile time,
+and hence the whole expression can be constant-folded.</p>
+
+<h2 id="myth-overflow-is-unspecified">Myth: overflow is unspecified</h2>
+
+<p>Similar to leaving the result of overflow undefined, it could be left
+just unspecified, meaning the compiler must assume it could happen,
+but is allowed to make the operation return any particular result (or
+not return at all). Indeed, <a href="https://github.com/nikomatsakis/rfcs/blob/630dd70a51c0c7e166be78cd3bc8f1247664db28/text/0000-integer-overflow.md#semantics-of-overflow-with-the-built-in-types">the first version</a> of
+<a href="https://github.com/rust-lang/rfcs/pull/560">RFC 560</a> for checking integer overflow, proposed:</p>
+
+<blockquote>
+  <p>Change this to define them, on overflow, as either returning an
+unspecified result, or task panic, depending on whether the overflow
+is checked.</p>
+
+  <p>[…]</p>
+
+  <ul>
+    <li>In theory, the implementation returns an unspecified result. In practice, however, this will most likely be the same as the wraparound result. Implementations should avoid needlessly exacerbating program errors with additional unpredictability or surprising behavior.</li>
+    <li>Most importantly: this is not undefined behavior in the C sense. Only the result of the operation is left unspecified, as opposed to the entire program’s meaning, as in C. The programmer would not be allowed to rely on a specific, or any, result being returned on overflow, but the compiler would also not be allowed to assume that overflow won’t happen and optimize based on this assumption.</li>
+  </ul>
+</blockquote>
+
+<p>There was a lot of discussion about the RFC and about the
+“unspecified” result of arithmetic, meaning that <code class="language-plaintext highlighter-rouge">127_i8 + 1</code> could
+theoretically return <code class="language-plaintext highlighter-rouge">-128</code> (per two’s complement) or <code class="language-plaintext highlighter-rouge">0</code> or <code class="language-plaintext highlighter-rouge">127</code>, or
+anything else. This idea took hold in the community… and then it was
+changed.</p>
+
+<p>With strong encouragement from a few people, the RFC was tightened up
+to actually specify the result: arithmetic on primitives that
+overflows either doesn’t return (e.g. it panics), or returns the
+wrapped result one would expect from two’s complement. <a href="https://github.com/rust-lang/rfcs/blob/master/text/0560-integer-overflow.md#arithmetic-operations-with-error-conditions">It</a> now says:</p>
+
+<blockquote>
+  <p>The operations +, -, *, can underflow and overflow. When checking is
+enabled this will panic. When checking is disabled this will two’s
+complement wrap.</p>
+</blockquote>
+
+<p>Specifying the result is a defensive measure: errors are more likely
+to cancel out when overflow isn’t caught. An expression like <code class="language-plaintext highlighter-rouge">x - y +
+z</code> is evaluated like <code class="language-plaintext highlighter-rouge">(x - y) + z</code> and hence the subtraction could
+overflow (e.g. <code class="language-plaintext highlighter-rouge">x = 0</code> and <code class="language-plaintext highlighter-rouge">y = 1</code> both unsigned), but as long as <code class="language-plaintext highlighter-rouge">z</code>
+is large enough (<code class="language-plaintext highlighter-rouge">z &gt;= 1</code> in that example), the result will be what
+one expects from true integers.</p>
+
+<p>The change happened towards the end of the 160 comment long RFC
+discussion and so it was easy for people to miss, making it easy for
+people to still think the result is unspecified.</p>
+
+<h2 id="myth-the-programmer-has-no-control-of-overflow-handling">Myth: the programmer has no control of overflow handling</h2>
+
+<p>One of the main objections to adding overflow checking was the
+existance of programs/algorithms that <em>want</em> two’s complement
+overflow, such as hashing algorithms, certain data structures (ring
+buffers, particularly) and even image codecs. For these algorithms,
+using <code class="language-plaintext highlighter-rouge">+</code> in debug mode would be incorrect: the code would panic even
+though it was executing as intended. Additionally, some more
+security-minded domains wish to have overflow checks on in all modes
+by default.</p>
+
+<p>The RFC and the standard library provide <em>four</em>
+sets of methods beyond the pure operators:</p>
+
+<ul>
+  <li>
+<a href="http://doc.rust-lang.org/std/primitive.i32.html#method.wrapping_add"><code class="language-plaintext highlighter-rouge">wrapping_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.wrapping_sub"><code class="language-plaintext highlighter-rouge">wrapping_sub</code></a>, …</li>
+  <li>
+<a href="http://doc.rust-lang.org/std/primitive.i32.html#method.saturating_add"><code class="language-plaintext highlighter-rouge">saturating_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.saturating_sub"><code class="language-plaintext highlighter-rouge">saturating_sub</code></a>, …</li>
+  <li>
+<a href="http://doc.rust-lang.org/std/primitive.i32.html#method.overflowing_add"><code class="language-plaintext highlighter-rouge">overflowing_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.overflowing_sub"><code class="language-plaintext highlighter-rouge">overflowing_sub</code></a>, ..</li>
+  <li>
+<a href="http://doc.rust-lang.org/std/primitive.i32.html#method.checked_add"><code class="language-plaintext highlighter-rouge">checked_add</code></a>, <a href="http://doc.rust-lang.org/std/primitive.i32.html#method.checked_sub"><code class="language-plaintext highlighter-rouge">checked_sub</code></a>, …</li>
+</ul>
+
+<p>These should cover all bases of “don’t want overflow to panic in some
+modes”:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">wrapping_...</code> returns the straight two’s complement result,</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">saturating_...</code> returns the largest/smallest value (as appropriate) of
+the type when overflow occurs,</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">overflowing_...</code> returns the two’s
+complement result along with a boolean indicating if overflow occured,
+and</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">checked_...</code> returns an <code class="language-plaintext highlighter-rouge">Option</code> that’s <code class="language-plaintext highlighter-rouge">None</code> when overflow
+occurs.</li>
+</ul>
+
+<p>All of these can be implemented in terms of <code class="language-plaintext highlighter-rouge">overflowing_...</code>, but the
+standard library is trying to make it easy for programmers to do the
+right thing in the most common cases.</p>
+
+<p>Code that truly wants two’s complement wrapping can be written like
+<code class="language-plaintext highlighter-rouge">x.wrapping_sub(y).wrapping_add(z)</code>. This works, but clearly can get a
+little verbose, verbosity that can be reduced in some cases via the
+standard library’s <a href="http://doc.rust-lang.org/std/num/struct.Wrapping.html"><code class="language-plaintext highlighter-rouge">Wrapping</code></a> wrapper type.</p>
+
+<p>The current state isn’t necessarily the final state of overflow
+checking: the RFC even mentioned some <a href="https://github.com/rust-lang/rfcs/blob/master/text/0560-integer-overflow.md#alternatives-and-possible-future-directions">future directions</a>. Rust
+could introduce operators like Swift’s wrapping <code class="language-plaintext highlighter-rouge">&amp;+</code> in future,
+something that was not done initially because Rust tries to be
+conservative and reasonably minimal, as well as hypothetically having
+scoped disabling of overflow checking (e.g. a single function could be
+explicitly marked, and its internals would thus be unchecked in all
+modes). There’s interest in the latter particularly, from some of
+Rust’s keenest (potential) users <a href="https://github.com/rust-lang/cargo/issues/2262">Servo</a> and <a href="https://wiki.mozilla.org/Oxidation#Rust_.2F_Cargo_nice-to-haves">Gecko</a>.</p>
+
+<p>For code that wants overflow checking everywhere, one can either use
+<code class="language-plaintext highlighter-rouge">checked_add</code> pervasively (annoying!), or explicitly enable
+them. Although they are tied to debug assertions by default, overflow
+checks can be turned on by passing <code class="language-plaintext highlighter-rouge">-C debug-assertions=on</code> to rustc,
+or setting the <code class="language-plaintext highlighter-rouge">debug-assertions</code> field of a
+<a href="http://doc.crates.io/manifest.html#the-profile-sections">cargo profile</a>. There’s also work on having them able to be
+activated independently of other debug assertions (rustc currently has
+the unstable <code class="language-plaintext highlighter-rouge">-Z force-overflow-checks</code> flag).</p>
+
+<h2 id="myth-the-approach-to-overflow-checks-makes-code-slow">Myth: the approach to overflow checks makes code slow</h2>
+
+<p>Rust aims to be as fast as possible, and the design of the current
+overflow checking approach took various performance considerations
+seriously. Performance is one of the main motivations for checks being
+disabled in release builds by default, and indeed means that there’s
+no speed penalty to the way in which Rust helps mitigate/flag
+integer overflow bugs during development.</p>
+
+<p>It’s an unfortunate reality that checking for overflow requires more
+code and more instructions:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+<td class="code"><pre><span class="nd">#[no_mangle]</span>
+<span class="k">pub</span> <span class="k">fn</span> <span class="nf">unchecked</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
+    <span class="n">x</span><span class="nf">.wrapping_add</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nd">#[no_mangle]</span>
+<span class="k">pub</span> <span class="k">fn</span> <span class="nf">checked</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
+    <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>With <code class="language-plaintext highlighter-rouge">-O -Z force-overflow-checks</code>, on x86<sup id="fnref:arm" role="doc-noteref"><a href="#fn:arm" class="footnote" rel="footnote">1</a></sup>, this compiles to (with some
+editing for clarity):</p>
+
+<figure class="highlight"><pre><code class="language-asm" data-lang="asm"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+<td class="code"><pre>unchecked:
+	leal (%rdi,%rsi), %eax
+	retq
+
+checked:
+	pushq	%rax
+	addl	%esi, %edi
+	jo	.overflow_occurred
+	movl	%edi, %eax
+	popq	%rcx
+	retq
+.overflow_occurred:
+	leaq	panic_loc2994(%rip), %rdi
+	callq	_ZN9panicking5panic20h4265c0105caa1121SaME@PLT
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>It is definitely annoying that there are all<sup id="fnref:extra" role="doc-noteref"><a href="#fn:extra" class="footnote" rel="footnote">2</a></sup> those extra
+instructions, as is the fact that implementations are forced to use
+<code class="language-plaintext highlighter-rouge">add</code> rather than having the option to use <code class="language-plaintext highlighter-rouge">lea</code><sup id="fnref:lea" role="doc-noteref"><a href="#fn:lea" class="footnote" rel="footnote">3</a></sup>. However, an
+even bigger performance hit is how overflow checks inhibit other
+optimisations, both because the checks themselves serialise code
+(inhibiting things like loop unrolling/reordering and vectorisation)
+and because the panic/stack unwinding forces the compiler to
+<a href="http://danluu.com/integer-overflow/">be more conservative</a>.</p>
+
+<p>All these considerations explain why overflow checks are not enabled
+in release mode, where usually getting the highest performance
+possible is desirable.</p>
+
+<p>That said, even when the checks are enabled in release mode, the
+performance hit can be reduced like with bounds checked arrays.  For
+one, compilers can do range analysis/inductive proofs to deduce that
+certain overflow checks are sure to never fail; indeed,
+<a href="http://blog.regehr.org/archives/1384">significant</a> <a href="https://github.com/apple/swift/blob/16b3d6c8d5b2d610cdfd72898f6ab384e632b69b/lib/SILOptimizer/Transforms/RedundantOverflowCheckRemoval.cpp">effort</a> has been <a href="https://github.com/llvm-mirror/llvm/blob/8b47c17a53d683f313eaaa93c4a53de26d8fcba5/lib/Transforms/InstCombine/InstCombineAddSub.cpp#L893-L987">devoted</a> to <a href="https://github.com/gcc-mirror/gcc/blob/fd3211e13bbbb6882f477aa75a36eb0ccdec485f/gcc/tree-vrp.c#L9792-L9884">the topic</a>. Additionally,
+the significant pain caused by using panics can be reduced by
+application authors <a href="https://github.com/rust-lang/rfcs/blob/master/text/1513-less-unwinding.md">converting panics into aborts</a>, if it’s
+appropriate for their domain.</p>
+
+<p>The integer overflow RFC gives itself some room for optimisation too:
+it <a href="https://github.com/rust-lang/rfcs/blob/master/text/0560-integer-overflow.md#delayed-panics">allows “delayed panics”</a>, meaning a Rust implementation
+is allowed to perform a sequence of operations like <code class="language-plaintext highlighter-rouge">a + b + c + d</code>
+and only panic once at the end if any intermediate overflow occurred,
+instead of having to separately check for overflow (and panic) in <code class="language-plaintext highlighter-rouge">tmp
+= a + b</code> and then in <code class="language-plaintext highlighter-rouge">tmp + c</code> etc. No known implementation actually
+does this yet, but they could.</p>
+
+<h2 id="myth-the-checks-find-no-bugs">Myth: the checks find no bugs</h2>
+
+<p>All the design/discussion/implementation of this scheme for handling
+integer overflow would be wasted if it didn’t actually find any bugs
+in practice. I personally have had quite a few bugs found nearly as I
+write them, with expressions like <code class="language-plaintext highlighter-rouge">cmp::max(x - y, z)</code> (they never hit
+the internet, so no links for them), especially when combined with
+testing infrastructure like <a href="https://crates.io/crates/quickcheck"><code class="language-plaintext highlighter-rouge">quickcheck</code></a>.</p>
+
+<p>The overflow checks have found bugs through out the ecosystem; for instance, (not exhaustive!)</p>
+
+<ul>
+  <li><a href="https://github.com/rust-lang/rust/pull/22532#issuecomment-75168901">the standard library</a></li>
+  <li><a href="https://github.com/rust-lang/rust/pull/31281">the compiler</a></li>
+  <li><a href="https://github.com/rust-lang/rust/pull/23127">the built-in benchmark harness</a></li>
+  <li><a href="https://github.com/servo/servo/issues/6040">Servo</a></li>
+  <li><a href="https://github.com/PistonDevelopers/image/pull/412"><code class="language-plaintext highlighter-rouge">image</code></a></li>
+  <li><a href="https://github.com/servo/rust-url/issues/124"><code class="language-plaintext highlighter-rouge">url</code></a></li>
+  <li><a href="https://github.com/servo/webrender/pull/243"><code class="language-plaintext highlighter-rouge">webrender</code></a></li>
+</ul>
+
+<p>Beyond Rust, there’s a lot of evidence for the dangers of integer overflow and
+desire for detecting/protecting against them. It was on the
+<a href="http://cwe.mitre.org/top25/">CWE/SANS list of top 25 errors in 2011</a>, languages like Swift
+will unconditionally check for overflow, and others like Python 3 and
+Haskell will avoid overflow entirely by default, via arbitrary
+precision integers. Furthermore, in C, several compilers have options
+to both make signed overflow defined as two’s complement wrapping
+(<code class="language-plaintext highlighter-rouge">-fwrapv</code>) and to catch it when it does happen
+(<code class="language-plaintext highlighter-rouge">-fsanitize=signed-integer-overflow</code>).</p>
+
+<p><em>Thanks to <a href="https://github.com/ubsan">Nicole Mazzuca</a>, <a href="https://github.com/Aatch">James Miller</a>,
+  <a href="https://github.com/tsion">Scott Olson</a>, and 👻👻👻 for reading and giving feedback on
+  this post.</em></p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="comments">
+    <span class="external-label">Comments:</span>
+    <ul class="external-list">
+      
+<li class="external-link"><a href="https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612">users</a></li>
+
+
+      
+<li class="external-link"><a href="https://www.reddit.com/r/rust/comments/4gz93u/myths_and_legends_about_integer_overflow_in_rust/">/r/rust</a></li>
+
+
+      
+
+      
+
+      
+    </ul>
+  </div>
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Myths%20and%20Legends%20about%20Integer%20Overflow%20in%20Rust%20%23rustlang&amp;url=https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/&amp;title=Myths%20and%20Legends%20about%20Integer%20Overflow%20in%20Rust" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:unconditional" role="doc-endnote">
+      <p>There are some unconditional and uncontrollable
+overflow checks for arithmetic: <code class="language-plaintext highlighter-rouge">x / 0</code>, and <a href="http://blog.regehr.org/archives/887"><code class="language-plaintext highlighter-rouge">MIN / -1</code></a> (for
+signed integer types), and similarly for <code class="language-plaintext highlighter-rouge">%</code>. These computations
+are actually undefined behaviour in C and LLVM (which is the
+historical reason for why rustc has them unconditional), although,
+it seems to me that Rust could theoretically consider the
+latter a normal overflow and return <code class="language-plaintext highlighter-rouge">MIN</code> when the checks are off. <a href="#fnref:unconditional" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:arm" role="doc-endnote">
+      <p>On 32-bit ARM, LLVM <a href="https://llvm.org/bugs/show_bug.cgi?id=27571">currently decides</a> to emit a
+chain of redundant comparisons and register manipulations, so the
+penalty is even higher! <a href="#fnref:arm" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:extra" role="doc-endnote">
+      <p>There’s more instructions in the function version than there
+      would be when <code class="language-plaintext highlighter-rouge">checked</code> is inlined (as it should be): the
+      <code class="language-plaintext highlighter-rouge">pushq</code>/<code class="language-plaintext highlighter-rouge">pop</code>/<code class="language-plaintext highlighter-rouge">movl</code> register management wouldn’t be
+      necessary. Also, even without inlining I believe the
+      <code class="language-plaintext highlighter-rouge">pushq</code>/<code class="language-plaintext highlighter-rouge">popq</code> stack management isn’t necessary, but
+      unfortunately the published Rust binaries <s>don't use a new
+      enough version of LLVM to get its new <a href="http://reviews.llvm.org/D9210">"shrink wrapping"
+      optimisation pass</a></s> use a version of LLVM that
+      contains <a href="https://llvm.org/bugs/show_bug.cgi?id=25614">a bug in its “shrink-wrapping” pass</a>
+      (thanks for <a href="https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612/2?u=huon">the correction</a>, Eli Friedman). <a href="#fnref:extra" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:lea" role="doc-endnote">
+      <p>On x86, it can be extremely useful to be able to use <code class="language-plaintext highlighter-rouge">lea</code>
+(load effective address) for arithmetic: it can do relatively
+complicated computations, and is usually computed in a different
+part of the CPU and its pipeline than <code class="language-plaintext highlighter-rouge">add</code>, allowing exploiting
+more instruction-level parallelism. The x86 ISA allows
+dereferencing complicated pointer computations: the most general
+form is <code class="language-plaintext highlighter-rouge">A(r1, r2, B)</code> (in AT&amp;T syntax), which is equal to <code class="language-plaintext highlighter-rouge">r1 +
+B * r2 + A</code> for registers <code class="language-plaintext highlighter-rouge">r1</code> and <code class="language-plaintext highlighter-rouge">r2</code> and constants <code class="language-plaintext highlighter-rouge">A</code> and
+<code class="language-plaintext highlighter-rouge">B</code>. Normally these are used directly in memory instructions like
+<code class="language-plaintext highlighter-rouge">mov</code> (e.g. <code class="language-plaintext highlighter-rouge">let y = array_of_u32[x];</code> could compile to something
+along the lines of <code class="language-plaintext highlighter-rouge">mov (array_of_u32.as_ptr(), x, 4), y</code> ,
+because each element is of size 4), but <code class="language-plaintext highlighter-rouge">lea</code> allows just doing
+the arithmetic without hitting memory.  All-in-all, being able to
+use <code class="language-plaintext highlighter-rouge">lea</code> for arithmetic is quite nice. The downside is of course
+<code class="language-plaintext highlighter-rouge">lea</code> doesn’t integrate directly with overflow detection: it
+doesn’t set the CPU flags that signal it. <a href="#fnref:lea" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <strong>Huon Wilson</strong> <a href="https://twitter.com/huon_w">@huon_w</a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list">
+<!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2021/10/nsw-covid-qr/">
+                   <h3>Mechanical sympathy for QR codes: making NSW check-in better</h3>
+                     <p>QR codes are now critical infrastructure here in NSW, Australia. Let’s learn how to make them better.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/09/qr-error-correction/">
+                   <h3>QR error correction helps and hinders scanning</h3>
+                     <p>A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/08/home-cooked-app/">
+                   <h3>The joy of cooking (an app)</h3>
+                     <p>I’ve been writing a bunch of code designed to enhance the life of just me and my wife. It’s great fun.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+      -->
+</ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson — <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>

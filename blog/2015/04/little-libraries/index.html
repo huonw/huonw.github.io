@@ -1,0 +1,1215 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Little libraries |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2015/04/little-libraries/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="On focused libraries in Rust.
+" />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Little libraries" />
+  <meta name="twitter:description" content="On focused libraries in Rust.
+" />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2015/04/little-libraries/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2015/04/little-libraries/" />
+  <meta property="og:title" content="Little libraries" />
+  <meta property="og:description" content="On focused libraries in Rust.
+" />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Little libraries</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             — <span class="date pub-date">27 Apr 2015</span>
+           
+           
+         </div>
+      
+      <p>I’ve been having a lot of fun recently solving “little” problems in
+Rust. I have a long term project to make something for displaying my
+(GPS-tagged) photos nicely and, along the way, I’ve discovered and
+filled in a few gaps by creating focused crates for small tasks.</p>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="whole-world.jpg">
+      <img src="whole-world.jpg" alt="A screenshot of a world map, with dots and coloured lines joined into a time series" title="Lots of places to go yet.">
+    </a>
+    
+  </div>
+  <figcaption><p>My travels over the last few years, as displayed by the current web interface (served to the browser via Rust, of course).</p>
+</figcaption>
+</figure>
+
+<p>Once an idea is formed, <code class="language-plaintext highlighter-rouge">cargo</code> means it only takes an hour or two to go
+from zero to a focused crate with a chunk of code &amp;
+<a href="http://doc.rust-lang.org/book/documentation.html">documentation</a>, published on <a href="http://crates.io">crates.io</a>
+and a nice feeling of completion.</p>
+
+<p>The best part is that it makes sense to do this: <code class="language-plaintext highlighter-rouge">cargo</code> makes it so
+easy to reuse code in a reliable way that publishing such little
+crates is worth the effort: it takes a single line in the package
+manifest to use them, and package versions only change when you
+ask<sup id="fnref:lock" role="doc-noteref"><a href="#fn:lock" class="footnote" rel="footnote">0</a></sup>, so your code won’t implicitly break if upstream changes.
+Rust<sup id="fnref:unique" role="doc-noteref"><a href="#fn:unique" class="footnote" rel="footnote">1</a></sup> is improving on many traditional systems languages in
+this respect by encouraging a good package ecosystem from the
+beginning, whereas languages like C or C++ don’t have a canonical
+process and so it can take non-trivial effort to integrate third party
+code.</p>
+
+<p>Of course, not everything can be a small library: for the GPS photo
+project, I needed to be able to read EXIF data (<code class="language-plaintext highlighter-rouge">rexiv2</code>), interact
+with a database (<code class="language-plaintext highlighter-rouge">rusqlite</code>) and display a web interface (<code class="language-plaintext highlighter-rouge">iron</code>,
+<code class="language-plaintext highlighter-rouge">nickel</code>). Nonetheless, the ease with which <code class="language-plaintext highlighter-rouge">cargo</code> manages
+dependencies is still massively useful for “big” libraries like those,
+for both the developers and the users.</p>
+
+<div class="centered-libs">
+<div class="lib-info" style="display: inline-block">
+  <a class="lib-link" href="https://felixcrux.com/files/doc/rexiv2/">rexiv2</a>
+  <a href="https://crates.io/crates/rexiv2"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/rexiv2.svg" alt="rexiv2 on crates.io"></a>
+</div>
+
+<div class="lib-info" style="display: inline-block">
+  <a class="lib-link" href="http://www.rust-ci.org/jgallagher/rusqlite/doc/rusqlite/">rusqlite</a>
+  <a href="https://crates.io/crates/rusqlite"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/rusqlite.svg" alt="rusqlite on crates.io"></a>
+</div>
+
+<div class="lib-info" style="display: inline-block">
+  <a class="lib-link" href="http://ironframework.io/doc/iron/">iron</a>
+  <a href="https://crates.io/crates/iron"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/iron.svg" alt="iron on crates.io"></a>
+</div>
+
+<div class="lib-info" style="display: inline-block">
+  <a class="lib-link" href="http://docs.nickel.rs/nickel/">nickel</a>
+  <a href="https://crates.io/crates/nickel"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/nickel.svg" alt="nickel on crates.io"></a>
+</div>
+
+</div>
+
+<h2 id="the-process">The process</h2>
+
+<p>I have a “process” with three parts:</p>
+
+<ul>
+  <li>write the code</li>
+  <li>infrastructure: register <a href="https://travis-ci.org">travis CI</a> to
+upload documentation to be visible at <code class="language-plaintext highlighter-rouge">$user.github.io/$repo</code> (I
+also add some <a href="/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/">project management tools</a>),</li>
+  <li>crates.io: add
+<a href="http://doc.crates.io/manifest.html#package-metadata">metadata</a>
+and
+<a href="http://doc.crates.io/crates-io.html#publishing-crates">publish the crate</a>
+</li>
+</ul>
+
+<p>It’s pretty simple, especially with some automation for the
+infrastructure step. Other than writing the code itself, the most
+complicated part of the whole process is uploading the documentation
+to be readable online: everything else is essentially a single <code class="language-plaintext highlighter-rouge">cargo
+...</code> invocation. My usual configuration for Travis looks something
+like:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+<td class="code"><pre><span class="na">language</span><span class="pi">:</span> <span class="s">rust</span>
+<span class="na">sudo</span><span class="pi">:</span> <span class="no">false</span>
+<span class="na">script</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">cargo build --verbose &amp;&amp; cargo test --verbose &amp;&amp; cargo doc --verbose</span>
+<span class="na">after_success</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="pi">|</span>
+        <span class="s">[ $TRAVIS_BRANCH = master ] &amp;&amp;</span>
+        <span class="s">[ $TRAVIS_PULL_REQUEST = false ] &amp;&amp;</span>
+        <span class="s">echo '&lt;meta http-equiv=refresh content=0;url=[CRATE NAME]/index.html&gt;' &gt; target/doc/index.html &amp;&amp;</span>
+        <span class="s">git clone https://github.com/davisp/ghp-import &amp;&amp;</span>
+        <span class="s">./ghp-import/ghp-import -n target/doc &amp;&amp;</span>
+        <span class="s">git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages</span>
+
+<span class="na">env</span><span class="pi">:</span>
+  <span class="na">global</span><span class="pi">:</span>
+    <span class="na">secure</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Khw6CgS[...]jlPRac="</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<blockquote>
+  <p><em>Update 2015-04-28</em>: see
+<a href="/blog/2015/04/helping-travis-catch-the-rustc-train/"><em>Helping Travis catch the rustc train</em></a> for a neater
+way to do this and more.</p>
+</blockquote>
+
+<p>The <code class="language-plaintext highlighter-rouge">after_success</code> section manages publishing the documentation that
+<code class="language-plaintext highlighter-rouge">cargo doc</code> renders, via
+<a href="https://github.com/davisp/ghp-import"><code class="language-plaintext highlighter-rouge">ghp-import</code></a>. It is inspired
+by
+<a href="http://www.hoverbear.org/2015/03/07/rust-travis-github-pages/">Andrew Hobden’s instructions</a>,
+modified to avoid needing <code class="language-plaintext highlighter-rouge">sudo</code> to be able to get the faster/more
+responsive Travis builds. Hopefully this will get even easier in
+future, with some sort of <code class="language-plaintext highlighter-rouge">rustdoc</code> as a service. (See also Keegan
+McAllister’s
+<a href="https://github.com/kmcallister/travis-doc-upload">more secure variant</a>.)</p>
+
+<p>(I believe one can have a <code class="language-plaintext highlighter-rouge">.travis.yml</code> that compiles on both nightly
+and beta/stable by adding something like <code class="language-plaintext highlighter-rouge">rust:
+["nightly", "1.0.0-beta3"]</code>, but I’ve not yet investigated.)</p>
+
+<h2 id="cogset"><code class="language-plaintext highlighter-rouge">cogset</code></h2>
+
+<div class="lib-info" style="">
+  <a class="lib-link" href="http://huonw.github.io/cogset/cogset">cogset</a>
+  <a href="https://crates.io/crates/cogset"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/cogset.svg" alt="cogset on crates.io"></a>
+</div>
+
+<p>The first problem that I encountered was wanting to group clusters of
+photos that are close in space-time, so that I could highlight the
+segments where I’m actually walking around some interesting place and
+skip the boring bits of travelling in between.</p>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="scotland-circles.jpg">
+      <img src="scotland-circles.jpg" alt="A screenshot of a map of a part of Scotland, with coloured dots and lines joined into a time-series, and circles around clusters of those" title="Climbing Arthur's Seat was great.">
+    </a>
+    
+  </div>
+  <figcaption><p>A few days in Scotland: Linlithgow (small circle, in the middle), Falkirk, back to Linlithgow (large) and ending in Edinburgh.</p>
+</figcaption>
+</figure>
+
+<p>This is exactly what
+<a href="https://en.wikipedia.org/wiki/Cluster_analysis">clustering</a> is
+designed to do… but unfortunately I couldn’t find any
+pre-implemented algorithms for doing this in Rust.</p>
+
+<p>A bit of research indicated that I probably wanted a density-based
+clustering algorithm, such as
+<a href="https://en.wikipedia.org/wiki/DBSCAN">DBSCAN</a> or
+<a href="https://en.wikipedia.org/wiki/OPTICS_algorithm">OPTICS</a>. These are
+quite simple to use: feed in a collection of points with the ability
+to find all the points that are less than ε units away from a given
+point and DBSCAN efficiently iterates over those points finding
+“dense” clusters, like the circles in the image above.</p>
+
+<p>A few hours of working through the Wikipedia pseudocode, testing
+and documenting gave me the
+<a href="http://huonw.github.io/cogset/cogset/"><code class="language-plaintext highlighter-rouge">cogset</code></a> crate, with its
+generic
+<a href="http://huonw.github.io/cogset/cogset/struct.Dbscan.html"><code class="language-plaintext highlighter-rouge">Dbscan</code></a>
+type. This slotted straight into my project by just adding <code class="language-plaintext highlighter-rouge">cogset =
+"0.1"</code> to the <code class="language-plaintext highlighter-rouge">[dependencies]</code> section.</p>
+
+<p>I particularly like how <code class="language-plaintext highlighter-rouge">Dbscan</code> is generic over the index/database of
+points, letting someone calling <code class="language-plaintext highlighter-rouge">Dbscan</code> use a
+<a href="http://huonw.github.io/cogset/cogset/struct.BruteScan.html">naive index</a>
+if performance of the DBSCAN computation isn’t a problem, or an
+efficient
+<a href="https://en.wikipedia.org/wiki/Spatial_database#Spatial_index">spatial index</a>
+if it is.</p>
+
+<h2 id="tz-search"><code class="language-plaintext highlighter-rouge">tz-search</code></h2>
+
+<div class="lib-info" style="">
+  <a class="lib-link" href="http://huonw.github.io/tz-search/tz_search">tz-search</a>
+  <a href="https://crates.io/crates/tz-search"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/tz-search.svg" alt="tz-search on crates.io"></a>
+</div>
+
+<p>I discovered that my Nexus 5 records some timestamps incorrectly:
+panoramas use the local time as the GPS time, resulting in some
+confusing artifacts on the map. Fortunately both the local time and
+the GPS location are recorded correctly, so it is possible to compute
+the true GPS time by deducing the UTC offset of the local time and
+hence computing the true GPS time from the local time.</p>
+
+<p>This requires knowing the timezone of a point on the Earth’s surface,
+again something for which I couldn’t find a good Rust library. Looking
+into this problem turned up
+<a href="https://github.com/bradfitz/latlong"><code class="language-plaintext highlighter-rouge">latlong</code></a>, a very neat little
+Go library for doing exactly this task: mapping a latitude/longitude
+pair to the name of the timezone it is in.</p>
+
+<p>Porting it directly<sup id="fnref:pattern-matching" role="doc-noteref"><a href="#fn:pattern-matching" class="footnote" rel="footnote">2</a></sup> was straight-forward, resulting in
+<a href="http://huonw.github.io/tz-search/tz_search/"><code class="language-plaintext highlighter-rouge">tz-search</code></a>, which offers:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="code"><pre><span class="k">let</span> <span class="n">timezone</span> <span class="o">=</span> <span class="nn">tz_search</span><span class="p">::</span><span class="nf">lookup</span><span class="p">(</span><span class="o">-</span><span class="mf">33.8885</span><span class="p">,</span> <span class="mf">151.1908</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">timezone</span><span class="p">);</span> <span class="c">// Australia/Sydney</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>Of course, just knowing the name of the timezone isn’t good enough,
+but it’s the first step of getting the UTC offset (I haven’t
+investigated the remaining ones yet…).</p>
+
+<h2 id="order-stat"><code class="language-plaintext highlighter-rouge">order-stat</code></h2>
+
+<div class="lib-info" style="">
+  <a class="lib-link" href="http://huonw.github.io/order-stat/order_stat">order-stat</a>
+  <a href="https://crates.io/crates/order-stat"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/order-stat.svg" alt="order-stat on crates.io"></a>
+</div>
+
+<p>The most recent “little library” I published is <code class="language-plaintext highlighter-rouge">order-stat</code>, for
+computing order statistics (the <code class="language-plaintext highlighter-rouge">k</code>th smallest/largest element of a
+set). The motivation is expanding <code class="language-plaintext highlighter-rouge">cogset</code> slightly, with
+<a href="https://en.wikipedia.org/wiki/OPTICS_algorithm">the OPTICS algorithm</a>,
+which requires the ability to do exactly that.</p>
+
+<p>Poking about, I found a few
+<a href="https://en.wikipedia.org/wiki/Selection_algorithm">selection algorithms</a>,
+notably <a href="https://en.wikipedia.org/wiki/Quickselect">quickselect</a> and
+<a href="https://en.wikipedia.org/wiki/Floyd%E2%80%93Rivest_algorithm">Floyd–Rivest</a>,
+as well as the obvious one of doing a full sort and indexing to
+retrieve the <code class="language-plaintext highlighter-rouge">k</code>th element. All offer the same interface, so decision
+between them is only guided by performance.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Algorithm</th>
+      <th style="text-align: right">Huge (ms)</th>
+      <th style="text-align: right">Large (µs)</th>
+      <th style="text-align: right">Small (ns)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sort</td>
+      <td style="text-align: right">7.2</td>
+      <td style="text-align: right">87.8</td>
+      <td style="text-align: right">264</td>
+    </tr>
+    <tr>
+      <td>Quickselect</td>
+      <td style="text-align: right">1.1</td>
+      <td style="text-align: right">9.7</td>
+      <td style="text-align: right">83</td>
+    </tr>
+    <tr>
+      <td>Floyd–Rivest</td>
+      <td style="text-align: right"><strong>0.48</strong></td>
+      <td style="text-align: right"><strong>2.4</strong></td>
+      <td style="text-align: right"><strong>72</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Hence, Floyd–Rivest has the honour of being
+<a href="http://huonw.github.io/order-stat/order_stat/fn.kth.html">the star</a>
+of this little library.</p>
+
+<p>Somewhat against the idea of a little library, <code class="language-plaintext highlighter-rouge">order-stat</code>
+<a href="http://huonw.github.io/order-stat/order_stat/fn.median_of_medians.html">includes</a>
+a
+<a href="https://en.wikipedia.org/wiki/Median_of_medians">medians-of-medians</a>
+implementation too (in “little”’s defense, it’s related to order
+statistics and medians).</p>
+
+<div class="lib-info" style="">
+  <a class="lib-link" href="https://github.com/BurntSushi/quickcheck#readme">quickcheck</a>
+  <a href="https://crates.io/crates/quickcheck"><img class="lib-badge inline-image" src="https://img.shields.io/crates/v/quickcheck.svg" alt="quickcheck on crates.io"></a>
+</div>
+
+<p>I should plug the <code class="language-plaintext highlighter-rouge">quickcheck</code> crate: it discovered a few subtle bugs
+in my Floyd–Rivest implementation, stemming from me incorrectly
+translating the copy-happy original version (presumably designed for
+GC’d languages where any value can be duplicated cheaply) to a Rust
+version that avoids clones and respects ownership.</p>
+
+<p>(As a bonus, neither algorithm does any allocations!)</p>
+
+<h2 id="write-your-own">Write your own!</h2>
+
+<p>I’m sure there’s little tasks that you’ve solved in your own projects
+that others might want to solve too, so unleashing them on the world
+as a focused library on crates.io would be great! With 1.0 fast
+approaching, the Rust ecosystem has a level of stability never seen
+before, and maintaining a pile of little libraries is getting easier
+and easier.</p>
+
+<p>(For best results, include <a href="http://doc.rust-lang.org/book/documentation.html">documentation</a> and fill out as
+much crates.io
+<a href="http://doc.crates.io/manifest.html#package-metadata">metadata</a> as you
+can.)</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="comments">
+    <span class="external-label">Comments:</span>
+    <ul class="external-list">
+      
+<li class="external-link"><a href="http://users.rust-lang.org/t/little-libraries/1159">users</a></li>
+
+
+      
+<li class="external-link"><a href="http://www.reddit.com/r/rust/comments/340dtb/little_libraries/">/r/rust</a></li>
+
+
+      
+
+      
+
+      
+    </ul>
+  </div>
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Little%20libraries%20%23rustlang&amp;url=https://huonw.github.io/blog/2015/04/little-libraries/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2015/04/little-libraries/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2015/04/little-libraries/&amp;title=Little%20libraries" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:lock" role="doc-endnote">
+      <p>This locking even holds true when using git dependencies:
+     once you compile once with Cargo versions of dependencies are
+     locked until you explicitly opt-in to a version upgrade with
+     <code class="language-plaintext highlighter-rouge">cargo update</code>. See
+     <a href="http://doc.crates.io/guide.html#cargo.toml-vs-cargo.lock">“Cargo.toml vs Cargo.lock”</a>
+     for more details. <a href="#fnref:lock" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:unique" role="doc-endnote">
+      <p>This post isn’t meant to imply that Rust is the only
+       language (or even systems language) with this property. I
+       just think it’s cool that Rust has it. <a href="#fnref:unique" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:pattern-matching" role="doc-endnote">
+      <p>It wasn’t quite a one-to-one port: I opted to use
+                 <a href="https://github.com/huonw/tz-search/blob/229617cd23dc413957c5b02d027c7ce4bb2be3d0/src/lib.rs#L120-L124">an <code class="language-plaintext highlighter-rouge">enum</code></a> and <a href="https://github.com/huonw/tz-search/blob/229617cd23dc413957c5b02d027c7ce4bb2be3d0/src/lib.rs#L260-L284">pattern matching</a>
+                 to model the different internal encodings,
+                 instead of a trait object which would be the true
+                 translation of the <a href="https://github.com/bradfitz/latlong/blob/7d3ff04aa2b06b9db6947f7d99a4bb3cc66570bc/latlong.go#L157-L159"><code class="language-plaintext highlighter-rouge">interface</code></a> used
+                 in the original library. <a href="#fnref:pattern-matching" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <strong>Huon Wilson</strong> <a href="https://twitter.com/huon_w">@huon_w</a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list">
+<!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2021/10/nsw-covid-qr/">
+                   <h3>Mechanical sympathy for QR codes: making NSW check-in better</h3>
+                     <p>QR codes are now critical infrastructure here in NSW, Australia. Let’s learn how to make them better.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/09/qr-error-correction/">
+                   <h3>QR error correction helps and hinders scanning</h3>
+                     <p>A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/08/home-cooked-app/">
+                   <h3>The joy of cooking (an app)</h3>
+                     <p>I’ve been writing a bunch of code designed to enhance the life of just me and my wife. It’s great fun.
+</p>
+                   
+                 </a>
+            </li>
+<!--
+          
+      -->
+</ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson — <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+<noscript><div class="statcounter"><a title="hit counter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/7439209/0/b96244c7/1/" alt="hit counter" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>
