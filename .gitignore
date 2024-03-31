@@ -6,3 +6,6 @@ _site
 vendor
 .bundle
 .jekyll-metadata
+
+.venv
+venv
