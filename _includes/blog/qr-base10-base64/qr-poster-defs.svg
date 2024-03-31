@@ -1,0 +1,17 @@
+<svg height="0" viewBox="-20 -20 1270 882" width="0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin-top: 0">
+  <defs>
+    <g id="qr-code-v16-example-base64" transform="scale(12.345679012345679)" >
+      {% include blog/qr-base10-base64/qr-code-v16-example-base64.svg %}
+    </g>
+    <g id="qr-code-v14-example-base10" transform="scale(13.698630136986301)" >
+      {% include blog/qr-base10-base64/qr-code-v14-example-base10.svg %}
+    </g>
+    <g id="qr-code-v40-maxed-base64" transform="scale(5.649717514124294)" >
+      {% include blog/qr-base10-base64/qr-code-v40-maxed-base64.svg %}
+    </g>
+    <g id="qr-code-v40-maxed-base10" transform="scale(5.649717514124294)" >
+      {% include blog/qr-base10-base64/qr-code-v40-maxed-base10.svg %}
+    </g>
+
+  </defs>
+</svg>
