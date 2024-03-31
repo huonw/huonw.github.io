@@ -45,6 +45,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     };
     var posts = [
         
+        {path: "/blog/2024/03/qr-base10-base64/", title: "10 > 64, in QR codes"},
+        
         {path: "/blog/2021/10/nsw-covid-qr/", title: "Mechanical sympathy for QR codes: making NSW check-in better"},
         
         {path: "/blog/2021/09/qr-error-correction/", title: "QR error correction helps and hinders scanning"},
