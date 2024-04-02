@@ -3,8 +3,23 @@
     <g id="qr-code-v16-example-base64" transform="scale(12.345679012345679)" >
       {% include blog/qr-base10-base64/qr-code-v16-example-base64.svg %}
     </g>
+    <g id="qr-code-v15-example-base36" transform="scale(12.987012987012987)" >
+      {% include blog/qr-base10-base64/qr-code-v15-example-base36.svg %}
+    </g>
+    <g id="qr-code-v15-example-base32" transform="scale(12.987012987012987)" >
+      {% include blog/qr-base10-base64/qr-code-v15-example-base32.svg %}
+    </g>
+    <g id="qr-code-v16-example-base16" transform="scale(12.345679012345679)" >
+      {% include blog/qr-base10-base64/qr-code-v16-example-base16.svg %}
+    </g>
     <g id="qr-code-v14-example-base10" transform="scale(13.698630136986301)" >
       {% include blog/qr-base10-base64/qr-code-v14-example-base10.svg %}
+    </g>
+    <g id="qr-code-v15-example-base8ba" transform="scale(12.987012987012987)" >
+      {% include blog/qr-base10-base64/qr-code-v15-example-base8ba.svg %}
+    </g>
+    <g id="qr-code-v15-example-base8" transform="scale(12.987012987012987)" >
+      {% include blog/qr-base10-base64/qr-code-v15-example-base8.svg %}
     </g>
     <g id="qr-code-v40-maxed-base64" transform="scale(5.649717514124294)" >
       {% include blog/qr-base10-base64/qr-code-v40-maxed-base64.svg %}

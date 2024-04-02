@@ -41,6 +41,40 @@ def test_round_trip():
 
 test_round_trip()
 
+# https://stackoverflow.com/a/1181924
+def base36encode(number):
+    if not isinstance(number, int):
+        raise TypeError('number must be an integer')
+    is_negative = number < 0
+    number = abs(number)
+
+    alphabet, base36 = ['0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', '']
+
+    while number:
+        number, i = divmod(number, 36)
+        base36 = alphabet[i] + base36
+    if is_negative:
+        base36 = '-' + base36
+
+    return base36 or alphabet[0]
+
+
+def base36decode(number):
+    return int(number, 36)
+
+def base8encode(number):
+    result = []
+    while number:
+        number, i = divmod(number, 8)
+        result.append(str(i))
+    return "".join(reversed(result)) or "0"
+
+def base8bytealignedencode(bytes):
+    result = []
+    for byte in bytes:
+        encoded = base8encode(byte)
+        result.append("0" * (3 - len(encoded)) + encoded)
+    return "".join(result)
 
 def encode_examples():
     examples = [b"\x01", b"\xFF", b"\x12\x34\x56", b"abc", bytes(reversed(range(256)))]
@@ -101,11 +135,22 @@ def nsw_gov_example():
     json.loads(decoded)
     print(f"json: {decoded}")
 
+    b8ba = base8bytealignedencode(decoded)
+    b8 = base8encode(int.from_bytes(decoded, byteorder="little"))
     b10 = b10encode(decoded)
-    print(f"{len(b64)=}, {len(decoded)=}, {len(b10)=}")
+    b16 = decoded.hex().upper()
+    b32 = base64.b32encode(decoded).decode().replace("=", "")
+    b36 = base36encode(int.from_bytes(decoded, byteorder="little"))
+
+    print(f"{len(b64)=}, {len(decoded)=}, {len(b8)=}, {len(b8ba)=}, {len(b10)=}, {len(b16)=}, {len(b32)=}, {len(b36)=}")
 
     write_included_qr(PREFIX, b64, "example-base64", "H")
+    write_included_qr(PREFIX, b36, "example-base36", "H")
+    write_included_qr(PREFIX, b32, "example-base32", "H")
+    write_included_qr(PREFIX, b16, "example-base16", "H")
     write_included_qr(PREFIX, b10, "example-base10", "H")
+    write_included_qr(PREFIX, b8ba, "example-base8ba", "H")
+    write_included_qr(PREFIX, b8, "example-base8", "H")
 
 def maxed():
     max_bytes = 2953
