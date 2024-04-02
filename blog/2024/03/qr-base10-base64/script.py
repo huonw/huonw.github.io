@@ -62,6 +62,22 @@ def base36encode(number):
 def base36decode(number):
     return int(number, 36)
 
+def base39encode(number):
+    if not isinstance(number, int):
+        raise TypeError('number must be an integer')
+    is_negative = number < 0
+    number = abs(number)
+
+    alphabet, base39 = ['0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*-.', '']
+
+    while number:
+        number, i = divmod(number, 39)
+        base39 = alphabet[i] + base39
+    if is_negative:
+        base39 = '-' + base39
+
+    return base39 or alphabet[0]
+
 def base8encode(number):
     result = []
     while number:
@@ -141,10 +157,12 @@ def nsw_gov_example():
     b16 = decoded.hex().upper()
     b32 = base64.b32encode(decoded).decode().replace("=", "")
     b36 = base36encode(int.from_bytes(decoded, byteorder="little"))
+    b39 = base39encode(int.from_bytes(decoded, byteorder="little"))
 
-    print(f"{len(b64)=}, {len(decoded)=}, {len(b8)=}, {len(b8ba)=}, {len(b10)=}, {len(b16)=}, {len(b32)=}, {len(b36)=}")
+    print(f"{len(b64)=}, {len(decoded)=}, {len(b8)=}, {len(b8ba)=}, {len(b10)=}, {len(b16)=}, {len(b32)=}, {len(b36)=}, {len(b39)=}")
 
     write_included_qr(PREFIX, b64, "example-base64", "H")
+    write_included_qr(PREFIX, b39, "example-base39", "H")
     write_included_qr(PREFIX, b36, "example-base36", "H")
     write_included_qr(PREFIX, b32, "example-base32", "H")
     write_included_qr(PREFIX, b16, "example-base16", "H")

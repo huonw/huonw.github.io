@@ -3,6 +3,9 @@
     <g id="qr-code-v16-example-base64" transform="scale(12.345679012345679)" >
       {% include blog/qr-base10-base64/qr-code-v16-example-base64.svg %}
     </g>
+    <g id="qr-code-v14-example-base39" transform="scale(13.698630136986301)" >
+      {% include blog/qr-base10-base64/qr-code-v14-example-base39.svg %}
+    </g>
     <g id="qr-code-v15-example-base36" transform="scale(12.987012987012987)" >
       {% include blog/qr-base10-base64/qr-code-v15-example-base36.svg %}
     </g>
