@@ -4,7 +4,7 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2024-04-02T22:32:46+00:00</updated>
+  <updated>2024-04-02T22:36:22+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
@@ -559,6 +559,27 @@
 
 &lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
   
+  &lt;div id=&quot;comments&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Comments:&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      
+
+      
+
+      
+
+      
+&lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://news.ycombinator.com/item?id=39894148&quot;&gt;Hacker News&lt;/a&gt;&lt;/li&gt;
+
+
+      
+&lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://lobste.rs/s/maymyv/10_64_qr_codes&quot;&gt;Lobsters&lt;/a&gt;&lt;/li&gt;
+
+
+      
+    &lt;/ul&gt;
+  &lt;/div&gt;
+  
   &lt;div id=&quot;external-page&quot;&gt;
     &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
     &lt;ul class=&quot;external-list&quot;&gt;
@@ -698,7 +719,7 @@
         &lt;/tbody&gt;
       &lt;/table&gt;
 
-      &lt;p&gt;There’s two variants of base 8: encoding each byte as its own 3 digit base-8 number (&lt;em&gt;bytes&lt;/em&gt;), or ignoring byte boundaries and encoding 3 bits at a time (&lt;em&gt;bits&lt;/em&gt;) which is similar to how base 10 and base 36 work.&lt;/p&gt;
+      &lt;p&gt;There’s two variants of base 8: encoding each byte as its own 3 digit base-8 number (&lt;em&gt;bytes&lt;/em&gt;), or ignoring byte boundaries and encoding 3 bits at a time (&lt;em&gt;bits&lt;/em&gt;) which is similar to how base 10 and base 36 work. This was &lt;a href=&quot;https://news.ycombinator.com/item?id=39905843&quot;&gt;suggested by a reader&lt;/a&gt;.&lt;/p&gt;
 
       &lt;p&gt;Base 39 is maximal URL-safe subset of the Alphanumeric character set&lt;sup id=&quot;fnref:other-modes:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:other-modes&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. &lt;a href=&quot;#fnref:other-bases&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
@@ -3458,6 +3479,8 @@ to both make signed overflow defined as two’s complement wrapping
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -3776,6 +3799,8 @@ segfault or memory corruption.&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/r/rust/comments/4dgvvh/memory_leaks_are_memory_safe_huon_on_the_internet/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -4148,6 +4173,8 @@ but it works flawlessly with Rust, and I’m sure other languages too.&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -4498,6 +4525,8 @@ extra argument).&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/r/rust/comments/3px8y9/simple_parallel_03_revisiting_knn/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -4951,6 +4980,8 @@ but nothing concrete yet.&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -5390,6 +5421,8 @@ same task.)&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;http://www.reddit.com/r/rust/comments/39134l/announcing_primal_putting_raw_power_into_prime/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -5929,6 +5962,8 @@ traits more closely.)&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -6063,6 +6098,8 @@ td { vertical-align: top; }
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;http://www.reddit.com/r/rust/comments/36m7xa/rust_10_in_numbers/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -7122,6 +7159,8 @@ and on IRC for finding inaccuracies and improvements.)&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -7798,6 +7837,8 @@ for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Box&amp;l
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -7995,6 +8036,8 @@ feedback.)&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;http://www.reddit.com/r/rust/comments/34i7sr/travis_on_the_train_part_2/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -8218,6 +8261,8 @@ for inspiration.)&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;http://www.reddit.com/r/rust/comments/344o0e/helping_travis_catch_the_rustc_train/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -8588,6 +8633,8 @@ can.)&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -8935,6 +8982,8 @@ infrastructure.&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -9236,6 +9285,8 @@ out on /r/rust.)&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -9340,6 +9391,8 @@ repository for collecting related things.)&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;http://www.reddit.com/r/rust/comments/2vvat9/rust_sydneys_first_meetup_trip_report/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -9800,6 +9853,8 @@ defined in scope).&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -9952,6 +10007,8 @@ to be worth the breaking change…)&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;http://www.reddit.com/r/rust/comments/2s2gee/the_sized_trait/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -10379,6 +10436,8 @@ the pointer itself.&lt;/p&gt;
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -10647,6 +10706,8 @@ help/suggestions/copy-editing/catching bugs.&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;http://www.reddit.com/r/rust/comments/2rawmg/cratesio_crate_graph/&quot;&gt;/r/rust&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
 
@@ -11062,6 +11123,8 @@ provides guidance and tips about using &lt;code class=&quot;language-plaintext h
       
 
       
+
+      
     &lt;/ul&gt;
   &lt;/div&gt;
   
@@ -11365,6 +11428,8 @@ nicely due to Rust’s affine types and various low-level details.&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://news.ycombinator.com/item?id=7875793&quot;&gt;Hacker News&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
     &lt;/ul&gt;
@@ -11731,6 +11796,8 @@ on my machine.&lt;/p&gt;
       
 &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://news.ycombinator.com/item?id=7872398&quot;&gt;Hacker News&lt;/a&gt;&lt;/li&gt;
 
+
+      
 
       
     &lt;/ul&gt;
