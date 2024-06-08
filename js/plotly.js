@@ -1,6 +1,6 @@
 ---
 ---
-{% include plotly-cartesian-2.5.1.min.js %}
+{% include plotly-cartesian-2.33.0.min.js %}
 {% include pako_inflate.es5.min.js %}
 
 function b64ToUint6(nChr) {
