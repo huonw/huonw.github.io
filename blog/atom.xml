@@ -4,13 +4,122 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2024-04-02T22:36:22+00:00</updated>
+  <updated>2024-07-24T01:58:30+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
     <email>dbau.pp@gmail.com</email>
   </author>
 
+  
+  
+  <entry>
+    <id>https://huonw.github.io/blog/2024/07/github-permalinks</id>
+    <link type="text/html" rel="alternate" href="https://huonw.github.io/blog/2024/07/github-permalinks/"/>
+    <title>GitHub tip-hub: habitual permalinks</title>
+    <published>2024-07-24T00:00:00+00:00</published>
+    <updated>2024-07-24T00:00:00+00:00</updated>
+    <author>
+      <name>Huon Wilson</name>
+      <uri>https://huonw.github.io/</uri>
+    </author>
+    <content type="html">&lt;p&gt;GitHub offers permalinks to versions of files and lines, within a repository. They’re easy to create (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt; keyboard shortcut) and have some nifty affordances like displaying a preview, plus they don’t become invalid as code changes. Use them!&lt;/p&gt;
+
+&lt;p&gt;The permalinks use the commit hash of a particular version of the file, and thus the contents never changes, because they’re content-addressed and permanent&lt;sup id=&quot;fnref:permanent&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:permanent&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;0&lt;/a&gt;&lt;/sup&gt;. This is true even as the code evolves: a permalink to a particular line will always be &lt;strong&gt;what you intended&lt;/strong&gt;, whether future versions add or remove code around it, or even move or delete the file entirely.&lt;/p&gt;
+
+&lt;p&gt;I can’t think of many downsides to using permalinks, so consider &lt;strong&gt;always pressing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt;&lt;/strong&gt; before sharing a GitHub file link. Make it a habit.&lt;/p&gt;
+
+&lt;h2 id=&quot;creating-a-permalink&quot;&gt;Creating a permalink&lt;/h2&gt;
+
+&lt;p&gt;Hit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt; on any file or directory view, then copy the updated link from the browser’s URL bar.&lt;/p&gt;
+
+&lt;p&gt;When viewing a file, you can click on the line number gutters to link to a single line, or range (shift click). These also update the browser’s URL bar.&lt;/p&gt;
+
+&lt;p&gt;(Also good: a plugin for your editor, so you can jump around files locally and create links without having to refind the same files in the GitHub web UI. I use &lt;a href=&quot;https://github.com/sshaw/git-link&quot;&gt;git-link&lt;/a&gt;, but know nothing about plugins for non-Emacs editors.)&lt;/p&gt;
+
+&lt;p&gt;The GitHub docs also discuss how to link to &lt;a href=&quot;https://docs.github.com/en/repositories/working-with-files/using-files/getting-permanent-links-to-files&quot;&gt;files&lt;/a&gt; and &lt;a href=&quot;https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet&quot;&gt;lines&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;pretty-pictures&quot;&gt;Pretty pictures&lt;/h2&gt;
+
+&lt;p&gt;Pasting a GitHub permalink into some software, including GitHub itself, has some sometimes-nice affordances.&lt;/p&gt;
+
+&lt;p&gt;For GitHub, putting a permalink into a comment box, PR or issue descriptions renders the referenced code snippet:&lt;/p&gt;
+
+&lt;figure class=&quot;image &quot;&gt;
+  &lt;div class=&quot;image-positioner&quot;&gt;
+    
+    &lt;a href=&quot;comment.png&quot;&gt;
+      &lt;img src=&quot;comment.png&quot; alt=&quot;a part of a comment from GitHub that includes a rendering of the link above&quot; width=&quot;1832&quot; height=&quot;412&quot; /&gt;
+    &lt;/a&gt;
+    
+  &lt;/div&gt;
+  
+&lt;/figure&gt;
+
+&lt;p&gt;The contents of that comment is just normal Markdown text, plus a link, nothing else:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight wrapped-code&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-markdown&quot; data-lang=&quot;markdown&quot;&gt;One option might be evolving the &lt;span class=&quot;sb&quot;&gt;`test_using_pyenv`&lt;/span&gt; test to take two parameters like &lt;span class=&quot;sb&quot;&gt;`(&quot;interpreter_constraints&quot;, &quot;expected_version_substring&quot;)`&lt;/span&gt;, and then pass &lt;span class=&quot;sb&quot;&gt;`(&quot;2.7.*&quot;, &quot;2.7&quot;), (&quot;3.9.*&quot;, &quot;3.9&quot;), (&quot;3.10.4&quot;, &quot;3.10.4&quot;)`&lt;/span&gt; or something like that. What do you think?
+
+https://github.com/pantsbuild/pants/blob/cfb3cafcac2386c909bc4a3fee3997e1bd8b03d7/src/python/pants/backend/python/providers/pyenv/rules_integration_test.py#L65-L66&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This rendering doesn’t work for a whole file permalink (without the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#L...&lt;/code&gt; fragment), and doesn’t work across repositories. In those cases, providing a permalink still helps for future, in the cases you come back to it.&lt;/p&gt;
+
+&lt;p&gt;Other software like Slack also seems to handle GitHub links, providing snippets and previews.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-it-actually&quot;&gt;What is it, actually?&lt;/h2&gt;
+
+&lt;p&gt;Compare these two URLs to lines 65 and 66 of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.../pyenv/rules_integration_test.py&lt;/code&gt; test file linked above, within &lt;a href=&quot;https://github.com/pantsbuild/pants&quot;&gt;Pants&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;break-all&quot;&gt;https://github.com/pantsbuild/pants/blob/&lt;strong&gt;main&lt;/strong&gt;/src/python/pants/backend/python/providers/pyenv/rules_integration_test.py#L65-L66&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;break-all&quot;&gt;https://github.com/pantsbuild/pants/blob/&lt;strong&gt;71749c04c7cf3cd9c22aea3e99fded57d5f41ebc&lt;/strong&gt;/src/python/pants/backend/python/providers/pyenv/rules_integration_test.py#L65-L66&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;They’re almost identical except for the bolded &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;blob/.../src&lt;/code&gt; section. That difference communicates where to find the files&lt;sup id=&quot;fnref:commitish&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:commitish&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, one uses mutable reference (branch name) while the other uses an immutable commit hash.&lt;/p&gt;
+
+&lt;p&gt;At the time of writing, the two URLs show a file with identical contents, but they have different meanings and so this won’t always be true.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/pantsbuild/pants/commit/71749c04c7cf3cd9c22aea3e99fded57d5f41ebc&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;71749c04&lt;/code&gt;&lt;/a&gt; is the most recent commit to Pants’ &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; branch, which is why they currently match. But once PR #21139 lands in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; with &lt;a href=&quot;https://github.com/pantsbuild/pants/pull/21139/commits/58b83e3ca63d169ce26798809de63c94a540e8f5&quot;&gt;its improved test&lt;/a&gt;, this file on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; will have different content to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;71749c04&lt;/code&gt;. The first branch-ful link will show the new contents.&lt;/p&gt;
+
+&lt;p&gt;Presumably the link is being a reference for something, so having it &lt;strong&gt;change accidentally&lt;/strong&gt; is not good. You might come back in a few days, weeks or months and try to track down the context for something: in the best case, you’ll get lucky and the code hasn’t changed. In the worst case, the file in question has been deleted or moved, so the link is a 404. You might be able to do some git archeaology to guess what’s it’s referring to but that’s a lot of fuss!&lt;/p&gt;
+
+&lt;p&gt;Using the permalink is &lt;strong&gt;minimal effort&lt;/strong&gt; and &lt;strong&gt;sidesteps potential problems&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;sometimes-the-latest-version-is-useful&quot;&gt;Sometimes the latest version is useful?&lt;/h2&gt;
+
+&lt;p&gt;In some cases, having an “evergreen” link pointing to always the latest version is useful, and so using the branch-ful link might be appropriate… but I think this is rarer than one might expect, and has consequences.&lt;/p&gt;
+
+&lt;p&gt;Linking to a specific older version might be confusing if the code has moved in the current version. However, it’s a permalink, so it’s showing the &lt;strong&gt;exact code of interest&lt;/strong&gt;. You can use any of your &lt;strong&gt;normal code discovery tools&lt;/strong&gt; (from wild guesses to grep to AI) to find its new location. There’s no way to have a single evergreen link to “file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;foo/bar/baz.py&lt;/code&gt; even if it moves” or particular lines&lt;sup id=&quot;fnref:search&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:search&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;In terms of consequences: if a non-perma link to a specific file is published somewhere, that location should now &lt;strong&gt;always&lt;/strong&gt; have a real file, or else that link breaks. Git and GitHub don’t provide any tools for redirects (that I know of!), so if the file needs to move, a file has to be left in the old spot as breadcrumb to find the new location.&lt;/p&gt;
+
+&lt;h2 id=&quot;non-github-forges&quot;&gt;Non-GitHub forges&lt;/h2&gt;
+
+&lt;p&gt;I am not as familiar with Gitlab and other GitHub competitors: I imagine most have similar functionality for permalinks to a particular version of a file and its lines.&lt;/p&gt;
+
+&lt;p&gt;From a quick test, Gitlab looks to share the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt; keyboard shortcut, and line-linking behaviour.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;Creating permalinks to code in GitHub is easy (hit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt;) and has benefits with few downsides.&lt;/p&gt;
+
+&lt;p&gt;Consider making it a habit to always use them instead of branch-ful non-perma links.&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol start=&quot;0&quot;&gt;
+    &lt;li id=&quot;fn:permanent&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Not actually permanent: GitHub will itself eventually disappear, breaking &lt;em&gt;all&lt;/em&gt; such links; a repository may be deleted; the repository may have history rewritten to erase the commit. &lt;a href=&quot;#fnref:permanent&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:commitish&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;I think &lt;a href=&quot;https://git-scm.com/docs/gitrevisions&quot;&gt;any reference to a commit&lt;/a&gt; works in these URLs, including tags, parent references &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;71749c04^^&lt;/code&gt; and branch time-machines &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main@{3 months ago}&lt;/code&gt;. The latter two are probably just curiosities, but tags links are definitely useful! &lt;a href=&quot;#fnref:commitish&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:search&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;You could link to &lt;a href=&quot;https://github.com/search?q=repo%3Apantsbuild%2Fpants%20py_version%20test_using_pyenv&amp;amp;type=code&quot;&gt;a search query&lt;/a&gt; but that feels a bit unreliable. There’s some cases where it definitely makes sense, though! &lt;a href=&quot;#fnref:search&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+  </entry>
+  
   
   
   <entry>

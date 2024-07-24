@@ -2,31 +2,33 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>  2019 |  Huon on the internet</title>
+  <title>  GitHub tip-hub: habitual permalinks |  Huon on the internet</title>
 
   <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
   
-  <link rel="canonical" href="https://huonw.github.io/blog/2019/">
+  <link rel="canonical" href="https://huonw.github.io/blog/2024/07/github-permalinks/">
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   
 
   
-  <meta name="description" content="" />
+  <meta name="description" content="Hit y to create a permalink to a GitHub directory, file or line. They&apos;re easy to make, stable, and even render a preview in some places." />
 
   
   <meta name="twitter:card" content="summary" />
   
   <meta name="twitter:site" content="@huon_w" />
-  <meta name="twitter:title" content="2019" />
-  <meta name="twitter:description" content="" />
-  <meta name="twitter:url" content="https://huonw.github.io/blog/2019/">
+  <meta name="twitter:title" content="GitHub tip-hub: habitual permalinks" />
+  <meta name="twitter:description" content="Hit y to create a permalink to a GitHub directory, file or line. They&apos;re easy to make, stable, and even render a preview in some places." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2024/07/github-permalinks/">
 
   <!-- facebook -->
-  <meta property="og:url" content="https://huonw.github.io/blog/2019/" />
-  <meta property="og:title" content="2019" />
-  <meta property="og:description" content="" />
+  <meta property="og:url" content="https://huonw.github.io/blog/2024/07/github-permalinks/" />
+  <meta property="og:title" content="GitHub tip-hub: habitual permalinks" />
+  <meta property="og:description" content="Hit y to create a permalink to a GitHub directory, file or line. They&apos;re easy to make, stable, and even render a preview in some places." />
+  
+  <meta property="og:type" content="article" />
   
   
   
@@ -703,7 +705,12 @@ a.post-heading {
 
     
 
-    
+    .wrapped-code > pre {
+  white-space: break-spaces;
+} .wrapped-code {
+  padding: 0 1em;
+  word-break: break-all;
+} [data-lang="markdown"]::before { display: none;  }
   </style>
   
 </head>
@@ -724,175 +731,164 @@ a.post-heading {
   <main>
     <article>
       
-        <h1 id="title"> 2019</h1>
+        <h1 id="title"> GitHub tip-hub: habitual permalinks</h1>
         
       
       
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">24 Jul 2024</span>
+           
+           
+         </div>
       
-<nav>
-<ul class="post-list">
+      <p>GitHub offers permalinks to versions of files and lines, within a repository. They’re easy to create (<code class="language-plaintext highlighter-rouge">y</code> keyboard shortcut) and have some nifty affordances like displaying a preview, plus they don’t become invalid as code changes. Use them!</p>
 
- 
- 
+<p>The permalinks use the commit hash of a particular version of the file, and thus the contents never changes, because they’re content-addressed and permanent<sup id="fnref:permanent" role="doc-noteref"><a href="#fn:permanent" class="footnote" rel="footnote">0</a></sup>. This is true even as the code evolves: a permalink to a particular line will always be <strong>what you intended</strong>, whether future versions add or remove code around it, or even move or delete the file entirely.</p>
 
- 
+<p>I can’t think of many downsides to using permalinks, so consider <strong>always pressing <code class="language-plaintext highlighter-rouge">y</code></strong> before sharing a GitHub file link. Make it a habit.</p>
 
- 
- 
+<h2 id="creating-a-permalink">Creating a permalink</h2>
 
- 
+<p>Hit <code class="language-plaintext highlighter-rouge">y</code> on any file or directory view, then copy the updated link from the browser’s URL bar.</p>
 
- 
- 
+<p>When viewing a file, you can click on the line number gutters to link to a single line, or range (shift click). These also update the browser’s URL bar.</p>
 
- 
+<p>(Also good: a plugin for your editor, so you can jump around files locally and create links without having to refind the same files in the GitHub web UI. I use <a href="https://github.com/sshaw/git-link">git-link</a>, but know nothing about plugins for non-Emacs editors.)</p>
 
- 
- 
+<p>The GitHub docs also discuss how to link to <a href="https://docs.github.com/en/repositories/working-with-files/using-files/getting-permanent-links-to-files">files</a> and <a href="https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-a-permanent-link-to-a-code-snippet">lines</a>.</p>
 
- 
+<h2 id="pretty-pictures">Pretty pictures</h2>
 
- 
- 
+<p>Pasting a GitHub permalink into some software, including GitHub itself, has some sometimes-nice affordances.</p>
 
- 
+<p>For GitHub, putting a permalink into a comment box, PR or issue descriptions renders the referenced code snippet:</p>
 
- 
- 
+<figure class="image ">
+  <div class="image-positioner">
+    
+    <a href="comment.png">
+      <img src="comment.png" alt="a part of a comment from GitHub that includes a rendering of the link above" width="1832" height="412" />
+    </a>
+    
+  </div>
+  
+</figure>
 
- 
+<p>The contents of that comment is just normal Markdown text, plus a link, nothing else:</p>
 
- 
- 
+<figure class="highlight wrapped-code"><pre><code class="language-markdown" data-lang="markdown">One option might be evolving the <span class="sb">`test_using_pyenv`</span> test to take two parameters like <span class="sb">`("interpreter_constraints", "expected_version_substring")`</span>, and then pass <span class="sb">`("2.7.*", "2.7"), ("3.9.*", "3.9"), ("3.10.4", "3.10.4")`</span> or something like that. What do you think?
 
- 
+https://github.com/pantsbuild/pants/blob/cfb3cafcac2386c909bc4a3fee3997e1bd8b03d7/src/python/pants/backend/python/providers/pyenv/rules_integration_test.py#L65-L66</code></pre></figure>
 
- 
- 
+<p>This rendering doesn’t work for a whole file permalink (without the <code class="language-plaintext highlighter-rouge">#L...</code> fragment), and doesn’t work across repositories. In those cases, providing a permalink still helps for future, in the cases you come back to it.</p>
 
- 
+<p>Other software like Slack also seems to handle GitHub links, providing snippets and previews.</p>
 
- 
- 
+<h2 id="what-is-it-actually">What is it, actually?</h2>
 
- 
+<p>Compare these two URLs to lines 65 and 66 of the <code class="language-plaintext highlighter-rouge">.../pyenv/rules_integration_test.py</code> test file linked above, within <a href="https://github.com/pantsbuild/pants">Pants</a>:</p>
 
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
+<ul>
+  <li><code class="break-all">https://github.com/pantsbuild/pants/blob/<strong>main</strong>/src/python/pants/backend/python/providers/pyenv/rules_integration_test.py#L65-L66</code></li>
+  <li><code class="break-all">https://github.com/pantsbuild/pants/blob/<strong>71749c04c7cf3cd9c22aea3e99fded57d5f41ebc</strong>/src/python/pants/backend/python/providers/pyenv/rules_integration_test.py#L65-L66</code></li>
 </ul>
-</nav>
 
+<p>They’re almost identical except for the bolded <code class="language-plaintext highlighter-rouge">blob/.../src</code> section. That difference communicates where to find the files<sup id="fnref:commitish" role="doc-noteref"><a href="#fn:commitish" class="footnote" rel="footnote">1</a></sup>, one uses mutable reference (branch name) while the other uses an immutable commit hash.</p>
+
+<p>At the time of writing, the two URLs show a file with identical contents, but they have different meanings and so this won’t always be true.</p>
+
+<p><a href="https://github.com/pantsbuild/pants/commit/71749c04c7cf3cd9c22aea3e99fded57d5f41ebc"><code class="language-plaintext highlighter-rouge">71749c04</code></a> is the most recent commit to Pants’ <code class="language-plaintext highlighter-rouge">main</code> branch, which is why they currently match. But once PR #21139 lands in <code class="language-plaintext highlighter-rouge">main</code> with <a href="https://github.com/pantsbuild/pants/pull/21139/commits/58b83e3ca63d169ce26798809de63c94a540e8f5">its improved test</a>, this file on <code class="language-plaintext highlighter-rouge">main</code> will have different content to <code class="language-plaintext highlighter-rouge">71749c04</code>. The first branch-ful link will show the new contents.</p>
+
+<p>Presumably the link is being a reference for something, so having it <strong>change accidentally</strong> is not good. You might come back in a few days, weeks or months and try to track down the context for something: in the best case, you’ll get lucky and the code hasn’t changed. In the worst case, the file in question has been deleted or moved, so the link is a 404. You might be able to do some git archeaology to guess what’s it’s referring to but that’s a lot of fuss!</p>
+
+<p>Using the permalink is <strong>minimal effort</strong> and <strong>sidesteps potential problems</strong>.</p>
+
+<h2 id="sometimes-the-latest-version-is-useful">Sometimes the latest version is useful?</h2>
+
+<p>In some cases, having an “evergreen” link pointing to always the latest version is useful, and so using the branch-ful link might be appropriate… but I think this is rarer than one might expect, and has consequences.</p>
+
+<p>Linking to a specific older version might be confusing if the code has moved in the current version. However, it’s a permalink, so it’s showing the <strong>exact code of interest</strong>. You can use any of your <strong>normal code discovery tools</strong> (from wild guesses to grep to AI) to find its new location. There’s no way to have a single evergreen link to “file <code class="language-plaintext highlighter-rouge">foo/bar/baz.py</code> even if it moves” or particular lines<sup id="fnref:search" role="doc-noteref"><a href="#fn:search" class="footnote" rel="footnote">2</a></sup>.</p>
+
+<p>In terms of consequences: if a non-perma link to a specific file is published somewhere, that location should now <strong>always</strong> have a real file, or else that link breaks. Git and GitHub don’t provide any tools for redirects (that I know of!), so if the file needs to move, a file has to be left in the old spot as breadcrumb to find the new location.</p>
+
+<h2 id="non-github-forges">Non-GitHub forges</h2>
+
+<p>I am not as familiar with Gitlab and other GitHub competitors: I imagine most have similar functionality for permalinks to a particular version of a file and its lines.</p>
+
+<p>From a quick test, Gitlab looks to share the <code class="language-plaintext highlighter-rouge">y</code> keyboard shortcut, and line-linking behaviour.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>Creating permalinks to code in GitHub is easy (hit <code class="language-plaintext highlighter-rouge">y</code>) and has benefits with few downsides.</p>
+
+<p>Consider making it a habit to always use them instead of branch-ful non-perma links.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:permanent" role="doc-endnote">
+      <p>Not actually permanent: GitHub will itself eventually disappear, breaking <em>all</em> such links; a repository may be deleted; the repository may have history rewritten to erase the commit. <a href="#fnref:permanent" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:commitish" role="doc-endnote">
+      <p>I think <a href="https://git-scm.com/docs/gitrevisions">any reference to a commit</a> works in these URLs, including tags, parent references <code class="language-plaintext highlighter-rouge">71749c04^^</code> and branch time-machines <code class="language-plaintext highlighter-rouge">main@{3 months ago}</code>. The latter two are probably just curiosities, but tags links are definitely useful! <a href="#fnref:commitish" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:search" role="doc-endnote">
+      <p>You could link to <a href="https://github.com/search?q=repo%3Apantsbuild%2Fpants%20py_version%20test_using_pyenv&amp;type=code">a search query</a> but that feels a bit unreliable. There’s some cases where it definitely makes sense, though! <a href="#fnref:search" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
     </article>
 
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <strong>Huon Wilson</strong> <a href="https://twitter.com/huon_w">@huon_w</a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2024/03/qr-base10-base64/">
+                   <h3>10 > 64, in QR codes</h3>
+                     <p>QR codes reverse the usual order: decimal works better than base64 for encoding binary data, despite it requiring many more digits.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/10/nsw-covid-qr/">
+                   <h3>Mechanical sympathy for QR codes: making NSW check-in better</h3>
+                     <p>QR codes are now critical infrastructure here in NSW, Australia. Let’s learn how to make them better.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/09/qr-error-correction/">
+                   <h3>QR error correction helps and hinders scanning</h3>
+                     <p>A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
     
   </main>
 
