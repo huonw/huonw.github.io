@@ -30,7 +30,7 @@ I set up [some benchmarks] that scan through 8 files, each 256 MiB, summing the 
 
 There's 6 configurations, using all combinations of how files are read and what concurrency is used.[^benchmark-details]
 
-[^benchmark-details]: I have a script that repeatedly measures the time to scan through all 2GiB, in each configuration. Before each measurement, it runs [`purge`](https://www.manpagez.com/man/8/purge/) to drop any file system caches and thus run with a cold cache.
+[^benchmark-details]: I have [a script](https://github.com/huonw/async-mmap-experiments) that repeatedly measures the time to scan through all 2GiB, in each configuration. Before each measurement, it [drops any file system caches](https://github.com/huonw/async-mmap-experiments/blob/b669d82ad48e7751725cb4fdfbeac1b498c5411f/src/main.rs#L106-L113) with [`purge`](https://www.manpagez.com/man/8/purge/) to  run with a cold cache.
 
 
 For reading files, there's two dimensions:
