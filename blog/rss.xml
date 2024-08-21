@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Wed, 21 Aug 2024 07:37:51 +0000</pubDate>
-        <lastBuildDate>Wed, 21 Aug 2024 07:37:51 +0000</lastBuildDate>
+        <pubDate>Wed, 21 Aug 2024 10:26:21 +0000</pubDate>
+        <lastBuildDate>Wed, 21 Aug 2024 10:26:21 +0000</lastBuildDate>
         
         
         <item>
@@ -221,7 +221,7 @@ eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZH
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol start=&quot;0&quot;&gt;
     &lt;li id=&quot;fn:benchmark-details&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;I have a script that repeatedly measures the time to scan through all 2GiB, in each configuration. Before each measurement, it runs &lt;a href=&quot;https://www.manpagez.com/man/8/purge/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;purge&lt;/code&gt;&lt;/a&gt; to drop any file system caches and thus run with a cold cache. &lt;a href=&quot;#fnref:benchmark-details&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;I have &lt;a href=&quot;https://github.com/huonw/async-mmap-experiments&quot;&gt;a script&lt;/a&gt; that repeatedly measures the time to scan through all 2GiB, in each configuration. Before each measurement, it &lt;a href=&quot;https://github.com/huonw/async-mmap-experiments/blob/b669d82ad48e7751725cb4fdfbeac1b498c5411f/src/main.rs#L106-L113&quot;&gt;drops any file system caches&lt;/a&gt; with &lt;a href=&quot;https://www.manpagez.com/man/8/purge/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;purge&lt;/code&gt;&lt;/a&gt; to  run with a cold cache. &lt;a href=&quot;#fnref:benchmark-details&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:tokio-details&quot; role=&quot;doc-endnote&quot;&gt;
       &lt;p&gt;The Tokio benchmarks iterate over each file concurrently with &lt;a href=&quot;https://docs.rs/futures/0.3.28/futures/future/fn.join_all.html&quot;&gt;a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;join_all&lt;/code&gt; call&lt;/a&gt;. This uses &lt;a href=&quot;https://docs.rs/tokio/1.28.2/tokio/fs/struct.File.html&quot;&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tokio::fs::File&lt;/code&gt; type&lt;/a&gt; for “conventional IO”. Note: this uses a thread-pool in the background, because it seems like there’s limited support for truly asynchronous file IO, but the key is the API exposed, using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;async&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;await&lt;/code&gt;. &lt;a href=&quot;#fnref:tokio-details&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
