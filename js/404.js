@@ -45,6 +45,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     };
     var posts = [
         
+        {path: "/blog/2024/08/async-hazard-mmap/", title: "Async hazard: mmap is secretly blocking IO"},
+        
         {path: "/blog/2024/07/github-permalinks/", title: "GitHub tip-hub: habitual permalinks"},
         
         {path: "/blog/2024/03/qr-base10-base64/", title: "10 > 64, in QR codes"},

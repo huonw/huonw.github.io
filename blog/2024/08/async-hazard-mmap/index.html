@@ -1,0 +1,1077 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Async hazard: mmap is secretly blocking IO |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2024/08/async-hazard-mmap/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="Memory-mapping a file is convenient, but it&apos;s a hazard when used with async/await concurrent code: it means a &quot;simple&quot; memory index does blocking IO." />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Async hazard: mmap is secretly blocking IO" />
+  <meta name="twitter:description" content="Memory-mapping a file is convenient, but it&apos;s a hazard when used with async/await concurrent code: it means a &quot;simple&quot; memory index does blocking IO." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2024/08/async-hazard-mmap/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2024/08/async-hazard-mmap/" />
+  <meta property="og:title" content="Async hazard: mmap is secretly blocking IO" />
+  <meta property="og:description" content="Memory-mapping a file is convenient, but it&apos;s a hazard when used with async/await concurrent code: it means a &quot;simple&quot; memory index does blocking IO." />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://twitter.com/huon_w">Twitter</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Async hazard: mmap is secretly blocking IO</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">21 Aug 2024</span>
+           
+           
+         </div>
+      
+      <p>Memory mapping a file for reading sounds nice: turn inconvenient read calls and manual buffering into just simple indexing of a memory… but it does blocking IO under the hood, turn a <code class="language-plaintext highlighter-rouge">&amp;[u8]</code> byte arrays into an async hazard and making “concurrent” async code actually run sequentially!</p>
+
+<p>Code affected likely runs slower, underutilises machine resources, and has undesirable latency spikes.</p>
+
+<p>I’ve done some experiments in Rust that show exactly what this means, but I think this applies to any system that doesn’t have special handling of memory-mapped IO (including Python, and manual non-blocking IO in C).</p>
+
+<h2 id="i-want-numbers">I want numbers</h2>
+
+<p>I set up <a href="https://github.com/huonw/async-mmap-experiments">some benchmarks</a> that scan through 8 files, each 256 MiB, summing the value of every 512th byte. This is an uninteresting task, but it is designed to maximise IO usage and minimise everything else. This is thus a worst case, the impact on real code is unlikely to be quite this severe!</p>
+
+<figure class="image plotly-plot has-caption">
+  <div class="image-positioner">
+    <div style="width: 100%; height: 300px" class="lazily-filled" data-plotly-data="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"></div>
+  </div>
+  <figcaption><p>Results of 100 iterations of the benchmarks on an M1 Macbook Pro, one plotted point per iteration, with a cold file system cache.</p>
+</figcaption>
+</figure>
+
+<p>There’s 6 configurations, using all combinations of how files are read and what concurrency is used.<sup id="fnref:benchmark-details" role="doc-noteref"><a href="#fn:benchmark-details" class="footnote" rel="footnote">0</a></sup></p>
+
+<p>For reading files, there’s two dimensions:</p>
+
+<ol>
+  <li>conventional IO: using explicit <code class="language-plaintext highlighter-rouge">read</code> calls.</li>
+  <li>memory-mapped IO: using <a href="https://crates.io/crates/memmap2">the <code class="language-plaintext highlighter-rouge">memmap2</code> library</a>.</li>
+</ol>
+
+<p>For concurrency, there’s three:</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code>: using <a href="https://tokio.rs/">the Tokio library</a><sup id="fnref:tokio-details" role="doc-noteref"><a href="#fn:tokio-details" class="footnote" rel="footnote">1</a></sup> in single-threaded mode<sup id="fnref:tokio-single-threaded" role="doc-noteref"><a href="#fn:tokio-single-threaded" class="footnote" rel="footnote">2</a></sup>.</li>
+  <li>synchronously, with 8 threads: <a href="https://doc.rust-lang.org/stable/std/thread/fn.spawn.html">spawning a thread</a> per file.</li>
+  <li>synchronously, with 1 thread: a baseline using a single thread to read sequentially.</li>
+</ol>
+
+<p>The results<sup id="fnref:table" role="doc-noteref"><a href="#fn:table" class="footnote" rel="footnote">3</a></sup> are clear: using memory mapped IO with <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> seems to be <strong>using no concurrency</strong>: the clusters of dots are near-identical for the first two rows! An <strong>explicitly-sequential single thread</strong> takes 2.5 to 3 seconds to scan all 2GiB with memory-mapped IO, and the “concurrent” <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> version looks identical. By comparison, using memory-mapped IO on 8 full threads is far faster, around 0.75 to 0.8 seconds.</p>
+
+<p>Meanwhile, using conventional IO behaves more like we’d hope: using either form of concurrency is <strong>noticeably faster</strong> than running sequentially. Using either <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> or operating system threads results in reading all files in less than 0.65 seconds<sup id="fnref:maxed-out" role="doc-noteref"><a href="#fn:maxed-out" class="footnote" rel="footnote">4</a></sup>, while the sequential single-threaded version takes only a bit longer (0.7s) but with little overlap in the distributions.</p>
+
+<h2 id="whats-going-on">What’s going on?</h2>
+
+<p>Operating systems generally distinguish between bytes in RAM and files stored on disk. Reading a file is a dedicated operation that slurps bytes from disk into an array in memory. But there’s more shades of gray: <a href="https://en.wikipedia.org/wiki/Mmap">the <code class="language-plaintext highlighter-rouge">mmap</code> Unix system call</a> (or equivalent on other platforms) blurs this disk vs. memory distinction by setting up “memory mapped IO”.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">mmap</code> operation allocates a range of (virtual) memory to a chosen file, making that memory “contain” the file: reading<sup id="fnref:writing" role="doc-noteref"><a href="#fn:writing" class="footnote" rel="footnote">5</a></sup> the first byte in memory gives the value of the first byte of the file, as does the second, and so on. The file essentially acts as a normal <code class="language-plaintext highlighter-rouge">&amp;[u8]</code> array that can be indexed and sliced.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="n">file</span> <span class="o">=</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fs</span><span class="p">::</span><span class="nn">File</span><span class="p">::</span><span class="nf">open</span><span class="p">(</span><span class="s">"data.bin"</span><span class="p">)</span><span class="o">?</span><span class="p">;</span>
+<span class="k">let</span> <span class="n">mmapped</span> <span class="o">=</span> <span class="k">unsafe</span> <span class="p">{</span> <span class="nn">memmap2</span><span class="p">::</span><span class="nn">Mmap</span><span class="p">::</span><span class="nf">map</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">?</span> <span class="p">};</span>
+
+<span class="k">let</span> <span class="n">first_byte</span><span class="p">:</span> <span class="nb">u8</span> <span class="o">=</span> <span class="n">mmapped</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"File starts {first_bytes}"</span><span class="p">);</span>
+
+<span class="k">let</span> <span class="n">central_bytes</span><span class="p">:</span> <span class="o">&amp;</span><span class="p">[</span><span class="nb">u8</span><span class="p">]</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">mmapped</span><span class="p">[</span><span class="mi">1200</span><span class="o">..</span><span class="mi">1300</span><span class="p">];</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"File contains {central_bytes:?}"</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This sounds a lot like what one would get by manually allocating a memory array as a buffer, seeking within the file, reading the file to fill that buffer, and then accessing the buffer… just without all the book-keeping. What’s not to like?</p>
+
+<h2 id="under-the-hood">Under the hood</h2>
+
+<p>To make this work, the operating system has to do magic.</p>
+
+<p>One possible implementation might be to literally have the operating system allocate a chunk of physical memory and load the file into it, byte by byte, right when <code class="language-plaintext highlighter-rouge">mmap</code> is called… but this is slow, and defeats half the magic of memory mapped IO: manipulating files without having to pull them into memory. Maybe the machine has 4GiB of RAM installed, but we want to manipulate a 16GiB file.</p>
+
+<p>Instead, operating systems will use the power of <strong>virtual memory</strong>: this allows some parts of the file to be in physical memory, while other parts are happily left on disk, and different parts can be paged in and out of memory as required. Sections of file are only loaded into memory <strong>as they are accessed</strong>.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="n">mmapped</span><span class="p">:</span> <span class="n">Mmap</span> <span class="o">=</span> <span class="cm">/* map some file into memory */</span><span class="p">;</span>
+
+<span class="k">let</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">12345</span><span class="p">;</span>
+<span class="k">let</span> <span class="n">byte_of_interest</span> <span class="o">=</span> <span class="n">mmapped</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"byte #{index} has value {byte_of_interest}"</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>That indexing accesses the 12 345th byte of the file. On the first access, there’ll be a <strong>page fault</strong>, and the operating system takes over: it loads the relevant data from the file on disk into actual physical memory, meaning the data is now available directly in normal RAM. This includes loading a small surrounding region—a page—which means future accesses to nearby addresses are fast.</p>
+
+<p>While loading, the thread and its code will be <strong>blocked</strong>: the thread will be descheduled and won’t make further progress, because the next lines need the byte value to do their work.</p>
+
+<p>Once loaded, the page of the file will be cached in memory for a while, and during that time any further accesses to addresses in the page will be fast, straight from memory. Depending on system memory usage and other factors, the operating system might then decide to evict the page from memory, freeing space for something else. Accessing it after eviction will require reloading from disk, with the same blocking behaviour and the cycle repeats.</p>
+
+<p>In our application code, all this magic is packaged up into the simple indexing: <code class="language-plaintext highlighter-rouge">byte_of_interest = mmapped[index]</code>. The separate “already in memory” (fast) and “load from disk” (slow) cases are invisible<sup id="fnref:timing" role="doc-noteref"><a href="#fn:timing" class="footnote" rel="footnote">6</a></sup> in the code. In either case, we start with our memory address and end up with byte value.</p>
+
+<h2 id="losing-the-thread">Losing the thread</h2>
+
+<p>This magic is why our concurrency doesn’t work. The <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> construct is co-operative scheduling, with a “executor” or “event loop” that manages many tasks, swapping between them as required… but this swapping is <strong>only possible at explicit <code class="language-plaintext highlighter-rouge">await</code> points</strong>. If a task runs for a long time or is “blocked” without an <code class="language-plaintext highlighter-rouge">await</code>, the executor won’t be able to preempt it to run another task. Others have <a href="https://ryhl.io/blog/async-what-is-blocking/">written more about this blocking pitfall, far more knowledgeably than I</a>.</p>
+
+<p>Remember that the code just looks like <code class="language-plaintext highlighter-rouge">let byte_of_interest = mmapped[index];</code>? There’s <strong>no <code class="language-plaintext highlighter-rouge">await</code></strong>, so the <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> executor <strong>cannot swap to another task</strong>. Instead, the operation blocks and deschedules the whole thread… But the executor is just normal code using that thread too, so the very thing that coordinates the concurrency is descheduled and can’t do any other work.</p>
+
+<p>This is different to proper async IO, the individual task will still need to wait for the data to be read, but <code class="language-plaintext highlighter-rouge">await</code>s mean the executor can swap to another task while that happens: concurrency!</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="code"><pre><span class="k">let</span> <span class="k">mut</span> <span class="n">file</span><span class="p">:</span> <span class="nn">tokio</span><span class="p">::</span><span class="nn">fs</span><span class="p">::</span><span class="n">File</span> <span class="o">=</span> <span class="cm">/* some file */</span><span class="p">;</span>
+<span class="k">let</span> <span class="k">mut</span> <span class="n">buffer</span><span class="p">:</span> <span class="p">[</span><span class="nb">u8</span><span class="p">;</span> <span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span> <span class="n">N</span><span class="p">];</span>
+<span class="n">file</span><span class="nf">.read</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="n">buffer</span><span class="p">)</span><span class="k">.await</span><span class="o">?</span><span class="p">;</span> <span class="c">// crucial await</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h2 id="at-a-distance">At a distance</h2>
+
+<p>The <strong>most subtle</strong> part of this hazard to me is that the memory-mapped file <strong>looks like a normal buffer in memory</strong>. Code is likely to be implicitly assuming that indexing a <code class="language-plaintext highlighter-rouge">&amp;[u8]</code> is fast, and does not secretly read a file.</p>
+
+<p>For instance, <code class="language-plaintext highlighter-rouge">memmap2::Mmap</code> derefs <a href="https://docs.rs/memmap2/0.6.2/memmap2/struct.Mmap.html#impl-Deref-for-Mmap">to <code class="language-plaintext highlighter-rouge">[u8]</code></a>, meaning we can take <code class="language-plaintext highlighter-rouge">fn f(b: &amp;[u8]) { ... }</code>, and call it like <code class="language-plaintext highlighter-rouge">f(&amp;mmapped)</code>. That function just sees <code class="language-plaintext highlighter-rouge">b: &amp;[u8]</code>, and won’t have <em>any</em> idea that indexing <code class="language-plaintext highlighter-rouge">b</code> might do blocking IO. It won’t know that it needs to take care with any co-operative concurrency it is performing.</p>
+
+<p>Rust is just the demonstration here, <strong>this applies universally</strong>: <a href="https://docs.python.org/3/library/mmap.html">Python’s <code class="language-plaintext highlighter-rouge">mmap</code></a> explicitly says “behave like … <code class="language-plaintext highlighter-rouge">bytearray</code>”, while the C/POSIX <code class="language-plaintext highlighter-rouge">mmap</code> function returns <code class="language-plaintext highlighter-rouge">void *</code> (same as <code class="language-plaintext highlighter-rouge">malloc</code>). The whole point of memory-mapping is <strong>pretending a file is a byte array</strong>, and that’s what bites us here!</p>
+
+<h2 id="caching-cha-ching">Caching: Cha-ching!</h2>
+
+<p>We’ve seen above that the problem is when data has to be loaded from disk into memory. What happens if the data is <strong>in memory already</strong>?  We might expect memory-mapped IO to run much faster in that case, since it’s theoretically just accessing normal memory, straight from RAM.</p>
+
+<p>This version of the benchmark times how long it takes to run the same task, immediately after doing the cold version we saw above, without purging caches.</p>
+
+<figure class="image plotly-plot has-caption">
+  <div class="image-positioner">
+    <div style="width: 100%; height: 300px" class="lazily-filled" data-plotly-data="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"></div>
+  </div>
+  <figcaption><p>100 iterations of the same benchmark as above, but with a warm file system cache.</p>
+</figcaption>
+</figure>
+
+<p>Our theory was right, it is <strong>much faster</strong>: with a cold cache, we were seeing memory-mapped IO on a single thread take 2.5s to read 2GiB. Now it takes 0.12s, 21× quicker, with <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> or without<sup id="fnref:table:1" role="doc-noteref"><a href="#fn:table" class="footnote" rel="footnote">3</a></sup>.</p>
+
+<p>There’s some other notable observations about running with a warm cache:</p>
+
+<ul>
+  <li>Memory-mapped IO is faster than conventional IO. I imagine because there’s less overhead: for conventional IO, there’s an extra <code class="language-plaintext highlighter-rouge">memcpy</code> of data from the operating system page cache into the buffer passed into the <code class="language-plaintext highlighter-rouge">read</code> call. Using Tokio and <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> has even more overhead, likely because there’s synchronisation overhead with the thread-pool that has to be used for asynchronous file IO.</li>
+  <li>Asynchronous and single-threaded sequential memory-mapped IO still take the time same time as each other, same as with a cold cache… just both are now fast.</li>
+  <li>If you want speed, using multiple threads is handy: memory-mapped IO is achieving “file” IO speeds of  ~41GiB/s, by reading 2GiB in 49ms.</li>
+  <li>This is likely system-dependent: I was running on arm64 macOS, and other systems may see different results.</li>
+</ul>
+
+<h2 id="more-questions">More questions</h2>
+
+<p>I’ve done some experiments here, putting the “science” in “computer science”, and of course there’s more questions: I don’t know the answers!</p>
+
+<ol>
+  <li>How does this manifest across <strong>other platforms</strong>, beyond arm64 macOS? (Hypothesis: similar on all platforms.)</li>
+  <li>Does the <strong>type of disk</strong> backing the files influence behaviour? (Hypothesis: yes, I’d expect running this on a high-latency disk like a spinning-rust HDD to show even worse blocking behaviour than the SSD used here, as each thread will be blocked for longer.)</li>
+  <li>Does <strong><a href="https://en.wikipedia.org/wiki/Cache_control_instruction#Prefetch">prefetching</a> via CPU instructions</strong> help mitigate the problems? (Hypothesis: not sure. I have no idea if running a prefetch instruction on a memory-mapped address will cause the page to be loaded in the background. One may have to prefetch many, many loop iterations in advance, since this is reading all the way from disk, not just from RAM to CPU cache, for which prefetching is often used.)</li>
+  <li>How do <strong>other <code class="language-plaintext highlighter-rouge">mmap</code>/<code class="language-plaintext highlighter-rouge">madvise</code> options</strong> influence this (for instance, <code class="language-plaintext highlighter-rouge">MADV_SEQUENTIAL</code>, <code class="language-plaintext highlighter-rouge">MADV_WILLNEED</code>)? (Hypothesis: these options will make it more likely that data is pre-cached and thus fall into fast path more often, but without a guarantee.)</li>
+  <li>What about <strong><a href="https://en.wikipedia.org/wiki/Readahead"><code class="language-plaintext highlighter-rouge">readahead</code></a></strong>? (Hypothesis: making the fast path more likely but not guaranteed, similar to the previous point.)</li>
+</ol>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Accessing files via memory mapped IO makes for a very convenient API: just read a byte with normal indexing. However, it’s <strong>error-prone</strong> when used with co-operatively scheduled concurrency, like <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> in Rust or Python, or even “manual” non-blocking IO in C:</p>
+
+<ul>
+  <li>If the data isn’t available in memory yet, the operating system will have to <strong>block the thread</strong> while reading from disk, and there’s no <code class="language-plaintext highlighter-rouge">await</code>s to allow the <code class="language-plaintext highlighter-rouge">async</code> executor to run another task.</li>
+  <li>Thus, heavy use of <code class="language-plaintext highlighter-rouge">mmap</code> can potentially be <strong>as slow as sequential code</strong>!</li>
+  <li>It’s a <strong>hazard at a distance</strong>: a memory-mapped file can be coerced to a look like a normal byte array (<code class="language-plaintext highlighter-rouge">&amp;[u8]</code>, <code class="language-plaintext highlighter-rouge">bytearray</code>/<code class="language-plaintext highlighter-rouge">list[int]</code>, or <code class="language-plaintext highlighter-rouge">void *</code>/<code class="language-plaintext highlighter-rouge">char *</code>) and passed deep into the async code before being indexed.</li>
+  <li>If data is <strong>cached</strong> by the operating system, <code class="language-plaintext highlighter-rouge">mmap</code> has less overhead than conventional IO and can be a little faster (on my system).</li>
+</ul>
+
+<script id="plotly-template" type="application/zlib">
+eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZHj9toxnX0+LSNhNZK/3zDolpJBYWRXsz+SnJi/x6iHXGYzaeYFdcvQiNEtp04hbIkJfZJ2UNEote2McvoMf6RQc01N0boDqvMWylXqoHqkfpHaMk3AO7bdyigMbwp2Tat2WBNtoOqZrNGLLZl90zw/1pJ17BvJjQSQVY1/BDGcuL8re1RrugaZHXZmiRa6Lbx316XrRFQFuJ92artlL4E7g3X5mMNO7TVzVBxRnN2siZbKq3WUqBPnpzjbMBuIzVYYd5hULutXz4ij9+kAE+W43uPfhxM3zbCfXVyWEDjoNtSUZ1Rg74iDyukr7kENk9P8Q+QbSOWQLRmD9EzwbKcFWkWV2WcVIxmeeUwKaEZSalDUZalVUyrPC7KNKFJMaLSAkKfZIVHlSVLMlallBZ5WsT5iCooYSUpmEOxQFuJ2kdUVZAkJqVHoZJQ6QiioA5RlUdZPdler0NlMWEFqTz7NFCGyh2qAPaMlKVDZWH7WJY5Q8QJYTkpvMbsWCFzKOAFxsi9JT4wKrixyEnueeXVsUpvekZoXJAicbAiMClq9jBwUZKRynuyDJsIij0sIzQHicxbttzrG63rcTkB/4HXvdojnUmWeBxYDZpNy7GtdB9VaHTsB1kMH54PWeDCPkiBoB+7bkIeqUdCS8HNiq+nnJxy8p5y0od9kAILOSXBlAR3mAQQ+DYN2t6ohearkyn/70/hD5KP9LBmSrgp4e4q4YLQP0mFaW00ZcR9Z0S4TFqJfplcc3hwdJxepLDmulZKN71lcbTv9T+zOdA5cLCMWjHufA1GwfC8aEGa0YM4wAGAQEhqHLJPxvHrUvccAj7OoVc25TcbwEWT+xWs+7+ZV7AF4EoWQt0CMaQRspI3QUqGnGDOPFNvt8DLMQm4Xdq0/xZqh037sOA23OmpBOxwicP15hbYeSqW3aDnvBbTtHCaFt7TtNCHPaaA4TPpEkBI2ft9iPNTSIgYfNLYnoSdnlSOZ2iYbUvBmzG9L8mhZULsg5HwqRzHdeS3e0Ys30BeIZp3nTLctKprxJwP0ljeXGv1GirLC/Aa6MIYgPo4s0Op3bCaCY1p2hvd1iZyaenPGa/ULYVdwTbqxd+D6EzL5dQxTB3DtTuGQ/St2m7opxCcQvC6Iej7w1eOk8QxDkADBdKF7VtHs1FoA7NeH0tKZAss4tSXIMOiDCCUVU5OtS8CUpTFpDpIpiAEbEDRPB4UE/fsUTGIQZV0X5HGgCghYmNr12iuOvPp7SO7DtxGs8XZVRX+cnZVRfKuOR6Fj+4C9Uv1itV6v1MxFnTN/vcwG7rWnAyuMEaP5wszYcdnLtsFDFqRFHOz/+oOImqpetHjELnma6F/nvNeS2WC4gs03aIJh+3FAK9+nP3VCzvYKsTu92Pc0GovB32mWPMGerSvU7fD9YwYJyxvXuyM1y8LrYZPPXVJN5b5+cDHTA7iQydf5Eeid6HVuSCgvfmj2L7/QWwxJpaQGuFEFCe+H81DD1NeP6cECWrNa3eyh9f69qvl4B7elyTL1TKv/tKk2+fa+d7sb8vHV+Om4Aa6TjWfR48UvfDfyXQLdHa7fwEhtg6y
+</script>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:benchmark-details" role="doc-endnote">
+      <p>I have a script that repeatedly measures the time to scan through all 2GiB, in each configuration. Before each measurement, it runs <a href="https://www.manpagez.com/man/8/purge/"><code class="language-plaintext highlighter-rouge">purge</code></a> to drop any file system caches and thus run with a cold cache. <a href="#fnref:benchmark-details" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:tokio-details" role="doc-endnote">
+      <p>The Tokio benchmarks iterate over each file concurrently with <a href="https://docs.rs/futures/0.3.28/futures/future/fn.join_all.html">a <code class="language-plaintext highlighter-rouge">join_all</code> call</a>. This uses <a href="https://docs.rs/tokio/1.28.2/tokio/fs/struct.File.html">the <code class="language-plaintext highlighter-rouge">tokio::fs::File</code> type</a> for “conventional IO”. Note: this uses a thread-pool in the background, because it seems like there’s limited support for truly asynchronous file IO, but the key is the API exposed, using <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code>. <a href="#fnref:tokio-details" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:tokio-single-threaded" role="doc-endnote">
+      <p>The benchmarks use the <a href="https://docs.rs/tokio/1.28.2/tokio/runtime/struct.Builder.html#method.new_current_thread">single threaded runtime</a> to make the problem as obvious and clear as possible: using a multi-thread runtime may disguise the consequences of mmap’s blocking IO by smearing it across multiple threads. <a href="#fnref:tokio-single-threaded" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:table" role="doc-endnote">
+      <p>Here’s a table with the full results, including both cold and warm file system caches, taking the minimum value of each benchmark (that is, the most favourable observation):</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Concurrency</th>
+            <th>IO</th>
+            <th>Cold (s)</th>
+            <th>Warm (s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Async</td>
+            <td>Mmap</td>
+            <td>2.5</td>
+            <td>0.12</td>
+          </tr>
+          <tr>
+            <td>Async</td>
+            <td>Conventional</td>
+            <td>0.62</td>
+            <td>0.22</td>
+          </tr>
+          <tr>
+            <td>Sync <small>8 threads</small></td>
+            <td>Mmap</td>
+            <td>0.75</td>
+            <td>0.049</td>
+          </tr>
+          <tr>
+            <td>Sync <small>8 threads</small></td>
+            <td>Conventional</td>
+            <td>0.62</td>
+            <td>0.063</td>
+          </tr>
+          <tr>
+            <td>Sync <small>1 thread</small></td>
+            <td>Mmap</td>
+            <td>2.5</td>
+            <td>0.12</td>
+          </tr>
+          <tr>
+            <td>Sync <small>1 thread</small></td>
+            <td>Conventional</td>
+            <td>0.67</td>
+            <td>0.14</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><a href="#fnref:table" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:table:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:maxed-out" role="doc-endnote">
+      <p>I think this is maxing out the machine’s SSD bandwidth, at around 3300 MiB/s, hence it’s not much faster than the single-threaded version. <a href="#fnref:maxed-out" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:writing" role="doc-endnote">
+      <p>This article focuses on my observations of using mmap for reading a file, not writing. As I understand it, writing comes with its own problems, potentially including things like unclear persistence guarantees. But I’m not an expert nor have I investigated. <a href="#fnref:writing" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:timing" role="doc-endnote">
+      <p>The cases are invisible except through side-channels like timing the operation, observing memory usage stats, or page allocation tables. I’m not counting them. <a href="#fnref:timing" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <strong>Huon Wilson</strong> <a href="https://twitter.com/huon_w">@huon_w</a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2024/07/github-permalinks/">
+                   <h3>GitHub tip-hub: habitual permalinks</h3>
+                     <p>Hit y to create a permalink to a GitHub directory, file or line. They’re easy to make, stable, and even render a preview in some places.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2024/03/qr-base10-base64/">
+                   <h3>10 > 64, in QR codes</h3>
+                     <p>QR codes reverse the usual order: decimal works better than base64 for encoding binary data, despite it requiring many more digits.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2021/10/nsw-covid-qr/">
+                   <h3>Mechanical sympathy for QR codes: making NSW check-in better</h3>
+                     <p>QR codes are now critical infrastructure here in NSW, Australia. Let’s learn how to make them better.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+<script src="/js/plotly.js" type="text/javascript"></script>
+</body> </html>
