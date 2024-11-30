@@ -16,6 +16,7 @@ url: https://huonw.github.io
 permalink: /blog/:year/:month/:title/
 
 twitter: huon_w
+bluesky: huonw.bsky.social
 exclude: ["vendor"]
 blog_description: "Huon Wilson's writings"
 
