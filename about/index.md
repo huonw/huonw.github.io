@@ -19,8 +19,8 @@ library][stellar]
 [rust-prs]: https://github.com/rust-lang/rust/pulls?q=is%3Apr+author%3Ahuonw
 [swift-prs]: https://github.com/apple/swift/pulls?q=is%3Apr+author%3Ahuonw
 
-If you're looking to get in touch, I'm [huon_w](http://twitter.com/huon_w) on
-twitter or `wilson.huon` at [Google's mail service](http://gmail.com).
+If you're looking to get in touch, I'm [on Bluesky](http://bsky.app/social/{{ site.bluesky }}), and
+`wilson.huon` at [Google's mail service](http://gmail.com).
 
 If you're looking for code, you can find me on
 [GitHub](https://github.com/huonw) and on
