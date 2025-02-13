@@ -6,8 +6,247 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Sat, 30 Nov 2024 04:22:29 +0000</pubDate>
-        <lastBuildDate>Sat, 30 Nov 2024 04:22:29 +0000</lastBuildDate>
+        <pubDate>Thu, 13 Feb 2025 03:49:14 +0000</pubDate>
+        <lastBuildDate>Thu, 13 Feb 2025 03:49:14 +0000</lastBuildDate>
+        
+        
+        <item>
+            <title>Prefer tee -a, not >>, in CI</title>
+            <link>https://huonw.github.io/blog/2025/02/ci-tee/</link>
+            <pubDate>Thu, 13 Feb 2025 00:00:00 +0000</pubDate>
+            <author>Huon Wilson</author>
+            <guid>https://huonw.github.io/blog/2025/02/ci-tee</guid>
+            <description>&lt;p&gt;Shell scripts sometimes have to append data to a file. Redirecting output with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&lt;/code&gt; is the conventional way and works fine, but using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tee -a&lt;/code&gt; instead is a usually better default, especially in continuous integration. It’s &lt;strong&gt;just as easy&lt;/strong&gt; and gives &lt;strong&gt;automatic introspection&lt;/strong&gt;: the same value is printed to stdout and so appears in normal logs too.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c&quot;&gt;# conventional approach (worse!):&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;some_variable=some_value&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_ENV&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# preferable approach (better!):&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;some_variable=some_value&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_ENV&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This occurs for me most often in continuous integration (CI), and especially with GitHub Actions. GHA currently exposes four different files to the CI scripts, and appending to them controls features of the runner itself:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-environment-variable&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_ENV&lt;/code&gt; to set environment variables for future steps&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-output-parameter&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_OUTPUT&lt;/code&gt; to set “outputs” of the step&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#adding-a-job-summary&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_STEP_SUMMARY&lt;/code&gt; to add a step summary&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#adding-a-system-path&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_PATH&lt;/code&gt; to set new &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$PATH&lt;/code&gt; entries for future steps&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(This may apply to other CI providers too, but I am not as familiar with them.)&lt;/p&gt;
+
+&lt;p&gt;GitHub’s docs give examples like the following, to create a environment variable called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JSON_RESPONSE&lt;/code&gt; containing the result of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; invocation. This variable will be available to later steps in the same job.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Set the value in bash&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;step_one&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;echo &apos;JSON_RESPONSE&amp;lt;&amp;lt;EOF&apos;&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;curl https://example.com&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;echo EOF&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;} &amp;gt;&amp;gt; &quot;$GITHUB_ENV&quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This works fine! But the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$JSON_RESPONSE&lt;/code&gt; environment variable will have a value that isn’t obvious from the step definition, and might change from run to run. If a human needs to know what the &lt;em&gt;actual&lt;/em&gt; value is for a specific run, they’re out of luck. This applies equally well if the workflow has lots of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt; conditions in it, where knowing exactly which decisions were made is very handy.&lt;/p&gt;
+
+&lt;p&gt;In either case, maybe a workflow does something unexpected and I have to debug: if the CI UI shows any computed/non-obvious values, it’s easier to track down the problem, and not get distracted by red herrings.&lt;/p&gt;
+
+&lt;h2 id=&quot;teelling-whats-going-on&quot;&gt;Teelling what’s going on&lt;/h2&gt;
+
+&lt;p&gt;There’s a few ways to get more insight into what exactly is happening with these appended command files. Focusing on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_ENV&lt;/code&gt; example above:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When setting up the variable, &lt;strong&gt;save into a temporary&lt;/strong&gt;, and both print it out manually and append it to the file:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;curl https://example.com&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;response=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;JSON_RESPONSE&amp;lt;&amp;lt;EOF&apos;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;EOF
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_ENV&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;After the step that sets the variable, &lt;strong&gt;add extra steps&lt;/strong&gt;—temporary or permanent—that print the resulting environment variable directly:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;na&quot;&gt;steps&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Set the value in bash&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;temporary debugging&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;|&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;echo $JSON_RESPONSE&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;When setting up the variable, &lt;strong&gt;use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tee -a&lt;/code&gt;&lt;/strong&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;JSON_RESPONSE&amp;lt;&amp;lt;EOF&apos;&lt;/span&gt;
+  curl https://example.com
+  &lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;EOF
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_ENV&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The last one is easy to do, is only a tiny change small change from the original code, and can be used habitually with little effort: any time data is being appended to a “command” file, write the characters &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;| tee -a&lt;/code&gt; instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tee -a&lt;/code&gt; &lt;strong&gt;by default&lt;/strong&gt; means the exact value is visible when it inevitably turns out to be important, potentially years after it was first added!&lt;/p&gt;
+
+&lt;p&gt;Having the values available easily also helps with making changes: either having to decipher the current behaviour of an existing workflow, or just iterating on a new one.&lt;/p&gt;
+
+&lt;h2 id=&quot;teeaching-what-it-does&quot;&gt;Teeaching what it does&lt;/h2&gt;
+
+&lt;p&gt;“&lt;a href=&quot;https://manpage.me/?q=tee&quot;&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tee&lt;/code&gt; utility&lt;/a&gt; copies standard input to standard output, making a copy in zero or more files [passed as CLI arguments]”. By the default, it overwrites those files, while the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-a&lt;/code&gt; flag switches it to appending instead.&lt;/p&gt;
+
+&lt;p&gt;Here’s a demo, piping some text into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tee&lt;/code&gt;’s stdin:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;hello&apos;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; file.txt
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;world&apos;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; file.txt
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Running that prints:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;hello
+world
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;file.txt&lt;/code&gt; contains the same contents.&lt;/p&gt;
+
+&lt;p&gt;Thus, when we run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;... | tee -a $GITHUB_ENV&lt;/code&gt; in our CI environment, we’ll both:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;append&lt;/strong&gt; the relevant content to the file at the path stored in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_ENV&lt;/code&gt; environment variable, same as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&amp;gt; $GITHUB_ENV&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;see&lt;/strong&gt; it in our CI logs, same as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt;ing it directly&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JSON_RESPONSE&lt;/code&gt; example, the GitHub Actions UI will show&lt;sup id=&quot;fnref:not-json&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:not-json&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;0&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;JSON_RESPONSE&amp;lt;&amp;lt;EOF
+&amp;lt;!doctype html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+...
+&amp;lt;div&amp;gt;
+    &amp;lt;h1&amp;gt;Example Domain&amp;lt;/h1&amp;gt;
+    &amp;lt;p&amp;gt;This domain is for use in illustrative examples in documents. You may use this
+    domain in literature without prior coordination or asking for permission.&amp;lt;/p&amp;gt;
+    &amp;lt;p&amp;gt;&amp;lt;a href=&quot;https://www.iana.org/domains/example&quot;&amp;gt;More information...&amp;lt;/a&amp;gt;&amp;lt;/p&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+EOF
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Maybe all that cool &lt;a href=&quot;https://example.com&quot;&gt;example.com&lt;/a&gt; content is particularly popular some day, the site gets crushed under the load, and starts returning 5xx errors. The workflow relying on it then goes off the rails and stops working: knowing the root cause (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example.com&lt;/code&gt; misbehaving leading to bad content in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$JSON_RESPONSE&lt;/code&gt;) will be crucial for any fix.&lt;/p&gt;
+
+&lt;p&gt;Using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tee -a&lt;/code&gt;, the root cause will likely be &lt;strong&gt;easy to confirm&lt;/strong&gt;, because the output is &lt;strong&gt;already&lt;/strong&gt; right there, in the UI.&lt;/p&gt;
+
+&lt;h2 id=&quot;teempering-inappropriate-use&quot;&gt;Teempering inappropriate use&lt;/h2&gt;
+
+&lt;p&gt;There’s definitely cases where the “conventional” &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&amp;gt;&lt;/code&gt; might be more sensible, such as:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If the output is overwhelmingly verbose. This can be managed in other ways, like &lt;a href=&quot;https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#grouping-log-lines&quot;&gt;grouping log lines&lt;/a&gt; or keeping the steps that set such variables focused on &lt;em&gt;just&lt;/em&gt; setting those variables and split other work into separate steps.&lt;/li&gt;
+  &lt;li&gt;If the output contains secrets and so shouldn’t be shown in logs. In this case, it’s probably best to &lt;a href=&quot;https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#masking-a-value-in-a-log&quot;&gt;register such values for masking&lt;/a&gt; anyway, in case a value is printed accidentally somewhere else.&lt;/li&gt;
+  &lt;li&gt;If the decisions and outputs are already communicated in other, better ways: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tee -a&lt;/code&gt; is just a quick/good-enough approach especially handy for single-location commands. A reusable script or “action” is more likely to have explicit user-friendly logs.&lt;/li&gt;
+  &lt;li&gt;If adding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;|&lt;/code&gt; piping interferes with the shell’s job-control/exit-code-handling in a way that is problematic for the task: piping simple commands like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat&lt;/code&gt; is almost certainly always fine, more complicated commands might need to avoid it&lt;sup id=&quot;fnref:pipes&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:pipes&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;teeldr&quot;&gt;TeeL;DR&lt;/h2&gt;
+
+&lt;p&gt;In scripts that append to files, especially in CI, consider using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;| tee -a $FILE&lt;/code&gt; by default instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;&amp;gt; $FILE&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c&quot;&gt;# conventional approach (worse!):&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;some_variable=some_value&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_ENV&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# preferable approach (better!):&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;some_variable=some_value&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;tee&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-a&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$GITHUB_ENV&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This applies to sending CI commands via files, like GitHub Action’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_ENV&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_OUTPUT&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$GITHUB_PATH&lt;/code&gt;.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=Prefer%20tee%20-a,%20not%20%3E%3E,%20in%20CI%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/02/ci-tee/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Prefer%20tee%20-a,%20not%20%3E%3E,%20in%20CI%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2025/02/ci-tee/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/02/ci-tee/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/02/ci-tee/&amp;amp;title=Prefer%20tee%20-a,%20not%20%3E%3E,%20in%20CI&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol start=&quot;0&quot;&gt;
+    &lt;li id=&quot;fn:not-json&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;This &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JSON_RESPONSE&lt;/code&gt; variable is not JSON with the example as written! The use of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tee -a&lt;/code&gt; makes this clear, if that was a cause of a bug. &lt;a href=&quot;#fnref:not-json&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:pipes&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;I include this case because have an impression that there’s some subtleties around piping commands beyond what &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;set -o pipefail&lt;/code&gt; can handle, but am not sure. This is merely rumour and heresay based on only a vague memory that I haven’t been able to confirm or falsify. &lt;a href=&quot;#fnref:pipes&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        
         
         
         <item>

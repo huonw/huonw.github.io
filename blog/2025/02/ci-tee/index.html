@@ -1,0 +1,1062 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Prefer tee -a, not &gt;&gt;, in CI |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2025/02/ci-tee/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="GitHub Actions suggests using code like echo ... &gt;&gt; $GITHUB_ENV, but echo ... | tee -a $GITHUB_ENV is often better." />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Prefer tee -a, not &gt;&gt;, in CI" />
+  <meta name="twitter:description" content="GitHub Actions suggests using code like echo ... &gt;&gt; $GITHUB_ENV, but echo ... | tee -a $GITHUB_ENV is often better." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2025/02/ci-tee/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2025/02/ci-tee/" />
+  <meta property="og:title" content="Prefer tee -a, not &gt;&gt;, in CI" />
+  <meta property="og:description" content="GitHub Actions suggests using code like echo ... &gt;&gt; $GITHUB_ENV, but echo ... | tee -a $GITHUB_ENV is often better." />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    pre.highlight { overflow-x: scroll; }
+
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://bsky.app/profile/huonw.bsky.social">Bluesky</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Prefer tee -a, not >>, in CI</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">13 Feb 2025</span>
+           
+           
+         </div>
+      
+      <p>Shell scripts sometimes have to append data to a file. Redirecting output with <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> is the conventional way and works fine, but using <code class="language-plaintext highlighter-rouge">tee -a</code> instead is a usually better default, especially in continuous integration. It’s <strong>just as easy</strong> and gives <strong>automatic introspection</strong>: the same value is printed to stdout and so appears in normal logs too.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="c"># conventional approach (worse!):</span>
+<span class="nb">echo</span> <span class="s2">"some_variable=some_value"</span> <span class="o">&gt;&gt;</span> <span class="s2">"</span><span class="nv">$GITHUB_ENV</span><span class="s2">"</span>
+<span class="c"># preferable approach (better!):</span>
+<span class="nb">echo</span> <span class="s2">"some_variable=some_value"</span> | <span class="nb">tee</span> <span class="nt">-a</span> <span class="s2">"</span><span class="nv">$GITHUB_ENV</span><span class="s2">"</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This occurs for me most often in continuous integration (CI), and especially with GitHub Actions. GHA currently exposes four different files to the CI scripts, and appending to them controls features of the runner itself:</p>
+
+<ul>
+  <li><a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-environment-variable"><code class="language-plaintext highlighter-rouge">$GITHUB_ENV</code> to set environment variables for future steps</a></li>
+  <li><a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-output-parameter"><code class="language-plaintext highlighter-rouge">$GITHUB_OUTPUT</code> to set “outputs” of the step</a></li>
+  <li><a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#adding-a-job-summary"><code class="language-plaintext highlighter-rouge">$GITHUB_STEP_SUMMARY</code> to add a step summary</a></li>
+  <li><a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#adding-a-system-path"><code class="language-plaintext highlighter-rouge">$GITHUB_PATH</code> to set new <code class="language-plaintext highlighter-rouge">$PATH</code> entries for future steps</a></li>
+</ul>
+
+<p>(This may apply to other CI providers too, but I am not as familiar with them.)</p>
+
+<p>GitHub’s docs give examples like the following, to create a environment variable called <code class="language-plaintext highlighter-rouge">JSON_RESPONSE</code> containing the result of a <code class="language-plaintext highlighter-rouge">curl</code> invocation. This variable will be available to later steps in the same job.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set the value in bash</span>
+    <span class="na">id</span><span class="pi">:</span> <span class="s">step_one</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+      <span class="s">{</span>
+        <span class="s">echo 'JSON_RESPONSE&lt;&lt;EOF'</span>
+        <span class="s">curl https://example.com</span>
+        <span class="s">echo EOF</span>
+      <span class="s">} &gt;&gt; "$GITHUB_ENV"</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This works fine! But the <code class="language-plaintext highlighter-rouge">$JSON_RESPONSE</code> environment variable will have a value that isn’t obvious from the step definition, and might change from run to run. If a human needs to know what the <em>actual</em> value is for a specific run, they’re out of luck. This applies equally well if the workflow has lots of <code class="language-plaintext highlighter-rouge">if</code> conditions in it, where knowing exactly which decisions were made is very handy.</p>
+
+<p>In either case, maybe a workflow does something unexpected and I have to debug: if the CI UI shows any computed/non-obvious values, it’s easier to track down the problem, and not get distracted by red herrings.</p>
+
+<h2 id="teelling-whats-going-on">Teelling what’s going on</h2>
+
+<p>There’s a few ways to get more insight into what exactly is happening with these appended command files. Focusing on the <code class="language-plaintext highlighter-rouge">$GITHUB_ENV</code> example above:</p>
+
+<ul>
+  <li>When setting up the variable, <strong>save into a temporary</strong>, and both print it out manually and append it to the file:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="nv">response</span><span class="o">=</span><span class="si">$(</span>curl https://example.com<span class="si">)</span>
+<span class="nb">echo</span> <span class="s2">"response=</span><span class="nv">$response</span><span class="s2">"</span>
+<span class="o">{</span>
+  <span class="nb">echo</span> <span class="s1">'JSON_RESPONSE&lt;&lt;EOF'</span>
+  <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$response</span><span class="s2">"</span>
+  <span class="nb">echo </span>EOF
+<span class="o">}</span> <span class="o">&gt;&gt;</span> <span class="s2">"</span><span class="nv">$GITHUB_ENV</span><span class="s2">"</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>After the step that sets the variable, <strong>add extra steps</strong>—temporary or permanent—that print the resulting environment variable directly:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Set the value in bash</span>
+    <span class="s">...</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">temporary debugging</span>
+    <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+      <span class="s">echo $JSON_RESPONSE</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<ul>
+  <li>When setting up the variable, <strong>use <code class="language-plaintext highlighter-rouge">tee -a</code></strong> instead of <code class="language-plaintext highlighter-rouge">&gt;&gt;</code>:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="o">{</span>
+  <span class="nb">echo</span> <span class="s1">'JSON_RESPONSE&lt;&lt;EOF'</span>
+  curl https://example.com
+  <span class="nb">echo </span>EOF
+<span class="o">}</span> | <span class="nb">tee</span> <span class="nt">-a</span> <span class="s2">"</span><span class="nv">$GITHUB_ENV</span><span class="s2">"</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>The last one is easy to do, is only a tiny change small change from the original code, and can be used habitually with little effort: any time data is being appended to a “command” file, write the characters <code class="language-plaintext highlighter-rouge">| tee -a</code> instead of <code class="language-plaintext highlighter-rouge">&gt;&gt;</code>.</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">tee -a</code> <strong>by default</strong> means the exact value is visible when it inevitably turns out to be important, potentially years after it was first added!</p>
+
+<p>Having the values available easily also helps with making changes: either having to decipher the current behaviour of an existing workflow, or just iterating on a new one.</p>
+
+<h2 id="teeaching-what-it-does">Teeaching what it does</h2>
+
+<p>“<a href="https://manpage.me/?q=tee">The <code class="language-plaintext highlighter-rouge">tee</code> utility</a> copies standard input to standard output, making a copy in zero or more files [passed as CLI arguments]”. By the default, it overwrites those files, while the <code class="language-plaintext highlighter-rouge">-a</code> flag switches it to appending instead.</p>
+
+<p>Here’s a demo, piping some text into <code class="language-plaintext highlighter-rouge">tee</code>’s stdin:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre><span class="nb">echo</span> <span class="s1">'hello'</span> | <span class="nb">tee</span> <span class="nt">-a</span> file.txt
+<span class="nb">echo</span> <span class="s1">'world'</span> | <span class="nb">tee</span> <span class="nt">-a</span> file.txt
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Running that prints:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre>hello
+world
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>And <code class="language-plaintext highlighter-rouge">file.txt</code> contains the same contents.</p>
+
+<p>Thus, when we run <code class="language-plaintext highlighter-rouge">... | tee -a $GITHUB_ENV</code> in our CI environment, we’ll both:</p>
+
+<ul>
+  <li><strong>append</strong> the relevant content to the file at the path stored in the <code class="language-plaintext highlighter-rouge">$GITHUB_ENV</code> environment variable, same as <code class="language-plaintext highlighter-rouge">&gt;&gt; $GITHUB_ENV</code></li>
+  <li><strong>see</strong> it in our CI logs, same as <code class="language-plaintext highlighter-rouge">echo</code>ing it directly</li>
+</ul>
+
+<p>With the <code class="language-plaintext highlighter-rouge">JSON_RESPONSE</code> example, the GitHub Actions UI will show<sup id="fnref:not-json" role="doc-noteref"><a href="#fn:not-json" class="footnote" rel="footnote">0</a></sup>:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="code"><pre>JSON_RESPONSE&lt;&lt;EOF
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+...
+&lt;div&gt;
+    &lt;h1&gt;Example Domain&lt;/h1&gt;
+    &lt;p&gt;This domain is for use in illustrative examples in documents. You may use this
+    domain in literature without prior coordination or asking for permission.&lt;/p&gt;
+    &lt;p&gt;&lt;a href="https://www.iana.org/domains/example"&gt;More information...&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+EOF
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Maybe all that cool <a href="https://example.com">example.com</a> content is particularly popular some day, the site gets crushed under the load, and starts returning 5xx errors. The workflow relying on it then goes off the rails and stops working: knowing the root cause (<code class="language-plaintext highlighter-rouge">example.com</code> misbehaving leading to bad content in <code class="language-plaintext highlighter-rouge">$JSON_RESPONSE</code>) will be crucial for any fix.</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">tee -a</code>, the root cause will likely be <strong>easy to confirm</strong>, because the output is <strong>already</strong> right there, in the UI.</p>
+
+<h2 id="teempering-inappropriate-use">Teempering inappropriate use</h2>
+
+<p>There’s definitely cases where the “conventional” <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> might be more sensible, such as:</p>
+
+<ul>
+  <li>If the output is overwhelmingly verbose. This can be managed in other ways, like <a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#grouping-log-lines">grouping log lines</a> or keeping the steps that set such variables focused on <em>just</em> setting those variables and split other work into separate steps.</li>
+  <li>If the output contains secrets and so shouldn’t be shown in logs. In this case, it’s probably best to <a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#masking-a-value-in-a-log">register such values for masking</a> anyway, in case a value is printed accidentally somewhere else.</li>
+  <li>If the decisions and outputs are already communicated in other, better ways: <code class="language-plaintext highlighter-rouge">tee -a</code> is just a quick/good-enough approach especially handy for single-location commands. A reusable script or “action” is more likely to have explicit user-friendly logs.</li>
+  <li>If adding <code class="language-plaintext highlighter-rouge">|</code> piping interferes with the shell’s job-control/exit-code-handling in a way that is problematic for the task: piping simple commands like <code class="language-plaintext highlighter-rouge">echo</code> and <code class="language-plaintext highlighter-rouge">cat</code> is almost certainly always fine, more complicated commands might need to avoid it<sup id="fnref:pipes" role="doc-noteref"><a href="#fn:pipes" class="footnote" rel="footnote">1</a></sup>.</li>
+</ul>
+
+<h2 id="teeldr">TeeL;DR</h2>
+
+<p>In scripts that append to files, especially in CI, consider using <code class="language-plaintext highlighter-rouge">| tee -a $FILE</code> by default instead of <code class="language-plaintext highlighter-rouge">&gt;&gt; $FILE</code>.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="c"># conventional approach (worse!):</span>
+<span class="nb">echo</span> <span class="s2">"some_variable=some_value"</span> <span class="o">&gt;&gt;</span> <span class="s2">"</span><span class="nv">$GITHUB_ENV</span><span class="s2">"</span>
+<span class="c"># preferable approach (better!):</span>
+<span class="nb">echo</span> <span class="s2">"some_variable=some_value"</span> | <span class="nb">tee</span> <span class="nt">-a</span> <span class="s2">"</span><span class="nv">$GITHUB_ENV</span><span class="s2">"</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This applies to sending CI commands via files, like GitHub Action’s <code class="language-plaintext highlighter-rouge">$GITHUB_ENV</code>, <code class="language-plaintext highlighter-rouge">$GITHUB_OUTPUT</code> and <code class="language-plaintext highlighter-rouge">$GITHUB_PATH</code>.</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Prefer%20tee%20-a,%20not%20%3E%3E,%20in%20CI%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/02/ci-tee/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Prefer%20tee%20-a,%20not%20%3E%3E,%20in%20CI%20%23rustlang&amp;url=https://huonw.github.io/blog/2025/02/ci-tee/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/02/ci-tee/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/02/ci-tee/&amp;title=Prefer%20tee%20-a,%20not%20%3E%3E,%20in%20CI" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:not-json" role="doc-endnote">
+      <p>This <code class="language-plaintext highlighter-rouge">JSON_RESPONSE</code> variable is not JSON with the example as written! The use of <code class="language-plaintext highlighter-rouge">tee -a</code> makes this clear, if that was a cause of a bug. <a href="#fnref:not-json" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:pipes" role="doc-endnote">
+      <p>I include this case because have an impression that there’s some subtleties around piping commands beyond what <code class="language-plaintext highlighter-rouge">set -o pipefail</code> can handle, but am not sure. This is merely rumour and heresay based on only a vague memory that I haven’t been able to confirm or falsify. <a href="#fnref:pipes" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2024/08/async-hazard-mmap/">
+                   <h3>Async hazard: mmap is secretly blocking IO</h3>
+                     <p>Memory-mapping a file is convenient, but it’s a hazard when used with async/await concurrent code: it means a “simple” memory index does blocking IO.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2024/07/github-permalinks/">
+                   <h3>GitHub tip-hub: habitual permalinks</h3>
+                     <p>Hit y to create a permalink to a GitHub directory, file or line. They’re easy to make, stable, and even render a preview in some places.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2024/03/qr-base10-base64/">
+                   <h3>10 > 64, in QR codes</h3>
+                     <p>QR codes reverse the usual order: decimal works better than base64 for encoding binary data, despite it requiring many more digits.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>

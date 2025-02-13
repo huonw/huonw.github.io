@@ -1890,6 +1890,22 @@ expression. <a href="#fnref:invalid" class="reversefootnote" role="doc-backlink
         <ul id="latest-list"><!--
            
            --><li class="latest-post">
+                <a href="/blog/2025/02/ci-tee/">
+                   <h3>Prefer tee -a, not >>, in CI</h3>
+                     <p><table>
+  <tbody>
+    <tr>
+      <td>GitHub Actions suggests using code like echo … » $GITHUB_ENV, but echo …</td>
+      <td>tee -a $GITHUB_ENV is often better.</td>
+    </tr>
+  </tbody>
+</table>
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
                 <a href="/blog/2024/08/async-hazard-mmap/">
                    <h3>Async hazard: mmap is secretly blocking IO</h3>
                      <p>Memory-mapping a file is convenient, but it’s a hazard when used with async/await concurrent code: it means a “simple” memory index does blocking IO.
@@ -1902,15 +1918,6 @@ expression. <a href="#fnref:invalid" class="reversefootnote" role="doc-backlink
                 <a href="/blog/2024/07/github-permalinks/">
                    <h3>GitHub tip-hub: habitual permalinks</h3>
                      <p>Hit y to create a permalink to a GitHub directory, file or line. They’re easy to make, stable, and even render a preview in some places.
-</p>
-                   
-                 </a>
-            </li><!--
-          
-           --><li class="latest-post">
-                <a href="/blog/2024/03/qr-base10-base64/">
-                   <h3>10 > 64, in QR codes</h3>
-                     <p>QR codes reverse the usual order: decimal works better than base64 for encoding binary data, despite it requiring many more digits.
 </p>
                    
                  </a>
