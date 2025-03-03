@@ -1,0 +1,1380 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Newtons are a unit of mileage |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2025/03/ev-newtons/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="For an EV, Newtons (N) is a seemingly sensible version of L/100km or mpg, for measuring the efficiency of the car. Summing drag and rolling resistance forces aligns closely to real world observations." />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Newtons are a unit of mileage" />
+  <meta name="twitter:description" content="For an EV, Newtons (N) is a seemingly sensible version of L/100km or mpg, for measuring the efficiency of the car. Summing drag and rolling resistance forces aligns closely to real world observations." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2025/03/ev-newtons/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2025/03/ev-newtons/" />
+  <meta property="og:title" content="Newtons are a unit of mileage" />
+  <meta property="og:description" content="For an EV, Newtons (N) is a seemingly sensible version of L/100km or mpg, for measuring the efficiency of the car. Summing drag and rolling resistance forces aligns closely to real world observations." />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    .katex-display * { margin-top: 0 }
+
+/* poke into the SVG plot so the view on a wide screen is better: the default 18px font size is too large on a wide screen and 14px is too small on a narrow screen.
+
+   So, we lerp smoothly from 18px when width <= 500px, to 14px when width >= 800px.
+
+   Constraints: f(x) = a + b (x/800), where f(500) = 18px, f(800) = 14px
+
+   => a + b = 14, a + (5/8) b = 18 resulting in the calc expression below
+   */
+@media (min-width: 500px) {
+  .image svg [id^="matplotlib.axis"] text { font-size: calc((14px + (8*(18px - 14px))/3) - ((8*(18 - 14))/3) * (100vw / 800)) !important; }
+}
+@media (min-width: 800px) {
+  .image svg [id^="matplotlib.axis"] text { font-size: 14px !important; }
+}
+
+  </style>
+  <link rel="stylesheet" href="/css/katex-0.16.21.min.css" type="text/css" />
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://bsky.app/profile/huonw.bsky.social">Bluesky</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Newtons are a unit of mileage</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">03 Mar 2025</span>
+           
+           
+         </div>
+      
+      <p>The conventional units for expressing the mileage of an electric vehicle, like Wh/km (“watt-hours per kilometer”), are dimensionally equivalent to force, N (“newtons”). It seems this has a useful physical interpretation, and we can do some rough predictive calculations by estimating the drag and rolling resistance forces that align to real-world observed efficiencies.</p>
+
+<p>We recently got a battery electric vehicle. We took a road trip which both left me with new dials and sensors to play with, and involved many hours of boring highway driving… the perfect time for some dimensional analysis!<sup id="fnref:sleep" role="doc-noteref"><a href="#fn:sleep" class="footnote" rel="footnote">0</a></sup></p>
+
+<p>Following the units led to the surprising-to-me conclusion that <strong>energy consumption is a force</strong>. I think it has the sensible interpretation of being some sense of <em>average</em> force on the vehicle as it travels. This automatically captures how some energy in the battery is <strong>converted and recovered</strong><sup id="fnref:recovery" role="doc-noteref"><a href="#fn:recovery" class="footnote" rel="footnote">1</a></sup>, rather than thrown away:</p>
+
+<ul>
+  <li>driving up a hill and then back down is just temporarily outsourcing energy storage from the battery to <strong>gravitational potential energy</strong></li>
+  <li>accelerating and then regeneratively-braking is outsourcing to <strong>kinetic energy</strong></li>
+</ul>
+
+<p>The remaining force are non-recoverable losses like drag, rolling resistance, the entertainment system, and climate control.</p>
+
+<aside data-icon="⚠️">
+
+I'm mostly just following the mathematics and making estimates here, I could easily be missing key parts of the physics. Don't trust me!
+
+</aside>
+
+<h2 id="equivalent-units-guilty-as-charged">EquiValent units? Guilty as charged</h2>
+
+<p>Electric vehicle (EV) efficiency or mileage seems to be conventionally expressed in either:</p>
+
+<ul>
+  <li>Wh/km or kWh/100km, similar to L/100km<sup id="fnref:ice" role="doc-noteref"><a href="#fn:ice" class="footnote" rel="footnote">2</a></sup> for internal-combustion-engine (ICE) vehicles</li>
+  <li>km/kWh or miles/kWh, similar to miles per gallon for ICE vehicles</li>
+</ul>
+
+<p>The first ones have their components cancel down to just N, a unit of force, in two steps<sup id="fnref:conversions" role="doc-noteref"><a href="#fn:conversions" class="footnote" rel="footnote">3</a></sup>:</p>
+
+<ol>
+  <li>
+    <p>Wh is equivalent to Newton-meters:
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mn>1</mn><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">W</mi><mi mathvariant="normal">h</mi></mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>3</mn> <mn>600</mn><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">W</mi><mi mathvariant="normal">s</mi></mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>3</mn> <mn>600</mn><mtext>&nbsp;</mtext><mi mathvariant="normal">J</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>3</mn> <mn>600</mn><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">N</mi><mi mathvariant="normal">m</mi></mrow></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*} 1 \unit{Wh} &amp;= 3\,600 \unit{Ws} \\ &amp;= 3\,600 \unit{J} \\ &amp;= 3\,600 \unit{Nm} \end{align*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 4.5em; vertical-align: -2em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.5em;"><span class="" style="top: -4.66em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Wh</span></span></span></span><span class="" style="top: -3.16em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"></span></span><span class="" style="top: -1.66em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 2em;"><span class=""></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.5em;"><span class="" style="top: -4.66em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">600</span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Ws</span></span></span></span><span class="" style="top: -3.16em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">600</span><span class="mspace"> </span><span class="mord mathrm">J</span></span></span><span class="" style="top: -1.66em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">600</span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Nm</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 2em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+  </li>
+  <li>
+    <p>Substituting that back gives us the result, Wh/km is equivalent to N, and the specific conversion factor:
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mn>1</mn><mfrac><mrow><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">W</mi><mi mathvariant="normal">h</mi></mrow></mrow><mrow><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">k</mi><mi mathvariant="normal">m</mi></mrow></mrow></mfrac></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mfrac><mrow><mn>3</mn> <mn>600</mn><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">N</mi><mi mathvariant="normal">m</mi></mrow></mrow><mrow><mn>1</mn> <mn>000</mn><mtext>&nbsp;</mtext><mi mathvariant="normal">m</mi></mrow></mfrac></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>3.6</mn><mtext>&nbsp;</mtext><mi mathvariant="normal">N</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*} 1 \frac{\unit{Wh}}{\unit{km}} &amp;= \frac{3\,600 \unit{Nm}}{1\,000 \unit{m}} \\ &amp;= 3.6 \unit{N} \end{align*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 3.8574em; vertical-align: -1.6787em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.1787em;"><span class="" style="top: -4.1787em;"><span class="pstrut" style="height: 3.3714em;"></span><span class="mord"><span class="mord">1</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.3714em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mspace"> </span><span class="mord"><span class="mord mathrm">km</span></span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Wh</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.686em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span class="" style="top: -2.3527em;"><span class="pstrut" style="height: 3.3714em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.6787em;"><span class=""></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.1787em;"><span class="" style="top: -4.1787em;"><span class="pstrut" style="height: 3.3714em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.3603em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">000</span><span class="mspace"> </span><span class="mord mathrm">m</span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">3</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">600</span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Nm</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.686em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span class="" style="top: -2.3527em;"><span class="pstrut" style="height: 3.3714em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">3.6</span><span class="mspace"> </span><span class="mord mathrm">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.6787em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+  </li>
+</ol>
+
+<p>Similarly, 1 kWh/100km = 36 N. Thus, for instance, 200 Wh/km = 20 kWh/100km = 720 N.</p>
+
+<p>On the other hand, km/kWh ≡ N<sup>-1</sup>, the reciprocal. This is easily converted, but harder to work with and doesn’t seem like it has direct physical interpretation that’s as “nice”, so I’ll focus on the other two.</p>
+
+<h2 id="back-of-the-envelope">Back of the EnVelope</h2>
+
+<p>We’ve got connection between units on paper, but does it <em>mean</em> anything? Can we predict EV efficiency by adding up some forces to get a N number?</p>
+
+<p>It certainly seems like it.</p>
+
+<p>At highway speeds on flat ground, I believe the dominant forces on the car are:</p>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Rolling_resistance">rolling resistance</a> of the tyres against the road</li>
+  <li><a href="https://en.wikipedia.org/wiki/Drag_(physics)">drag/air resistance</a> of moving through the atmosphere</li>
+</ul>
+
+<p>Other factors like climate control and the entertainment system seem like they’d be much smaller.</p>
+
+<p>For that road trip, we averaged approximately <strong>190 Wh/km = 684 N</strong>. There was a mix of slow roads and highways, so using that number isn’t perfect… but most of the <em>distance</em> was spent on highways, and we’re just doing rough estimates here, so I reckon it’s good enough!</p>
+
+<p>Let’s substitute the car’s numbers into the equations for those forces<sup id="fnref:conversions:1" role="doc-noteref"><a href="#fn:conversions" class="footnote" rel="footnote">3</a></sup>:</p>
+
+<ul>
+  <li>
+    <p>The <a href="https://en.wikipedia.org/wiki/Rolling_resistance#Rolling_resistance_coefficient">formula for rolling resistance</a> combines the normal force <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span style="margin-right: 0.109em;" class="mord mathnormal">N</span></span></span></span> (in this case, just the weight of the car: mass <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span> and gravity <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi></mrow><annotation encoding="application/x-tex">g</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span style="margin-right: 0.0359em;" class="mord mathnormal">g</span></span></span></span>) with a coefficient <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mrow><mi>r</mi><mi>r</mi></mrow></msub></mrow><annotation encoding="application/x-tex">C_{rr}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.8333em; vertical-align: -0.15em;"></span><span class="mord"><span style="margin-right: 0.0715em;" class="mord mathnormal">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.1514em;"><span class="" style="top: -2.55em; margin-left: -0.0715em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span style="margin-right: 0.0278em;" class="mord mathnormal mtight">rr</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span> that captures the behaviour of tyres and the surface and their interaction, which I estimated as 0.0077 (the specific tyres on the vehicle are class B on the EU fuel efficiency rating, which is for <a href="https://energy-efficient-products.ec.europa.eu/product-list/tyres/tyres-technology-introduction_en#rolling-resistance-table">rolling resistance coefficients between 0.0066 and 0.0077</a>):
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi>F</mi><mrow><mi>r</mi><mi>r</mi></mrow></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mstyle mathcolor="red"><msub><mi>C</mi><mrow><mi>r</mi><mi>r</mi></mrow></msub></mstyle><mover><mover><mi>N</mi><mo stretchy="true">⏞</mo></mover><mrow><mstyle mathcolor="blue"><mi>m</mi></mstyle><mstyle mathcolor="green"><mi>g</mi></mstyle></mrow></mover></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mstyle mathcolor="red"><mover><mover><msub><mi>C</mi><mrow><mi>r</mi><mi>r</mi></mrow></msub><mo stretchy="true">⏞</mo></mover><mn>0.0077</mn></mover></mstyle><mtext>&nbsp;</mtext><mstyle mathcolor="blue"><mover><mover><mi>m</mi><mo stretchy="true">⏞</mo></mover><mrow><mn>2100</mn><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">k</mi><mi mathvariant="normal">g</mi></mrow></mrow></mover></mstyle><mtext>&nbsp;</mtext><mstyle mathcolor="green"><mover><mover><mi>g</mi><mo stretchy="true">⏞</mo></mover><mrow><mn>9.8</mn><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">/</mi><msup><mi mathvariant="normal">s</mi><mn>2</mn></msup></mrow></mrow></mover></mstyle></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>≈</mo><mn>158</mn><mtext>&nbsp;</mtext><mi mathvariant="normal">N</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*} F_{rr} &amp;= \textcolor{red}{C_{rr}} \overbrace{N}^{\textcolor{blue}{m}\textcolor{green}{g}} \\ &amp;= \textcolor{red}{\overbrace{C_{rr}}^{0.0077}} \ \textcolor{blue}{\overbrace{m}^{2100 \unit{kg}}}\  \textcolor{green}{\overbrace{g}^{9.8 \unit{m/s^{2}}}} \\ &amp;\approx 158 \unit{N} \end{align*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 6.8663em; vertical-align: -3.1832em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 3.6832em;"><span class="" style="top: -5.7918em;"><span class="pstrut" style="height: 4.0775em;"></span><span class="mord"><span class="mord"><span style="margin-right: 0.1389em;" class="mord mathnormal">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.1514em;"><span class="" style="top: -2.55em; margin-left: -0.1389em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span style="margin-right: 0.0278em;" class="mord mathnormal mtight">rr</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span><span class="" style="top: -3.0543em;"><span class="pstrut" style="height: 4.0775em;"></span><span class="mord"></span></span><span class="" style="top: -1.5543em;"><span class="pstrut" style="height: 4.0775em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 3.1832em;"><span class=""></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 3.6832em;"><span class="" style="top: -5.7918em;"><span class="pstrut" style="height: 4.0775em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord" style="color: red;"><span style="margin-right: 0.0715em; color: red;" class="mord mathnormal">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.1514em;"><span class="" style="top: -2.55em; margin-left: -0.0715em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight" style="color: red;"><span class="mord mtight" style="color: red;"><span style="margin-right: 0.0278em; color: red;" class="mord mathnormal mtight">rr</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mord mover"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 1.9688em;"><span class="" style="top: -3.3313em;"><span class="pstrut" style="height: 3.3313em;"></span><span class="mord mover"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 1.3313em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span style="margin-right: 0.109em;" class="mord mathnormal">N</span></span></span><span class="svg-align" style="top: -3.7833em;"><span class="pstrut" style="height: 3em;"></span><span class="stretchy" style="height: 0.548em; min-width: 1.6em;"><span class="brace-left" style="height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M6 548l-6-6v-35l6-11c56-104 135.3-181.3 238-232 57.3-28.7 117 -45 179-50h399577v120H403c-43.3 7-81 15-113 26-100.7 33-179.7 91-237 174-2.7  5-6 9-10 13-.7 1-7.3 1-20 1H6z"></path></svg></span><span class="brace-center" style="height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M200428 334 c-100.7-8.3-195.3-44-280-108-55.3-42-101.7-93-139-153l-9-14c-2.7 4-5.7 8.7-9 14 -53.3 86.7-123.7 153-211 199-66.7 36-137.3 56.3-212 62H0V214h199568c178.3-11.7 311.7-78.3 403-201 6-8 9.7-12 11-12 .7-.7 6.7-1 18-1s17.3.3 18 1c1.3 0 5 4 11 12 44.7 59.3 101.3 106.3 170 141s145.3 54.3 229 60h199572v120z"></path></svg></span><span class="brace-right" style="height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M400000 542l -6 6h-17c-12.7 0-19.3-.3-20-1-4-4-7.3-8.3-10-13-35.3-51.3-80.8-93.8-136.5-127.5 s-117.2-55.8-184.5-66.5c-.7 0-2-.3-4-1-18.7-2.7-76-4.3-172-5H0V214h399571l6 1 c124.7 8 235 61.7 331 161 31.3 33.3 59.7 72.7 85 118l7 13v35z"></path></svg></span></span></span></span></span></span></span></span><span class="" style="top: -4.9988em;"><span class="pstrut" style="height: 3.3313em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="color: blue;">m</span><span style="margin-right: 0.0359em; color: green;" class="mord mathnormal mtight">g</span></span></span></span></span></span></span></span></span></span><span class="" style="top: -3.0543em;"><span class="pstrut" style="height: 4.0775em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord mover" style="color: red;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.9824em;"><span class="" style="top: -3.3313em;"><span class="pstrut" style="height: 3.3313em;"></span><span class="mord mover" style="color: red;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.3313em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="color: red;"><span class="mord" style="color: red;"><span style="margin-right: 0.0715em; color: red;" class="mord mathnormal">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.1514em;"><span class="" style="top: -2.55em; margin-left: -0.0715em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight" style="color: red;"><span class="mord mtight" style="color: red;"><span style="margin-right: 0.0278em; color: red;" class="mord mathnormal mtight">rr</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span><span class="svg-align" style="top: -3.7833em;"><span class="pstrut" style="height: 3em;"></span><span class="stretchy" style="color: red; height: 0.548em; min-width: 1.6em;"><span class="brace-left" style="color: red; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M6 548l-6-6v-35l6-11c56-104 135.3-181.3 238-232 57.3-28.7 117 -45 179-50h399577v120H403c-43.3 7-81 15-113 26-100.7 33-179.7 91-237 174-2.7 5-6 9-10 13-.7 1-7.3 1-20 1H6z"></path></svg></span><span class="brace-center" style="color: red; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M200428 334 c-100.7-8.3-195.3-44-280-108-55.3-42-101.7-93-139-153l-9-14c-2.7 4-5.7 8.7-9 14 -53.3 86.7-123.7 153-211 199-66.7 36-137.3 56.3-212 62H0V214h199568c178.3-11.7 311.7-78.3 403-201 6-8 9.7-12 11-12 .7-.7 6.7-1 18-1s17.3.3 18 1c1.3 0 5 4 11 12 44.7 59.3 101.3 106.3 170 141s145.3 54.3 229 60h199572v120z"></path></svg></span><span class="brace-right" style="color: red; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M400000 542l -6 6h-17c-12.7 0-19.3-.3-20-1-4-4-7.3-8.3-10-13-35.3-51.3-80.8-93.8-136.5-127.5 s-117.2-55.8-184.5-66.5c-.7 0-2-.3-4-1-18.7-2.7-76-4.3-172-5H0V214h399571l6 1 c124.7 8 235 61.7 331 161 31.3 33.3 59.7 72.7 85 118l7 13v35z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="" style="top: -4.8627em;"><span class="pstrut" style="height: 3.3313em;"></span><span class="sizing reset-size6 size3 mtight" style="color: red;"><span class="mord mtight" style="color: red;"><span class="mord mtight" style="color: red;">0.0077</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span><span class="mspace"> </span><span class="mord mover" style="color: blue;"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 1.9008em;"><span class="" style="top: -3.0786em;"><span class="pstrut" style="height: 3.0786em;"></span><span class="mord mover" style="color: blue;"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 1.0786em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="color: blue;"><span class="mord mathnormal" style="color: blue;">m</span></span></span><span class="svg-align" style="top: -3.5306em;"><span class="pstrut" style="height: 3em;"></span><span class="stretchy" style="color: blue; height: 0.548em; min-width: 1.6em;"><span class="brace-left" style="color: blue; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M6 548l-6-6v-35l6-11c56-104 135.3-181.3 238-232 57.3-28.7 117 -45 179-50h399577v120H403c-43.3 7-81 15-113 26-100.7 33-179.7 91-237 174-2.7 5-6 9-10 13-.7 1-7.3 1-20 1H6z"></path></svg></span><span class="brace-center" style="color: blue; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M200428 334 c-100.7-8.3-195.3-44-280-108-55.3-42-101.7-93-139-153l-9-14c-2.7 4-5.7 8.7-9 14 -53.3 86.7-123.7 153-211 199-66.7 36-137.3 56.3-212 62H0V214h199568c178.3-11.7 311.7-78.3 403-201 6-8 9.7-12 11-12 .7-.7 6.7-1 18-1s17.3.3 18 1c1.3 0 5 4 11 12 44.7 59.3 101.3 106.3 170 141s145.3 54.3 229 60h199572v120z"></path></svg></span><span class="brace-right" style="color: blue; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M400000 542l -6 6h-17c-12.7 0-19.3-.3-20-1-4-4-7.3-8.3-10-13-35.3-51.3-80.8-93.8-136.5-127.5 s-117.2-55.8-184.5-66.5c-.7 0-2-.3-4-1-18.7-2.7-76-4.3-172-5H0V214h399571l6 1 c124.7 8 235 61.7 331 161 31.3 33.3 59.7 72.7 85 118l7 13v35z"></path></svg></span></span></span></span></span></span></span></span><span class="" style="top: -4.4932em;"><span class="pstrut" style="height: 3.0786em;"></span><span class="sizing reset-size6 size3 mtight" style="color: blue;"><span class="mord mtight" style="color: blue;"><span class="mord mtight" style="color: blue;">2100</span><span class="mspace mtight" style="color: blue;"><span class="mtight" style="color: blue;"> </span></span><span class="mord mtight" style="color: blue;"><span style="margin-right: 0.0139em; color: blue;" class="mord mathrm mtight">kg</span></span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mord mover" style="color: green;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.0775em;"><span class="" style="top: -3.0786em;"><span class="pstrut" style="height: 3.0786em;"></span><span class="mord mover" style="color: green;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.0786em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="color: green;"><span style="margin-right: 0.0359em; color: green;" class="mord mathnormal">g</span></span></span><span class="svg-align" style="top: -3.5306em;"><span class="pstrut" style="height: 3em;"></span><span class="stretchy" style="color: green; height: 0.548em; min-width: 1.6em;"><span class="brace-left" style="color: green; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M6 548l-6-6v-35l6-11c56-104 135.3-181.3 238-232 57.3-28.7 117 -45 179-50h399577v120H403c-43.3 7-81 15-113 26-100.7 33-179.7 91-237 174-2.7 5-6 9-10 13-.7 1-7.3 1-20 1H6z"></path></svg></span><span class="brace-center" style="color: green; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M200428 334 c-100.7-8.3-195.3-44-280-108-55.3-42-101.7-93-139-153l-9-14c-2.7 4-5.7 8.7-9 14 -53.3 86.7-123.7 153-211 199-66.7 36-137.3 56.3-212 62H0V214h199568c178.3-11.7 311.7-78.3 403-201 6-8 9.7-12 11-12 .7-.7 6.7-1 18-1s17.3.3 18 1c1.3 0 5 4 11 12 44.7 59.3 101.3 106.3 170 141s145.3 54.3 229 60h199572v120z"></path></svg></span><span class="brace-right" style="color: green; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M400000 542l -6 6h-17c-12.7 0-19.3-.3-20-1-4-4-7.3-8.3-10-13-35.3-51.3-80.8-93.8-136.5-127.5 s-117.2-55.8-184.5-66.5c-.7 0-2-.3-4-1-18.7-2.7-76-4.3-172-5H0V214h399571l6 1 c124.7 8 235 61.7 331 161 31.3 33.3 59.7 72.7 85 118l7 13v35z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1944em;"><span class=""></span></span></span></span></span></span><span class="" style="top: -4.5321em;"><span class="pstrut" style="height: 3.0786em;"></span><span class="sizing reset-size6 size3 mtight" style="color: green;"><span class="mord mtight" style="color: green;"><span class="mord mtight" style="color: green;">9.8</span><span class="mspace mtight" style="color: green;"><span class="mtight" style="color: green;"> </span></span><span class="mord mtight" style="color: green;"><span class="mord mathrm mtight" style="color: green;">m/</span><span class="mord mtight" style="color: green;"><span class="mord mathrm mtight" style="color: green;">s</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8913em;"><span class="" style="top: -2.931em; margin-right: 0.0714em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight" style="color: green;"><span class="mord mtight" style="color: green;"><span class="mord mathrm mtight" style="color: green;">2</span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1944em;"><span class=""></span></span></span></span></span></span></span><span class="" style="top: -1.5543em;"><span class="pstrut" style="height: 4.0775em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">158</span><span class="mspace"> </span><span class="mord mathrm">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 3.1832em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+  </li>
+  <li>
+    <p>The <a href="https://en.wikipedia.org/wiki/Drag_(physics)#The_drag_equation">formula for drag</a> combines the density of air <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span class="mord mathnormal">ρ</span></span></span></span>, with the velocity <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span style="margin-right: 0.0359em;" class="mord mathnormal">v</span></span></span></span> and the aerodynamics of the car. Hyundai <a href="https://www.hyundai.com/content/dam/hyundai/wallan/en/data/marketing/brochure/product/ioniq5/NE_-52p_main_06212021_REV5.pdf">suggests the drag coefficient <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>d</mi></msub></mrow><annotation encoding="application/x-tex">c_d</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.5806em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span> is 0.228</a> for our Ioniq 5, and I estimated the frontal area <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal">A</span></span></span></span> from the width (1890 mm) and the height of the car (1605 mm), pretending it’s a rectangle:</p>
+
+    <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi>F</mi><mi>d</mi></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mstyle mathcolor="red"><mover><mover><mi>ρ</mi><mo stretchy="true">⏞</mo></mover><mrow><mn>1.225</mn><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">k</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">/</mi><msup><mi mathvariant="normal">m</mi><mn>2</mn></msup></mrow></mrow></mover></mstyle><mtext>&nbsp;</mtext><mstyle mathcolor="blue"><mover><mover><msup><mi>v</mi><mn>2</mn></msup><mo stretchy="true">⏞</mo></mover><mrow><mn>110</mn><mtext>&nbsp;</mtext><mrow><mi mathvariant="normal">k</mi><mi mathvariant="normal">m</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">h</mi></mrow></mrow></mover></mstyle><mtext>&nbsp;</mtext><mstyle mathcolor="green"><mover><mover><msub><mi>c</mi><mi>d</mi></msub><mo stretchy="true">⏞</mo></mover><mn>0.288</mn></mover></mstyle><mtext>&nbsp;</mtext><mstyle mathcolor="purple"><mover><mover><mi>A</mi><mo stretchy="true">⏞</mo></mover><mrow><mn>3.0</mn><mtext>&nbsp;</mtext><msup><mi mathvariant="normal">m</mi><mn>2</mn></msup></mrow></mover></mstyle></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>≈</mo><mn>500</mn><mtext>&nbsp;</mtext><mi mathvariant="normal">N</mi></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*} F_d &amp;= \frac{1}{2} \textcolor{red}{\overbrace{ρ}^{1.225 \unit{kg/m^2}}}\ \textcolor{blue}{\overbrace{v^2}^{110 \unit{km/h}}}\ \textcolor{green}{\overbrace{c_d}^{0.288}}\ \textcolor{purple}{\overbrace{A}^{3.0 \unit{m^2}}} \\ &amp;\approx 500 \unit{N} \end{align*}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 4.8981em; vertical-align: -2.1991em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.6991em;"><span class="" style="top: -4.6991em;"><span class="pstrut" style="height: 4.4121em;"></span><span class="mord"><span class="mord"><span style="margin-right: 0.1389em;" class="mord mathnormal">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span class="" style="top: -2.55em; margin-left: -0.1389em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span><span class="" style="top: -2.8731em;"><span class="pstrut" style="height: 4.4121em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 2.1991em;"><span class=""></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.6991em;"><span class="" style="top: -4.6991em;"><span class="pstrut" style="height: 4.4121em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.3214em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">2</span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.686em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mover" style="color: red;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.0775em;"><span class="" style="top: -3.0786em;"><span class="pstrut" style="height: 3.0786em;"></span><span class="mord mover" style="color: red;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.0786em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="color: red;"><span class="mord mathnormal" style="color: red;">ρ</span></span></span><span class="svg-align" style="top: -3.5306em;"><span class="pstrut" style="height: 3em;"></span><span class="stretchy" style="color: red; height: 0.548em; min-width: 1.6em;"><span class="brace-left" style="color: red; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M6 548l-6-6v-35l6-11c56-104 135.3-181.3 238-232 57.3-28.7 117 -45 179-50h399577v120H403c-43.3 7-81 15-113 26-100.7 33-179.7 91-237 174-2.7  5-6 9-10 13-.7 1-7.3 1-20 1H6z"></path></svg></span><span class="brace-center" style="color: red; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M200428 334 c-100.7-8.3-195.3-44-280-108-55.3-42-101.7-93-139-153l-9-14c-2.7 4-5.7 8.7-9 14 -53.3 86.7-123.7 153-211 199-66.7 36-137.3 56.3-212 62H0V214h199568c178.3-11.7  311.7-78.3 403-201 6-8 9.7-12 11-12 .7-.7 6.7-1 18-1s17.3.3 18 1c1.3 0 5 4 11  12 44.7 59.3 101.3 106.3 170 141s145.3 54.3 229 60h199572v120z"></path></svg></span><span class="brace-right" style="color: red; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M400000 542l -6 6h-17c-12.7 0-19.3-.3-20-1-4-4-7.3-8.3-10-13-35.3-51.3-80.8-93.8-136.5-127.5 s-117.2-55.8-184.5-66.5c-.7 0-2-.3-4-1-18.7-2.7-76-4.3-172-5H0V214h399571l6 1 c124.7 8 235 61.7 331 161 31.3 33.3 59.7 72.7 85 118l7 13v35z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1944em;"><span class=""></span></span></span></span></span></span><span class="" style="top: -4.5321em;"><span class="pstrut" style="height: 3.0786em;"></span><span class="sizing reset-size6 size3 mtight" style="color: red;"><span class="mord mtight" style="color: red;"><span class="mord mtight" style="color: red;">1.225</span><span class="mspace mtight" style="color: red;"><span class="mtight" style="color: red;"> </span></span><span class="mord mtight" style="color: red;"><span class="mord mathrm mtight" style="color: red;">kg/</span><span class="mord mtight" style="color: red;"><span class="mord mathrm mtight" style="color: red;">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8913em;"><span class="" style="top: -2.931em; margin-right: 0.0714em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight" style="color: red;"><span class="mord mathrm mtight" style="color: red;">2</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1944em;"><span class=""></span></span></span></span></span><span class="mspace"> </span><span class="mord mover" style="color: blue;"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 2.4121em;"><span class="" style="top: -3.5121em;"><span class="pstrut" style="height: 3.5121em;"></span><span class="mord mover" style="color: blue;"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 1.5121em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="color: blue;"><span class="mord" style="color: blue;"><span style="margin-right: 0.0359em; color: blue;" class="mord mathnormal">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8641em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight" style="color: blue;"><span class="mord mtight" style="color: blue;">2</span></span></span></span></span></span></span></span></span></span><span class="svg-align" style="top: -3.9641em;"><span class="pstrut" style="height: 3em;"></span><span class="stretchy" style="color: blue; height: 0.548em; min-width: 1.6em;"><span class="brace-left" style="color: blue; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M6 548l-6-6v-35l6-11c56-104 135.3-181.3 238-232 57.3-28.7 117 -45 179-50h399577v120H403c-43.3 7-81 15-113 26-100.7 33-179.7 91-237 174-2.7  5-6 9-10 13-.7 1-7.3 1-20 1H6z"></path></svg></span><span class="brace-center" style="color: blue; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M200428 334 c-100.7-8.3-195.3-44-280-108-55.3-42-101.7-93-139-153l-9-14c-2.7 4-5.7 8.7-9 14 -53.3 86.7-123.7 153-211 199-66.7 36-137.3 56.3-212 62H0V214h199568c178.3-11.7  311.7-78.3 403-201 6-8 9.7-12 11-12 .7-.7 6.7-1 18-1s17.3.3 18 1c1.3 0 5 4 11  12 44.7 59.3 101.3 106.3 170 141s145.3 54.3 229 60h199572v120z"></path></svg></span><span class="brace-right" style="color: blue; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M400000 542l -6 6h-17c-12.7 0-19.3-.3-20-1-4-4-7.3-8.3-10-13-35.3-51.3-80.8-93.8-136.5-127.5 s-117.2-55.8-184.5-66.5c-.7 0-2-.3-4-1-18.7-2.7-76-4.3-172-5H0V214h399571l6 1 c124.7 8 235 61.7 331 161 31.3 33.3 59.7 72.7 85 118l7 13v35z"></path></svg></span></span></span></span></span></span></span></span><span class="" style="top: -5.3992em;"><span class="pstrut" style="height: 3.5121em;"></span><span class="sizing reset-size6 size3 mtight" style="color: blue;"><span class="mord mtight" style="color: blue;"><span class="mord mtight" style="color: blue;">110</span><span class="mspace mtight" style="color: blue;"><span class="mtight" style="color: blue;"> </span></span><span class="mord mtight" style="color: blue;"><span class="mord mathrm mtight" style="color: blue;">km/h</span></span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mord mover" style="color: green;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.7297em;"><span class="" style="top: -3.0786em;"><span class="pstrut" style="height: 3.0786em;"></span><span class="mord mover" style="color: green;"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.0786em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="color: green;"><span class="mord" style="color: green;"><span class="mord mathnormal" style="color: green;">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span class="" style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight" style="color: green;"><span class="mord mathnormal mtight" style="color: green;">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span><span class="svg-align" style="top: -3.5306em;"><span class="pstrut" style="height: 3em;"></span><span class="stretchy" style="color: green; height: 0.548em; min-width: 1.6em;"><span class="brace-left" style="color: green; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M6 548l-6-6v-35l6-11c56-104 135.3-181.3 238-232 57.3-28.7 117 -45 179-50h399577v120H403c-43.3 7-81 15-113 26-100.7 33-179.7 91-237 174-2.7  5-6 9-10 13-.7 1-7.3 1-20 1H6z"></path></svg></span><span class="brace-center" style="color: green; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M200428 334 c-100.7-8.3-195.3-44-280-108-55.3-42-101.7-93-139-153l-9-14c-2.7 4-5.7 8.7-9 14 -53.3 86.7-123.7 153-211 199-66.7 36-137.3 56.3-212 62H0V214h199568c178.3-11.7  311.7-78.3 403-201 6-8 9.7-12 11-12 .7-.7 6.7-1 18-1s17.3.3 18 1c1.3 0 5 4 11  12 44.7 59.3 101.3 106.3 170 141s145.3 54.3 229 60h199572v120z"></path></svg></span><span class="brace-right" style="color: green; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M400000 542l -6 6h-17c-12.7 0-19.3-.3-20-1-4-4-7.3-8.3-10-13-35.3-51.3-80.8-93.8-136.5-127.5 s-117.2-55.8-184.5-66.5c-.7 0-2-.3-4-1-18.7-2.7-76-4.3-172-5H0V214h399571l6 1 c124.7 8 235 61.7 331 161 31.3 33.3 59.7 72.7 85 118l7 13v35z"></path></svg></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="" style="top: -4.3571em;"><span class="pstrut" style="height: 3.0786em;"></span><span class="sizing reset-size6 size3 mtight" style="color: green;"><span class="mord mtight" style="color: green;"><span class="mord mtight" style="color: green;">0.288</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span><span class="mspace"> </span><span class="mord mover" style="color: purple;"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 2.1552em;"><span class="" style="top: -3.3313em;"><span class="pstrut" style="height: 3.3313em;"></span><span class="mord mover" style="color: purple;"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 1.3313em;"><span class="" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="color: purple;"><span class="mord mathnormal" style="color: purple;">A</span></span></span><span class="svg-align" style="top: -3.7833em;"><span class="pstrut" style="height: 3em;"></span><span class="stretchy" style="color: purple; height: 0.548em; min-width: 1.6em;"><span class="brace-left" style="color: purple; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMinYMin slice"><path d="M6 548l-6-6v-35l6-11c56-104 135.3-181.3 238-232 57.3-28.7 117 -45 179-50h399577v120H403c-43.3 7-81 15-113 26-100.7 33-179.7 91-237 174-2.7  5-6 9-10 13-.7 1-7.3 1-20 1H6z"></path></svg></span><span class="brace-center" style="color: purple; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMidYMin slice"><path d="M200428 334 c-100.7-8.3-195.3-44-280-108-55.3-42-101.7-93-139-153l-9-14c-2.7 4-5.7 8.7-9 14 -53.3 86.7-123.7 153-211 199-66.7 36-137.3 56.3-212 62H0V214h199568c178.3-11.7  311.7-78.3 403-201 6-8 9.7-12 11-12 .7-.7 6.7-1 18-1s17.3.3 18 1c1.3 0 5 4 11  12 44.7 59.3 101.3 106.3 170 141s145.3 54.3 229 60h199572v120z"></path></svg></span><span class="brace-right" style="color: purple; height: 0.548em;"><svg width="400em" height="0.548em" viewBox="0 0 400000 548" preserveAspectRatio="xMaxYMin slice"><path d="M400000 542l -6 6h-17c-12.7 0-19.3-.3-20-1-4-4-7.3-8.3-10-13-35.3-51.3-80.8-93.8-136.5-127.5 s-117.2-55.8-184.5-66.5c-.7 0-2-.3-4-1-18.7-2.7-76-4.3-172-5H0V214h399571l6 1 c124.7 8 235 61.7 331 161 31.3 33.3 59.7 72.7 85 118l7 13v35z"></path></svg></span></span></span></span></span></span></span></span><span class="" style="top: -4.8627em;"><span class="pstrut" style="height: 3.3313em;"></span><span class="sizing reset-size6 size3 mtight" style="color: purple;"><span class="mord mtight" style="color: purple;"><span class="mord mtight" style="color: purple;">3.0</span><span class="mspace mtight" style="color: purple;"><span class="mtight" style="color: purple;"> </span></span><span class="mord mtight" style="color: purple;"><span class="mord mathrm mtight" style="color: purple;">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8913em;"><span class="" style="top: -2.931em; margin-right: 0.0714em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight" style="color: purple;"><span class="mord mathrm mtight" style="color: purple;">2</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="" style="top: -2.8731em;"><span class="pstrut" style="height: 4.4121em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">500</span><span class="mspace"> </span><span class="mord mathrm">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 2.1991em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+  </li>
+</ul>
+
+<p>Adding those up gives a <strong>total force of 658 N</strong>, only 4% away from the 684 N average from my road trip! Potentially a coincidence, but I hope not. Maybe there <em>is</em> something to this energy consumption = force equivalence.</p>
+
+<aside data-icon="⚠️">
+
+There's many caveats here: the rolling resistance of tyres may not be 0.0077, the weight of the vehicle won't be exactly 2100 kg, the car isn't a rectangle, the density of air varies with temperature and elevation... but this is just a [Fermi estimate][fermi], so approximate numbers are all we need.
+
+</aside>
+
+<h2 id="speeding-assault-on-battery">Speeding: assault on battery</h2>
+
+<p>Our numbers are close, so we’ve “proved” the rule. Let’s go all in, and make predictions and generalisations! Yay! Ignoring nuance!</p>
+
+<p>In particular, the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>v</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">v^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.8141em;"></span><span class="mord"><span style="margin-right: 0.0359em;" class="mord mathnormal">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span class="" style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span> term in the drag equation is interesting: the drag force is related to speed <strong>quadratically</strong>: increasing speed 2× increases drag by 4×… and increases (that part of) energy consumption by 4×.</p>
+
+<p>Continuing to ignore all the other real factors that influence it, we can predict the energy consumption of the vehicle at any velocity <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi></mrow><annotation encoding="application/x-tex">v</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span style="margin-right: 0.0359em;" class="mord mathnormal">v</span></span></span></span> (expressed in km/h)<sup id="fnref:conversions:2" role="doc-noteref"><a href="#fn:conversions" class="footnote" rel="footnote">3</a></sup>:</p>
+
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mn>158</mn><mo>+</mo><mn>0.0413</mn><msup><mi>v</mi><mn>2</mn></msup><mtext>&nbsp;&nbsp;</mtext><mi mathvariant="normal">N</mi></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>≡</mo><mn>44.0</mn><mo>+</mo><mn>0.0115</mn><msup><mi>v</mi><mn>2</mn></msup><mtext>&nbsp;&nbsp;</mtext><mrow><mi mathvariant="normal">W</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">k</mi><mi mathvariant="normal">m</mi></mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>≡</mo><mn>4.40</mn><mo>+</mo><mn>0.00115</mn><msup><mi>v</mi><mn>2</mn></msup><mtext>&nbsp;&nbsp;</mtext><mrow><mi mathvariant="normal">k</mi><mi mathvariant="normal">W</mi><mi mathvariant="normal">h</mi><mi mathvariant="normal">/</mi><mn>100</mn><mi mathvariant="normal">k</mi><mi mathvariant="normal">m</mi></mrow></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*} E(v) &amp;= 158 + 0.0413 v^2 \unit{N} \\ &amp;\equiv 44.0 + 0.0115v^2 \unit{Wh/km} \\ &amp;\equiv 4.40 + 0.00115v^2 \unit{kWh/100km} \end{align*}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 4.5723em; vertical-align: -2.0362em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.5362em;"><span class="" style="top: -4.6721em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span style="margin-right: 0.0576em;" class="mord mathnormal">E</span><span class="mopen">(</span><span style="margin-right: 0.0359em;" class="mord mathnormal">v</span><span class="mclose">)</span></span></span><span class="" style="top: -3.1479em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"></span></span><span class="" style="top: -1.6238em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 2.0362em;"><span class=""></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 2.5362em;"><span class="" style="top: -4.6721em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">158</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord">0.0413</span><span class="mord"><span style="margin-right: 0.0359em;" class="mord mathnormal">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8641em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mspace"> </span><span class="mord mathrm">N</span></span></span><span class="" style="top: -3.1479em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">44.0</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord">0.0115</span><span class="mord"><span style="margin-right: 0.0359em;" class="mord mathnormal">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8641em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">Wh/km</span></span></span></span><span class="" style="top: -1.6238em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mord">4.40</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord">0.00115</span><span class="mord"><span style="margin-right: 0.0359em;" class="mord mathnormal">v</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8641em;"><span class="" style="top: -3.113em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mspace"> </span><span class="mord"><span class="mord mathrm">kWh/100km</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 2.0362em;"><span class=""></span></span></span></span></span></span></span></span></span></span></span></p>
+
+<p>That makes for a classic quadratic curve, where increasing velocity results in a non-linear increase in estimated energy consumption. The upward curve of the quadratic drag component is <strong>visible at these reasonable speeds</strong>, it isn’t just at <em>huge</em> numbers that it starts being relevant.</p>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    
+      
+  <svg xmlns:xlink="http://www.w3.org/1999/xlink" width="576pt" height="288pt" viewBox="0 0 576 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:date>2025-03-03T18:30:18.481721</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 288 
+L 576 288 
+L 576 0 
+L 0 0 
+z
+" style="fill: #ffffff" />
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 87.05 224.44 
+L 498.985 224.44 
+L 498.985 25.92 
+L 87.05 25.92 
+z
+" style="fill: #ffffff" />
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mb0a479810b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use xlink:href="#mb0a479810b" x="87.05" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="87.05" y="244.352188" transform="rotate(-0 87.05 244.352188)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mb0a479810b" x="151.414844" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="151.414844" y="244.352188" transform="rotate(-0 151.414844 244.352188)">25</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mb0a479810b" x="215.779688" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="215.779688" y="244.352188" transform="rotate(-0 215.779688 244.352188)">50</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mb0a479810b" x="280.144531" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="280.144531" y="244.352188" transform="rotate(-0 280.144531 244.352188)">75</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mb0a479810b" x="344.509375" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="344.509375" y="244.352188" transform="rotate(-0 344.509375 244.352188)">100</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mb0a479810b" x="408.874219" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="408.874219" y="244.352188" transform="rotate(-0 408.874219 244.352188)">125</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#mb0a479810b" x="473.239062" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="473.239062" y="244.352188" transform="rotate(-0 473.239062 244.352188)">150</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="293.0175" y="265.227188" transform="rotate(-0 293.0175 265.227188)">Velocity (km/h)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_8">
+      <defs>
+       <path id="m0a16d2ed37" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="230.896094" transform="rotate(-0 80.05 230.896094)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="184.736" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="191.192094" transform="rotate(-0 80.05 191.192094)">250</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="145.032" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="151.488094" transform="rotate(-0 80.05 151.488094)">500</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="105.328" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="111.784094" transform="rotate(-0 80.05 111.784094)">750</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="65.624" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="72.080094" transform="rotate(-0 80.05 72.080094)">1000</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="25.92" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="32.376094" transform="rotate(-0 80.05 32.376094)">1250</text>
+     </g>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="32.259375" y="125.18" transform="rotate(-90 32.259375 125.18)">N</text>
+    </g>
+   </g>
+   <g id="line2d_14">
+    <path d="M 87.05 199.273064 
+L 97.348375 199.168147 
+L 107.64675 198.853397 
+L 117.945125 198.328813 
+L 128.2435 197.594396 
+L 138.541875 196.650146 
+L 148.84025 195.496062 
+L 159.138625 194.132145 
+L 169.437 192.558394 
+L 179.735375 190.77481 
+L 190.03375 188.781393 
+L 200.332125 186.578142 
+L 210.6305 184.165058 
+L 220.928875 181.54214 
+L 231.22725 178.709389 
+L 241.525625 175.666804 
+L 251.824 172.414386 
+L 262.122375 168.952135 
+L 272.42075 165.28005 
+L 282.719125 161.398132 
+L 293.0175 157.30638 
+L 303.315875 153.004795 
+L 313.61425 148.493377 
+L 323.912625 143.772125 
+L 334.211 138.84104 
+L 344.509375 133.700121 
+L 354.80775 128.349369 
+L 365.106125 122.788783 
+L 375.4045 117.018364 
+L 385.702875 111.038112 
+L 396.00125 104.848026 
+L 406.299625 98.448107 
+L 419.172594 90.15313 
+L 432.045563 81.530288 
+L 444.918531 72.579581 
+L 457.7915 63.30101 
+L 470.664469 53.694574 
+L 483.537438 43.760273 
+L 496.410406 33.498107 
+L 498.985 31.40633 
+L 498.985 31.40633 
+" clip-path="url(#p0191220ab5)" style="fill: none; stroke: #1f77b4; stroke-width: 1.5; stroke-linecap: square" />
+   </g>
+   <g id="patch_3">
+    <path d="M 87.05 224.44 
+L 87.05 25.92 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_4">
+    <path d="M 498.985 224.44 
+L 498.985 25.92 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_5">
+    <path d="M 87.05 224.44 
+L 498.985 224.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_6">
+    <path d="M 160.220219 182.198825 
+Q 161.909919 186.815323 163.599618 191.431821 
+" style="fill: none; stroke: #000000; stroke-linecap: round" />
+   </g>
+   <g id="text_16">
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #008000" transform="translate(135.129728 149.003721)">196 N</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #008000" transform="translate(123.683933 162.360792)">54 Wh/km</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #008000" transform="translate(121.503688 175.717863)">@ 30 km/h</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 237.458031 164.570249 
+Q 239.147731 169.186747 240.837431 173.803245 
+" style="fill: none; stroke: #000000; stroke-linecap: round" />
+   </g>
+   <g id="text_17">
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #0000ff" transform="translate(212.36754 131.375145)">307 N</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #0000ff" transform="translate(200.921745 144.732216)">85 Wh/km</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #0000ff" transform="translate(198.741501 158.089287)">@ 60 km/h</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 366.187719 108.825833 
+Q 367.877419 113.442331 369.567118 118.058829 
+" style="fill: none; stroke: #000000; stroke-linecap: round" />
+   </g>
+   <g id="text_18">
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #800080" transform="translate(341.097228 75.630729)">658 N</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #800080" transform="translate(326.178071 88.9878)">183 Wh/km</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #800080" transform="translate(323.997827 102.344871)">@ 110 km/h</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 443.425531 59.592873 
+Q 445.115231 64.209371 446.804931 68.825869 
+" style="fill: none; stroke: #000000; stroke-linecap: round" />
+   </g>
+   <g id="text_19">
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #ff0000" transform="translate(418.33504 26.397769)">968 N</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #ff0000" transform="translate(403.415884 39.75484)">269 Wh/km</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #ff0000" transform="translate(401.235639 53.111911)">@ 140 km/h</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="matplotlib.axis_3">
+    <g id="ytick_7">
+     <g id="line2d_15">
+      <defs>
+       <path id="ma18ed59cf7" d="M 0 0 
+L 3.5 0 
+" style="stroke: #000000; stroke-width: 0.8" />
+      </defs>
+      <g>
+       <use xlink:href="#ma18ed59cf7" x="498.985" y="224.44" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: start" x="505.985" y="230.896094" transform="rotate(-0 505.985 230.896094)">0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#ma18ed59cf7" x="498.985" y="167.26624" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: start" x="505.985" y="173.722334" transform="rotate(-0 505.985 173.722334)">100</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#ma18ed59cf7" x="498.985" y="110.09248" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: start" x="505.985" y="116.548574" transform="rotate(-0 505.985 116.548574)">200</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#ma18ed59cf7" x="498.985" y="52.91872" style="stroke: #000000; stroke-width: 0.8" />
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: start" x="505.985" y="59.374814" transform="rotate(-0 505.985 59.374814)">300</text>
+     </g>
+    </g>
+    <g id="text_24">
+     <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="552.92625" y="125.18" transform="rotate(-90 552.92625 125.18)">Wh/km</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 87.05 224.44 
+L 87.05 25.92 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_11">
+    <path d="M 498.985 224.44 
+L 498.985 25.92 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+   <g id="patch_12">
+    <path d="M 87.05 224.44 
+L 498.985 224.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square" />
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0191220ab5">
+   <rect x="87.05" y="25.92" width="411.935" height="198.52" />
+  </clipPath>
+ </defs>
+</svg>
+
+    
+    
+  </div>
+  <figcaption><p>A plot of the estimated energy consumption function E, as measured in either N or the more conventional Wh/km.</p>
+</figcaption>
+</figure>
+
+<p>That’s suggesting that accelerating +30 km/h has noticeably different impacts on energy consumption, depending what the base speed is:</p>
+
+<ul>
+  <li>going from <span style="color: green">30 km/h</span> to <span style="color: blue">60 km/h</span> increases energy usage by 111 N = 31 Wh/km = 3.1 kWh/100km;</li>
+  <li>going from <span style="color: purple">110 km/h</span> to <span style="color: red">140 km/h</span> increases energy usage by 310 N = 86 Wh/km = 8.6 kWh/100km, far more.</li>
+</ul>
+
+<p>When you’re <strong>already going fast, going even faster</strong> results in higher energy consumption and less range.</p>
+
+<p>This is true for all vehicles, ICE or electric.</p>
+
+<aside data-icon="⚠️">
+
+This generalisation have even more caveats than the point estimate earlier. The estimated function is likely highly inaccurate for low velocities, where losses other than the rolling resistance and drag are a bigger percentage of the total energy consumption.
+
+</aside>
+
+<h2 id="-lightning-summary">⚡ Lightning summary</h2>
+
+<p>Dimensional analysis implies EV efficiency can be measured in Wh/km, kWh/100km or… N. That is, it’s a force.</p>
+
+<p>Back of the envelope calculations seem to back this up: combing rolling resistance and drag gave a prediction of 658 N, aligning fairly closely to observed real world usage of 684 N.</p>
+
+<p>Generalising that calculation shows usage is quadratically related to speed, and that the quadratic (drag) component is noticeable at normal driving speeds.</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Newtons%20are%20a%20unit%20of%20mileage%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/03/ev-newtons/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Newtons%20are%20a%20unit%20of%20mileage&amp;url=https://huonw.github.io/blog/2025/03/ev-newtons/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/03/ev-newtons/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/03/ev-newtons/&amp;title=Newtons%20are%20a%20unit%20of%20mileage" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:sleep" role="doc-endnote">
+      <p>My wife ended up asleep for this part of the trip. Weird. <a href="#fnref:sleep" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:recovery" role="doc-endnote">
+      <p>A lot of the logic in this post applies to fuel-powered internal-comustion-engine (ICE) vehicles too, even the fuel consumption <em>could</em> be measured in units like Wh/km, using the energy density of the fuel. However, ICE cars cannot recover energy like an EV: driving up a hill and then back down or accelerating and then braking doesn’t <em>unburn</em> fuel. I think this means the “average force” analogy breaks down. <a href="#fnref:recovery" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:ice" role="doc-endnote">
+      <p>Cutely, the L/100km unit for ICE vehicles also simplifies. It simplifies to an area (such as m<sup>2</sup>). I think this represents the cross-sectional area of an imaginary pipe laid along the route, filled with fuel: the vehicle will (on average) consume exactly as much fuel as it drives past. Or, alternatively: if you hooked that pipe up to the engine, it’d be supplying fuel at exactly the rate the vehicle needs. <a href="#fnref:ice" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:conversions" role="doc-endnote">
+      <p>I verified the equivalences and numbers using <a href="https://gist.github.com/huonw/76f8b61e408a747ffc5390aa4489a814">a script</a>. <a href="#fnref:conversions" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:conversions:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:conversions:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2025/02/ci-tee/">
+                   <h3>Prefer tee -a, not >>, in CI</h3>
+                     <p><table>
+  <tbody>
+    <tr>
+      <td>GitHub Actions suggests using code like echo … » $GITHUB_ENV, but echo …</td>
+      <td>tee -a $GITHUB_ENV is often better.</td>
+    </tr>
+  </tbody>
+</table>
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2024/08/async-hazard-mmap/">
+                   <h3>Async hazard: mmap is secretly blocking IO</h3>
+                     <p>Memory-mapping a file is convenient, but it’s a hazard when used with async/await concurrent code: it means a “simple” memory index does blocking IO.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2024/07/github-permalinks/">
+                   <h3>GitHub tip-hub: habitual permalinks</h3>
+                     <p>Hit y to create a permalink to a GitHub directory, file or line. They’re easy to make, stable, and even render a preview in some places.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>
