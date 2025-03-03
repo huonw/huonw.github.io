@@ -1,0 +1,360 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="576pt" height="288pt" viewBox="0 0 576 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2025-03-03T18:30:18.481721</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.0, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 288 
+L 576 288 
+L 576 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 87.05 224.44 
+L 498.985 224.44 
+L 498.985 25.92 
+L 87.05 25.92 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mb0a479810b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mb0a479810b" x="87.05" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="87.05" y="244.352188" transform="rotate(-0 87.05 244.352188)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mb0a479810b" x="151.414844" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="151.414844" y="244.352188" transform="rotate(-0 151.414844 244.352188)">25</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mb0a479810b" x="215.779688" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="215.779688" y="244.352188" transform="rotate(-0 215.779688 244.352188)">50</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mb0a479810b" x="280.144531" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="280.144531" y="244.352188" transform="rotate(-0 280.144531 244.352188)">75</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mb0a479810b" x="344.509375" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="344.509375" y="244.352188" transform="rotate(-0 344.509375 244.352188)">100</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mb0a479810b" x="408.874219" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="408.874219" y="244.352188" transform="rotate(-0 408.874219 244.352188)">125</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#mb0a479810b" x="473.239062" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="473.239062" y="244.352188" transform="rotate(-0 473.239062 244.352188)">150</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="293.0175" y="265.227188" transform="rotate(-0 293.0175 265.227188)">Velocity (km/h)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_8">
+      <defs>
+       <path id="m0a16d2ed37" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="230.896094" transform="rotate(-0 80.05 230.896094)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="184.736" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="191.192094" transform="rotate(-0 80.05 191.192094)">250</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="145.032" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="151.488094" transform="rotate(-0 80.05 151.488094)">500</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="105.328" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="111.784094" transform="rotate(-0 80.05 111.784094)">750</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="65.624" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="72.080094" transform="rotate(-0 80.05 72.080094)">1000</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m0a16d2ed37" x="87.05" y="25.92" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: end" x="80.05" y="32.376094" transform="rotate(-0 80.05 32.376094)">1250</text>
+     </g>
+    </g>
+    <g id="text_15">
+     <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="32.259375" y="125.18" transform="rotate(-90 32.259375 125.18)">N</text>
+    </g>
+   </g>
+   <g id="line2d_14">
+    <path d="M 87.05 199.273064 
+L 97.348375 199.168147 
+L 107.64675 198.853397 
+L 117.945125 198.328813 
+L 128.2435 197.594396 
+L 138.541875 196.650146 
+L 148.84025 195.496062 
+L 159.138625 194.132145 
+L 169.437 192.558394 
+L 179.735375 190.77481 
+L 190.03375 188.781393 
+L 200.332125 186.578142 
+L 210.6305 184.165058 
+L 220.928875 181.54214 
+L 231.22725 178.709389 
+L 241.525625 175.666804 
+L 251.824 172.414386 
+L 262.122375 168.952135 
+L 272.42075 165.28005 
+L 282.719125 161.398132 
+L 293.0175 157.30638 
+L 303.315875 153.004795 
+L 313.61425 148.493377 
+L 323.912625 143.772125 
+L 334.211 138.84104 
+L 344.509375 133.700121 
+L 354.80775 128.349369 
+L 365.106125 122.788783 
+L 375.4045 117.018364 
+L 385.702875 111.038112 
+L 396.00125 104.848026 
+L 406.299625 98.448107 
+L 419.172594 90.15313 
+L 432.045563 81.530288 
+L 444.918531 72.579581 
+L 457.7915 63.30101 
+L 470.664469 53.694574 
+L 483.537438 43.760273 
+L 496.410406 33.498107 
+L 498.985 31.40633 
+L 498.985 31.40633 
+" clip-path="url(#p0191220ab5)" style="fill: none; stroke: #1f77b4; stroke-width: 1.5; stroke-linecap: square"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 87.05 224.44 
+L 87.05 25.92 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 498.985 224.44 
+L 498.985 25.92 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 87.05 224.44 
+L 498.985 224.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 160.220219 182.198825 
+Q 161.909919 186.815323 163.599618 191.431821 
+" style="fill: none; stroke: #000000; stroke-linecap: round"/>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #008000" transform="translate(135.129728 149.003721)">196 N</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #008000" transform="translate(123.683933 162.360792)">54 Wh/km</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #008000" transform="translate(121.503688 175.717863)">@ 30 km/h</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 237.458031 164.570249 
+Q 239.147731 169.186747 240.837431 173.803245 
+" style="fill: none; stroke: #000000; stroke-linecap: round"/>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #0000ff" transform="translate(212.36754 131.375145)">307 N</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #0000ff" transform="translate(200.921745 144.732216)">85 Wh/km</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #0000ff" transform="translate(198.741501 158.089287)">@ 60 km/h</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 366.187719 108.825833 
+Q 367.877419 113.442331 369.567118 118.058829 
+" style="fill: none; stroke: #000000; stroke-linecap: round"/>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #800080" transform="translate(341.097228 75.630729)">658 N</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #800080" transform="translate(326.178071 88.9878)">183 Wh/km</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #800080" transform="translate(323.997827 102.344871)">@ 110 km/h</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 443.425531 59.592873 
+Q 445.115231 64.209371 446.804931 68.825869 
+" style="fill: none; stroke: #000000; stroke-linecap: round"/>
+   </g>
+   <g id="text_19">
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #ff0000" transform="translate(418.33504 26.397769)">968 N</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #ff0000" transform="translate(403.415884 39.75484)">269 Wh/km</text>
+    <text style="font-size: 12.492px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; fill: #ff0000" transform="translate(401.235639 53.111911)">@ 140 km/h</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="matplotlib.axis_3">
+    <g id="ytick_7">
+     <g id="line2d_15">
+      <defs>
+       <path id="ma18ed59cf7" d="M 0 0 
+L 3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#ma18ed59cf7" x="498.985" y="224.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: start" x="505.985" y="230.896094" transform="rotate(-0 505.985 230.896094)">0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#ma18ed59cf7" x="498.985" y="167.26624" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: start" x="505.985" y="173.722334" transform="rotate(-0 505.985 173.722334)">100</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#ma18ed59cf7" x="498.985" y="110.09248" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: start" x="505.985" y="116.548574" transform="rotate(-0 505.985 116.548574)">200</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#ma18ed59cf7" x="498.985" y="52.91872" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: start" x="505.985" y="59.374814" transform="rotate(-0 505.985 59.374814)">300</text>
+     </g>
+    </g>
+    <g id="text_24">
+     <text style="font-size: 18px; font-family: 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'; text-anchor: middle" x="552.92625" y="125.18" transform="rotate(-90 552.92625 125.18)">Wh/km</text>
+    </g>
+   </g>
+   <g id="patch_10">
+    <path d="M 87.05 224.44 
+L 87.05 25.92 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 498.985 224.44 
+L 498.985 25.92 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 87.05 224.44 
+L 498.985 224.44 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0191220ab5">
+   <rect x="87.05" y="25.92" width="411.935" height="198.52"/>
+  </clipPath>
+ </defs>
+</svg>
