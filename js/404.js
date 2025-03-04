@@ -45,6 +45,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     };
     var posts = [
         
+        {path: "/blog/2025/03/rust-fallthrough/", title: "Take a break: Rust match has fallthrough"},
+        
         {path: "/blog/2025/03/ev-newtons/", title: "Newtons are a unit of mileage"},
         
         {path: "/blog/2025/02/ci-tee/", title: "Prefer tee -a, not >>, in CI"},

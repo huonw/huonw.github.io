@@ -4,13 +4,479 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2025-03-03T21:36:08+00:00</updated>
+  <updated>2025-03-04T21:33:43+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
     <email>dbau.pp@gmail.com</email>
   </author>
 
+  
+  
+  <entry>
+    <id>https://huonw.github.io/blog/2025/03/rust-fallthrough</id>
+    <link type="text/html" rel="alternate" href="https://huonw.github.io/blog/2025/03/rust-fallthrough/"/>
+    <title>Take a break: Rust match has fallthrough</title>
+    <published>2025-03-05T00:00:00+00:00</published>
+    <updated>2025-03-05T00:00:00+00:00</updated>
+    <author>
+      <name>Huon Wilson</name>
+      <uri>https://huonw.github.io/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Rust’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; statement can do a lot of things, even C-style fallthough to the next branch, despite having no real support for it. It turns out to a “shallow” feature, where the C to Rust translation is easily done, without needing to understand the code itself. The hardest part is coming to terms with writing it, and then convincing someone else to let you land it!&lt;/p&gt;
+
+&lt;p&gt;Here’s what the tail handling of the MurmurHash3 hash function could look like, in Rust, if you have enough courage&lt;sup id=&quot;fnref:better&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:better&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;0&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;&apos;case1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;&apos;case2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;&apos;case3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// &apos;case3:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// &apos;case2:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// case1:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.rotate_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This very occasionally matters and it’s not too hard to inflict it upon yourself, if required. Hopefully it isn’t required, because there’s no way to make it pretty.&lt;/p&gt;
+
+&lt;aside data-icon=&quot;ℹ️&quot;&gt;
+
+This post is essentially a prose version of the 10-year-old &lt;a href=&quot;https://github.com/pythonesque/fallthrough&quot;&gt;pythonesque/fallthrough&lt;/a&gt; macro. &lt;a href=&quot;https://github.com/Jules-Bertholet/fallthrough&quot;&gt;Jules-Bertholet/fallthrough&lt;/a&gt; looks to be a more recent version of the same idea. I&apos;m not associated with either, nor have I ever used them.
+
+&lt;/aside&gt;
+
+&lt;h2 id=&quot;breaking-the-ice&quot;&gt;Breaking the ice&lt;/h2&gt;
+
+&lt;p&gt;In the  MurmurHash3 hash functions, there’s two interesting &lt;a href=&quot;https://github.com/aappleby/smhasher/blob/0ff96f7835817a27d0487325b6c16033e2992eb5/src/MurmurHash3.cpp#L205-L229&quot;&gt;snippets&lt;/a&gt; of &lt;a href=&quot;https://github.com/aappleby/smhasher/blob/0ff96f7835817a27d0487325b6c16033e2992eb5/src/MurmurHash3.cpp#L130-L136&quot;&gt;code&lt;/a&gt;. One is for computing 128-bit results and the other for 32-bit results. They have the same vibes, but the 32-bit one is smaller and serves as a better example. It uses various &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uint32_t&lt;/code&gt; variables (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c1&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;c2&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k1&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;h1&lt;/code&gt;), an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;int&lt;/code&gt; variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;len&lt;/code&gt;, and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;uint8_t *&lt;/code&gt; pointer &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tail&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROTL32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It’s relying on the implicit fallthrough behaviour of C’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; statement: if the CPU proceeds through a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;case&lt;/code&gt; arm without hitting a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;break&lt;/code&gt;, it happily continues executing the next arm. That’s a compact, &lt;a href=&quot;https://en.wikipedia.org/wiki/Don&apos;t_repeat_yourself&quot;&gt;“DRY”&lt;/a&gt; and efficient way to write this equivalent code:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// case 3:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// case 2:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// case 1:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROTL32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// case 2:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// case 1:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROTL32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// case 1:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROTL32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Expressing the original &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; in Rust is… a bit awkward. A nice(?) version might be spelling out individual &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt; statements, carefully using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt;=&lt;/code&gt; and avoiding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;else if&lt;/code&gt; to get the right fallthrough behaviour:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.rotate_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;But, it doesn’t so nicely scale to larger &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt;es like the 128-bit version of this example code: that one has 15 arms, instead of 3! And, especially for those larger versions, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; statement seems to &lt;strong&gt;help the optimiser&lt;/strong&gt; apply tricks like jump tables or computed-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;goto&lt;/code&gt; , whereas individual &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt;s seem to end up with &lt;strong&gt;long sequential chains&lt;/strong&gt; of compare-then-jump instead (&lt;a href=&quot;https://godbolt.org/#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAMzwBtMA7AQwFtMQByARg9KtQYEAysib0QXACx8BBAKoBnTAAUAHpwAMvAFYTStJg1DIApACYAQuYukl9ZATwDKjdAGFUtAK4sGEgOykrgAyeAyYAHI%2BAEaYxBIAbKQADqgKhE4MHt6%2BASlpGQKh4VEssfFcSXaYDplCBEzEBNk%2BflyB1bUC9Y0ExZExcYm2DU0tue0jvf2l5YkAlLaoXsTI7BzmAMxhyN5YJptuCgT4ggB0CAfYJhoAgje3YbRhmADUXmEEm2YA%2BgSvxFQBFo31eEHen2%2Bf1eqlIr0%2BAA5ocRXvMHiZ/FY7q8AZgCCsGGDVK8Dm5SQD5iT/G4iSTNtd6WDQQBaClozZY%2B7%2BAAi6LMmywNHCNwAnAAlADyABVgt8ILCAJ5ojQiwHAuWK5X3O4fQRQ/4KADuhGQCB%2BEAeOJxuq%2Bv3%2B9AYcMtVpt%2BteAGsuKRndbIXaPWZvdiXX7oe7NkHblaIXr/e7pD6Y7boQgvYnXf6EIH06H/ggIznYymE8HfUX/sg06Wk27kNnqxnocgCw3c69kCWoyHBEj/gAqBp0SkYzk4o0mhAQB0kswJV5cACsWpxI%2BdoiU84XIA9khJC4Z3Neg9oJgXFikp8PpPJlQOo/bTA3Um38b3B6PTDop/Pm0vdLJhyvAid5ro%2BbxcJsL67qe77Ht%2BXBmH%2B16ARoIHVtGVqvn2ByHh2d47iumyHpKMpyvGpBcAi7IWAR2FEe2XD4Qg0H7jhO5odqXbruBZgvpsb5sXBZ5cIxC5Xoc5JmJIHE4tx85cHxAn0UJ56oWJ/43gkMkPk%2BGiKTBgmfieZ6vCKSESYBwEcqBG6mfprHKUZ35AeZAE0qh1noRhHr8XRuG/hyPmEcR0qymYEDhhR/jUUFfnttJgX5kph7hhxNlvEBL5mMlH5fiZ/iuZJCX3nJrz%2BFlOUqa8WnqchNK3p5XFgTiCQVQZjl5TRC6FZZ2mlVuAaVU5JnSbVFnudp3mYdlcV1vh7rZXSIWkeFC0UQkMULa8s0BTRWY5QtaXBqVkgvlwQ2da8v5jW5rxSX1zVXWdF3GTRiE3ZpD22bxHrne1h5VaJ4m3VZJWPQpv0vc5anA%2BSHn3lNOKettbGVvN51La8JFhRFXqLpt52zYhiV/Q5KWMY1K48kdXYAPS068jAKCsbxiLQrwAG6NHgTDRPQCivI0bxeEo6DOsQeIEq8qYznt2XWNL/EK8xaXU3c6I6m2eBUAoFqtuWrwOk6%2BvJv8nqRtGjZm/WXZlqbPkW929vkYW9upo7dtulmHs1pmLa277xY%2B1bDHB22dZhwbzaR/bHYx7223HsOmLOtrYJTowM5zvjdLvjnI4ktWr7/blr0Xh9gENfeGJXsGadQNO5jZ0uudsVIycI0jLGwcNP49TSoPOjXhddvXGeEk3m7DvSbebB3ibF2Tpfwe9sMoZNtGo8VBGY9jZHSJRm27rNFN7d3bHxtpw%2Bp1Q6eN7OU%2Bt/RCHz0XStLypIn93dxVDzyI84jHvfZu0885cFfgHcMUNhIww0pXLSlMqS11HrfBumdJ75xns/DQEDoxQJLlVMyFcB5X3/jfO%2B6CH6YPfCKXBmF3490usBYhrx4YL18qjXaQVd6hTIhGdom0OH0TwolBhF9dp/2QYA1B48s6PyuGxKiVIaIL3lh/XuZVv73UQdfOuMjgHyKwYeaKyiAHTWgTRGqa96oIOrmQvRFCJ5UJbgo%2BiG1TGqIsa8bqLDB7Bl0SgxxcjqFsRcZiMxSM1GMNeq8Ua1jWEby2kTeai02J71WoGSom0ZqcKYlEi%2BxM7FSPhPoyhICn6HkkHQpGpNonOWuvE7RRSzFALKYY98c9lEL1qYZS6q84E2NIcU1pTjymuMPGYapkMCEaKBgMlyOj7GBLQaM9pbcpnIxmZdWBdUEmIJqSjYRp9IY8JWrjCiS50aHNwoU6WPT6KeiGTTHE9NGYMGZhLQWtB2Zc2IDzPmmABZC3eKLcWktiCEhlsreWlhFay2lr/dWPIOCLFoJwBcvA/AcC0KQVAnAySWAVgoZYqw3hbB4KQAgmgUWLHdCABcGh9CcEkJi6luLOC8AUCARlVLsUotIHAWASA0AsGSHQOI5BKAirFfQeIuxDDAC4CKLgjKaC0AIHELlEBohsuiGERoCpOAUr1cwYgCoJTRG0DUXlFKRVsEEBKBgtBDV8tIFgaIXhgBuDZly7gvAsAsAVeIV1%2BAJa1A5oCtlmBVA1C8Bqo1vBPiYDRa6540RiAGo8FgNlBA/ksATaQCNxBohpEwNyTAgajDPCMNSxYVADDAAUAANTwJgQ0EpkiMALfwQQIgxDsCkDIQQigVDqFdboL0Bga2mEJZYfQeBohcsgIsVAyRHACF9cyCUmxeCoCLX8rAS6ICLE6OuvwEBXDjDaEEBg6AZiDAqPkdIZ6r16FSM%2BzI96yhDC9KeuooxmieFaHoP93QANfrmL%2BgDr6oPTBeLMH9J6SVrAkKi9FrLXV4o4DCBECRmQJF3PKow84RRnC4GcDQYJcCEBIDOTY4DeC8q0PMWl9LGUppZaQLFOKsOcu5ZS2taGOBmAwzxjlAm%2BUscLZqzIIBJBAA%3D&quot;&gt;compiler explorer&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Worst of all, that’s boring!&lt;/p&gt;
+
+&lt;p&gt;Instead, it’s possible to &lt;strong&gt;translate&lt;/strong&gt; the original C code directly, &lt;strong&gt;fallthrough and all&lt;/strong&gt;. All you need is more &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;break&lt;/code&gt;, like we saw before:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;&apos;case1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;&apos;case2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;&apos;case3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;mi&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// &apos;case3:&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// &apos;case2:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// case1:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.rotate_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Perfect! But.. you might need to bribe someone to get it past code review.&lt;/p&gt;
+
+&lt;h2 id=&quot;break-it-down-for-me&quot;&gt;Break it down for me&lt;/h2&gt;
+
+&lt;p&gt;What’s going on here?&lt;/p&gt;
+
+&lt;p&gt;This is relying on Rust’s &lt;a href=&quot;https://rust-lang.github.io/rfcs/2046-label-break-value.html&quot;&gt;&lt;strong&gt;labelled blocks &amp;amp; breaks&lt;/strong&gt;&lt;/a&gt; acting as a “&lt;strong&gt;forward &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;goto&lt;/code&gt;&lt;/strong&gt;”. When we write &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;a: { ... break &apos;a; ... }&lt;/code&gt; that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;break &apos;a&lt;/code&gt; is jumping to the end of the block labelled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;a&lt;/code&gt;. We can use that to jump into the middle of a sequence of instructions.&lt;/p&gt;
+
+&lt;p&gt;Here’s a strangely-indented version of that same Rust code, which only has whitespace changes from the more conventional formatting just above:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&apos;case2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;mi&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// &apos;case3:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// &apos;case2:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// &apos;case1:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;u32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;.rotate_left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// &apos;outer:&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We can pretend the core functionality—all the updates to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k1&lt;/code&gt;—is “straight-line” code, and then the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; entrypoint is just &lt;strong&gt;choosing where to start executing&lt;/strong&gt; within that code. (Maybe that presentation above is clearer to you, or the more conventional one is: the behaviour is the same.)&lt;/p&gt;
+
+&lt;p&gt;For instance, if &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;len &amp;amp; 3&lt;/code&gt; is 2, then the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; runs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;break &apos;case2&lt;/code&gt;, and jumps to the end of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;case2&lt;/code&gt; block. That’s exactly the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;} // &apos;case2:&lt;/code&gt; line, skipping over &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k1 ^= (tail[2] as u32) &amp;lt;&amp;lt; 16;&lt;/code&gt;, as desired. Thus, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k1 ^= (tail[1] as u32) &amp;lt;&amp;lt; 8;&lt;/code&gt; will run.&lt;/p&gt;
+
+&lt;p&gt;Once that update has run, execution continues through the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;} // &apos;case1&lt;/code&gt; (that is, leaving the block labelled &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;case1&lt;/code&gt;), on to executing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k1 ^= tail[0] as u32;&lt;/code&gt;: &lt;strong&gt;fallthrough&lt;/strong&gt;! Also exactly what’s desired!&lt;/p&gt;
+
+&lt;p&gt;This is just a unwrapping of the original C code, with an extra “jump” in it (that the optimiser simplifies away).&lt;/p&gt;
+
+&lt;h2 id=&quot;i-want-to-break-things-too&quot;&gt;I want to break things too&lt;/h2&gt;
+
+&lt;p&gt;The transformation from C &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; to Rust &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; is &lt;strong&gt;mechanical&lt;/strong&gt; and easy to execute:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Configure the blocks&lt;/li&gt;
+  &lt;li&gt;Arrange the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Insert the code&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Here’s a C example that demonstrates more &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; features:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;f1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// fallthrough&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;f2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// no fallthrough&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;f3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// conditional fallthrough&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;default:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;f5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;First, start with a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;outer: { ... }&lt;/code&gt; block. For each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;case&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; statement, create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;...: { ... }&lt;/code&gt; block nested within &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;outer&lt;/code&gt; and within each other. Put the &lt;strong&gt;last&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;case&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt; &lt;strong&gt;outermost&lt;/strong&gt;, and the &lt;strong&gt;first&lt;/strong&gt; one (immediately after &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt;) &lt;strong&gt;innermost&lt;/strong&gt;, with the rest in order between the two.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;&apos;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;&apos;case34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;&apos;case56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;&apos;case12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Next, within all of the blocks, create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; with an arm for each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;case&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default&lt;/code&gt;, and contents &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;break &apos;...&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;&apos;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;&apos;case34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;&apos;case56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;&apos;case12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Finally, put the code for each arm &lt;strong&gt;immediately after&lt;/strong&gt; the matching labelled block (this is slightly unintuitive: code for case “X” should &lt;strong&gt;not&lt;/strong&gt; be nested within the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;caseX&lt;/code&gt; block). Replace any &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;break&lt;/code&gt; statements in C with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;break &apos;outer&lt;/code&gt; in Rust.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;&apos;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;&apos;case34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;&apos;case56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;&apos;case12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;56&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case56&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;case34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;mi&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;nf&quot;&gt;f1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;// fallthrough&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;nf&quot;&gt;f2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;c&quot;&gt;// no fallthrough&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;f3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// conditional fallthrough&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;f4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;&apos;outer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;f5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;That’s the whole process.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-break-rust-like-this&quot;&gt;Why break Rust like this?&lt;/h2&gt;
+
+&lt;p&gt;There’s a few places where C’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; fallthrough behaviour is particularly useful, often numeric-related “tight” code, like: hash functions like MurmurHash3 above, and &lt;a href=&quot;https://github.com/kimwalisch/primesieve/blob/fa952ab19642b00687513d26e668d238180cb67c/src/EratSmall.cpp#L102-L127&quot;&gt;prime sieves&lt;/a&gt;. Using fallthrough leads to simpler code that’s well optimised by the compiler.&lt;/p&gt;
+
+&lt;p&gt;The same logic applies to Rust: in the rare case it’s helpful, it can be very helpful… except it’s so awkward to express in Rust, that there’s no defining this as “simpler”. This only makes sense if &lt;strong&gt;benchmarks prove it&lt;/strong&gt; .&lt;/p&gt;
+
+&lt;p&gt;(This is a quick article so I haven’t done the legwork to construct an example microbenchmark that demonstrates the performance impact of appropriate use of fallthrough: walking through that would be an article itself. Now you know about this idiosyncratic technique you can experiment… and maybe even write that article yourself!)&lt;/p&gt;
+
+&lt;p&gt;This labelled-break techinque is also a special case of a more general possibility: labelled breaks can be used to implement &lt;strong&gt;any directed acyclic graph&lt;/strong&gt; of C &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;goto&lt;/code&gt;s. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;switch&lt;/code&gt; fallthrough is a simple linked-list graph (each case/state goes to one other case), but the technique can be used for more complicated graphs too:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;create a nested labelled block for each state, in &lt;strong&gt;reverse topological order&lt;/strong&gt;, then&lt;/li&gt;
+  &lt;li&gt;use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;break &apos;...&lt;/code&gt; to jump to the appropriate less-deeply-nested block when transitioning states.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This “feature” should be used… carefully. It’s clearly hard to understand, and would be hard to maintain by hand, especially as the number of cases grow larger. However, it may be a good trick to use within a macro or other code-generation.&lt;/p&gt;
+
+&lt;h2 id=&quot;short-breakdown&quot;&gt;Short breakdown&lt;/h2&gt;
+
+&lt;p&gt;One can (ab)use labelled breaks in Rust to support fallthrough-like behaviour in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt;. Not at all pretty, not at all advisable, but it works, and sometimes that’s as much as we can hope for.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/pythonesque/fallthrough&quot;&gt;pythonesque/fallthrough&lt;/a&gt; and &lt;a href=&quot;https://github.com/Jules-Bertholet/fallthrough&quot;&gt;Jules-Bertholet/fallthrough&lt;/a&gt; macros appear to automate the transformation and seem to make it prettier… although I haven’t used them.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=Take%20a%20break:%20Rust%20match%20has%20fallthrough%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/03/rust-fallthrough/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Take%20a%20break:%20Rust%20match%20has%20fallthrough%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2025/03/rust-fallthrough/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/03/rust-fallthrough/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/03/rust-fallthrough/&amp;amp;title=Take%20a%20break:%20Rust%20match%20has%20fallthrough&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol start=&quot;0&quot;&gt;
+    &lt;li id=&quot;fn:better&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;There may be fundamentally-better ways to approach computing this value, completely different to the C-inspired versions in this post. &lt;a href=&quot;#fnref:better&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+  </entry>
+  
   
   
   <entry>
