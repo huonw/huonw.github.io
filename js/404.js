@@ -45,6 +45,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     };
     var posts = [
         
+        {path: "/blog/2025/04/standalone-shell-script-reproducer/", title: "Communicating bugs: use a single standalone shell script"},
+        
         {path: "/blog/2025/03/rust-fallthrough/", title: "Take a break: Rust match has fallthrough"},
         
         {path: "/blog/2025/03/ev-newtons/", title: "Newtons are a unit of mileage"},

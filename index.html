@@ -733,6 +733,26 @@ a.post-heading {
   
     
       <li class="post-post">
+  <a href="/blog/2025/04/standalone-shell-script-reproducer/" class="post-heading">
+    <h2 class="post-title">Communicating bugs: use a single standalone shell script</h2>
+    <span class="post-date">11 Apr 2025</span>
+  </a>
+  <div class="post-excerpt"><p>Hitting a bug is no fun: maybe it interferes with your work or play, or maybe it means you have to dive down a debugging rabbit hole. Remotely debugging a bug <em>someone else</em> has found is even less fun… I’ve settled on using a shell script for sharing executable self-contained reproducers for issues I find in software libraries and developer tools, to get help faster.</p>
+   <a href="/blog/2025/04/standalone-shell-script-reproducer/" class="post-more">Keep reading</a></div>
+  <div class="clear"></div>
+</li>
+
+    
+  
+ 
+
+ 
+ 
+
+ 
+  
+    
+      <li class="post-post">
   <a href="/blog/2025/03/rust-fallthrough/" class="post-heading">
     <h2 class="post-title">Take a break: Rust match has fallthrough</h2>
     <span class="post-date">05 Mar 2025</span>
@@ -779,26 +799,6 @@ a.post-heading {
   </a>
   <div class="post-excerpt"><p>Shell scripts sometimes have to append data to a file. Redirecting output with <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> is the conventional way and works fine, but using <code class="language-plaintext highlighter-rouge">tee -a</code> instead is a usually better default, especially in continuous integration. It’s <strong>just as easy</strong> and gives <strong>automatic introspection</strong>: the same value is printed to stdout and so appears in normal logs too.</p>
    <a href="/blog/2025/02/ci-tee/" class="post-more">Keep reading</a></div>
-  <div class="clear"></div>
-</li>
-
-    
-  
- 
-
- 
- 
-
- 
-  
-    
-      <li class="post-post">
-  <a href="/blog/2024/08/async-hazard-mmap/" class="post-heading">
-    <h2 class="post-title">Async hazard: mmap is secretly blocking IO</h2>
-    <span class="post-date">21 Aug 2024</span>
-  </a>
-  <div class="post-excerpt"><p>Memory mapping a file for reading sounds nice: turn inconvenient read calls and manual buffering into just simple indexing of a memory… but it does blocking IO under the hood, turn a <code class="language-plaintext highlighter-rouge">&amp;[u8]</code> byte arrays into an async hazard and making “concurrent” async code actually run sequentially!</p>
-   <a href="/blog/2024/08/async-hazard-mmap/" class="post-more">Keep reading</a></div>
   <div class="clear"></div>
 </li>
 

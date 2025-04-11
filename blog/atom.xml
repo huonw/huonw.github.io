@@ -4,13 +4,296 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2025-03-04T21:40:45+00:00</updated>
+  <updated>2025-04-11T00:04:46+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
     <email>dbau.pp@gmail.com</email>
   </author>
 
+  
+  
+  <entry>
+    <id>https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer</id>
+    <link type="text/html" rel="alternate" href="https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/"/>
+    <title>Communicating bugs: use a single standalone shell script</title>
+    <published>2025-04-11T00:00:00+00:00</published>
+    <updated>2025-04-11T00:00:00+00:00</updated>
+    <author>
+      <name>Huon Wilson</name>
+      <uri>https://huonw.github.io/</uri>
+    </author>
+    <content type="html">&lt;p&gt;Hitting a bug is no fun: maybe it interferes with your work or play, or maybe it means you have to dive down a debugging rabbit hole. Remotely debugging a bug &lt;em&gt;someone else&lt;/em&gt; has found is even less fun… I’ve settled on using a shell script for sharing executable self-contained reproducers for issues I find in software libraries and developer tools, to get help faster.&lt;/p&gt;
+
+&lt;p&gt;Sometimes, when I’ve found an issue, telling someone how to see it for themselves—how to reproduce it—is trivial: “go to this documentation link &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://...&lt;/code&gt; and see the typo: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;miispeled&lt;/code&gt;”. However, it’s usually harder.&lt;/p&gt;
+
+&lt;p&gt;Reproducing a bug might involve particular versions of libraries and tools, it might involve data in one or ten different files, and a precise set of flags and configuration. How can we communicate all of that? How can we communicate it well, so someone debugging is &lt;strong&gt;not wasting time manually piecing it together&lt;/strong&gt;?&lt;/p&gt;
+
+&lt;p&gt;I’ve found an effective way, in many cases, is a single standalone shell script with 3 main steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Prep a clean directory&lt;/strong&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd $(mktemp -d)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Create any required files&lt;/strong&gt;, from content inline in the shell script: using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat&lt;/code&gt; + heredocs, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt; and/or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touch&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Execute commands to demonstrate the problem&lt;/strong&gt;: whatever is required to show off the bug!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;By putting it into a single shell script, it can be &lt;strong&gt;shared in any text field&lt;/strong&gt; (no need for file attachments, or creating and linking to git repos), and it can be easily &lt;strong&gt;reviewed, copy-pasted, and executed&lt;/strong&gt;. By aiming to have a standalone shell script, I’m also reminded to reduce the reproducer to a small set of files, cutting away anything irrelevant.&lt;/p&gt;
+
+&lt;p&gt;That is, when I use a script, I feel more assured of sharing a &lt;a href=&quot;https://en.wikipedia.org/wiki/Minimal_reproducible_example&quot;&gt;&lt;em&gt;minimal&lt;/em&gt; &lt;strong&gt;working&lt;/strong&gt; example&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Minimal: the constraints of fitting into a single script encourages small examples (and makes it easy for someone else to minimise even further, if I didn’t get all the way to minimal).&lt;/li&gt;
+  &lt;li&gt;Working: the shell script is standalone and executable, so running it is enough to see that demonstates the problem.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;empathy--better-results&quot;&gt;Empathy = better results&lt;/h2&gt;
+
+&lt;p&gt;I’ve spent a lot of time on both sides of the bug equation, and thus know what either side wants:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;as a &lt;strong&gt;user&lt;/strong&gt;, who is finding and reporting issues, I often want &lt;strong&gt;actionable&lt;/strong&gt; help &lt;strong&gt;quickly&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;as a &lt;strong&gt;maintainer&lt;/strong&gt;, who is triaging, understanding and fixing issues, I always want a &lt;strong&gt;clear&lt;/strong&gt; description with &lt;strong&gt;easy-to-follow&lt;/strong&gt; “steps to reproduce”.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As a user, even if as a purely self-interested user with no concern for anyone else&lt;sup id=&quot;fnref:selfish&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:selfish&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;0&lt;/a&gt;&lt;/sup&gt;, I know I’ll get the best result using a healthy dose of empathy and understanding for the maintainers who will help me: it is &lt;strong&gt;in my interest to make my issue as clear as possible&lt;/strong&gt;! I want to help them help me!&lt;/p&gt;
+
+&lt;h2 id=&quot;structure&quot;&gt;Structure&lt;/h2&gt;
+
+&lt;p&gt;The basic structure of a script for effectively communicating a bug:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Prepping a clean directory&lt;/li&gt;
+  &lt;li&gt;Creating any required files&lt;/li&gt;
+  &lt;li&gt;Executing commands to demonstrate the problem&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c&quot;&gt;# 1. always start in a new empty directory&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mktemp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 2. Create any relevant files&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; several_lines.txt &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+file with
+several
+lines
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;just one line&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; single_line.txt
+&lt;span class=&quot;nb&quot;&gt;touch &lt;/span&gt;empty.txt
+
+&lt;span class=&quot;c&quot;&gt;# 3. Execute commands, both any set-up, comparison and demonstrating the bug&lt;/span&gt;
+prepare &lt;span class=&quot;nt&quot;&gt;--some&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;things
+
+&lt;span class=&quot;c&quot;&gt;# BUG: brief description!&lt;/span&gt;
+see &lt;span class=&quot;nt&quot;&gt;--the&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;bug
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Usually, it’s good to include (tastefully edited) &lt;strong&gt;output of the script&lt;/strong&gt; in the issue description too.&lt;/p&gt;
+
+&lt;p&gt;With a reproducer like that, someone helping me can copy it to a local script and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bash script.sh&lt;/code&gt;. Hopefully they can confirm they see the same problem straight away, and then they can start editing and debugging!&lt;/p&gt;
+
+&lt;h2 id=&quot;real-world-example&quot;&gt;Real-world example&lt;/h2&gt;
+
+&lt;p&gt;Here’s &lt;a href=&quot;https://github.com/pantsbuild/pants/issues/21264&quot;&gt;an example&lt;/a&gt; of this style of reproducer:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mktemp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; pants.toml &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+[GLOBAL]
+pants_version = &quot;2.22.0.dev2&quot;
+pantsd_timeout_when_multiple_invocations = 1
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# OK: prints the version&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;PANTS_VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2.22.0.dev1 pants version
+
+&lt;span class=&quot;c&quot;&gt;# BUG: Exception: Expected [GLOBAL] pantsd_timeout_when_multiple_invocations to be a float but given 1&lt;/span&gt;
+pants version
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This example demonstrates the three moving parts. Let’s look at each one.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-prepping-a-clean-directory&quot;&gt;1. Prepping a clean directory&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mktemp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This does a bit of shell magic: create a temporary directory with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mktemp -d&lt;/code&gt;, which prints the path to that directory, and feed that output into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd&lt;/code&gt; to immediately change to it. Thus, the rest of the script executes from that empty directory, no matter where we started.&lt;/p&gt;
+
+&lt;p&gt;To keep the script neater, I generally don’t bother cleaning up the temporary directory, on the assumption that the contents will be small, and that’ll get cleared out automatically, by restarting the machine or similar. It is explicitly a temporary directory.&lt;/p&gt;
+
+&lt;p&gt;Why do this at all? &lt;strong&gt;Keep myself honest&lt;/strong&gt;. By always switching to a new directory, I’m double-checking that running it on my machine is more likely to behave like running elsewhere, making the script more likely to work first time for my helpers: it’s helping them help me!&lt;/p&gt;
+
+&lt;p&gt;Without it, it’s easy to make a mistake. When I’m experimenting and iterating to find a reproducer, I usually end up with a messy working directory with random files lying around. It’s easy to accidentally not realise that one of those files is influencing behaviour, and forget to include it. This leads to a bad bug report that takes longer to resolve.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-creating-any-required-files&quot;&gt;2. Creating any required files&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; pants.toml &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+[GLOBAL]
+pants_version = &quot;2.22.0.dev2&quot;
+pantsd_timeout_when_multiple_invocations = 1
+EOF&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This particular example only needs one file: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pants.toml&lt;/code&gt;, with a few lines of content. This is using &lt;a href=&quot;https://en.wikipedia.org/wiki/Here_document&quot;&gt;“heredoc”&lt;/a&gt; syntax to define the content: everything between the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EOF&lt;/code&gt; delimiters, starting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[GLOBAL]&lt;/code&gt; and ending &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;..._invocations = 1&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Notably, the content of the files should be directly in the script! No downloading opaque blobs that I created myself. (Downloading tools and dependencies is fine, especially if they’re published  (or depended-upon)  by the project against which I am filing a bug.)&lt;/p&gt;
+
+&lt;h3 id=&quot;3-execute-commands-to-demonstrate-the-problem&quot;&gt;3. Execute commands to demonstrate the problem&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c&quot;&gt;# OK: prints the version&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;PANTS_VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2.22.0.dev1 pants version
+
+&lt;span class=&quot;c&quot;&gt;# BUG: Exception: Expected [GLOBAL] pantsd_timeout_when_multiple_invocations to be a float but given 1&lt;/span&gt;
+pants version
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Finally, let’s actually demonstrate the bug by running the relevant commands. The first &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OK&lt;/code&gt; one is demonstrating a working version for comparison, while the second &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BUG&lt;/code&gt; shows the problematic behaviour.&lt;/p&gt;
+
+&lt;p&gt;I like to include &lt;strong&gt;explicit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OK&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BUG&lt;/code&gt; comments&lt;/strong&gt; (or even &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt; statements) to highlight which parts specifically are showing the problem, and which parts are for comparison or set-up or similar, rather than require my helper to work that out themselves. If my issue is easier to understand, it’s easier to resolve: I want to help the reader help me!&lt;/p&gt;
+
+&lt;h2 id=&quot;self-contained&quot;&gt;Self-contained?&lt;/h2&gt;
+
+&lt;p&gt;The example script is almost fully self-contained, mostly using common Unix tools (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mktemp&lt;/code&gt;, etc)… but it also uses a “&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pants&lt;/code&gt;” binary. I am a maintainer of &lt;a href=&quot;https://www.pantsbuild.org&quot;&gt;Pantsbuild&lt;/a&gt; and filing an issue about it, so I’ve got a lot of context that tells me (a) other contributors will almost certainly have binary that installed, and (b) the specific version of it is very unlikely to matter for this particular bug.&lt;/p&gt;
+
+&lt;p&gt;However, I also file issues against other projects and ecosystems, some that I’m familiar with and others much less. When I’m less familiar, I make sure to have &lt;strong&gt;empathy for maintainers&lt;/strong&gt;. As a maintainer, I prefer to start with a full working reproducer and then cut out any irrelevant bits (and expertise/familiarity usually makes this very quick). When I start with something that doesn’t fully reproduce the problem, I’m going to have to &lt;strong&gt;guess&lt;/strong&gt; at details to make it run: I might guess wrong, and waste a bunch of time looking at something irrelevant. Boo!&lt;/p&gt;
+
+&lt;p&gt;So, as a user, if I’m less familiar with the ins-and-outs of a project or ecosystem, I’ll specify more of that in any reproducers, like versions of tools and preferably even installing them.&lt;/p&gt;
+
+&lt;p&gt;Sometimes installing something is quite awkward or very slow. In that case, at least running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;program --version&lt;/code&gt; in the script makes it easy for everyone to confirm what version being used.&lt;/p&gt;
+
+&lt;h2 id=&quot;revisiting&quot;&gt;Revisiting&lt;/h2&gt;
+
+&lt;p&gt;Having a single executable reproducer is great for revisiting bugs in future, and confirming they still reproduce or even that they’ve been fixed. I &lt;a href=&quot;https://github.com/strawberry-graphql/strawberry/issues/3288&quot;&gt;experienced this recently&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Months ago, I filed a bug against the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strawberry-graphql&lt;/code&gt; Python library, with a shell script reproducer.&lt;/li&gt;
+  &lt;li&gt;More recently, someone commented to indicate that it seems to be fixed.&lt;/li&gt;
+  &lt;li&gt;Just now, I revisited and used the shell script reproducer to quickly confirm that it has been fixed, and, further, took only minute or two to bisect the exact version in which the fix was made.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;(This did require minor updates to the script to make the bisection smoother. That is, I didn’t do a perfect job with a standalone reproducer the first time, but the bones were right and the changes were small.)&lt;/p&gt;
+
+&lt;h2 id=&quot;why-not-do-this&quot;&gt;Why not do this?&lt;/h2&gt;
+
+&lt;p&gt;When you’re filing a bug, there’s &lt;strong&gt;many other ways&lt;/strong&gt; to try to describe it to someone who might help you. For instance:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;link to an online “playground” or “fiddle” that demonstrates the bug, when available&lt;/li&gt;
+  &lt;li&gt;text, image, and/or video descriptions (“create file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pants.toml&lt;/code&gt; with contents &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;...&lt;/code&gt;, and then run command &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pants version&lt;/code&gt;”)&lt;/li&gt;
+  &lt;li&gt;attach a zip or tarball containing everything, that the helper can download, extract and run&lt;/li&gt;
+  &lt;li&gt;post a pull/merge request with a test case or script that demonstrates the bug&lt;/li&gt;
+  &lt;li&gt;link to a git repo (or even a &lt;a href=&quot;https://gist.github.com&quot;&gt;gist&lt;/a&gt;), that the helper can clone and run&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All of these have their place:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Maybe it’s a complicated issue without a known way to reproduce, yet, and thus describing symptoms and suspicions is all that is possible.&lt;/li&gt;
+  &lt;li&gt;Maybe it’s an issue with some UI, so describing where to click and what to type is all that is possible.&lt;/li&gt;
+  &lt;li&gt;Maybe a zip file works best with access control measures in your company.&lt;/li&gt;
+  &lt;li&gt;Maybe a unit test is easy to construct and the project has a convention of merging “xfailed” tests, so throwing up a pull request is a good start.&lt;/li&gt;
+  &lt;li&gt;Maybe there’s a lot of large assets that are best included in a git repo.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;However, for the sort of bugs I encounter, I’ve personally found that the single shell script often works and is low overhead.&lt;/p&gt;
+
+&lt;p&gt;As a maintainer, too, the effort of downloading a zip file or cloning a git repo and then navigating the resulting structure is &lt;strong&gt;noticeable friction&lt;/strong&gt;, that makes me less inclined to look at a given ticket immediately. Sometimes, too, the issue is obvious from the file content, without having to execute everything, so having that content &lt;strong&gt;immediately visible&lt;/strong&gt; when reading the bug increases the chance I’ll be able to give advice and/or solutions during an initial triage: &lt;strong&gt;instant assistance&lt;/strong&gt;!&lt;/p&gt;
+
+&lt;h3 id=&quot;dependency-lockfiles&quot;&gt;Dependency lockfiles&lt;/h3&gt;
+
+&lt;p&gt;A particularly notable reason to avoid a shell script is lockfiles for dependencies: if I’m filing a bug against a library that has bunch of (transitive) dependencies involved, the exact versions of all those dependencies might be relevant, and/or might be helpful when revisiting the issue in the far future. Unfortunately, lockfiles are often huge, and thus not appropriate to include inline in a shell script. In this case, switching to a multi-file approach, like git repo or gist, may be the best way to share the reproducer.&lt;/p&gt;
+
+&lt;p&gt;That said, sometimes one can get a good-enough solution for transitive dependencies without a full lockfile and thus stick with the shell script solution. In the Python ecosystem specifically, one can strike a good middle-ground using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip freeze&lt;/code&gt;&lt;sup id=&quot;fnref:uv&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:uv&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;: imagine you’re working in a virtual environment to reproduce some issue:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;once you’re successful, take a snapshot of the dependency versions with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip freeze&lt;/code&gt;, which outputs a bunch of pinned requirements, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cowsay==6.1&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy==2.2.4&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;place all those requirements into a single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip install cowsay==6.1 numpy==2.2.4 ...&lt;/code&gt; line in the script&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This has limitations compared to a true lockfile (such as no hashes for increased supply-chain security), but dramatically increases the chance that a helper can reproduce the exact environment in which you observed the bug.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;When I’ve found a bug in a software library or a developer tool, I’ve found an effective way to share a reproducer for it is a single shell script with 3 moving main steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Prep a clean directory: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd $(mktemp -d)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Create any required files, from content inline in the shell script: using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cat&lt;/code&gt; + heredocs, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo&lt;/code&gt; and/or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;touch&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Executing commands to demonstrate the problem: whatever is required to show off the bug!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This seems to strike a good balance of convenience for me (as a user reporting the bug) and maintainers, hopefully leading to faster resolution.&lt;/p&gt;
+
+&lt;p&gt;This isn’t a one-size-fits-all solution: other options for sharing a reproducer can be sensible.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=Communicating%20bugs:%20use%20a%20single%20standalone%20shell%20script%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Communicating%20bugs:%20use%20a%20single%20standalone%20shell%20script&amp;amp;url=https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/&amp;amp;title=Communicating%20bugs:%20use%20a%20single%20standalone%20shell%20script&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol start=&quot;0&quot;&gt;
+    &lt;li id=&quot;fn:selfish&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Of course, it’s even better to not be purely self-interested. Being a good person only adds even more reasons to be polite, empathetic, and gracious. &lt;a href=&quot;#fnref:selfish&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:uv&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;For Python, and particularly reproducers that involve a single Python script (with or without PyPI dependencies), one can also use &lt;a href=&quot;https://docs.astral.sh/uv&quot;&gt;uv&lt;/a&gt;: have PEP 723 metadata at the start of the script with both &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dependencies = [...]&lt;/code&gt; for top-level dependencies but also, crucially, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[tool.uv].exclude-newer = &quot;...&quot;&lt;/code&gt; field for &lt;a href=&quot;https://docs.astral.sh/uv/guides/scripts/#improving-reproducibility&quot;&gt;improved reproducibility&lt;/a&gt;. This isn’t exactly a lockfile, but will mean new releases of any transitive dependencies are less likely to break the script in future. That said, sticking to “plain old pip” is usually the most reliable strategy for sharing Python reproducers, though: almost everyone with Python installed will also have pip installed, and chucking a few &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python -m venv venv&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip install ...&lt;/code&gt; commands into a shell script works fine! &lt;a href=&quot;#fnref:uv&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+  </entry>
+  
   
   
   <entry>

@@ -1,0 +1,1108 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Communicating bugs: use a single standalone shell script |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="When I file a bug, I can get more reliable minimal working examples using a shell script, leading to better bugs and faster help." />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Communicating bugs: use a single standalone shell script" />
+  <meta name="twitter:description" content="When I file a bug, I can get more reliable minimal working examples using a shell script, leading to better bugs and faster help." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/" />
+  <meta property="og:title" content="Communicating bugs: use a single standalone shell script" />
+  <meta property="og:description" content="When I file a bug, I can get more reliable minimal working examples using a shell script, leading to better bugs and faster help." />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://bsky.app/profile/huonw.bsky.social">Bluesky</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Communicating bugs: use a single standalone shell script</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">11 Apr 2025</span>
+           
+           
+         </div>
+      
+      <p>Hitting a bug is no fun: maybe it interferes with your work or play, or maybe it means you have to dive down a debugging rabbit hole. Remotely debugging a bug <em>someone else</em> has found is even less fun… I’ve settled on using a shell script for sharing executable self-contained reproducers for issues I find in software libraries and developer tools, to get help faster.</p>
+
+<p>Sometimes, when I’ve found an issue, telling someone how to see it for themselves—how to reproduce it—is trivial: “go to this documentation link <code class="language-plaintext highlighter-rouge">https://...</code> and see the typo: <code class="language-plaintext highlighter-rouge">miispeled</code>”. However, it’s usually harder.</p>
+
+<p>Reproducing a bug might involve particular versions of libraries and tools, it might involve data in one or ten different files, and a precise set of flags and configuration. How can we communicate all of that? How can we communicate it well, so someone debugging is <strong>not wasting time manually piecing it together</strong>?</p>
+
+<p>I’ve found an effective way, in many cases, is a single standalone shell script with 3 main steps:</p>
+
+<ol>
+  <li><strong>Prep a clean directory</strong>: <code class="language-plaintext highlighter-rouge">cd $(mktemp -d)</code></li>
+  <li><strong>Create any required files</strong>, from content inline in the shell script: using <code class="language-plaintext highlighter-rouge">cat</code> + heredocs, <code class="language-plaintext highlighter-rouge">echo</code> and/or <code class="language-plaintext highlighter-rouge">touch</code></li>
+  <li><strong>Execute commands to demonstrate the problem</strong>: whatever is required to show off the bug!</li>
+</ol>
+
+<p>By putting it into a single shell script, it can be <strong>shared in any text field</strong> (no need for file attachments, or creating and linking to git repos), and it can be easily <strong>reviewed, copy-pasted, and executed</strong>. By aiming to have a standalone shell script, I’m also reminded to reduce the reproducer to a small set of files, cutting away anything irrelevant.</p>
+
+<p>That is, when I use a script, I feel more assured of sharing a <a href="https://en.wikipedia.org/wiki/Minimal_reproducible_example"><em>minimal</em> <strong>working</strong> example</a>:</p>
+
+<ul>
+  <li>Minimal: the constraints of fitting into a single script encourages small examples (and makes it easy for someone else to minimise even further, if I didn’t get all the way to minimal).</li>
+  <li>Working: the shell script is standalone and executable, so running it is enough to see that demonstates the problem.</li>
+</ul>
+
+<h2 id="empathy--better-results">Empathy = better results</h2>
+
+<p>I’ve spent a lot of time on both sides of the bug equation, and thus know what either side wants:</p>
+
+<ul>
+  <li>as a <strong>user</strong>, who is finding and reporting issues, I often want <strong>actionable</strong> help <strong>quickly</strong>.</li>
+  <li>as a <strong>maintainer</strong>, who is triaging, understanding and fixing issues, I always want a <strong>clear</strong> description with <strong>easy-to-follow</strong> “steps to reproduce”.</li>
+</ul>
+
+<p>As a user, even if as a purely self-interested user with no concern for anyone else<sup id="fnref:selfish" role="doc-noteref"><a href="#fn:selfish" class="footnote" rel="footnote">0</a></sup>, I know I’ll get the best result using a healthy dose of empathy and understanding for the maintainers who will help me: it is <strong>in my interest to make my issue as clear as possible</strong>! I want to help them help me!</p>
+
+<h2 id="structure">Structure</h2>
+
+<p>The basic structure of a script for effectively communicating a bug:</p>
+
+<ol>
+  <li>Prepping a clean directory</li>
+  <li>Creating any required files</li>
+  <li>Executing commands to demonstrate the problem</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="code"><pre><span class="c"># 1. always start in a new empty directory</span>
+<span class="nb">cd</span> <span class="si">$(</span><span class="nb">mktemp</span> <span class="nt">-d</span><span class="si">)</span>
+
+<span class="c"># 2. Create any relevant files</span>
+<span class="nb">cat</span> <span class="o">&gt;</span> several_lines.txt <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+file with
+several
+lines
+</span><span class="no">EOF
+
+</span><span class="nb">echo</span> <span class="s1">'just one line'</span> <span class="o">&gt;</span> single_line.txt
+<span class="nb">touch </span>empty.txt
+
+<span class="c"># 3. Execute commands, both any set-up, comparison and demonstrating the bug</span>
+prepare <span class="nt">--some</span><span class="o">=</span>things
+
+<span class="c"># BUG: brief description!</span>
+see <span class="nt">--the</span><span class="o">=</span>bug
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Usually, it’s good to include (tastefully edited) <strong>output of the script</strong> in the issue description too.</p>
+
+<p>With a reproducer like that, someone helping me can copy it to a local script and run <code class="language-plaintext highlighter-rouge">bash script.sh</code>. Hopefully they can confirm they see the same problem straight away, and then they can start editing and debugging!</p>
+
+<h2 id="real-world-example">Real-world example</h2>
+
+<p>Here’s <a href="https://github.com/pantsbuild/pants/issues/21264">an example</a> of this style of reproducer:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="nb">cd</span> <span class="si">$(</span><span class="nb">mktemp</span> <span class="nt">-d</span><span class="si">)</span>
+
+<span class="nb">cat</span> <span class="o">&gt;</span> pants.toml <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+[GLOBAL]
+pants_version = "2.22.0.dev2"
+pantsd_timeout_when_multiple_invocations = 1
+</span><span class="no">EOF
+
+</span><span class="c"># OK: prints the version</span>
+<span class="nv">PANTS_VERSION</span><span class="o">=</span>2.22.0.dev1 pants version
+
+<span class="c"># BUG: Exception: Expected [GLOBAL] pantsd_timeout_when_multiple_invocations to be a float but given 1</span>
+pants version
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This example demonstrates the three moving parts. Let’s look at each one.</p>
+
+<h3 id="1-prepping-a-clean-directory">1. Prepping a clean directory</h3>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="nb">cd</span> <span class="si">$(</span><span class="nb">mktemp</span> <span class="nt">-d</span><span class="si">)</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This does a bit of shell magic: create a temporary directory with <code class="language-plaintext highlighter-rouge">mktemp -d</code>, which prints the path to that directory, and feed that output into <code class="language-plaintext highlighter-rouge">cd</code> to immediately change to it. Thus, the rest of the script executes from that empty directory, no matter where we started.</p>
+
+<p>To keep the script neater, I generally don’t bother cleaning up the temporary directory, on the assumption that the contents will be small, and that’ll get cleared out automatically, by restarting the machine or similar. It is explicitly a temporary directory.</p>
+
+<p>Why do this at all? <strong>Keep myself honest</strong>. By always switching to a new directory, I’m double-checking that running it on my machine is more likely to behave like running elsewhere, making the script more likely to work first time for my helpers: it’s helping them help me!</p>
+
+<p>Without it, it’s easy to make a mistake. When I’m experimenting and iterating to find a reproducer, I usually end up with a messy working directory with random files lying around. It’s easy to accidentally not realise that one of those files is influencing behaviour, and forget to include it. This leads to a bad bug report that takes longer to resolve.</p>
+
+<h3 id="2-creating-any-required-files">2. Creating any required files</h3>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="nb">cat</span> <span class="o">&gt;</span> pants.toml <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+[GLOBAL]
+pants_version = "2.22.0.dev2"
+pantsd_timeout_when_multiple_invocations = 1
+EOF</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This particular example only needs one file: <code class="language-plaintext highlighter-rouge">pants.toml</code>, with a few lines of content. This is using <a href="https://en.wikipedia.org/wiki/Here_document">“heredoc”</a> syntax to define the content: everything between the <code class="language-plaintext highlighter-rouge">EOF</code> delimiters, starting <code class="language-plaintext highlighter-rouge">[GLOBAL]</code> and ending <code class="language-plaintext highlighter-rouge">..._invocations = 1</code>.</p>
+
+<p>Notably, the content of the files should be directly in the script! No downloading opaque blobs that I created myself. (Downloading tools and dependencies is fine, especially if they’re published  (or depended-upon)  by the project against which I am filing a bug.)</p>
+
+<h3 id="3-execute-commands-to-demonstrate-the-problem">3. Execute commands to demonstrate the problem</h3>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="c"># OK: prints the version</span>
+<span class="nv">PANTS_VERSION</span><span class="o">=</span>2.22.0.dev1 pants version
+
+<span class="c"># BUG: Exception: Expected [GLOBAL] pantsd_timeout_when_multiple_invocations to be a float but given 1</span>
+pants version
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Finally, let’s actually demonstrate the bug by running the relevant commands. The first <code class="language-plaintext highlighter-rouge">OK</code> one is demonstrating a working version for comparison, while the second <code class="language-plaintext highlighter-rouge">BUG</code> shows the problematic behaviour.</p>
+
+<p>I like to include <strong>explicit <code class="language-plaintext highlighter-rouge">OK</code>/<code class="language-plaintext highlighter-rouge">BUG</code> comments</strong> (or even <code class="language-plaintext highlighter-rouge">echo</code> statements) to highlight which parts specifically are showing the problem, and which parts are for comparison or set-up or similar, rather than require my helper to work that out themselves. If my issue is easier to understand, it’s easier to resolve: I want to help the reader help me!</p>
+
+<h2 id="self-contained">Self-contained?</h2>
+
+<p>The example script is almost fully self-contained, mostly using common Unix tools (<code class="language-plaintext highlighter-rouge">cat</code>, <code class="language-plaintext highlighter-rouge">mktemp</code>, etc)… but it also uses a “<code class="language-plaintext highlighter-rouge">pants</code>” binary. I am a maintainer of <a href="https://www.pantsbuild.org">Pantsbuild</a> and filing an issue about it, so I’ve got a lot of context that tells me (a) other contributors will almost certainly have binary that installed, and (b) the specific version of it is very unlikely to matter for this particular bug.</p>
+
+<p>However, I also file issues against other projects and ecosystems, some that I’m familiar with and others much less. When I’m less familiar, I make sure to have <strong>empathy for maintainers</strong>. As a maintainer, I prefer to start with a full working reproducer and then cut out any irrelevant bits (and expertise/familiarity usually makes this very quick). When I start with something that doesn’t fully reproduce the problem, I’m going to have to <strong>guess</strong> at details to make it run: I might guess wrong, and waste a bunch of time looking at something irrelevant. Boo!</p>
+
+<p>So, as a user, if I’m less familiar with the ins-and-outs of a project or ecosystem, I’ll specify more of that in any reproducers, like versions of tools and preferably even installing them.</p>
+
+<p>Sometimes installing something is quite awkward or very slow. In that case, at least running <code class="language-plaintext highlighter-rouge">program --version</code> in the script makes it easy for everyone to confirm what version being used.</p>
+
+<h2 id="revisiting">Revisiting</h2>
+
+<p>Having a single executable reproducer is great for revisiting bugs in future, and confirming they still reproduce or even that they’ve been fixed. I <a href="https://github.com/strawberry-graphql/strawberry/issues/3288">experienced this recently</a>:</p>
+
+<ol>
+  <li>Months ago, I filed a bug against the <code class="language-plaintext highlighter-rouge">strawberry-graphql</code> Python library, with a shell script reproducer.</li>
+  <li>More recently, someone commented to indicate that it seems to be fixed.</li>
+  <li>Just now, I revisited and used the shell script reproducer to quickly confirm that it has been fixed, and, further, took only minute or two to bisect the exact version in which the fix was made.</li>
+</ol>
+
+<p>(This did require minor updates to the script to make the bisection smoother. That is, I didn’t do a perfect job with a standalone reproducer the first time, but the bones were right and the changes were small.)</p>
+
+<h2 id="why-not-do-this">Why not do this?</h2>
+
+<p>When you’re filing a bug, there’s <strong>many other ways</strong> to try to describe it to someone who might help you. For instance:</p>
+
+<ul>
+  <li>link to an online “playground” or “fiddle” that demonstrates the bug, when available</li>
+  <li>text, image, and/or video descriptions (“create file <code class="language-plaintext highlighter-rouge">pants.toml</code> with contents <code class="language-plaintext highlighter-rouge">...</code>, and then run command <code class="language-plaintext highlighter-rouge">pants version</code>”)</li>
+  <li>attach a zip or tarball containing everything, that the helper can download, extract and run</li>
+  <li>post a pull/merge request with a test case or script that demonstrates the bug</li>
+  <li>link to a git repo (or even a <a href="https://gist.github.com">gist</a>), that the helper can clone and run</li>
+</ul>
+
+<p>All of these have their place:</p>
+
+<ul>
+  <li>Maybe it’s a complicated issue without a known way to reproduce, yet, and thus describing symptoms and suspicions is all that is possible.</li>
+  <li>Maybe it’s an issue with some UI, so describing where to click and what to type is all that is possible.</li>
+  <li>Maybe a zip file works best with access control measures in your company.</li>
+  <li>Maybe a unit test is easy to construct and the project has a convention of merging “xfailed” tests, so throwing up a pull request is a good start.</li>
+  <li>Maybe there’s a lot of large assets that are best included in a git repo.</li>
+</ul>
+
+<p>However, for the sort of bugs I encounter, I’ve personally found that the single shell script often works and is low overhead.</p>
+
+<p>As a maintainer, too, the effort of downloading a zip file or cloning a git repo and then navigating the resulting structure is <strong>noticeable friction</strong>, that makes me less inclined to look at a given ticket immediately. Sometimes, too, the issue is obvious from the file content, without having to execute everything, so having that content <strong>immediately visible</strong> when reading the bug increases the chance I’ll be able to give advice and/or solutions during an initial triage: <strong>instant assistance</strong>!</p>
+
+<h3 id="dependency-lockfiles">Dependency lockfiles</h3>
+
+<p>A particularly notable reason to avoid a shell script is lockfiles for dependencies: if I’m filing a bug against a library that has bunch of (transitive) dependencies involved, the exact versions of all those dependencies might be relevant, and/or might be helpful when revisiting the issue in the far future. Unfortunately, lockfiles are often huge, and thus not appropriate to include inline in a shell script. In this case, switching to a multi-file approach, like git repo or gist, may be the best way to share the reproducer.</p>
+
+<p>That said, sometimes one can get a good-enough solution for transitive dependencies without a full lockfile and thus stick with the shell script solution. In the Python ecosystem specifically, one can strike a good middle-ground using <code class="language-plaintext highlighter-rouge">pip freeze</code><sup id="fnref:uv" role="doc-noteref"><a href="#fn:uv" class="footnote" rel="footnote">1</a></sup>: imagine you’re working in a virtual environment to reproduce some issue:</p>
+
+<ol>
+  <li>once you’re successful, take a snapshot of the dependency versions with <code class="language-plaintext highlighter-rouge">pip freeze</code>, which outputs a bunch of pinned requirements, like <code class="language-plaintext highlighter-rouge">cowsay==6.1</code>, <code class="language-plaintext highlighter-rouge">numpy==2.2.4</code></li>
+  <li>place all those requirements into a single <code class="language-plaintext highlighter-rouge">pip install cowsay==6.1 numpy==2.2.4 ...</code> line in the script</li>
+</ol>
+
+<p>This has limitations compared to a true lockfile (such as no hashes for increased supply-chain security), but dramatically increases the chance that a helper can reproduce the exact environment in which you observed the bug.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>When I’ve found a bug in a software library or a developer tool, I’ve found an effective way to share a reproducer for it is a single shell script with 3 moving main steps:</p>
+
+<ol>
+  <li>Prep a clean directory: <code class="language-plaintext highlighter-rouge">cd $(mktemp -d)</code></li>
+  <li>Create any required files, from content inline in the shell script: using <code class="language-plaintext highlighter-rouge">cat</code> + heredocs, <code class="language-plaintext highlighter-rouge">echo</code> and/or <code class="language-plaintext highlighter-rouge">touch</code></li>
+  <li>Executing commands to demonstrate the problem: whatever is required to show off the bug!</li>
+</ol>
+
+<p>This seems to strike a good balance of convenience for me (as a user reporting the bug) and maintainers, hopefully leading to faster resolution.</p>
+
+<p>This isn’t a one-size-fits-all solution: other options for sharing a reproducer can be sensible.</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Communicating%20bugs:%20use%20a%20single%20standalone%20shell%20script%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Communicating%20bugs:%20use%20a%20single%20standalone%20shell%20script&amp;url=https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/04/standalone-shell-script-reproducer/&amp;title=Communicating%20bugs:%20use%20a%20single%20standalone%20shell%20script" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:selfish" role="doc-endnote">
+      <p>Of course, it’s even better to not be purely self-interested. Being a good person only adds even more reasons to be polite, empathetic, and gracious. <a href="#fnref:selfish" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:uv" role="doc-endnote">
+      <p>For Python, and particularly reproducers that involve a single Python script (with or without PyPI dependencies), one can also use <a href="https://docs.astral.sh/uv">uv</a>: have PEP 723 metadata at the start of the script with both <code class="language-plaintext highlighter-rouge">dependencies = [...]</code> for top-level dependencies but also, crucially, <code class="language-plaintext highlighter-rouge">[tool.uv].exclude-newer = "..."</code> field for <a href="https://docs.astral.sh/uv/guides/scripts/#improving-reproducibility">improved reproducibility</a>. This isn’t exactly a lockfile, but will mean new releases of any transitive dependencies are less likely to break the script in future. That said, sticking to “plain old pip” is usually the most reliable strategy for sharing Python reproducers, though: almost everyone with Python installed will also have pip installed, and chucking a few <code class="language-plaintext highlighter-rouge">python -m venv venv</code>/<code class="language-plaintext highlighter-rouge">pip install ...</code> commands into a shell script works fine! <a href="#fnref:uv" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2025/03/rust-fallthrough/">
+                   <h3>Take a break: Rust match has fallthrough</h3>
+                     <p>Match + labelled blocks &amp; breaks = fallthrough. It works, but it’s not very pretty!
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/03/ev-newtons/">
+                   <h3>Newtons are a unit of mileage</h3>
+                     <p>For an EV, Newtons (N) is a seemingly sensible version of L/100km or mpg, for measuring the efficiency of the car. Summing drag and rolling resistance forces aligns closely to real world observations.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/02/ci-tee/">
+                   <h3>Prefer tee -a, not >>, in CI</h3>
+                     <p><table>
+  <tbody>
+    <tr>
+      <td>GitHub Actions suggests using code like echo … » $GITHUB_ENV, but echo …</td>
+      <td>tee -a $GITHUB_ENV is often better.</td>
+    </tr>
+  </tbody>
+</table>
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>
