@@ -8,7 +8,7 @@ description: >-
 comments:
 ---
 
-Rust's `match` statement can do a lot of things, even C-style fallthough to the next branch, despite having no real support for it. It turns out to a "shallow" feature, where the C to Rust translation is easily done, without needing to understand the code itself. The hardest part is coming to terms with writing it, and then convincing someone else to let you land it!
+Rust's `match` statement can do a lot of things, even C-style fallthough to the next branch, despite having no real support for it. It turns out to be a "shallow" feature, where the C to Rust translation is easily done, without needing to understand the code itself. The hardest part is coming to terms with writing it, and then convincing someone else to let you land it!
 
 Here's what the tail handling of the MurmurHash3 hash function could look like, in Rust, if you have enough courage[^better]:
 
