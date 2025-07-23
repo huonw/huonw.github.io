@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Fri, 11 Apr 2025 00:04:46 +0000</pubDate>
-        <lastBuildDate>Fri, 11 Apr 2025 00:04:46 +0000</lastBuildDate>
+        <pubDate>Wed, 23 Jul 2025 00:08:48 +0000</pubDate>
+        <lastBuildDate>Wed, 23 Jul 2025 00:08:48 +0000</lastBuildDate>
         
         
         <item>
@@ -295,7 +295,7 @@ pants version
             <pubDate>Wed, 05 Mar 2025 00:00:00 +0000</pubDate>
             <author>Huon Wilson</author>
             <guid>https://huonw.github.io/blog/2025/03/rust-fallthrough</guid>
-            <description>&lt;p&gt;Rust’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; statement can do a lot of things, even C-style fallthough to the next branch, despite having no real support for it. It turns out to a “shallow” feature, where the C to Rust translation is easily done, without needing to understand the code itself. The hardest part is coming to terms with writing it, and then convincing someone else to let you land it!&lt;/p&gt;
+            <description>&lt;p&gt;Rust’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; statement can do a lot of things, even C-style fallthough to the next branch, despite having no real support for it. It turns out to be a “shallow” feature, where the C to Rust translation is easily done, without needing to understand the code itself. The hardest part is coming to terms with writing it, and then convincing someone else to let you land it!&lt;/p&gt;
 
 &lt;p&gt;Here’s what the tail handling of the MurmurHash3 hash function could look like, in Rust, if you have enough courage&lt;sup id=&quot;fnref:better&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:better&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;0&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
 

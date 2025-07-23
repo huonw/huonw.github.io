@@ -4,7 +4,7 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2025-04-11T00:04:46+00:00</updated>
+  <updated>2025-07-23T00:08:48+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
@@ -306,7 +306,7 @@ pants version
       <name>Huon Wilson</name>
       <uri>https://huonw.github.io/</uri>
     </author>
-    <content type="html">&lt;p&gt;Rust’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; statement can do a lot of things, even C-style fallthough to the next branch, despite having no real support for it. It turns out to a “shallow” feature, where the C to Rust translation is easily done, without needing to understand the code itself. The hardest part is coming to terms with writing it, and then convincing someone else to let you land it!&lt;/p&gt;
+    <content type="html">&lt;p&gt;Rust’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match&lt;/code&gt; statement can do a lot of things, even C-style fallthough to the next branch, despite having no real support for it. It turns out to be a “shallow” feature, where the C to Rust translation is easily done, without needing to understand the code itself. The hardest part is coming to terms with writing it, and then convincing someone else to let you land it!&lt;/p&gt;
 
 &lt;p&gt;Here’s what the tail handling of the MurmurHash3 hash function could look like, in Rust, if you have enough courage&lt;sup id=&quot;fnref:better&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:better&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;0&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
 
