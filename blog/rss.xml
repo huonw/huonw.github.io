@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Sun, 24 Aug 2025 06:04:00 +0000</pubDate>
-        <lastBuildDate>Sun, 24 Aug 2025 06:04:00 +0000</lastBuildDate>
+        <pubDate>Sun, 24 Aug 2025 06:13:55 +0000</pubDate>
+        <lastBuildDate>Sun, 24 Aug 2025 06:13:55 +0000</lastBuildDate>
         
         
         <item>
@@ -837,7 +837,7 @@ I&apos;m mostly just following the mathematics and making estimates here, I coul
 
 &lt;aside data-icon=&quot;⚠️&quot;&gt;
 
-There&apos;s many caveats here: the rolling resistance of tyres may not be 0.0077, the weight of the vehicle won&apos;t be exactly 2100 kg, the car isn&apos;t a rectangle, the density of air varies with temperature and elevation... but this is just a [Fermi estimate][fermi], so approximate numbers are all we need.
+There&apos;s many caveats here: the rolling resistance of tyres may not be 0.0077, the weight of the vehicle won&apos;t be exactly 2100 kg, the car isn&apos;t a rectangle, the density of air varies with temperature and elevation... but this is just a &lt;a href=&quot;https://en.wikipedia.org/wiki/Fermi_problem&quot;&gt;Fermi estimate&lt;/a&gt;, so approximate numbers are all we need.
 
 &lt;/aside&gt;
 
