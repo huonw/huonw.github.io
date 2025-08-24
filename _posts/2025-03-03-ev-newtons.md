@@ -170,11 +170,9 @@ Adding those up gives a **total force of 658 N**, only 4% away from the 684 N av
 
 <aside data-icon="⚠️">
 
-There's many caveats here: the rolling resistance of tyres may not be 0.0077, the weight of the vehicle won't be exactly 2100 kg, the car isn't a rectangle, the density of air varies with temperature and elevation... but this is just a [Fermi estimate][fermi], so approximate numbers are all we need.
+There's many caveats here: the rolling resistance of tyres may not be 0.0077, the weight of the vehicle won't be exactly 2100 kg, the car isn't a rectangle, the density of air varies with temperature and elevation... but this is just a <a href="https://en.wikipedia.org/wiki/Fermi_problem">Fermi estimate</a>, so approximate numbers are all we need.
 
 </aside>
-
-[fermi]: https://en.wikipedia.org/wiki/Fermi_problem
 
 ## Speeding: assault on battery
 
