@@ -756,7 +756,7 @@ a.post-heading {
 </figcaption>
 </figure>
 
-<p>There’s 6 configurations, using all combinations of how files are read and what concurrency is used.<sup id="fnref:benchmark-details" role="doc-noteref"><a href="#fn:benchmark-details" class="footnote" rel="footnote">0</a></sup></p>
+<p>There’s 6 configurations, using all combinations of how files are read and what concurrency is used.<sup id="fnref:benchmark-details"><a href="#fn:benchmark-details" class="footnote" rel="footnote" role="doc-noteref">0</a></sup></p>
 
 <p>For reading files, there’s two dimensions:</p>
 
@@ -768,20 +768,20 @@ a.post-heading {
 <p>For concurrency, there’s three:</p>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code>: using <a href="https://tokio.rs/">the Tokio library</a><sup id="fnref:tokio-details" role="doc-noteref"><a href="#fn:tokio-details" class="footnote" rel="footnote">1</a></sup> in single-threaded mode<sup id="fnref:tokio-single-threaded" role="doc-noteref"><a href="#fn:tokio-single-threaded" class="footnote" rel="footnote">2</a></sup>.</li>
+  <li><code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code>: using <a href="https://tokio.rs/">the Tokio library</a><sup id="fnref:tokio-details"><a href="#fn:tokio-details" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> in single-threaded mode<sup id="fnref:tokio-single-threaded"><a href="#fn:tokio-single-threaded" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</li>
   <li>synchronously, with 8 threads: <a href="https://doc.rust-lang.org/stable/std/thread/fn.spawn.html">spawning a thread</a> per file.</li>
   <li>synchronously, with 1 thread: a baseline using a single thread to read sequentially.</li>
 </ol>
 
-<p>The results<sup id="fnref:table" role="doc-noteref"><a href="#fn:table" class="footnote" rel="footnote">3</a></sup> are clear: using memory mapped IO with <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> seems to be <strong>using no concurrency</strong>: the clusters of dots are near-identical for the first two rows! An <strong>explicitly-sequential single thread</strong> takes 2.5 to 3 seconds to scan all 2GiB with memory-mapped IO, and the “concurrent” <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> version looks identical. By comparison, using memory-mapped IO on 8 full threads is far faster, around 0.75 to 0.8 seconds.</p>
+<p>The results<sup id="fnref:table"><a href="#fn:table" class="footnote" rel="footnote" role="doc-noteref">3</a></sup> are clear: using memory mapped IO with <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> seems to be <strong>using no concurrency</strong>: the clusters of dots are near-identical for the first two rows! An <strong>explicitly-sequential single thread</strong> takes 2.5 to 3 seconds to scan all 2GiB with memory-mapped IO, and the “concurrent” <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> version looks identical. By comparison, using memory-mapped IO on 8 full threads is far faster, around 0.75 to 0.8 seconds.</p>
 
-<p>Meanwhile, using conventional IO behaves more like we’d hope: using either form of concurrency is <strong>noticeably faster</strong> than running sequentially. Using either <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> or operating system threads results in reading all files in less than 0.65 seconds<sup id="fnref:maxed-out" role="doc-noteref"><a href="#fn:maxed-out" class="footnote" rel="footnote">4</a></sup>, while the sequential single-threaded version takes only a bit longer (0.7s) but with little overlap in the distributions.</p>
+<p>Meanwhile, using conventional IO behaves more like we’d hope: using either form of concurrency is <strong>noticeably faster</strong> than running sequentially. Using either <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> or operating system threads results in reading all files in less than 0.65 seconds<sup id="fnref:maxed-out"><a href="#fn:maxed-out" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>, while the sequential single-threaded version takes only a bit longer (0.7s) but with little overlap in the distributions.</p>
 
 <h2 id="whats-going-on">What’s going on?</h2>
 
 <p>Operating systems generally distinguish between bytes in RAM and files stored on disk. Reading a file is a dedicated operation that slurps bytes from disk into an array in memory. But there’s more shades of gray: <a href="https://en.wikipedia.org/wiki/Mmap">the <code class="language-plaintext highlighter-rouge">mmap</code> Unix system call</a> (or equivalent on other platforms) blurs this disk vs. memory distinction by setting up “memory mapped IO”.</p>
 
-<p>The <code class="language-plaintext highlighter-rouge">mmap</code> operation allocates a range of (virtual) memory to a chosen file, making that memory “contain” the file: reading<sup id="fnref:writing" role="doc-noteref"><a href="#fn:writing" class="footnote" rel="footnote">5</a></sup> the first byte in memory gives the value of the first byte of the file, as does the second, and so on. The file essentially acts as a normal <code class="language-plaintext highlighter-rouge">&amp;[u8]</code> array that can be indexed and sliced.</p>
+<p>The <code class="language-plaintext highlighter-rouge">mmap</code> operation allocates a range of (virtual) memory to a chosen file, making that memory “contain” the file: reading<sup id="fnref:writing"><a href="#fn:writing" class="footnote" rel="footnote" role="doc-noteref">5</a></sup> the first byte in memory gives the value of the first byte of the file, as does the second, and so on. The file essentially acts as a normal <code class="language-plaintext highlighter-rouge">&amp;[u8]</code> array that can be indexed and sliced.</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -829,7 +829,7 @@ a.post-heading {
 
 <p>Once loaded, the page of the file will be cached in memory for a while, and during that time any further accesses to addresses in the page will be fast, straight from memory. Depending on system memory usage and other factors, the operating system might then decide to evict the page from memory, freeing space for something else. Accessing it after eviction will require reloading from disk, with the same blocking behaviour and the cycle repeats.</p>
 
-<p>In our application code, all this magic is packaged up into the simple indexing: <code class="language-plaintext highlighter-rouge">byte_of_interest = mmapped[index]</code>. The separate “already in memory” (fast) and “load from disk” (slow) cases are invisible<sup id="fnref:timing" role="doc-noteref"><a href="#fn:timing" class="footnote" rel="footnote">6</a></sup> in the code. In either case, we start with our memory address and end up with byte value.</p>
+<p>In our application code, all this magic is packaged up into the simple indexing: <code class="language-plaintext highlighter-rouge">byte_of_interest = mmapped[index]</code>. The separate “already in memory” (fast) and “load from disk” (slow) cases are invisible<sup id="fnref:timing"><a href="#fn:timing" class="footnote" rel="footnote" role="doc-noteref">6</a></sup> in the code. In either case, we start with our memory address and end up with byte value.</p>
 
 <h2 id="losing-the-thread">Losing the thread</h2>
 
@@ -844,7 +844,7 @@ a.post-heading {
 3
 </pre></td><td class="code"><pre><span class="k">let</span> <span class="k">mut</span> <span class="n">file</span><span class="p">:</span> <span class="nn">tokio</span><span class="p">::</span><span class="nn">fs</span><span class="p">::</span><span class="n">File</span> <span class="o">=</span> <span class="cm">/* some file */</span><span class="p">;</span>
 <span class="k">let</span> <span class="k">mut</span> <span class="n">buffer</span><span class="p">:</span> <span class="p">[</span><span class="nb">u8</span><span class="p">;</span> <span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span> <span class="n">N</span><span class="p">];</span>
-<span class="n">file</span><span class="nf">.read</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="n">buffer</span><span class="p">)</span><span class="k">.await</span><span class="o">?</span><span class="p">;</span> <span class="c">// crucial await</span>
+<span class="n">file</span><span class="nf">.read</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="n">buffer</span><span class="p">)</span><span class="k">.await</span><span class="o">?</span><span class="p">;</span> <span class="c1">// crucial await</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <h2 id="at-a-distance">At a distance</h2>
@@ -869,7 +869,7 @@ a.post-heading {
 </figcaption>
 </figure>
 
-<p>Our theory was right, it is <strong>much faster</strong>: with a cold cache, we were seeing memory-mapped IO on a single thread take 2.5s to read 2GiB. Now it takes 0.12s, 21× quicker, with <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> or without<sup id="fnref:table:1" role="doc-noteref"><a href="#fn:table" class="footnote" rel="footnote">3</a></sup>.</p>
+<p>Our theory was right, it is <strong>much faster</strong>: with a cold cache, we were seeing memory-mapped IO on a single thread take 2.5s to read 2GiB. Now it takes 0.12s, 21× quicker, with <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code> or without<sup id="fnref:table:1"><a href="#fn:table" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>.</p>
 
 <p>There’s some other notable observations about running with a warm cache:</p>
 
@@ -943,16 +943,16 @@ eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZH
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:benchmark-details" role="doc-endnote">
+    <li id="fn:benchmark-details">
       <p>I have <a href="https://github.com/huonw/async-mmap-experiments">a script</a> that repeatedly measures the time to scan through all 2GiB, in each configuration. Before each measurement, it <a href="https://github.com/huonw/async-mmap-experiments/blob/b669d82ad48e7751725cb4fdfbeac1b498c5411f/src/main.rs#L106-L113">drops any file system caches</a> with <a href="https://www.manpagez.com/man/8/purge/"><code class="language-plaintext highlighter-rouge">purge</code></a> to  run with a cold cache. <a href="#fnref:benchmark-details" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:tokio-details" role="doc-endnote">
+    <li id="fn:tokio-details">
       <p>The Tokio benchmarks iterate over each file concurrently with <a href="https://docs.rs/futures/0.3.28/futures/future/fn.join_all.html">a <code class="language-plaintext highlighter-rouge">join_all</code> call</a>. This uses <a href="https://docs.rs/tokio/1.28.2/tokio/fs/struct.File.html">the <code class="language-plaintext highlighter-rouge">tokio::fs::File</code> type</a> for “conventional IO”. Note: this uses a thread-pool in the background, because it seems like there’s limited support for truly asynchronous file IO, but the key is the API exposed, using <code class="language-plaintext highlighter-rouge">async</code>/<code class="language-plaintext highlighter-rouge">await</code>. <a href="#fnref:tokio-details" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:tokio-single-threaded" role="doc-endnote">
+    <li id="fn:tokio-single-threaded">
       <p>The benchmarks use the <a href="https://docs.rs/tokio/1.28.2/tokio/runtime/struct.Builder.html#method.new_current_thread">single threaded runtime</a> to make the problem as obvious and clear as possible: using a multi-thread runtime may disguise the consequences of mmap’s blocking IO by smearing it across multiple threads. <a href="#fnref:tokio-single-threaded" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:table" role="doc-endnote">
+    <li id="fn:table">
       <p>Here’s a table with the full results, including both cold and warm file system caches, taking the minimum value of each benchmark (that is, the most favourable observation):</p>
 
       <table>
@@ -1005,13 +1005,13 @@ eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZH
       </table>
       <p><a href="#fnref:table" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:table:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
     </li>
-    <li id="fn:maxed-out" role="doc-endnote">
+    <li id="fn:maxed-out">
       <p>I think this is maxing out the machine’s SSD bandwidth, at around 3300 MiB/s, hence it’s not much faster than the single-threaded version. <a href="#fnref:maxed-out" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:writing" role="doc-endnote">
+    <li id="fn:writing">
       <p>This article focuses on my observations of using mmap for reading a file, not writing. As I understand it, writing comes with its own problems, potentially including things like unclear persistence guarantees. But I’m not an expert nor have I investigated. <a href="#fnref:writing" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:timing" role="doc-endnote">
+    <li id="fn:timing">
       <p>The cases are invisible except through side-channels like timing the operation, observing memory usage stats, or page allocation tables. I’m not counting them. <a href="#fnref:timing" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>

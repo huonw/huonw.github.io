@@ -815,7 +815,7 @@ a.post-heading {
 
 <p>The whole process takes about as long as step 2 itself because there’s little book-keeping. It doesn’t directly fix the “remember what I’m planning to do next” problem from the first version, but it does dramatically improve it: I find there’s minimal context switching from a “work on the code” mindset to a “manage git” one, and there’s less time to forget or get distracted because the whole process is faster.</p>
 
-<p>Using separate directories has other benefits over switching branches too: it makes it easier for incremental compilation (and other tooling) to reduce work, although this doesn’t apply to Python so much<sup id="fnref:incremental-compilation" role="doc-noteref"><a href="#fn:incremental-compilation" class="footnote" rel="footnote">0</a></sup>;  and, I find it’s easier for me to find my code<sup id="fnref:branches" role="doc-noteref"><a href="#fn:branches" class="footnote" rel="footnote">1</a></sup>.</p>
+<p>Using separate directories has other benefits over switching branches too: it makes it easier for incremental compilation (and other tooling) to reduce work, although this doesn’t apply to Python so much<sup id="fnref:incremental-compilation"><a href="#fn:incremental-compilation" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>;  and, I find it’s easier for me to find my code<sup id="fnref:branches"><a href="#fn:branches" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
 
 <p>One way to implement this is to clone the repository multiple times into separate directories, like <code class="language-plaintext highlighter-rouge">...-1</code>, <code class="language-plaintext highlighter-rouge">...-2</code> and so on:</p>
 
@@ -852,7 +852,7 @@ git clone <span class="s1">'git@github.com:stellargraph/stellargraph.git'</span>
 
 <p>A better way is to use <a href="https://git-scm.com/docs/git-worktree">multiple worktrees</a>. These behave almost identically to multiple independent clones, except they share a single <code class="language-plaintext highlighter-rouge">.git</code> directory with all its metadata. Therefore, each one has access to all branches (local or remote) and the state of each of those branches is the same in every copy.</p>
 
-<p>A worktree can be created in a single command<sup id="fnref:magit" role="doc-noteref"><a href="#fn:magit" class="footnote" rel="footnote">2</a></sup>, similar to a <code class="language-plaintext highlighter-rouge">git clone</code>:</p>
+<p>A worktree can be created in a single command<sup id="fnref:magit"><a href="#fn:magit" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>, similar to a <code class="language-plaintext highlighter-rouge">git clone</code>:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -960,7 +960,7 @@ pytest tests/
 pyenv <span class="nb">local</span> <span class="s1">'stellargraph-1'</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
-<p>After doing this, any command that uses <code class="language-plaintext highlighter-rouge">python</code> or <code class="language-plaintext highlighter-rouge">pip</code> (like <code class="language-plaintext highlighter-rouge">pip install --editable .</code> or <code class="language-plaintext highlighter-rouge">pytest</code>) anywhere within the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> worktree will automatically use the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> virtual environment<sup id="fnref:other-libraries" role="doc-noteref"><a href="#fn:other-libraries" class="footnote" rel="footnote">3</a></sup>: I don’t need to manually activate or deactivate the virtual environments, cutting out a major piece of human error.</p>
+<p>After doing this, any command that uses <code class="language-plaintext highlighter-rouge">python</code> or <code class="language-plaintext highlighter-rouge">pip</code> (like <code class="language-plaintext highlighter-rouge">pip install --editable .</code> or <code class="language-plaintext highlighter-rouge">pytest</code>) anywhere within the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> worktree will automatically use the <code class="language-plaintext highlighter-rouge">stellargraph-1</code> virtual environment<sup id="fnref:other-libraries"><a href="#fn:other-libraries" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>: I don’t need to manually activate or deactivate the virtual environments, cutting out a major piece of human error.</p>
 
 <p>Using pyenv for version management has other benefits too:</p>
 
@@ -988,20 +988,20 @@ pyenv <span class="nb">local</span> <span class="s1">'stellargraph-1'</span>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:incremental-compilation" role="doc-endnote">
+    <li id="fn:incremental-compilation">
       <p>Switching branches will update the contents of files on disk, which looks like a modification of those files, even if all of those changes were undone when restoring the original files in step 3. Tools that monitor for modifications to reduce work will get confused by the “switch, …, switch back” and spuriously do more work: separate directories avoids this entirely</p>
 
       <p>Many Python projects (including StellarGraph) don’t need to worrying about to refreshing/rebuilding state associated a source tree, because they often don’t have any compiled artifacts or other generated state associated with a branch. The code runs directly from the source files, without any compilation or preprocessing.</p>
 
       <p>In a compiled languages like Scala or C++, I’ve found this benefit much more important: builds are much faster when they can be incremental, just updating the artifacts associated with the (small number of) source files that I actually changed. If switching branches and then back spuriously modifies-then-unmodifies a lot of files (or a file with a lot of dependents), the first build after doing that may be much slower than an incremental build for the real changes, without any branch switching. <a href="#fnref:incremental-compilation" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:branches" role="doc-endnote">
+    <li id="fn:branches">
       <p>I always forget to delete branches after finishing with them, so I end up with dozens (or hundreds…) of local branches associated with closed and merge pull requests. These interfere with tab completion, requiring me to remember a significant amount of the name for <code class="language-plaintext highlighter-rouge">git checkout ...</code>. I find it’s easier to remember which of a handful of checkouts holds the relevant code, and even when I do forget, a brute-force approach of checking every copy is fast (skipping ahead, this is even faster with worktrees, with <code class="language-plaintext highlighter-rouge">git worktree list</code>). In some ways, this benefit is treating a symptom, not the disease… but it works for me. <a href="#fnref:branches" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:magit" role="doc-endnote">
+    <li id="fn:magit">
       <p>I usually use git via <a href="https://magit.vc/">magit</a> in Emacs, where these creation commands are <code class="language-plaintext highlighter-rouge">% b</code> or <code class="language-plaintext highlighter-rouge">% c</code> in the magit status buffer, and jumping between worktrees is <code class="language-plaintext highlighter-rouge">% g</code> (<a href="https://magit.vc/manual/magit.html#Worktree">relevant docs</a>). <a href="#fnref:magit" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:other-libraries" role="doc-endnote">
+    <li id="fn:other-libraries">
       <p>Using pyenv for virtual environments is great for working on multiple separate libraries/code bases, even without multiple copies. The process is exactly the same: <code class="language-plaintext highlighter-rouge">pyenv virtualenv ...</code> to initialise the environment, and <code class="language-plaintext highlighter-rouge">pyenv local</code> to associate a directory with the virtual environment. <a href="#fnref:other-libraries" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>

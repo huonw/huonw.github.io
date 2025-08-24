@@ -742,7 +742,7 @@ a.post-heading {
          </div>
       
       <p>One of the most powerful parts of
-<a href="http://rust-lang.org">the Rust programming language</a><sup id="fnref:version" role="doc-noteref"><a href="#fn:version" class="footnote" rel="footnote">0</a></sup> is the
+<a href="http://rust-lang.org">the Rust programming language</a><sup id="fnref:version"><a href="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> is the
 <a href="http://doc.rust-lang.org/nightly/book/traits.html">trait system</a>. They form the basis of the generic system and
 polymorphic functions and types. There’s an interesting use of traits,
 as so-called “trait objects”, that allows for dynamic polymorphism and
@@ -807,10 +807,10 @@ apparently:</p>
 Foo&gt;(x: &amp;T)</code>. These are implemented via monomorphisation, the compiler
 creates a specialised version of the generic function for every type
 used with it. This has some upsides—static dispatching of any
-method calls<sup id="fnref:upsides" role="doc-noteref"><a href="#fn:upsides" class="footnote" rel="footnote">1</a></sup>, allowing for inlining and hence usually higher
+method calls<sup id="fnref:upsides"><a href="#fn:upsides" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>, allowing for inlining and hence usually higher
 performance—and some downsides—causing code bloat due to
 many copies of the same function existing in the binary, one for each
-type<sup id="fnref:one-per-type" role="doc-noteref"><a href="#fn:one-per-type" class="footnote" rel="footnote">2</a></sup>.</p>
+type<sup id="fnref:one-per-type"><a href="#fn:one-per-type" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</p>
 
 <p>Fortunately, there’s second option if that trade-off is inappropriate,
 or if being required to know every type everywhere is impossible or
@@ -854,13 +854,13 @@ out of a pointer to <code class="language-plaintext highlighter-rouge">T</code> 
 10
 </pre></td><td class="code"><pre><span class="k">let</span> <span class="n">ref_to_t</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
 
-<span class="c">// `as` keyword for casting</span>
+<span class="c1">// `as` keyword for casting</span>
 <span class="k">let</span> <span class="n">cast</span> <span class="o">=</span> <span class="n">ref_to_t</span> <span class="k">as</span> <span class="o">&amp;</span><span class="n">Foo</span><span class="p">;</span>
 
-<span class="c">// using a `&amp;T` in a place that has a known type of `&amp;Foo` will implicitly coerce:</span>
+<span class="c1">// using a `&amp;T` in a place that has a known type of `&amp;Foo` will implicitly coerce:</span>
 <span class="k">let</span> <span class="n">coerce</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Foo</span> <span class="o">=</span> <span class="n">ref_to_t</span><span class="p">;</span>
 
-<span class="k">fn</span> <span class="nf">also_coerce</span><span class="p">(</span><span class="mi">_u</span><span class="n">nused</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Foo</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">fn</span> <span class="nf">also_coerce</span><span class="p">(</span><span class="n">_unused</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Foo</span><span class="p">)</span> <span class="p">{}</span>
 <span class="nf">also_coerce</span><span class="p">(</span><span class="n">ref_to_t</span><span class="p">);</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -957,11 +957,11 @@ call of it. For example:</p>
 <span class="p">}</span>
 
 
-<span class="c">// u8:</span>
+<span class="c1">// u8:</span>
 
 <span class="k">fn</span> <span class="nf">call_method_on_u8</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="o">*</span><span class="k">const</span> <span class="p">())</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span>
-    <span class="c">// the compiler guarantees that this function is only called</span>
-    <span class="c">// with `x` pointing to a u8</span>
+    <span class="c1">// the compiler guarantees that this function is only called</span>
+    <span class="c1">// with `x` pointing to a u8</span>
     <span class="k">let</span> <span class="n">byte</span><span class="p">:</span> <span class="o">&amp;</span><span class="nb">u8</span> <span class="o">=</span> <span class="k">unsafe</span> <span class="p">{</span> <span class="o">&amp;*</span><span class="p">(</span><span class="n">x</span> <span class="k">as</span> <span class="o">*</span><span class="k">const</span> <span class="nb">u8</span><span class="p">)</span> <span class="p">};</span>
 
     <span class="n">byte</span><span class="nf">.method</span><span class="p">()</span>
@@ -972,16 +972,16 @@ call of it. For example:</p>
     <span class="n">size</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">align</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 
-    <span class="c">// cast to a function pointer</span>
+    <span class="c1">// cast to a function pointer</span>
     <span class="n">method</span><span class="p">:</span> <span class="n">call_method_on_u8</span> <span class="k">as</span> <span class="k">fn</span><span class="p">(</span><span class="o">*</span><span class="k">const</span> <span class="p">())</span> <span class="k">-&gt;</span> <span class="nb">String</span><span class="p">,</span>
 <span class="p">};</span>
 
 
-<span class="c">// String:</span>
+<span class="c1">// String:</span>
 
 <span class="k">fn</span> <span class="nf">call_method_on_String</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="o">*</span><span class="k">const</span> <span class="p">())</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span>
-    <span class="c">// the compiler guarantees that this function is only called</span>
-    <span class="c">// with `x` pointing to a String</span>
+    <span class="c1">// the compiler guarantees that this function is only called</span>
+    <span class="c1">// with `x` pointing to a String</span>
     <span class="k">let</span> <span class="n">string</span><span class="p">:</span> <span class="o">&amp;</span><span class="nb">String</span> <span class="o">=</span> <span class="k">unsafe</span> <span class="p">{</span> <span class="o">&amp;*</span><span class="p">(</span><span class="n">x</span> <span class="k">as</span> <span class="o">*</span><span class="k">const</span> <span class="nb">String</span><span class="p">)</span> <span class="p">};</span>
 
     <span class="n">string</span><span class="nf">.method</span><span class="p">()</span>
@@ -989,7 +989,7 @@ call of it. For example:</p>
 
 <span class="k">static</span> <span class="n">Foo_for_String_vtable</span><span class="p">:</span> <span class="n">FooVtable</span> <span class="o">=</span> <span class="n">FooVtable</span> <span class="p">{</span>
     <span class="n">destructor</span><span class="p">:</span> <span class="cm">/* compiler magic */</span><span class="p">,</span>
-    <span class="c">// values for a 64-bit computer, halve them for 32-bit ones</span>
+    <span class="c1">// values for a 64-bit computer, halve them for 32-bit ones</span>
     <span class="n">size</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
     <span class="n">align</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
 
@@ -1042,26 +1042,26 @@ of construction and use of <code class="language-plaintext highlighter-rouge">Fo
 </pre></td><td class="code"><pre><span class="k">let</span> <span class="n">a</span><span class="p">:</span> <span class="nb">String</span> <span class="o">=</span> <span class="s">"foo"</span><span class="nf">.to_string</span><span class="p">();</span>
 <span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="nb">u8</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 
-<span class="c">// let b: &amp;Foo = &amp;a;</span>
+<span class="c1">// let b: &amp;Foo = &amp;a;</span>
 <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="n">TraitObject</span> <span class="p">{</span>
-    <span class="c">// store the data</span>
+    <span class="c1">// store the data</span>
     <span class="n">data</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span>
-    <span class="c">// store the methods</span>
+    <span class="c1">// store the methods</span>
     <span class="n">vtable</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Foo_for_String_vtable</span>
 <span class="p">};</span>
 
-<span class="c">// let y: &amp;Foo = x;</span>
+<span class="c1">// let y: &amp;Foo = x;</span>
 <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">TraitObject</span> <span class="p">{</span>
-    <span class="c">// store the data</span>
+    <span class="c1">// store the data</span>
     <span class="n">data</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span>
-    <span class="c">// store the methods</span>
+    <span class="c1">// store the methods</span>
     <span class="n">vtable</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Foo_for_u8_vtable</span>
 <span class="p">};</span>
 
-<span class="c">// b.method();</span>
+<span class="c1">// b.method();</span>
 <span class="p">(</span><span class="n">b</span><span class="py">.vtable.method</span><span class="p">)(</span><span class="n">b</span><span class="py">.data</span><span class="p">);</span>
 
-<span class="c">// y.method();</span>
+<span class="c1">// y.method();</span>
 <span class="p">(</span><span class="n">y</span><span class="py">.vtable.method</span><span class="p">)(</span><span class="n">y</span><span class="py">.data</span><span class="p">);</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1131,7 +1131,7 @@ the pointer itself.</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:version" role="doc-endnote">
+    <li id="fn:version">
       <p>It’s generally good practice for Rust posts to mention
         their version due to language instability, but this post
         and the series won’t have much real runnable code and the
@@ -1141,7 +1141,7 @@ the pointer itself.</p>
       <p>This should also be the 1.0.0-alpha release (speaking of which,
 the language instability should be starting to settle down now). <a href="#fnref:version" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:upsides" role="doc-endnote">
+    <li id="fn:upsides">
       <p>Static dispatching isn’t <em>guaranteed</em> to be an upside:
         compilers aren’t perfect and may “optimise” code to become
         slower. For example, functions inlined too eagerly will
@@ -1158,7 +1158,7 @@ not vice versa, meaning static calls are more flexible. The
 standard library tries to be statically dispatched where possible
 for this reason. <a href="#fnref:upsides" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:one-per-type" role="doc-endnote">
+    <li id="fn:one-per-type">
       <p>There’s no guarantee that there will actually be a
              copy of the function for each type that implements
              the trait, or even for each type that is used with

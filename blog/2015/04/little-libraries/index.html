@@ -767,8 +767,8 @@ and a nice feeling of completion.</p>
 easy to reuse code in a reliable way that publishing such little
 crates is worth the effort: it takes a single line in the package
 manifest to use them, and package versions only change when you
-ask<sup id="fnref:lock" role="doc-noteref"><a href="#fn:lock" class="footnote" rel="footnote">0</a></sup>, so your code won’t implicitly break if upstream changes.
-Rust<sup id="fnref:unique" role="doc-noteref"><a href="#fn:unique" class="footnote" rel="footnote">1</a></sup> is improving on many traditional systems languages in
+ask<sup id="fnref:lock"><a href="#fn:lock" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>, so your code won’t implicitly break if upstream changes.
+Rust<sup id="fnref:unique"><a href="#fn:unique" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> is improving on many traditional systems languages in
 this respect by encouraging a good package ecosystem from the
 beginning, whereas languages like C or C++ don’t have a canonical
 process and so it can take non-trivial effort to integrate third party
@@ -843,7 +843,7 @@ like:</p>
 15
 16
 </pre></td><td class="code"><pre><span class="na">language</span><span class="pi">:</span> <span class="s">rust</span>
-<span class="na">sudo</span><span class="pi">:</span> <span class="no">false</span>
+<span class="na">sudo</span><span class="pi">:</span> <span class="kc">false</span>
 <span class="na">script</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s">cargo build --verbose &amp;&amp; cargo test --verbose &amp;&amp; cargo doc --verbose</span>
 <span class="na">after_success</span><span class="pi">:</span>
@@ -956,13 +956,13 @@ into this problem turned up
 Go library for doing exactly this task: mapping a latitude/longitude
 pair to the name of the timezone it is in.</p>
 
-<p>Porting it directly<sup id="fnref:pattern-matching" role="doc-noteref"><a href="#fn:pattern-matching" class="footnote" rel="footnote">2</a></sup> was straight-forward, resulting in
+<p>Porting it directly<sup id="fnref:pattern-matching"><a href="#fn:pattern-matching" class="footnote" rel="footnote" role="doc-noteref">2</a></sup> was straight-forward, resulting in
 <a href="http://huonw.github.io/tz-search/tz_search/"><code class="language-plaintext highlighter-rouge">tz-search</code></a>, which offers:</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 </pre></td><td class="code"><pre><span class="k">let</span> <span class="n">timezone</span> <span class="o">=</span> <span class="nn">tz_search</span><span class="p">::</span><span class="nf">lookup</span><span class="p">(</span><span class="o">-</span><span class="mf">33.8885</span><span class="p">,</span> <span class="mf">151.1908</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
-<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">timezone</span><span class="p">);</span> <span class="c">// Australia/Sydney</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">timezone</span><span class="p">);</span> <span class="c1">// Australia/Sydney</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Of course, just knowing the name of the timezone isn’t good enough,
@@ -1095,7 +1095,7 @@ can.)</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:lock" role="doc-endnote">
+    <li id="fn:lock">
       <p>This locking even holds true when using git dependencies:
      once you compile once with Cargo versions of dependencies are
      locked until you explicitly opt-in to a version upgrade with
@@ -1103,12 +1103,12 @@ can.)</p>
      <a href="http://doc.crates.io/guide.html#cargo.toml-vs-cargo.lock">“Cargo.toml vs Cargo.lock”</a>
      for more details. <a href="#fnref:lock" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:unique" role="doc-endnote">
+    <li id="fn:unique">
       <p>This post isn’t meant to imply that Rust is the only
        language (or even systems language) with this property. I
        just think it’s cool that Rust has it. <a href="#fnref:unique" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:pattern-matching" role="doc-endnote">
+    <li id="fn:pattern-matching">
       <p>It wasn’t quite a one-to-one port: I opted to use
                  <a href="https://github.com/huonw/tz-search/blob/229617cd23dc413957c5b02d027c7ce4bb2be3d0/src/lib.rs#L120-L124">an <code class="language-plaintext highlighter-rouge">enum</code></a> and <a href="https://github.com/huonw/tz-search/blob/229617cd23dc413957c5b02d027c7ce4bb2be3d0/src/lib.rs#L260-L284">pattern matching</a>
                  to model the different internal encodings,

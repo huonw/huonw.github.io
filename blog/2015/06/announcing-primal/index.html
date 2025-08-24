@@ -764,7 +764,7 @@ tell me that there 50,847,534 primes below 1 billion:</p>
 4
 5
 6
-</pre></td><td class="code"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">primal</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">extern</span> <span class="k">crate</span> <span class="n">primal</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"there are {} primes below 1 billion"</span><span class="p">,</span>
@@ -840,7 +840,7 @@ sieve. It can be used a bit like:</p>
 4
 5
 6
-</pre></td><td class="code"><pre><span class="k">extern</span> <span class="n">crate</span> <span class="n">primal</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="k">extern</span> <span class="k">crate</span> <span class="n">primal</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"the 50,847,535th prime is {}"</span><span class="p">,</span>
@@ -851,7 +851,7 @@ sieve. It can be used a bit like:</p>
 <div class="join"></div>
 
 <p>It’s not the most efficient way to get the nth prime, but it still
-only takes <s>0.9</s> 0.52 seconds<sup id="fnref:update" role="doc-noteref"><a href="#fn:update" class="footnote" rel="footnote">0</a></sup> to print 1,000,000,007. (A better way is
+only takes <s>0.9</s> 0.52 seconds<sup id="fnref:update"><a href="#fn:update" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> to print 1,000,000,007. (A better way is
 <a href="http://huonw.github.io/primal/primal/struct.StreamingSieve.html#method.nth_prime"><code class="language-plaintext highlighter-rouge">StreamingSieve::nth_prime</code></a>, which takes ~0.22s for the
 same task.)</p>
 
@@ -891,7 +891,7 @@ same task.)</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:update" role="doc-endnote">
+    <li id="fn:update">
       <p>I realised the original implementation was inefficient, and
        using far more memory than necessary: fixing that made a
        huge difference. <a href="#fnref:update" class="reversefootnote" role="doc-backlink">&#8617;</a></p>

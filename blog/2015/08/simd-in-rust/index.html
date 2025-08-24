@@ -798,8 +798,8 @@ vectorisation, and both similar:</p>
 42
 43
 44
-</pre></td><td class="code"><pre><span class="c">// Scalar!</span>
-<span class="c">// compute the escape time for the point `c_x + i c_y`</span>
+</pre></td><td class="code"><pre><span class="c1">// Scalar!</span>
+<span class="c1">// compute the escape time for the point `c_x + i c_y`</span>
 <span class="k">fn</span> <span class="nf">mandelbrot_naive</span><span class="p">(</span><span class="n">c_x</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">c_y</span><span class="p">:</span> <span class="nb">f32</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">:</span> <span class="nb">u32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">u32</span> <span class="p">{</span>
     <span class="k">let</span> <span class="k">mut</span> <span class="n">x</span> <span class="o">=</span> <span class="n">c_x</span><span class="p">;</span>
     <span class="k">let</span> <span class="k">mut</span> <span class="n">y</span> <span class="o">=</span> <span class="n">c_y</span><span class="p">;</span>
@@ -819,14 +819,14 @@ vectorisation, and both similar:</p>
     <span class="n">count</span>
 <span class="p">}</span>
 
-<span class="c">// SIMD!</span>
-<span class="c">// compute the escape time for the four point `c_x + i c_y` at once</span>
+<span class="c1">// SIMD!</span>
+<span class="c1">// compute the escape time for the four point `c_x + i c_y` at once</span>
 <span class="k">fn</span> <span class="nf">mandelbrot_vector</span><span class="p">(</span><span class="n">c_x</span><span class="p">:</span> <span class="n">f32x4</span><span class="p">,</span> <span class="n">c_y</span><span class="p">:</span> <span class="n">f32x4</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">:</span> <span class="nb">u32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">u32x4</span> <span class="p">{</span>
     <span class="k">let</span> <span class="k">mut</span> <span class="n">x</span> <span class="o">=</span> <span class="n">c_x</span><span class="p">;</span>
     <span class="k">let</span> <span class="k">mut</span> <span class="n">y</span> <span class="o">=</span> <span class="n">c_y</span><span class="p">;</span>
 
     <span class="k">let</span> <span class="k">mut</span> <span class="n">count</span> <span class="o">=</span> <span class="nn">u32x4</span><span class="p">::</span><span class="nf">splat</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="k">for</span> <span class="mi">_</span> <span class="n">in</span> <span class="mi">0</span><span class="o">..</span><span class="n">max_iter</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="n">max_iter</span> <span class="p">{</span>
         <span class="k">let</span> <span class="n">xy</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">;</span>
         <span class="k">let</span> <span class="n">xx</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">;</span>
         <span class="k">let</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">;</span>
@@ -925,7 +925,7 @@ and requires the <code class="language-plaintext highlighter-rouge">simd</code> 
 major example of this is ARM and i686 (i.e. x86) CPUs aren’t
 guaranteed to have SIMD instructions, so one must opt-in via the <code class="language-plaintext highlighter-rouge">-C
 target-feature=+neon</code> (respectively <code class="language-plaintext highlighter-rouge">-C target-feature=+sse2</code>)
-argument to the compiler<sup id="fnref:cargo" role="doc-noteref"><a href="#fn:cargo" class="footnote" rel="footnote">0</a></sup>. Also, I haven’t worked on PowerPC or
+argument to the compiler<sup id="fnref:cargo"><a href="#fn:cargo" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>. Also, I haven’t worked on PowerPC or
 MIPS, focusing only on x86, ARM and AArch64 (ARMv8-A’s 64-bit
 architecture).</p>
 
@@ -1054,14 +1054,14 @@ implement its functionality, e.g.:</p>
 vendors give.</p>
 
 <p>Speaking of the optimiser, <code class="language-plaintext highlighter-rouge">rustc</code> uses LLVM, which is industrial
-strength, and supports a lot of autovectorisation<sup id="fnref:ispc" role="doc-noteref"><a href="#fn:ispc" class="footnote" rel="footnote">1</a></sup>: compiling
+strength, and supports a lot of autovectorisation<sup id="fnref:ispc"><a href="#fn:ispc" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>: compiling
 scalar code into code that uses SIMD intrinsics. The power of this can
 be seen above in the spectral-norm benchmark on AArch64, where the
 optimiser managed to make the scalar code just as efficient as the
 vector code. However, this is limited: small code changes can disturb
 vectorisation optimisations, and, more significantly, vectorisation
 may require changing the semantics slightly, and, synthesising
-complicated vector instructions is hard for a compiler<sup id="fnref:soa" role="doc-noteref"><a href="#fn:soa" class="footnote" rel="footnote">2</a></sup>.</p>
+complicated vector instructions is hard for a compiler<sup id="fnref:soa"><a href="#fn:soa" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</p>
 
 <p>The new compiler intrinsics brings Rust essentially on par with the
 SIMD extensions in C and C++ compilers like GCC, Clang and ICC. It
@@ -1075,7 +1075,7 @@ low-level functionality discussed in <a href="https://github.com/rust-lang/rfcs/
 sure that the initial implementation in <a href="https://github.com/rust-lang/rust/pull/27169">#27169</a> matches
 that. An unfortunate missing piece is nice support for rearranging
 vectors via shuffles and swizzles: I believe it requires
-<a href="https://github.com/rust-lang/rfcs/pull/1062">RFC 1062</a> or some other way to have values in generics<sup id="fnref:shuffle" role="doc-noteref"><a href="#fn:shuffle" class="footnote" rel="footnote">3</a></sup>.</p>
+<a href="https://github.com/rust-lang/rfcs/pull/1062">RFC 1062</a> or some other way to have values in generics<sup id="fnref:shuffle"><a href="#fn:shuffle" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>.</p>
 
 <p>My long-term goal is to have <code class="language-plaintext highlighter-rouge">simd</code> provide the common cross-platform
 API, with extension traits giving access to all of the
@@ -1137,7 +1137,7 @@ but nothing concrete yet.</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:cargo" role="doc-endnote">
+    <li id="fn:cargo">
       <p>Passing the <code class="language-plaintext highlighter-rouge">-C target-feature</code> flag to a whole compilation
       with <code class="language-plaintext highlighter-rouge">cargo</code> is somewhat annoying at the moment. It requires
       a custom target spec or intercepting how <code class="language-plaintext highlighter-rouge">rustc</code> is called
@@ -1146,19 +1146,19 @@ but nothing concrete yet.</p>
       a shell script that runs <code class="language-plaintext highlighter-rouge">rustc -C target-feature='...'
       "$@"</code>). This is covered by <a href="https://github.com/rust-lang/cargo/issues/1137">#1137</a>. <a href="#fnref:cargo" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:ispc" role="doc-endnote">
+    <li id="fn:ispc">
       <p>LLVM by itself isn’t as powerful as <a href="https://ispc.github.io/">Intel’s ISPC</a>,
      which has its own C variant, but I could imagine a Rust
      version too, to push the limits of compiler-driven
      autovectorisation (among other things) here too. <a href="#fnref:ispc" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:soa" role="doc-endnote">
+    <li id="fn:soa">
       <p>Another thing compilers can’t easily do is layout
     optimisations. A major one is an AoS (array-of-structs) to SoA
     (struct-of-arrays) transformation, which is particularly
     important for SIMD, both explicit and autovectorised. <a href="#fnref:soa" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:shuffle" role="doc-endnote">
+    <li id="fn:shuffle">
       <p>Fortunately, not all is lost: I’ve always seen the
         optimiser synthesise a real shuffle from a manual series
         of <code class="language-plaintext highlighter-rouge">extract</code>s and a <code class="language-plaintext highlighter-rouge">new</code>. It’s annoying and isn’t

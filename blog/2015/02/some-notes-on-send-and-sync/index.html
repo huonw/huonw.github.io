@@ -847,15 +847,15 @@ also implement <code class="language-plaintext highlighter-rouge">Send</code> (c
 10
 11
 12
-</pre></td><td class="code"><pre><span class="c">// we start with some `T` on the main thread</span>
+</pre></td><td class="code"><pre><span class="c1">// we start with some `T` on the main thread</span>
 <span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
 
 <span class="nn">thread</span><span class="p">::</span><span class="nf">scoped</span><span class="p">(||</span> <span class="p">{</span>
-    <span class="c">// and transfer a reference to a subthread (safe, since T: Sync)</span>
+    <span class="c1">// and transfer a reference to a subthread (safe, since T: Sync)</span>
     <span class="k">let</span> <span class="n">y</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">;</span>
 
-    <span class="c">// now use `T: Copy` to duplicate the data out, meaning we've</span>
-    <span class="c">// transferred `x` by-value into this new thread</span>
+    <span class="c1">// now use `T: Copy` to duplicate the data out, meaning we've</span>
+    <span class="c1">// transferred `x` by-value into this new thread</span>
     <span class="k">let</span> <span class="n">z</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="o">*</span><span class="n">y</span><span class="p">;</span>
 
 <span class="p">})</span>
@@ -891,7 +891,7 @@ Sync</code>, which can be
 as</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
-</pre></td><td class="code"><pre><span class="k">unsafe</span> <span class="k">impl</span><span class="o">&lt;</span><span class="nv">'a</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="n">Sync</span><span class="o">&gt;</span> <span class="nb">Send</span> <span class="k">for</span> <span class="o">&amp;</span><span class="nv">'a</span> <span class="n">T</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">unsafe</span> <span class="k">impl</span><span class="o">&lt;</span><span class="nv">'a</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="nb">Sync</span><span class="o">&gt;</span> <span class="nb">Send</span> <span class="k">for</span> <span class="o">&amp;</span><span class="nv">'a</span> <span class="n">T</span> <span class="p">{</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>For <code class="language-plaintext highlighter-rouge">&amp;mut</code>, you might suspect that thread-safety might depend on
@@ -934,16 +934,16 @@ goes out of scope, on the main thread.</p>
 10
 11
 12
-</pre></td><td class="code"><pre><span class="c">// we start with some `T` on the main thread</span>
+</pre></td><td class="code"><pre><span class="c1">// we start with some `T` on the main thread</span>
 <span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
-<span class="c">// wrap it up</span>
+<span class="c1">// wrap it up</span>
 <span class="k">let</span> <span class="k">mut</span> <span class="n">packet</span><span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nf">Some</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
 
 <span class="nn">thread</span><span class="p">::</span><span class="nf">scoped</span><span class="p">(||</span> <span class="p">{</span>
-    <span class="c">// and transfer just a mutable reference to the other thread</span>
+    <span class="c1">// and transfer just a mutable reference to the other thread</span>
     <span class="k">let</span> <span class="n">y</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">packet</span><span class="p">;</span>
 
-    <span class="c">// and then steal the `T` out!</span>
+    <span class="c1">// and then steal the `T` out!</span>
     <span class="k">let</span> <span class="n">z</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="n">y</span><span class="nf">.take</span><span class="p">()</span><span class="nf">.unwrap</span><span class="p">();</span>
 <span class="p">})</span>
 </pre></td></tr></tbody></table></code></pre></figure>

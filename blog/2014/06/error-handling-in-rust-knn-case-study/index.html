@@ -861,44 +861,44 @@ conditions, and <a href="http://doc.rust-lang.org/master/guide-macros.html">defi
 71
 </pre></td><td class="code"><pre><span class="nd">#![feature(macro_rules)]</span>
 
-<span class="c">// the possible things that can go wrong</span>
+<span class="c1">// the possible things that can go wrong</span>
 <span class="k">enum</span> <span class="n">SlurpError</span> <span class="p">{</span>
-    <span class="c">// The input was malformed (could have line/column number info too)</span>
+    <span class="c1">// The input was malformed (could have line/column number info too)</span>
     <span class="n">InvalidInput</span><span class="p">,</span>
-    <span class="c">// Some piece of IO failed (e.g. couldn't open a file)</span>
+    <span class="c1">// Some piece of IO failed (e.g. couldn't open a file)</span>
     <span class="nf">FailedIo</span><span class="p">(</span><span class="n">IoError</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="c">// short-circuiting macro: "unwrap" the value, an error will return</span>
-<span class="c">// from the surrounding function propagating that error upwards.</span>
-<span class="c">//</span>
-<span class="c">// macro_rules! macros take a sequence of tokens/AST non-terminals and</span>
-<span class="c">// attempt to pattern match on them, taking the first branch that</span>
-<span class="c">// fits, and then effectively replace the macro invocation with the</span>
-<span class="c">// right-hand side of that branch.</span>
+<span class="c1">// short-circuiting macro: "unwrap" the value, an error will return</span>
+<span class="c1">// from the surrounding function propagating that error upwards.</span>
+<span class="c1">//</span>
+<span class="c1">// macro_rules! macros take a sequence of tokens/AST non-terminals and</span>
+<span class="c1">// attempt to pattern match on them, taking the first branch that</span>
+<span class="c1">// fits, and then effectively replace the macro invocation with the</span>
+<span class="c1">// right-hand side of that branch.</span>
 <span class="nd">macro_rules!</span> <span class="n">try_slurp</span> <span class="p">{</span>
-    <span class="c">// `$...` is a special variable, a "macro argument", this `value`</span>
-    <span class="c">// is an expression, e.g. `1 + 2`, `foo()`, `if ... { ... } else {</span>
-    <span class="c">// ... }`. Hence, to match, this arm needs to be passed an</span>
-    <span class="c">// expression, a comma, then a literal `FailedIo`.</span>
-    <span class="c">// e.g. `try_slurp!(foo(), FailedIo)`</span>
+    <span class="c1">// `$...` is a special variable, a "macro argument", this `value`</span>
+    <span class="c1">// is an expression, e.g. `1 + 2`, `foo()`, `if ... { ... } else {</span>
+    <span class="c1">// ... }`. Hence, to match, this arm needs to be passed an</span>
+    <span class="c1">// expression, a comma, then a literal `FailedIo`.</span>
+    <span class="c1">// e.g. `try_slurp!(foo(), FailedIo)`</span>
     <span class="p">(</span><span class="nv">$value</span><span class="p">:</span> <span class="n">expr</span><span class="p">,</span> <span class="n">FailedIo</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="c">// The macro expands to this code if the pattern matches. The</span>
-        <span class="c">// `$value` expression is `match`d as a `Result&lt;..., IoError&gt;`</span>
-        <span class="c">// (passing in something else will be a type error, after the</span>
-        <span class="c">// macro expands). Success is unwrapped, and a failure is</span>
-        <span class="c">// returned from the function/closure in which the macro is</span>
-        <span class="c">// called.</span>
+        <span class="c1">// The macro expands to this code if the pattern matches. The</span>
+        <span class="c1">// `$value` expression is `match`d as a `Result&lt;..., IoError&gt;`</span>
+        <span class="c1">// (passing in something else will be a type error, after the</span>
+        <span class="c1">// macro expands). Success is unwrapped, and a failure is</span>
+        <span class="c1">// returned from the function/closure in which the macro is</span>
+        <span class="c1">// called.</span>
         <span class="k">match</span> <span class="nv">$value</span> <span class="p">{</span>
             <span class="nf">Ok</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="n">x</span><span class="p">,</span>
             <span class="nf">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="k">return</span> <span class="nf">Err</span><span class="p">(</span><span class="nf">FailedIo</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
         <span class="p">}</span>
     <span class="p">};</span>
 
-    <span class="c">// similarly here, this branch takes an arbitrary expression and</span>
-    <span class="c">// then has to match exactly `InvalidInput`</span>
+    <span class="c1">// similarly here, this branch takes an arbitrary expression and</span>
+    <span class="c1">// then has to match exactly `InvalidInput`</span>
     <span class="p">(</span><span class="nv">$value</span><span class="p">:</span> <span class="n">expr</span><span class="p">,</span> <span class="n">InvalidInput</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="p">{</span>
-        <span class="c">// as above, except handling `$value` as an `Option&lt;...&gt;`.</span>
+        <span class="c1">// as above, except handling `$value` as an `Option&lt;...&gt;`.</span>
         <span class="k">match</span> <span class="nv">$value</span> <span class="p">{</span>
             <span class="nf">Some</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="n">x</span><span class="p">,</span>
             <span class="nb">None</span> <span class="k">=&gt;</span> <span class="k">return</span> <span class="nf">Err</span><span class="p">(</span><span class="n">InvalidInput</span><span class="p">)</span>
@@ -906,7 +906,7 @@ conditions, and <a href="http://doc.rust-lang.org/master/guide-macros.html">defi
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">fn</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Path</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">LabelPixel</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">SlurpError</span><span class="o">&gt;</span> <span class="p">{</span>
+<span class="k">fn</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Path</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">LabelPixel</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">SlurpError</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">use</span> <span class="nn">std</span><span class="p">::{</span><span class="n">result</span><span class="p">,</span> <span class="n">option</span><span class="p">};</span>
     <span class="k">let</span> <span class="k">mut</span> <span class="n">file</span> <span class="o">=</span> <span class="nn">BufferedReader</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="nd">try_slurp!</span><span class="p">(</span><span class="nn">File</span><span class="p">::</span><span class="nf">open</span><span class="p">(</span><span class="n">file</span><span class="p">),</span> <span class="n">FailedIo</span><span class="p">));</span>
 
@@ -917,7 +917,7 @@ conditions, and <a href="http://doc.rust-lang.org/master/guide-macros.html">defi
 
             <span class="k">let</span> <span class="k">mut</span> <span class="n">splits</span> <span class="o">=</span> <span class="n">line</span><span class="nf">.as_slice</span><span class="p">()</span><span class="nf">.trim</span><span class="p">()</span><span class="nf">.split</span><span class="p">(</span><span class="sc">','</span><span class="p">)</span><span class="nf">.map</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="nf">from_str</span><span class="p">(</span><span class="n">x</span><span class="p">));</span>
 
-            <span class="c">// .and_then is flattening Option&lt;Option&lt;int&gt;&gt; to Option&lt;int&gt;.</span>
+            <span class="c1">// .and_then is flattening Option&lt;Option&lt;int&gt;&gt; to Option&lt;int&gt;.</span>
             <span class="k">let</span> <span class="n">label</span> <span class="o">=</span> <span class="nd">try_slurp!</span><span class="p">(</span><span class="n">splits</span><span class="nf">.next</span><span class="p">()</span><span class="nf">.and_then</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="n">x</span><span class="p">),</span> <span class="n">InvalidInput</span><span class="p">);</span>
 
             <span class="k">let</span> <span class="n">pixels</span> <span class="o">=</span> <span class="nd">try_slurp!</span><span class="p">(</span><span class="nn">option</span><span class="p">::</span><span class="nf">collect</span><span class="p">(</span><span class="n">splits</span><span class="p">),</span> <span class="n">InvalidInput</span><span class="p">);</span>

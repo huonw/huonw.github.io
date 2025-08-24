@@ -814,7 +814,7 @@ similar/identical to that which a memory leak can cause.)</p>
 (they allow data not be deallocated/cleaned up after the last time it
 is used), but not memory unsafety. That is, most “memory safe
 languages” guarantee all programs written in them have no
-unsafety<sup id="fnref:optin" role="doc-noteref"><a href="#fn:optin" class="footnote" rel="footnote">0</a></sup>, and they only try—usually, try hard—to help
+unsafety<sup id="fnref:optin"><a href="#fn:optin" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>, and they only try—usually, try hard—to help
 programmers avoid leaks, but without making a hard promise.</p>
 
 <h2 id="delete-free"><code class="language-plaintext highlighter-rouge">delete free</code></h2>
@@ -845,7 +845,7 @@ impossible to suffer from the problems caused by releasing it. In
 terms of the table above, removing <code class="language-plaintext highlighter-rouge">free</code> is removing the “Invalid
 data” column: all data is always valid.</p>
 
-<p>Of course, just disallowing <code class="language-plaintext highlighter-rouge">free</code> has some downsides<sup id="fnref:lockfree" role="doc-noteref"><a href="#fn:lockfree" class="footnote" rel="footnote">1</a></sup>, particularly
+<p>Of course, just disallowing <code class="language-plaintext highlighter-rouge">free</code> has some downsides<sup id="fnref:lockfree"><a href="#fn:lockfree" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>, particularly
 making it very annoying to write programs that don’t eventually use
 all available memory. However, computers are infallible in ways humans
 are not, so maybe we could allow them to call <code class="language-plaintext highlighter-rouge">free</code>…</p>
@@ -858,7 +858,7 @@ have no explicit <code class="language-plaintext highlighter-rouge">free</code>,
 “managed language”) via a <em>garbage collector</em> built into the runtime
 systems shipped with the languages’ compilers and interpreters.</p>
 
-<p>At its core<sup id="fnref:layers" role="doc-noteref"><a href="#fn:layers" class="footnote" rel="footnote">2</a></sup>, garbage collection is a way to make it feasible
+<p>At its core<sup id="fnref:layers"><a href="#fn:layers" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>, garbage collection is a way to make it feasible
 to expose a programming model where all allocations leak. Letting a
 garbage collector manage every allocation theoretically allows
 programs (and programmers) to pretend that memory is infinite, not
@@ -931,7 +931,7 @@ similar) still has its memory leak cell.</p>
 
 <p>I’m not including this section because I think it’s a great promotion
 of Rust (being allowed to have invalid data that one can’t use doesn’t
-exactly sound world-shaking<sup id="fnref:moves" role="doc-noteref"><a href="#fn:moves" class="footnote" rel="footnote">3</a></sup>…), but because that is the hole
+exactly sound world-shaking<sup id="fnref:moves"><a href="#fn:moves" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>…), but because that is the hole
 which this article is filling. The similarity of the phrases “memory
 leak” and “memory safety” regularly tricks people who have read “Rust
 is memory safe” into thinking Rust is (just) preventing memory leaks,
@@ -1007,13 +1007,13 @@ segfault or memory corruption.</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:optin" role="doc-endnote">
+    <li id="fn:optin">
       <p>More specifically, programming languages will guarantee that
 one can only get unsafety by explicitly opting in to it, in some
 form, such as via Python’s <code class="language-plaintext highlighter-rouge">ctypes</code> module, or Rust’s <code class="language-plaintext highlighter-rouge">unsafe</code>
 keyword. <a href="#fnref:optin" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:lockfree" role="doc-endnote">
+    <li id="fn:lockfree">
       <p>It also has some upsides beyond just less memory
 unsafety: if one is OK without <code class="language-plaintext highlighter-rouge">free</code>, it becomes much easier to
 write programs where the lifetime of data is unclear, which makes
@@ -1022,7 +1022,7 @@ schemes for writing such code when manual <code class="language-plaintext highli
 such as <a href="https://en.wikipedia.org/wiki/Hazard_pointer">hazard pointers</a> and the simpler
 <a href="http://aturon.github.io/blog/2015/08/27/epoch/">epoch-based memory reclamation</a>. <a href="#fnref:lockfree" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:layers" role="doc-endnote">
+    <li id="fn:layers">
       <p>It’s worth noting that the detailed knowledge of memory
 layout required for a top-flight garbage collectors lends itself
 to other tricks, such as allocations usually being a cheap pointer
@@ -1032,7 +1032,7 @@ given the generally pointer-heavy nature of most managed
 languages). However, these tricks are orthogonal to both memory
 safety and memory leaks. <a href="#fnref:layers" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:moves" role="doc-endnote">
+    <li id="fn:moves">
       <p>It’s pretty useful, in that it allows move semantics to
 work, but that’s an article for another time, perhaps. <a href="#fnref:moves" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>

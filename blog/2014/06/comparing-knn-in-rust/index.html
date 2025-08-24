@@ -844,7 +844,7 @@ I made no effort to remove/reduce/streamline allocations.</p>
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="nf">distance_sqr</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="o">&amp;</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">y</span><span class="p">:</span> <span class="o">&amp;</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="k">-&gt;</span> <span class="nb">int</span> <span class="p">{</span>
-    <span class="c">// run through the two vectors, summing up the squares of the differences</span>
+    <span class="c1">// run through the two vectors, summing up the squares of the differences</span>
     <span class="n">x</span><span class="nf">.iter</span><span class="p">()</span>
         <span class="nf">.zip</span><span class="p">(</span><span class="n">y</span><span class="nf">.iter</span><span class="p">())</span>
         <span class="nf">.fold</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">|</span><span class="n">s</span><span class="p">,</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)|</span> <span class="n">s</span> <span class="o">+</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">))</span>
@@ -853,7 +853,7 @@ I made no effort to remove/reduce/streamline allocations.</p>
 <span class="k">fn</span> <span class="nf">classify</span><span class="p">(</span><span class="n">training</span><span class="p">:</span> <span class="o">&amp;</span><span class="p">[</span><span class="n">LabelPixel</span><span class="p">],</span> <span class="n">pixels</span><span class="p">:</span> <span class="o">&amp;</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="k">-&gt;</span> <span class="nb">int</span> <span class="p">{</span>
     <span class="n">training</span>
         <span class="nf">.iter</span><span class="p">()</span>
-        <span class="c">// find element of `training` with the smallest distance_sqr to `pixel`</span>
+        <span class="c1">// find element of `training` with the smallest distance_sqr to `pixel`</span>
         <span class="nf">.min_by</span><span class="p">(|</span><span class="n">p</span><span class="p">|</span> <span class="nf">distance_sqr</span><span class="p">(</span><span class="n">p</span><span class="py">.pixels</span><span class="nf">.as_slice</span><span class="p">(),</span> <span class="n">pixels</span><span class="p">))</span><span class="nf">.unwrap</span><span class="p">()</span>
         <span class="py">.label</span>
 <span class="p">}</span>
@@ -1007,35 +1007,35 @@ with the following.</p>
 42
 43
 44
-</pre></td><td class="code"><pre><span class="c">// how many chunks should the validation sample be divided into? (==</span>
-<span class="c">// how many futures to create.)</span>
+</pre></td><td class="code"><pre><span class="c1">// how many chunks should the validation sample be divided into? (==</span>
+<span class="c1">// how many futures to create.)</span>
 <span class="k">static</span> <span class="n">NUM_CHUNKS</span><span class="p">:</span> <span class="nb">uint</span> <span class="o">=</span> <span class="mi">32</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">use</span> <span class="nn">sync</span><span class="p">::{</span><span class="nb">Arc</span><span class="p">,</span> <span class="n">Future</span><span class="p">};</span>
     <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">cmp</span><span class="p">;</span>
 
-    <span class="c">// "atomic reference counted": guaranteed thread-safe shared</span>
-    <span class="c">// memory. The type signature and API of `Arc` guarantees that</span>
-    <span class="c">// concurrent access to the contents will be safe, due to the `Share`</span>
-    <span class="c">// trait.</span>
+    <span class="c1">// "atomic reference counted": guaranteed thread-safe shared</span>
+    <span class="c1">// memory. The type signature and API of `Arc` guarantees that</span>
+    <span class="c1">// concurrent access to the contents will be safe, due to the `Share`</span>
+    <span class="c1">// trait.</span>
     <span class="k">let</span> <span class="n">training_set</span> <span class="o">=</span> <span class="nn">Arc</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="nf">slurp_file</span><span class="p">(</span><span class="o">&amp;</span><span class="nn">Path</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="s">"trainingsample.csv"</span><span class="p">)));</span>
     <span class="k">let</span> <span class="n">validation_sample</span> <span class="o">=</span> <span class="nn">Arc</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="nf">slurp_file</span><span class="p">(</span><span class="o">&amp;</span><span class="nn">Path</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="s">"validationsample.csv"</span><span class="p">)));</span>
 
     <span class="k">let</span> <span class="n">chunk_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">validation_sample</span><span class="nf">.len</span><span class="p">()</span> <span class="o">+</span> <span class="n">NUM_CHUNKS</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">NUM_CHUNKS</span><span class="p">;</span>
 
     <span class="k">let</span> <span class="k">mut</span> <span class="n">futures</span> <span class="o">=</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">NUM_CHUNKS</span><span class="p">)</span><span class="nf">.map</span><span class="p">(|</span><span class="n">i</span><span class="p">|</span> <span class="p">{</span>
-        <span class="c">// create new "copies" (just incrementing the reference</span>
-        <span class="c">// counts) for our new future to handle.</span>
+        <span class="c1">// create new "copies" (just incrementing the reference</span>
+        <span class="c1">// counts) for our new future to handle.</span>
         <span class="k">let</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">training_set</span><span class="nf">.clone</span><span class="p">();</span>
         <span class="k">let</span> <span class="n">vs</span> <span class="o">=</span> <span class="n">validation_sample</span><span class="nf">.clone</span><span class="p">();</span>
 
         <span class="nn">Future</span><span class="p">::</span><span class="nf">spawn</span><span class="p">(</span><span class="nf">proc</span><span class="p">()</span> <span class="p">{</span>
-            <span class="c">// compute the region of the vector we are handling...</span>
+            <span class="c1">// compute the region of the vector we are handling...</span>
             <span class="k">let</span> <span class="n">lo</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">chunk_size</span><span class="p">;</span>
             <span class="k">let</span> <span class="n">hi</span> <span class="o">=</span> <span class="nn">cmp</span><span class="p">::</span><span class="nf">min</span><span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">chunk_size</span><span class="p">,</span> <span class="n">vs</span><span class="nf">.len</span><span class="p">());</span>
 
-            <span class="c">// ... and then handle that region.</span>
+            <span class="c1">// ... and then handle that region.</span>
             <span class="n">vs</span><span class="nf">.slice</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
                 <span class="nf">.iter</span><span class="p">()</span>
                 <span class="nf">.filter</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="p">{</span>
@@ -1045,7 +1045,7 @@ with the following.</p>
         <span class="p">})</span>
     <span class="p">})</span><span class="py">.collect</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Future</span><span class="o">&lt;</span><span class="nb">uint</span><span class="o">&gt;&gt;&gt;</span><span class="p">();</span>
 
-    <span class="c">// run through the futures (waiting for each to complete) and sum the results</span>
+    <span class="c1">// run through the futures (waiting for each to complete) and sum the results</span>
     <span class="k">let</span> <span class="n">num_correct</span> <span class="o">=</span> <span class="n">futures</span><span class="nf">.mut_iter</span><span class="p">()</span><span class="nf">.map</span><span class="p">(|</span><span class="n">f</span><span class="p">|</span> <span class="n">f</span><span class="nf">.get</span><span class="p">())</span><span class="nf">.fold</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">|</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">|</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">);</span>
 
     <span class="nd">println!</span><span class="p">(</span><span class="s">"Percentage correct: {}%"</span><span class="p">,</span>

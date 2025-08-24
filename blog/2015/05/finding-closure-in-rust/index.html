@@ -771,7 +771,7 @@ from the scope in which it is defined. This is often described as the
 closure <em>closing over</em> or <em>capturing</em> variables (the
 <em>captures</em>). Collectively, the variables are called the <em>environment</em>.</p>
 
-<p>Syntactically, a closure in Rust is an anonymous function<sup id="fnref:anon" role="doc-noteref"><a href="#fn:anon" class="footnote" rel="footnote">0</a></sup> value
+<p>Syntactically, a closure in Rust is an anonymous function<sup id="fnref:anon"><a href="#fn:anon" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> value
 defined a little like Ruby, with pipes: <code class="language-plaintext highlighter-rouge">|arguments...| body</code>. For
 example, <code class="language-plaintext highlighter-rouge">|a, b| a + b</code> defines a closure that takes two arguments and
 returns their sum. It’s just like a normal function declaration, with
@@ -781,9 +781,9 @@ more inference:</p>
 2
 3
 4
-</pre></td><td class="code"><pre><span class="c">// function:</span>
+</pre></td><td class="code"><pre><span class="c1">// function:</span>
 <span class="k">fn</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="p">}</span>
-<span class="c">// closure:</span>
+<span class="c1">// closure:</span>
       <span class="p">|</span><span class="n">a</span><span class="p">,</span>      <span class="n">b</span><span class="p">|</span>               <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -812,14 +812,14 @@ return value of the call.</p>
     <span class="k">let</span> <span class="n">option</span> <span class="o">=</span> <span class="nf">Some</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
 
     <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="c">// explicit types:</span>
+    <span class="c1">// explicit types:</span>
     <span class="k">let</span> <span class="n">new</span><span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">option</span><span class="nf">.map</span><span class="p">(|</span><span class="n">val</span><span class="p">:</span> <span class="nb">i32</span><span class="p">|</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span> <span class="n">val</span> <span class="o">+</span> <span class="n">x</span> <span class="p">});</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">new</span><span class="p">);</span> <span class="c">// Some(5)</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">new</span><span class="p">);</span> <span class="c1">// Some(5)</span>
 
     <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-    <span class="c">// inferred:</span>
+    <span class="c1">// inferred:</span>
     <span class="k">let</span> <span class="n">new2</span> <span class="o">=</span> <span class="n">option</span><span class="nf">.map</span><span class="p">(|</span><span class="n">val</span><span class="p">|</span> <span class="n">val</span> <span class="o">*</span> <span class="n">y</span><span class="p">);</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">new2</span><span class="p">);</span> <span class="c">// Some(20)</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">new2</span><span class="p">);</span> <span class="c1">// Some(20)</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -844,7 +844,7 @@ didn’t have closures?</p>
 6
 </pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="o">&gt;</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">transformer</span><span class="p">:</span> <span class="o">...</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">match</span> <span class="n">option</span> <span class="p">{</span>
-        <span class="nf">Some</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nf">Some</span><span class="p">(</span><span class="nf">transformer</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="c">// (closure syntax for now)</span>
+        <span class="nf">Some</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">=&gt;</span> <span class="nf">Some</span><span class="p">(</span><span class="nf">transformer</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span> <span class="c1">// (closure syntax for now)</span>
         <span class="nb">None</span> <span class="k">=&gt;</span> <span class="nb">None</span><span class="p">,</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -872,7 +872,7 @@ type parameters”) and associated types (“output type parameters”). The
 quoted names hint at the choices we should take: the type that gets
 input into the transformation should be a generic in the trait, and
 the type that is output by the transformation should be an associated
-type.<sup id="fnref:assoc-vs-not" role="doc-noteref"><a href="#fn:assoc-vs-not" class="footnote" rel="footnote">1</a></sup></p>
+type.<sup id="fnref:assoc-vs-not"><a href="#fn:assoc-vs-not" class="footnote" rel="footnote" role="doc-noteref">1</a></sup></p>
 
 <p>So, our trait looks something like:</p>
 
@@ -884,7 +884,7 @@ type.<sup id="fnref:assoc-vs-not" role="doc-noteref"><a href="#fn:assoc-vs-not" 
 </pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Transform</span><span class="o">&lt;</span><span class="n">Input</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Output</span><span class="p">;</span>
 
-    <span class="k">fn</span> <span class="nf">transform</span><span class="p">(</span><span class="cm">/* self?? */</span><span class="p">,</span> <span class="n">input</span><span class="p">:</span> <span class="n">Input</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nn">Self</span><span class="p">::</span><span class="n">Output</span><span class="p">;</span>
+    <span class="k">fn</span> <span class="nf">transform</span><span class="p">(</span><span class="cm">/* self?? */</span><span class="p">,</span> <span class="n">input</span><span class="p">:</span> <span class="n">Input</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="k">Self</span><span class="p">::</span><span class="n">Output</span><span class="p">;</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -968,7 +968,7 @@ by-value <code class="language-plaintext highlighter-rouge">self</code> works pe
 </pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Transform</span><span class="o">&lt;</span><span class="n">Input</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Output</span><span class="p">;</span>
 
-    <span class="k">fn</span> <span class="nf">transform</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">input</span><span class="p">:</span> <span class="n">Input</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nn">Self</span><span class="p">::</span><span class="n">Output</span><span class="p">;</span>
+    <span class="k">fn</span> <span class="nf">transform</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">input</span><span class="p">:</span> <span class="n">Input</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="k">Self</span><span class="p">::</span><span class="n">Output</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">option</span><span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">X</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">transform</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">Y</span><span class="o">&gt;</span>
@@ -1020,25 +1020,25 @@ conversion for that struct.</p>
 33
 34
 35
-</pre></td><td class="code"><pre><span class="c">// replacement for |val| val + x</span>
+</pre></td><td class="code"><pre><span class="c1">// replacement for |val| val + x</span>
 <span class="k">struct</span> <span class="n">Adder</span> <span class="p">{</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i32</span> <span class="p">}</span>
 
 <span class="k">impl</span> <span class="n">Transform</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">Adder</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="nb">i32</span><span class="p">;</span>
 
-    <span class="c">// ignoring the `fn ... self`, this looks similar to |val| val + x</span>
+    <span class="c1">// ignoring the `fn ... self`, this looks similar to |val| val + x</span>
     <span class="k">fn</span> <span class="nf">transform</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
         <span class="n">val</span> <span class="o">+</span> <span class="k">self</span><span class="py">.x</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="c">// replacement for |val| val * y</span>
+<span class="c1">// replacement for |val| val * y</span>
 <span class="k">struct</span> <span class="n">Multiplier</span> <span class="p">{</span> <span class="n">y</span><span class="p">:</span> <span class="nb">i32</span> <span class="p">}</span>
 
 <span class="k">impl</span> <span class="n">Transform</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">Multiplier</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Output</span> <span class="o">=</span> <span class="nb">i32</span><span class="p">;</span>
 
-    <span class="c">// looks similar to |val| val * y</span>
+    <span class="c1">// looks similar to |val| val * y</span>
     <span class="k">fn</span> <span class="nf">transform</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">val</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
         <span class="n">val</span> <span class="o">*</span> <span class="k">self</span><span class="py">.y</span>
     <span class="p">}</span>
@@ -1049,11 +1049,11 @@ conversion for that struct.</p>
 
     <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
     <span class="k">let</span> <span class="n">new</span><span class="p">:</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">Adder</span> <span class="p">{</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="p">});</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">new</span><span class="p">);</span> <span class="c">// Some(5)</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">new</span><span class="p">);</span> <span class="c1">// Some(5)</span>
 
     <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
     <span class="k">let</span> <span class="n">new2</span> <span class="o">=</span> <span class="nf">map</span><span class="p">(</span><span class="n">option</span><span class="p">,</span> <span class="n">Multiplier</span> <span class="p">{</span> <span class="n">y</span><span class="p">:</span> <span class="n">y</span> <span class="p">});</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">new2</span><span class="p">);</span> <span class="c">// Some(20)</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{:?}"</span><span class="p">,</span> <span class="n">new2</span><span class="p">);</span> <span class="c1">// Some(20)</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1124,7 +1124,7 @@ above).</p>
 <p>The compiler answers both by using some local rules to choose the
 version that will give the most flexibility. The local rules are
 designed to be able to be checked only knowing the definition
-the closure, and the types of any variables it captures.<sup id="fnref:i-think" role="doc-noteref"><a href="#fn:i-think" class="footnote" rel="footnote">2</a></sup></p>
+the closure, and the types of any variables it captures.<sup id="fnref:i-think"><a href="#fn:i-think" class="footnote" rel="footnote" role="doc-noteref">2</a></sup></p>
 
 <p>By “flexibility” I mean the compiler chooses the option that (it
 thinks) will compile, but imposes the least on the programmer.</p>
@@ -1132,7 +1132,7 @@ thinks) will compile, but imposes the least on the programmer.</p>
 <h3 id="structs-and-captures">Structs and captures</h3>
 
 <p>If you’re familiar with closures in C++11, you may recall the <code class="language-plaintext highlighter-rouge">[=]</code>
-and <code class="language-plaintext highlighter-rouge">[&amp;]</code> capture lists: capture variables by-value<sup id="fnref:copy" role="doc-noteref"><a href="#fn:copy" class="footnote" rel="footnote">3</a></sup> and
+and <code class="language-plaintext highlighter-rouge">[&amp;]</code> capture lists: capture variables by-value<sup id="fnref:copy"><a href="#fn:copy" class="footnote" rel="footnote" role="doc-noteref">3</a></sup> and
 by-reference respectively. Rust has similar capability: variables can
 be captured by-value—the variable is moved into the closure
 environment—or by-reference—a reference to the variable is stored
@@ -1190,9 +1190,9 @@ per-variable basis, e.g.:</p>
 22
 </pre></td><td class="code"><pre><span class="k">struct</span> <span class="n">T</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
 
-<span class="k">fn</span> <span class="nf">by_value</span><span class="p">(</span><span class="mi">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
-<span class="k">fn</span> <span class="nf">by_mut</span><span class="p">(</span><span class="mi">_</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
-<span class="k">fn</span> <span class="nf">by_ref</span><span class="p">(</span><span class="mi">_</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">fn</span> <span class="nf">by_value</span><span class="p">(</span><span class="n">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">fn</span> <span class="nf">by_mut</span><span class="p">(</span><span class="n">_</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">fn</span> <span class="nf">by_ref</span><span class="p">(</span><span class="n">_</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
 
 <span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
 <span class="k">let</span> <span class="k">mut</span> <span class="n">y</span><span class="p">:</span> <span class="n">T</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>
@@ -1203,11 +1203,11 @@ per-variable basis, e.g.:</p>
     <span class="nf">by_ref</span><span class="p">(</span><span class="o">&amp;</span><span class="n">y</span><span class="p">);</span>
     <span class="nf">by_ref</span><span class="p">(</span><span class="o">&amp;</span><span class="n">z</span><span class="p">);</span>
 
-    <span class="c">// forces `y` and `z` to be at least captured by `&amp;mut` reference</span>
+    <span class="c1">// forces `y` and `z` to be at least captured by `&amp;mut` reference</span>
     <span class="nf">by_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="n">y</span><span class="p">);</span>
     <span class="nf">by_mut</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="n">z</span><span class="p">);</span>
 
-    <span class="c">// forces `z` to be captured by value</span>
+    <span class="c1">// forces `z` to be captured by value</span>
     <span class="nf">by_value</span><span class="p">(</span><span class="n">z</span><span class="p">);</span>
 <span class="p">};</span>
 </pre></td></tr></tbody></table></code></pre></figure>
@@ -1264,7 +1264,7 @@ where it is created, it must not contain any references to values
 inside that stack frame, since those references would be dangling when
 the closure is used outside that frame: very bad. Fortunately the
 compiler will emit an error if there’s a risk of that, but returning
-closures can be useful and so should be possible; for example<sup id="fnref:trait-object" role="doc-noteref"><a href="#fn:trait-object" class="footnote" rel="footnote">4</a></sup>:</p>
+closures can be useful and so should be possible; for example<sup id="fnref:trait-object"><a href="#fn:trait-object" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>:</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -1277,7 +1277,7 @@ closures can be useful and so should be possible; for example<sup id="fnref:trai
 9
 10
 11
-</pre></td><td class="code"><pre><span class="c">/// Returns a closure that will add `x` to its argument.</span>
+</pre></td><td class="code"><pre><span class="cd">/// Returns a closure that will add `x` to its argument.</span>
 <span class="k">fn</span> <span class="nf">make_adder</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Box</span><span class="o">&lt;</span><span class="nf">Fn</span><span class="p">(</span><span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="nn">Box</span><span class="p">::</span><span class="nf">new</span><span class="p">(|</span><span class="n">y</span><span class="p">|</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
 <span class="p">}</span>
@@ -1285,8 +1285,8 @@ closures can be useful and so should be possible; for example<sup id="fnref:trai
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="nf">make_adder</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
 
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">f</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span> <span class="c">// 4</span>
-    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">f</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span> <span class="c">// 13</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">f</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span> <span class="c1">// 4</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="nf">f</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span> <span class="c1">// 13</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1470,20 +1470,20 @@ trait is implemented for the implicit closure struct:</p>
 5
 6
 7
-</pre></td><td class="code"><pre><span class="c">// (this is just illustrative, see the footnote for the gory details)</span>
+</pre></td><td class="code"><pre><span class="c1">// (this is just illustrative, see the footnote for the gory details)</span>
 <span class="k">impl</span> <span class="nf">Fn</span><span class="p">(</span><span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="k">for</span> <span class="n">Closure</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">call</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
-    <span class="c">// |y|   x + y</span>
+    <span class="c1">// |y|   x + y</span>
         <span class="k">self</span><span class="py">.x</span> <span class="o">+</span> <span class="n">y</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
-<p>In reality, there are also implicit implementations<sup id="fnref:invalid" role="doc-noteref"><a href="#fn:invalid" class="footnote" rel="footnote">5</a></sup> of
+<p>In reality, there are also implicit implementations<sup id="fnref:invalid"><a href="#fn:invalid" class="footnote" rel="footnote" role="doc-noteref">5</a></sup> of
 <code class="language-plaintext highlighter-rouge">FnMut</code> and <code class="language-plaintext highlighter-rouge">FnOnce</code> for <code class="language-plaintext highlighter-rouge">Closure</code>, but <code class="language-plaintext highlighter-rouge">Fn</code> is the “fundamental” one
 for this closure.</p>
 
-<p>There’s three traits, and so seven non-empty sets of traits that <em>could</em><sup id="fnref:inherit" role="doc-noteref"><a href="#fn:inherit" class="footnote" rel="footnote">6</a></sup> possibly be
+<p>There’s three traits, and so seven non-empty sets of traits that <em>could</em><sup id="fnref:inherit"><a href="#fn:inherit" class="footnote" rel="footnote" role="doc-noteref">6</a></sup> possibly be
 implemented… but there’s actually only three interesting
 configurations:</p>
 
@@ -1504,7 +1504,7 @@ has declaration:</p>
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">trait</span> <span class="n">FnMut</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">FnOnce</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">trait</span> <span class="nb">FnMut</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">:</span> <span class="nb">FnOnce</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="o">...</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
@@ -1544,18 +1544,18 @@ fine.</p>
 17
 </pre></td><td class="code"><pre><span class="k">let</span> <span class="k">mut</span> <span class="n">v</span> <span class="o">=</span> <span class="nd">vec!</span><span class="p">[];</span>
 
-<span class="c">// nice form</span>
+<span class="c1">// nice form</span>
 <span class="k">let</span> <span class="n">closure</span> <span class="o">=</span> <span class="p">||</span> <span class="n">v</span><span class="nf">.push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-<span class="c">// explicit form</span>
+<span class="c1">// explicit form</span>
 <span class="k">struct</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="nv">'v</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="n">v</span><span class="p">:</span> <span class="o">&amp;</span><span class="nv">'v</span> <span class="k">mut</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span>
 <span class="p">}</span>
 
-<span class="c">// let's try implementing `Fn`</span>
+<span class="c1">// let's try implementing `Fn`</span>
 <span class="k">impl</span><span class="o">&lt;</span><span class="nv">'v</span><span class="o">&gt;</span> <span class="nf">Fn</span><span class="p">()</span> <span class="k">for</span> <span class="n">Environment</span><span class="o">&lt;</span><span class="nv">'v</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">call</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">self</span><span class="py">.v</span><span class="nf">.push</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c">// error: cannot borrow data mutably</span>
+        <span class="k">self</span><span class="py">.v</span><span class="nf">.push</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// error: cannot borrow data mutably</span>
     <span class="p">}</span>
 <span class="p">}</span>
 <span class="k">let</span> <span class="n">closure</span> <span class="o">=</span> <span class="n">Environment</span> <span class="p">{</span> <span class="n">v</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">v</span> <span class="p">};</span>
@@ -1612,8 +1612,8 @@ the <code class="language-plaintext highlighter-rouge">Box&lt;Fn(i32) -&gt; i32&
 <span class="n">closures</span><span class="nf">.push</span><span class="p">(</span><span class="nn">Box</span><span class="p">::</span><span class="nf">new</span><span class="p">(||</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">text</span><span class="p">)));</span>
 <span class="n">closures</span><span class="nf">.push</span><span class="p">(</span><span class="nn">Box</span><span class="p">::</span><span class="nf">new</span><span class="p">(||</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"third"</span><span class="p">)));</span>
 
-<span class="k">for</span> <span class="n">f</span> <span class="n">in</span> <span class="o">&amp;</span><span class="n">closures</span> <span class="p">{</span>
-    <span class="nf">f</span><span class="p">();</span> <span class="c">// first / second / third</span>
+<span class="k">for</span> <span class="n">f</span> <span class="k">in</span> <span class="o">&amp;</span><span class="n">closures</span> <span class="p">{</span>
+    <span class="nf">f</span><span class="p">();</span> <span class="c1">// first / second / third</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1680,8 +1680,8 @@ even if it is used with many different closures.</p>
     <span class="nf">f</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="nf">generic_closure</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">x</span><span class="p">));</span> <span class="c">// A</span>
-<span class="nf">generic_closure</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="p">{</span> <span class="c">// B</span>
+<span class="nf">generic_closure</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">x</span><span class="p">));</span> <span class="c1">// A</span>
+<span class="nf">generic_closure</span><span class="p">(|</span><span class="n">x</span><span class="p">|</span> <span class="p">{</span> <span class="c1">// B</span>
     <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
     <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">y</span><span class="p">);</span>
 <span class="p">});</span>
@@ -1706,7 +1706,7 @@ even use a trait object directly with <code class="language-plaintext highlighte
 e.g. <code class="language-plaintext highlighter-rouge">generic_closure((&amp;|x| { ... }) as &amp;Fn(_))</code>: so users of
 higher-order functions can choose which trade-off they want themselves.</p>
 
-<p>All of this flexibility falls directly out of using traits<sup id="fnref:stdfunction" role="doc-noteref"><a href="#fn:stdfunction" class="footnote" rel="footnote">7</a></sup> for
+<p>All of this flexibility falls directly out of using traits<sup id="fnref:stdfunction"><a href="#fn:stdfunction" class="footnote" rel="footnote" role="doc-noteref">7</a></sup> for
 closures, and the separate parts are independent and very
 compositional.</p>
 
@@ -1769,7 +1769,7 @@ and on IRC for finding inaccuracies and improvements.)</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:anon" role="doc-endnote">
+    <li id="fn:anon">
       <p>The Rust <code class="language-plaintext highlighter-rouge">|...| ...</code> syntax is more than just a closure: it’s
      an <a href="http://en.wikipedia.org/wiki/Anonymous_function">anonymous function</a>. In general, it’s possible to have things
      that are closures but aren’t anonymous (e.g. in Python,
@@ -1780,7 +1780,7 @@ and on IRC for finding inaccuracies and improvements.)</p>
      directly and there’s no separate <code class="language-plaintext highlighter-rouge">fn foo() { ... }</code> with the
      function value referred to via <code class="language-plaintext highlighter-rouge">foo</code>. <a href="#fnref:anon" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:assoc-vs-not" role="doc-endnote">
+    <li id="fn:assoc-vs-not">
       <p>This choice is saying that transformers can be
              overloaded by the starting type, but the ending type
              is entirely determined by the pair of the transform
@@ -1794,7 +1794,7 @@ and on IRC for finding inaccuracies and improvements.)</p>
              [i32]</code> to <code class="language-plaintext highlighter-rouge">&amp;'a i32</code> (by e.g. indexing) has the two
              types connected via the generic lifetime <code class="language-plaintext highlighter-rouge">'a</code>. <a href="#fnref:assoc-vs-not" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:i-think" role="doc-endnote">
+    <li id="fn:i-think">
       <p>This statement isn’t precisely true in practice,
         e.g. <code class="language-plaintext highlighter-rouge">rustc</code> will emit different errors if closures are
         misused in certain equivalent-but-non-identical
@@ -1802,13 +1802,13 @@ and on IRC for finding inaccuracies and improvements.)</p>
         diagnostics, not a fundamental language thing… however,
         I’m not sure. <a href="#fnref:i-think" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:copy" role="doc-endnote">
+    <li id="fn:copy">
       <p>“By-value” in C++, including <code class="language-plaintext highlighter-rouge">[=]</code>, is really “by-copy” (with
       some copy-elision rules to sometimes elide copies in certain
       cases), whereas in Rust it is always “by-move”, more similar
       to rvalue references in C++. <a href="#fnref:copy" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:trait-object" role="doc-endnote">
+    <li id="fn:trait-object">
       <p>Since closure types are unique and unnameable, the
              only way to return one is via a trait object, at
              least until Rust gets something like the “abstract
@@ -1818,7 +1818,7 @@ and on IRC for finding inaccuracies and improvements.)</p>
              <code class="language-plaintext highlighter-rouge">decltype(auto)</code>, which, I believe, was also partly
              motivated by closures with unnameable types. <a href="#fnref:trait-object" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:invalid" role="doc-endnote">
+    <li id="fn:invalid">
       <p>I wrote an invalid <code class="language-plaintext highlighter-rouge">Fn</code> implementation because the real
         version is ugly and much less clear, and doesn’t work with
         stable compilers at the moment. But since you asked, here
@@ -1850,12 +1850,12 @@ stabilised for general use. The only way to create types
 implementing those traits with the 1.0 compiler is with a closure
 expression. <a href="#fnref:invalid" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:inherit" role="doc-endnote">
+    <li id="fn:inherit">
       <p>I’m ignoring the inheritance, which means that certain
         sets are actually statically illegal, i.e., without other
         constraints there are seven possibilities. <a href="#fnref:inherit" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:stdfunction" role="doc-endnote">
+    <li id="fn:stdfunction">
       <p>C++ has a similar choice, with <code class="language-plaintext highlighter-rouge">std::function</code> able to
             provide type erasure/dynamic dispatch for closure
             types, although it requires separate definition as a

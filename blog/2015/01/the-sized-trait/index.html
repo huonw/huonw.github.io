@@ -739,7 +739,7 @@ a.post-heading {
          </div>
       
       <p>An important piece in my story about trait objects in
-<a href="http://rust-lang.org">Rust</a><sup id="fnref:version" role="doc-noteref"><a href="#fn:version" class="footnote" rel="footnote">0</a></sup> is <a href="https://doc.rust-lang.org/nightly/std/marker/trait.Sized.html">the <code class="language-plaintext highlighter-rouge">Sized</code> trait</a>,
+<a href="http://rust-lang.org">Rust</a><sup id="fnref:version"><a href="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> is <a href="https://doc.rust-lang.org/nightly/std/marker/trait.Sized.html">the <code class="language-plaintext highlighter-rouge">Sized</code> trait</a>,
 so I’m slotting in this short post between
 <a href="/blog/2015/01/peeking-inside-trait-objects/">my discussion of low-level details</a> and
 <a href="/blog/2015/01/object-safety/">the post on “object safety”</a>.</p>
@@ -774,7 +774,7 @@ known.</li>
 
 <p>Types for which the size is not known are called
 <a href="http://smallcultfollowing.com/babysteps/blog/2014/01/05/dst-take-5/">dynamically sized types (DSTs)</a>, and there’s two classes of
-examples in current Rust<sup id="fnref:virtual" role="doc-noteref"><a href="#fn:virtual" class="footnote" rel="footnote">1</a></sup>: <code class="language-plaintext highlighter-rouge">[T]</code> and <code class="language-plaintext highlighter-rouge">Trait</code>. A slice<sup id="fnref:str" role="doc-noteref"><a href="#fn:str" class="footnote" rel="footnote">2</a></sup>
+examples in current Rust<sup id="fnref:virtual"><a href="#fn:virtual" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>: <code class="language-plaintext highlighter-rouge">[T]</code> and <code class="language-plaintext highlighter-rouge">Trait</code>. A slice<sup id="fnref:str"><a href="#fn:str" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>
 <code class="language-plaintext highlighter-rouge">[T]</code> is unsized because it represents an unknown-at-compile-time
 number of <code class="language-plaintext highlighter-rouge">T</code>s contiguous in memory. A <code class="language-plaintext highlighter-rouge">Trait</code> is unsized because it
 represents a value of any type that implements <code class="language-plaintext highlighter-rouge">Trait</code> and these have
@@ -805,9 +805,9 @@ being sized.</p>
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{}</span> <span class="c">// can only be used with sized T</span>
+</pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// can only be used with sized T</span>
 
-<span class="k">fn</span> <span class="n">bar</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="o">?</span><span class="n">Sized</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{}</span> <span class="c">// can be used with both sized and unsized T</span>
+<span class="k">fn</span> <span class="n">bar</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="o">?</span><span class="nb">Sized</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">{}</span> <span class="c1">// can be used with both sized and unsized T</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This bound is particularly special because adding the <code class="language-plaintext highlighter-rouge">?Sized</code> bound
@@ -861,19 +861,19 @@ to be worth the breaking change…)</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:version" role="doc-endnote">
+    <li id="fn:version">
       <p>Per the <a href="/blog/2015/01/peeking-inside-trait-objects/">previous post</a>, this post is
         designed to reflect the state of Rust at version: <code class="language-plaintext highlighter-rouge">rustc
         1.0.0-nightly (44a287e6e 2015-01-08 17:03:40 -0800)</code>. <a href="#fnref:version" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:virtual" role="doc-endnote">
+    <li id="fn:virtual">
       <p>There is the possibility that Rust will gain some form of
         <a href="http://discuss.rust-lang.org/t/summary-of-efficient-inheritance-rfcs/494">“inheritance”</a>, and Niko points out to me that
         <code class="language-plaintext highlighter-rouge">Sized</code> may play an important role there too: certain
         types (e.g. “base classes” in an conventional inheritance
         scheme)  make sense to be unsized. <a href="#fnref:virtual" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:str" role="doc-endnote">
+    <li id="fn:str">
       <p>The unsized string type <code class="language-plaintext highlighter-rouge">str</code> is usually considered a slice,
     since it is just a <code class="language-plaintext highlighter-rouge">[u8]</code> with the guarantee that the bytes
     are valid UTF-8. <a href="#fnref:str" class="reversefootnote" role="doc-backlink">&#8617;</a></p>

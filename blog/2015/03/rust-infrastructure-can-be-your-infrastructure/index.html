@@ -759,7 +759,7 @@ contributors in a single week.</p>
 <a href="http://blog.rust-lang.org/2015/02/13/Final-1.0-timeline.html">1.0 quickly approaching</a>,
 and there are definitely places where the core team (and the rest of
 the community) sometimes can’t keep up, but getting code into
-rust-lang/rust is rarely one<sup id="fnref:rollups" role="doc-noteref"><a href="#fn:rollups" class="footnote" rel="footnote">0</a></sup>, due to two critical robots:</p>
+rust-lang/rust is rarely one<sup id="fnref:rollups"><a href="#fn:rollups" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>, due to two critical robots:</p>
 
 <ul>
   <li>an integration bot/pull request manager, <a href="https://github.com/barosl/homu">Barosl Lee’s Homu</a></li>
@@ -810,7 +810,7 @@ correct way for anyone (including core developers) to land code into
 rust-lang/rust is to submit a pull request to that repo.  Someone on
 the reviewers whitelist will review the code and, once it looks good,
 write a “review approved” comment:
-<a href="https://github.com/rust-lang/rust/pull/23415#issuecomment-81877665"><code class="language-plaintext highlighter-rouge">@bors r+</code></a><sup id="fnref:bors" role="doc-noteref"><a href="#fn:bors" class="footnote" rel="footnote">1</a></sup>. Homu
+<a href="https://github.com/rust-lang/rust/pull/23415#issuecomment-81877665"><code class="language-plaintext highlighter-rouge">@bors r+</code></a><sup id="fnref:bors"><a href="#fn:bors" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>. Homu
 will take the pull request, merge it with master into a new branch,
 and submit that branch to a testing backend. If the tests pass, Homu
 fast-forwards to the merge commit and starts on the next patch in
@@ -820,7 +820,7 @@ fast-forwards to the merge commit and starts on the next patch in
 for Rust: only really subtly—or transiently—broken patches get
 into master, other forms of brokenness are eliminated before touching
 mainline at all and backing out/reverting of patches once landed is
-rarely needed.<sup id="fnref:no-free-lunch" role="doc-noteref"><a href="#fn:no-free-lunch" class="footnote" rel="footnote">2</a></sup></p>
+rarely needed.<sup id="fnref:no-free-lunch"><a href="#fn:no-free-lunch" class="footnote" rel="footnote" role="doc-noteref">2</a></sup></p>
 
 <p>Having tests always passing sounds great, right? It’s even better
 because it’s not hard to use Homu with your own repos: just follow the
@@ -1053,7 +1053,7 @@ infrastructure.</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:rollups" role="doc-endnote">
+    <li id="fn:rollups">
       <p>I’m being… optimistic. There’s so many patches submitted
         that we only keep up via regular “rollups”: landing
         several pull requests in a single batch (usually created
@@ -1065,12 +1065,12 @@ infrastructure.</p>
         before landing ensures that the master branch still passes
         tests. <a href="#fnref:rollups" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:bors" role="doc-endnote">
+    <li id="fn:bors">
       <p>Why <code class="language-plaintext highlighter-rouge">@bors</code> if its now Homu? The Homu back-end listens for
      mentions of the account it is registered to use, and
      rust-lang still uses <a href="https://github.com/bors">@bors</a>. <a href="#fnref:bors" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:no-free-lunch" role="doc-endnote">
+    <li id="fn:no-free-lunch">
       <p>Unfortunately, there’s no free lunch, and the test
               guarantees come at a cost of scalability, as landing
               patches to master is serialised

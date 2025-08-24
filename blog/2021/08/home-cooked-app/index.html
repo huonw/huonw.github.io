@@ -752,7 +752,7 @@ a.post-heading {
 
 <h2 id="the-project">The project</h2>
 
-<p>I got married last October, and I wanted to have an anticipatory countdown, somehow. We both happen to have Garmin watches, which support custom watch faces<sup id="fnref:monkeysee" role="doc-noteref"><a href="#fn:monkeysee" class="footnote" rel="footnote">0</a></sup>. I created a simple but fun little app: it shows the time, date and the battery, but also has a photo and a message.</p>
+<p>I got married last October, and I wanted to have an anticipatory countdown, somehow. We both happen to have Garmin watches, which support custom watch faces<sup id="fnref:monkeysee"><a href="#fn:monkeysee" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>. I created a simple but fun little app: it shows the time, date and the battery, but also has a photo and a message.</p>
 
 <figure class="image has-caption">
   <div class="image-positioner">
@@ -766,7 +766,7 @@ a.post-heading {
 </figcaption>
 </figure>
 
-<p>The photo and message changes each day, usually randomly. However, on some special days, it chooses a particular message or photo, like the countdown across the 10 days leading up to our wedding. The photos are synced, so that both of us get the same photo each day<sup id="fnref:photo-syncing" role="doc-noteref"><a href="#fn:photo-syncing" class="footnote" rel="footnote">1</a></sup>. The random messages aren’t synced: instead I wrote some for my wife’s watch and she for mine. It’s nice to wake up each day and see what unexpected combination of photo and message I get.</p>
+<p>The photo and message changes each day, usually randomly. However, on some special days, it chooses a particular message or photo, like the countdown across the 10 days leading up to our wedding. The photos are synced, so that both of us get the same photo each day<sup id="fnref:photo-syncing"><a href="#fn:photo-syncing" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>. The random messages aren’t synced: instead I wrote some for my wife’s watch and she for mine. It’s nice to wake up each day and see what unexpected combination of photo and message I get.</p>
 
 <h2 id="engineering">“Engineering”</h2>
 
@@ -781,10 +781,10 @@ a.post-heading {
   <li>workflow for publishing to an app store, including signing and updating</li>
 </ul>
 
-<p>Instead, I didn’t do it properly, because it’s an app to run on two and only two devices. I can break all the rules: I can hardcode content, I include private information<sup id="fnref:private" role="doc-noteref"><a href="#fn:private" class="footnote" rel="footnote">2</a></sup>, I can make assumptions about devices. For instance:</p>
+<p>Instead, I didn’t do it properly, because it’s an app to run on two and only two devices. I can break all the rules: I can hardcode content, I include private information<sup id="fnref:private"><a href="#fn:private" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>, I can make assumptions about devices. For instance:</p>
 
 <ul>
-  <li>the app directly embeds all 25 background images<sup id="fnref:size" role="doc-noteref"><a href="#fn:size" class="footnote" rel="footnote">3</a></sup></li>
+  <li>the app directly embeds all 25 background images<sup id="fnref:size"><a href="#fn:size" class="footnote" rel="footnote" role="doc-noteref">3</a></sup></li>
   <li>our two devices are different models, so the messages for each of us are conditionalised based on the device qualifiers using build system functionality</li>
   <li>those two models are the only ones supported, so a minimal CI that builds for those devices is all that’s needed</li>
   <li>the app can be easily sideloaded: plug the watch into a computer and copy the compiled <code class="language-plaintext highlighter-rouge">.prg</code> file onto it (I think this is a critical component of “home cooking” code: one must have sufficient control over the devices to run arbitrary code, without expensive or complicated processes managed by external corporations)</li>
@@ -819,16 +819,16 @@ a.post-heading {
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:monkeysee" role="doc-endnote">
+    <li id="fn:monkeysee">
       <p>The programming language/environment for the Garmin devices is called “Monkey C”, so they took the opportunity to call the compiler “Monkey Do” 🥁 <a href="#fnref:monkeysee" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:photo-syncing" role="doc-endnote">
+    <li id="fn:photo-syncing">
       <p>The photo for any particular day is chosen by hashing the <a href="https://en.wikipedia.org/wiki/Unix_time">Unix time</a> of midnight on that day and using this as a “random” index into the list of photos. All these factors (reference time, hashing algorithm, and order of photos) are the same on both watches, so the chosen photo always matches on the two devices. <a href="#fnref:photo-syncing" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:private" role="doc-endnote">
+    <li id="fn:private">
       <p>I still wouldn’t (and don’t) include credentials or other valuable personal information, but I can at least feel free to include sickly sweet messages for my wife. <a href="#fnref:private" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:size" role="doc-endnote">
+    <li id="fn:size">
       <p>Unsurprisingly, an app containing 25 images ends up as a large artefact, even when they’re reduced to the limited fidelity the devices can display (4 or 8 bits per pixel and circles with diameters of 208 or 240 pixels). There doesn’t seem to be much documentation, but I can report that watch faces of the following sizes seem to work in practice: 718KB for a Garmin Forerunner 45 (FR45), 1.78MB for a Garmin Forerunner 245 Music (FR245M). <a href="#fnref:size" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>

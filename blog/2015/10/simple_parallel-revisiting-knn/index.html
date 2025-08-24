@@ -781,8 +781,8 @@ stack of a parent thread, in parallel, with 4 threads.</p>
 14
 15
 16
-</pre></td><td class="code"><pre><span class="c">// (add `simple_parallel = "0.3"` to your Cargo.toml)</span>
-<span class="k">extern</span> <span class="n">crate</span> <span class="n">simple_parallel</span><span class="p">;</span>
+</pre></td><td class="code"><pre><span class="c1">// (add `simple_parallel = "0.3"` to your Cargo.toml)</span>
+<span class="k">extern</span> <span class="k">crate</span> <span class="n">simple_parallel</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">let</span> <span class="k">mut</span> <span class="n">pool</span> <span class="o">=</span> <span class="nn">simple_parallel</span><span class="p">::</span><span class="nn">Pool</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
@@ -821,7 +821,7 @@ immutable shared data</strong>.</li>
   <li>the <code class="language-plaintext highlighter-rouge">iter_mut</code> method creates an iterator over <code class="language-plaintext highlighter-rouge">&amp;mut</code> references to
 the elements of <code class="language-plaintext highlighter-rouge">stack_array</code>. The closure is called on each of them
 in parallel, and the references are
-disjoint/not-aliasing<sup id="fnref:cache-line" role="doc-noteref"><a href="#fn:cache-line" class="footnote" rel="footnote">0</a></sup>, meaning each call is
+disjoint/not-aliasing<sup id="fnref:cache-line"><a href="#fn:cache-line" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>, meaning each call is
 manipulating a different section of memory. <strong>No atomics or locks
 are needed</strong> to mutate what the iterator feeds the closure.</li>
   <li>the <code class="language-plaintext highlighter-rouge">simple_parallel</code> APIs all consume (nearly) arbitrary iterators:
@@ -834,7 +834,7 @@ above safely.)</li>
 
 <p>Some of this is driven by <code class="language-plaintext highlighter-rouge">simple_parallel</code>, some of it is
 <code class="language-plaintext highlighter-rouge">crossbeam</code>, but most of it is the power of Rust’s type system: it
-<a href="/blog/2015/02/some-notes-on-send-and-sync/">comes together just right</a> to ensure<sup id="fnref:not-proved" role="doc-noteref"><a href="#fn:not-proved" class="footnote" rel="footnote">1</a></sup>
+<a href="/blog/2015/02/some-notes-on-send-and-sync/">comes together just right</a> to ensure<sup id="fnref:not-proved"><a href="#fn:not-proved" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>
 <a href="http://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html">concurrency can be done fearlessly</a>.</p>
 
 <p>It’s not perfect, it’s not even <em>great</em>—there’s
@@ -867,7 +867,7 @@ validation samples based on the training ones, finally printing how
 many were predicted correctly.</p>
 
 <p>The full code is available at <a href="https://github.com/huonw/revisiting-knn">huonw/revisiting-knn</a>, updated
-from 0.11.0 (which wasn’t too hard at all<sup id="fnref:update" role="doc-noteref"><a href="#fn:update" class="footnote" rel="footnote">2</a></sup>), so I’m just going
+from 0.11.0 (which wasn’t too hard at all<sup id="fnref:update"><a href="#fn:update" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>), so I’m just going
 to focus on the interesting bit: <code class="language-plaintext highlighter-rouge">main</code>. The sequential version is
 short:</p>
 
@@ -899,7 +899,7 @@ short:</p>
 function is the expensive one: each call does 5000 784-dimensional
 <a href="https://github.com/huonw/revisiting-knn/blob/219ad78a9b15554b10d08c4e626e11e09256b8dd/src/main.rs#L44">vector distance calculations</a>. <code class="language-plaintext highlighter-rouge">perf</code>’s instruction level
 profiling tells me that nearly 95% of the time is spent in
-<a href="https://github.com/huonw/revisiting-knn/blob/219ad78a9b15554b10d08c4e626e11e09256b8dd/src/main.rs#L36">the loop</a><sup id="fnref:simd" role="doc-noteref"><a href="#fn:simd" class="footnote" rel="footnote">3</a></sup> for that calculation (which actually gets inlined all
+<a href="https://github.com/huonw/revisiting-knn/blob/219ad78a9b15554b10d08c4e626e11e09256b8dd/src/main.rs#L36">the loop</a><sup id="fnref:simd"><a href="#fn:simd" class="footnote" rel="footnote" role="doc-noteref">3</a></sup> for that calculation (which actually gets inlined all
 the way into <code class="language-plaintext highlighter-rouge">main</code> itself).</p>
 
 <p>The parallel <code class="language-plaintext highlighter-rouge">main</code> isn’t much longer:</p>
@@ -926,17 +926,17 @@ the way into <code class="language-plaintext highlighter-rouge">main</code> itse
 20
 21
 </pre></td><td class="code"><pre><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c">// load files</span>
+    <span class="c1">// load files</span>
     <span class="k">let</span> <span class="n">training_set</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"trainingsample.csv"</span><span class="p">);</span>
     <span class="k">let</span> <span class="n">validation_sample</span> <span class="o">=</span> <span class="nf">slurp_file</span><span class="p">(</span><span class="s">"validationsample.csv"</span><span class="p">);</span>
 
-    <span class="c">// create a thread pool</span>
+    <span class="c1">// create a thread pool</span>
     <span class="k">let</span> <span class="k">mut</span> <span class="n">pool</span> <span class="o">=</span> <span class="nn">simple_parallel</span><span class="p">::</span><span class="nn">Pool</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
 
     <span class="nn">crossbeam</span><span class="p">::</span><span class="nf">scope</span><span class="p">(|</span><span class="n">scope</span><span class="p">|</span> <span class="p">{</span>
         <span class="k">let</span> <span class="n">num_correct</span> <span class="o">=</span>
             <span class="n">pool</span><span class="nf">.unordered_map</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">validation_sample</span><span class="p">,</span> <span class="p">|</span><span class="n">x</span><span class="p">|</span> <span class="p">{</span>
-                <span class="c">// is it classified right? (in parallel)</span>
+                <span class="c1">// is it classified right? (in parallel)</span>
                 <span class="nf">classify</span><span class="p">(</span><span class="o">&amp;</span><span class="n">training_set</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="py">.pixels</span><span class="p">)</span> <span class="o">==</span> <span class="n">x</span><span class="py">.label</span>
             <span class="p">})</span>
             <span class="nf">.filter</span><span class="p">(|</span><span class="n">t</span><span class="p">|</span> <span class="n">t</span><span class="na">.1</span><span class="p">)</span>
@@ -951,7 +951,7 @@ the way into <code class="language-plaintext highlighter-rouge">main</code> itse
 <p>The <a href="http://huonw.github.io/simple_parallel/simple_parallel/pool/struct.Pool.html#method.unordered_map"><code class="language-plaintext highlighter-rouge">unordered_map</code></a> function is a bit more complicated than
 <code class="language-plaintext highlighter-rouge">for_</code> above: this takes an iterator over <code class="language-plaintext highlighter-rouge">A</code>s, and a function from
 <code class="language-plaintext highlighter-rouge">A</code> to any type <code class="language-plaintext highlighter-rouge">B</code>, and returns an iterator of <code class="language-plaintext highlighter-rouge">(usize, B)</code>s, in some
-random order<sup id="fnref:order" role="doc-noteref"><a href="#fn:order" class="footnote" rel="footnote">4</a></sup>. For above, <code class="language-plaintext highlighter-rouge">B</code> is a <code class="language-plaintext highlighter-rouge">bool</code>: whether the
+random order<sup id="fnref:order"><a href="#fn:order" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>. For above, <code class="language-plaintext highlighter-rouge">B</code> is a <code class="language-plaintext highlighter-rouge">bool</code>: whether the
 predicted classification was correct or not.</p>
 
 <p>The hardest part of parallelising that was working out where to put
@@ -1066,7 +1066,7 @@ extra argument).</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:cache-line" role="doc-endnote">
+    <li id="fn:cache-line">
       <p>The pointers are disjoint, so safety/semantically
            everything is cool, but in the real world there are
            performance concerns, like false sharing: the values
@@ -1077,20 +1077,20 @@ extra argument).</p>
            one doesn’t need to/shouldn’t parallelise at the level
            of individual elements. <a href="#fnref:cache-line" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:not-proved" role="doc-endnote">
+    <li id="fn:not-proved">
       <p>Strictly speaking, “ensure” isn’t quite right: there’s
            not a formal proof that <code class="language-plaintext highlighter-rouge">Send</code>/<code class="language-plaintext highlighter-rouge">Sync</code>/… all do have
            this guarantee, but there is work on
            <a href="https://www.ralfj.de/blog/2015/10/12/formalizing-rust.html">formalisations of Rust</a> that will either
            tackle this directly, or form important groundwork. <a href="#fnref:not-proved" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:update" role="doc-endnote">
+    <li id="fn:update">
       <p>This code is pretty simple, so was barely affected by
        language/library changes: some import paths changed, some
        imports became necessary and others could be dropped, and
        all the <code class="language-plaintext highlighter-rouge">.as_slice()</code> calls disappeared. <a href="#fnref:update" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:simd" role="doc-endnote">
+    <li id="fn:simd">
       <p>The code is actually slower than strictly necessary: if the
      <code class="language-plaintext highlighter-rouge">fold</code> is separated into <code class="language-plaintext highlighter-rouge">.map(|(&amp;a, &amp;b)| a - b).fold(0, |s,
      d| s + d * d)</code>, it is autovectorised by LLVM to use SIMD
@@ -1098,7 +1098,7 @@ extra argument).</p>
      against doing this in the spirit of Rust 1.3 v. Rust 0.11
      comparisons: IIRC the old code didn’t get SIMD-ified. <a href="#fnref:simd" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:order" role="doc-endnote">
+    <li id="fn:order">
       <p>There’s also <a href="http://huonw.github.io/simple_parallel/simple_parallel/pool/struct.Pool.html#method.map">the plain old <code class="language-plaintext highlighter-rouge">map</code> function</a>, which is
       careful to return the elements in the same order as they
       were in the original iterator. This is a bit more expensive. <a href="#fnref:order" class="reversefootnote" role="doc-backlink">&#8617;</a></p>

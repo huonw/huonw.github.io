@@ -1027,11 +1027,11 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <h2 id="bigger-qr-code">Bigger QR code</h2>
 
-<p>The QR code is small in the poster. When printed at the default A4<sup id="fnref:a4" role="doc-noteref"><a href="#fn:a4" class="footnote" rel="footnote">0</a></sup>, it’s only ~5cm (2 inches) on each side, which means about <strong>less than 5%</strong> of the total page area is QR code, but that’s what people need to interact with.</p>
+<p>The QR code is small in the poster. When printed at the default A4<sup id="fnref:a4"><a href="#fn:a4" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>, it’s only ~5cm (2 inches) on each side, which means about <strong>less than 5%</strong> of the total page area is QR code, but that’s what people need to interact with.</p>
 
 <p>Making it larger would make it much easier to scan, and doesn’t change anything about the QR code itself, so will definitely continue to work with the existing app. I imagine that most people in NSW are familiar with how to use the codes now, so the instructions could be de-emphasised.</p>
 
-<p>I did some really quick shuffling and resizing of the page elements, without editing or reflowing text (just deleting the blue box around the code<sup id="fnref:quiet-zone" role="doc-noteref"><a href="#fn:quiet-zone" class="footnote" rel="footnote">1</a></sup>), and it’s definitely possible to have the code be bigger. It could be even larger still with a little more editing elbow-grease applied.</p>
+<p>I did some really quick shuffling and resizing of the page elements, without editing or reflowing text (just deleting the blue box around the code<sup id="fnref:quiet-zone"><a href="#fn:quiet-zone" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>), and it’s definitely possible to have the code be bigger. It could be even larger still with a little more editing elbow-grease applied.</p>
 
 <figure class="image ">
   <div class="image-positioner">
@@ -1574,7 +1574,7 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>Lower bits per character is better: it means we can fit more characters in a given space. Most data in URL QR codes will use the Binary mode, because there will typically be lowercase letters, but we can do better using the Alphanumeric one: a lot of components of a URL can be upper case without causing issues or changing the behaviour. For instance, the domain name is case-insensitive, and a lot of servers treat the path case-insensitively too. Base64 encoding is case-sensitive so we cannot upper-case.</p>
 
-<p>Fortunately, QR codes can encode the data <strong>in multiple segments with different modes</strong><sup id="fnref:optimal" role="doc-noteref"><a href="#fn:optimal" class="footnote" rel="footnote">2</a></sup>, so we can still benefit from this: the first part can be encoded in Alphanumeric, while the second part with the base64 value can be Binary.</p>
+<p>Fortunately, QR codes can encode the data <strong>in multiple segments with different modes</strong><sup id="fnref:optimal"><a href="#fn:optimal" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>, so we can still benefit from this: the first part can be encoded in Alphanumeric, while the second part with the base64 value can be Binary.</p>
 
 <table>
   <thead>
@@ -2010,7 +2010,7 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <h3 id="reducing-offline-support">Reducing offline support</h3>
 
-<p>We’re pretty much at the limit of what is possible when the URL includes the business name to enable offline check-ins<sup id="fnref:compression" role="doc-noteref"><a href="#fn:compression" class="footnote" rel="footnote">3</a></sup>. What if we drop the requirement to encode this? For instance, the app could say “you’re checking into a business” rather than show the name for confirmation, or even have the app stores its own database mapping IDs to business names<sup id="fnref:database" role="doc-noteref"><a href="#fn:database" class="footnote" rel="footnote">4</a></sup>.</p>
+<p>We’re pretty much at the limit of what is possible when the URL includes the business name to enable offline check-ins<sup id="fnref:compression"><a href="#fn:compression" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>. What if we drop the requirement to encode this? For instance, the app could say “you’re checking into a business” rather than show the name for confirmation, or even have the app stores its own database mapping IDs to business names<sup id="fnref:database"><a href="#fn:database" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>.</p>
 
 <p>If we do that, the URL can be 29 characters: <code class="language-plaintext break-all highlighter-rouge">HTTPS://S.NSW.GOV.AU/C/121321</code>. This fits in a version 2 QR code!</p>
 
@@ -2101,7 +2101,7 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>There’s lots of people who will have the skills to pull them apart and generate new ones with different values for the business ID, name or address. The base64 encoding is <strong>not encryption</strong>, because there’s no secret key/password required to encode or decode it. Base64 is a very common way to store and communicate data on the internet, to the point that some people would likely even instantly recognise the three character prefix <code class="language-plaintext highlighter-rouge">eyJ</code> as “this is base64’d JSON”.</p>
 
-<p>One way to make these secure<sup id="fnref:threat-model" role="doc-noteref"><a href="#fn:threat-model" class="footnote" rel="footnote">5</a></sup> would be to <strong>cryptographically sign</strong> the URLs, adding extra information that is computed from the data using a secret key held by Service NSW. When loading the URL for a check-in, the app validates that the signature matches. If someone tries to tamper with the data, they’ll need to update the signature, but without knowing the key, they’ll need a <em>very</em> lucky guess.</p>
+<p>One way to make these secure<sup id="fnref:threat-model"><a href="#fn:threat-model" class="footnote" rel="footnote" role="doc-noteref">5</a></sup> would be to <strong>cryptographically sign</strong> the URLs, adding extra information that is computed from the data using a secret key held by Service NSW. When loading the URL for a check-in, the app validates that the signature matches. If someone tries to tamper with the data, they’ll need to update the signature, but without knowing the key, they’ll need a <em>very</em> lucky guess.</p>
 
 <p>For instance, a 200 bit <a href="https://en.wikipedia.org/wiki/BLS_digital_signature">BLS signature</a> may give sufficient security. To get a sense of the overhead this might impose, we can pretend we’ve generated a signature of this size somehow and add it to the URL (this <strong>isn’t</strong> a real cryptographic protocol, don’t take my word for it). First, encode it as a 61 digit number to benefit from the Numeric QR mode, and, then, add it as an extra query parameter <code class="language-plaintext highlighter-rouge">…?…&amp;S=16069…</code>. This does make the URLs longer, and thus requires higher versions, but our optimisations have made room for this, meaning that the QR codes are still easier to scan while having better security:</p>
 
@@ -2319,22 +2319,22 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:a4" role="doc-endnote">
+    <li id="fn:a4">
       <p>The page is nominally A4, but I’ve seen some instances where the scaling has been mixed up, and the “poster” is printed at A5 or smaller (on an A4 page). This is really hard to scan, especially when placed behind (reflective) glass in an outdoor shop window. <a href="#fnref:a4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:quiet-zone" role="doc-endnote">
+    <li id="fn:quiet-zone">
       <p>Deleting the blue box and particularly the region of white within it sacrifices the “quiet zone”: QR codes are meant to be surrounded by a zone of simple background four modules wide. However, this ends up being a lot of overhead, and <a href="https://qrworld.wordpress.com/2011/08/09/the-quiet-zone/">doesn’t seem to be necessary in practice</a>. <a href="#fnref:quiet-zone" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:optimal" role="doc-endnote">
+    <li id="fn:optimal">
       <p>Choosing the best segmentation is an interesting optimisation problem, because each segment has some overhead via a header, so it’s better to encode something like <code class="language-plaintext highlighter-rouge">A1b</code> as one Binary segment to only pay for the header once, rather than three segments (<code class="language-plaintext highlighter-rouge">A</code> Alphanumeric, <code class="language-plaintext highlighter-rouge">1</code> Numeric, <code class="language-plaintext highlighter-rouge">b</code> Binary) which requires three headers. <a href="https://www.nayuki.io/page/optimal-text-segmentation-for-qr-codes"><em>Optimal text segmentation for QR codes</em></a> explores this and even provides a live demo. <a href="#fnref:optimal" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:compression" role="doc-endnote">
+    <li id="fn:compression">
       <p>There’s probably a lot of redundancy in the business names, like many that include “Pty Ltd”, “Cafe” or even “Australia”. One could potentially see some benefits by compressing them (and then encode the resulting binary output with base64 or similar again), especially using a compression method that can use a custom dictionary, to capture all ‘unusual’ commonalities among these business names. <a href="#fnref:compression" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:database" role="doc-endnote">
+    <li id="fn:database">
       <p>Having the app manage a database brings a whole variety of exciting issues since presumably it’ll need to handle updates, and it may be relatively large. These can be solved, but it’s not nearly as easy as just grabbing the name out of the URL itself. <a href="#fnref:database" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:threat-model" role="doc-endnote">
+    <li id="fn:threat-model">
       <p>When talking about security, one should have an understanding of what the attack is being secured against. In this case, we’re securing against creating a QR code with a changed business ID or name, to deceive people into thinking they’re checking into venue A, when they’re actually checking into venue B. This may not actually be a particular concern. <a href="#fnref:threat-model" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>

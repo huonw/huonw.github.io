@@ -881,7 +881,7 @@ world
   <li><strong>see</strong> it in our CI logs, same as <code class="language-plaintext highlighter-rouge">echo</code>ing it directly</li>
 </ul>
 
-<p>With the <code class="language-plaintext highlighter-rouge">JSON_RESPONSE</code> example, the GitHub Actions UI will show<sup id="fnref:not-json" role="doc-noteref"><a href="#fn:not-json" class="footnote" rel="footnote">0</a></sup>:</p>
+<p>With the <code class="language-plaintext highlighter-rouge">JSON_RESPONSE</code> example, the GitHub Actions UI will show<sup id="fnref:not-json"><a href="#fn:not-json" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>:</p>
 
 <figure class="highlight"><pre><code class="language-text" data-lang="text"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -925,7 +925,7 @@ EOF
   <li>If the output is overwhelmingly verbose. This can be managed in other ways, like <a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#grouping-log-lines">grouping log lines</a> or keeping the steps that set such variables focused on <em>just</em> setting those variables and split other work into separate steps.</li>
   <li>If the output contains secrets and so shouldn’t be shown in logs. In this case, it’s probably best to <a href="https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#masking-a-value-in-a-log">register such values for masking</a> anyway, in case a value is printed accidentally somewhere else.</li>
   <li>If the decisions and outputs are already communicated in other, better ways: <code class="language-plaintext highlighter-rouge">tee -a</code> is just a quick/good-enough approach especially handy for single-location commands. A reusable script or “action” is more likely to have explicit user-friendly logs.</li>
-  <li>If adding <code class="language-plaintext highlighter-rouge">|</code> piping interferes with the shell’s job-control/exit-code-handling in a way that is problematic for the task: piping simple commands like <code class="language-plaintext highlighter-rouge">echo</code> and <code class="language-plaintext highlighter-rouge">cat</code> is almost certainly always fine, more complicated commands might need to avoid it<sup id="fnref:pipes" role="doc-noteref"><a href="#fn:pipes" class="footnote" rel="footnote">1</a></sup>.</li>
+  <li>If adding <code class="language-plaintext highlighter-rouge">|</code> piping interferes with the shell’s job-control/exit-code-handling in a way that is problematic for the task: piping simple commands like <code class="language-plaintext highlighter-rouge">echo</code> and <code class="language-plaintext highlighter-rouge">cat</code> is almost certainly always fine, more complicated commands might need to avoid it<sup id="fnref:pipes"><a href="#fn:pipes" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</li>
 </ul>
 
 <h2 id="teeldr">TeeL;DR</h2>
@@ -959,10 +959,10 @@ EOF
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:not-json" role="doc-endnote">
+    <li id="fn:not-json">
       <p>This <code class="language-plaintext highlighter-rouge">JSON_RESPONSE</code> variable is not JSON with the example as written! The use of <code class="language-plaintext highlighter-rouge">tee -a</code> makes this clear, if that was a cause of a bug. <a href="#fnref:not-json" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:pipes" role="doc-endnote">
+    <li id="fn:pipes">
       <p>I include this case because have an impression that there’s some subtleties around piping commands beyond what <code class="language-plaintext highlighter-rouge">set -o pipefail</code> can handle, but am not sure. This is merely rumour and heresay based on only a vague memory that I haven’t been able to confirm or falsify. <a href="#fnref:pipes" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>

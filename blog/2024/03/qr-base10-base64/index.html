@@ -931,31 +931,31 @@ a.post-heading {
 20
 21
 22
-</pre></td><td class="code"><pre><span class="kn">import</span> <span class="nn">math</span>
+</pre></td><td class="code"><pre><span class="kn">import</span> <span class="n">math</span>
 
-<span class="n">_DIGITS_PER_BYTE</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">_DIGITS_PER_BYTE</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">b10encode</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="n">raw</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s">"little"</span><span class="p">))</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="nb">int</span><span class="p">.</span><span class="nf">from_bytes</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="sh">"</span><span class="s">little</span><span class="sh">"</span><span class="p">))</span>
     <span class="c1"># Handle leading zeros so that, for instance, b"", b"\x00"
 </span>    <span class="c1"># and b"\x00\x00" each have their own unique encoding, not
 </span>    <span class="c1"># just "0".
-</span>    <span class="n">encoded_length</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">_DIGITS_PER_BYTE</span><span class="p">)</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s">"0"</span> <span class="o">*</span> <span class="p">(</span><span class="n">encoded_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw</span><span class="p">))</span>
+</span>    <span class="n">encoded_length</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">_DIGITS_PER_BYTE</span><span class="p">)</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="sh">"</span><span class="s">0</span><span class="sh">"</span> <span class="o">*</span> <span class="p">(</span><span class="n">encoded_length</span> <span class="o">-</span> <span class="nf">len</span><span class="p">(</span><span class="n">raw</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">raw</span>
 
 <span class="k">def</span> <span class="nf">b10decode</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="c1"># Deduce the length of the result from the input, matching
 </span>    <span class="c1"># b64encode's zero-padding (NB. a real implementation
 </span>    <span class="c1"># should validate the length is valid)
-</span>    <span class="n">decoded_length</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="n">floor</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">/</span> <span class="n">_DIGITS_PER_BYTE</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">).</span><span class="n">to_bytes</span><span class="p">(</span>
+</span>    <span class="n">decoded_length</span> <span class="o">=</span> <span class="n">math</span><span class="p">.</span><span class="nf">floor</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">/</span> <span class="n">_DIGITS_PER_BYTE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nf">int</span><span class="p">(</span><span class="n">s</span><span class="p">).</span><span class="nf">to_bytes</span><span class="p">(</span>
         <span class="n">length</span><span class="o">=</span><span class="n">decoded_length</span><span class="p">,</span>
-        <span class="n">byteorder</span><span class="o">=</span><span class="s">"little"</span><span class="p">,</span>
+        <span class="n">byteorder</span><span class="o">=</span><span class="sh">"</span><span class="s">little</span><span class="sh">"</span><span class="p">,</span>
     <span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
-<p>The “input:output ratio” column shows number of output characters required above the number of input characters, on average<sup id="fnref:log" role="doc-noteref"><a href="#fn:log" class="footnote" rel="footnote">0</a></sup>.</p>
+<p>The “input:output ratio” column shows number of output characters required above the number of input characters, on average<sup id="fnref:log"><a href="#fn:log" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>.</p>
 
 <p>For example, for encoding in base10, a long input hits the average almost exactly, while short inputs can vary more:</p>
 
@@ -1020,7 +1020,7 @@ a.post-heading {
     </tr>
     <tr>
       <td>Kanji</td>
-      <td>8189<sup id="fnref:kanji-count" role="doc-noteref"><a href="#fn:kanji-count" class="footnote" rel="footnote">1</a></sup></td>
+      <td>8189<sup id="fnref:kanji-count"><a href="#fn:kanji-count" class="footnote" rel="footnote" role="doc-noteref">1</a></sup></td>
       <td style="text-align: right">13</td>
       <td style="text-align: right">0.0041%</td>
     </tr>
@@ -1035,7 +1035,7 @@ a.post-heading {
 
 <h2 id="decimal-à-la-mode">Decimal, à la mode</h2>
 
-<p>The mode required for storing encoded data depends on the output character set. For the encodings we looked at above<sup id="fnref:other-modes" role="doc-noteref"><a href="#fn:other-modes" class="footnote" rel="footnote">2</a></sup>:</p>
+<p>The mode required for storing encoded data depends on the output character set. For the encodings we looked at above<sup id="fnref:other-modes"><a href="#fn:other-modes" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>:</p>
 
 <table>
   <thead>
@@ -1115,7 +1115,7 @@ a.post-heading {
   </tbody>
 </table>
 
-<p>After publishing this article, people asked about other encodings like base16 (hex), <a href="https://en.wikipedia.org/wiki/Base32">base32</a> and <a href="https://en.wikipedia.org/wiki/Base36">base36</a> (which fit into the Alphanumeric mode), or base 8 (fitting into Numeric mode but being easier to work with than base 10). These are less efficient<sup id="fnref:other-bases" role="doc-noteref"><a href="#fn:other-bases" class="footnote" rel="footnote">3</a></sup> than base10 using Numeric mode, but are potentially more convenient in some cases.</p>
+<p>After publishing this article, people asked about other encodings like base16 (hex), <a href="https://en.wikipedia.org/wiki/Base32">base32</a> and <a href="https://en.wikipedia.org/wiki/Base36">base36</a> (which fit into the Alphanumeric mode), or base 8 (fitting into Numeric mode but being easier to work with than base 10). These are less efficient<sup id="fnref:other-bases"><a href="#fn:other-bases" class="footnote" rel="footnote" role="doc-noteref">3</a></sup> than base10 using Numeric mode, but are potentially more convenient in some cases.</p>
 
 <p>In a URL, the rest of the URL is not purely numeric, so actually seeing the benefits of this encoding requires using two segments:</p>
 
@@ -1124,18 +1124,18 @@ a.post-heading {
   <li>one with the big blob of base10 data, using the Numeric mode</li>
 </ul>
 
-<p>Using <a href="https://github.com/heuer/segno/">Segno 1.6.1</a>, this is possible to guarantee<sup id="fnref:optimisation" role="doc-noteref"><a href="#fn:optimisation" class="footnote" rel="footnote">4</a></sup> like:</p>
+<p>Using <a href="https://github.com/heuer/segno/">Segno 1.6.1</a>, this is possible to guarantee<sup id="fnref:optimisation"><a href="#fn:optimisation" class="footnote" rel="footnote" role="doc-noteref">4</a></sup> like:</p>
 
 <figure class="highlight"><pre><code class="language-python" data-lang="python"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td><td class="code"><pre><span class="n">url_prefix</span> <span class="o">=</span> <span class="s">"https://www.service.nsw.gov.au/campaign/service-nsw-mobile-app?data="</span>
-<span class="n">encoded_data</span> <span class="o">=</span> <span class="n">b10encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></td><td class="code"><pre><span class="n">url_prefix</span> <span class="o">=</span> <span class="sh">"</span><span class="s">https://www.service.nsw.gov.au/campaign/service-nsw-mobile-app?data=</span><span class="sh">"</span>
+<span class="n">encoded_data</span> <span class="o">=</span> <span class="nf">b10encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 <span class="c1"># Two segments, so that they're encoded with separate modes
-</span><span class="n">qr</span> <span class="o">=</span> <span class="n">segno</span><span class="p">.</span><span class="n">make</span><span class="p">([</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">encoded_data</span><span class="p">])</span>
+</span><span class="n">qr</span> <span class="o">=</span> <span class="n">segno</span><span class="p">.</span><span class="nf">make</span><span class="p">([</span><span class="n">url_prefix</span><span class="p">,</span> <span class="n">encoded_data</span><span class="p">])</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The NSW COVID check-in QR codes used error correction level <code class="language-plaintext highlighter-rouge">H</code>. Using this, and just swapping the encoding of the <code class="language-plaintext highlighter-rouge">data</code> parameter, we see the result from the start of the post:</p>
@@ -1366,16 +1366,16 @@ a.post-heading {
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:log" role="doc-endnote">
+    <li id="fn:log">
       <p>The average number of output characters required for each input is <code class="language-plaintext highlighter-rouge">log(size of input alphabet) / log(size of output alphabet)</code>. For instance, for encoding bytes to decimal, <code class="language-plaintext highlighter-rouge">log(256) / log(10) = log10(256) = 2.4082…</code>. <a href="#fnref:log" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:kanji-count" role="doc-endnote">
+    <li id="fn:kanji-count">
       <p>The 8189 count was computed by this Python one-liner: <code class="language-plaintext break-all highlighter-rouge">len({(diff &gt;&gt; 8) * 0xc0 + (diff &amp; 0xff) for diff in [*(code - 0x8140 for code in range(0x8140, 0x9ffc+1)), *(code - 0xc140 for code in range(0xe040, 0xebbf+1))]})</code>. It naively computes the number of unique outputs of Segno’s <a href="https://github.com/heuer/segno/blob/cc574eb5477c248178699e4a2c675617e71b9b43/segno/encoder.py#L1089-L1105">Kanji encoder</a>, assuming that all inputs from <code class="language-plaintext highlighter-rouge">0x8140</code> to <code class="language-plaintext highlighter-rouge">09FFC</code> and <code class="language-plaintext highlighter-rouge">0xE040</code> to <code class="language-plaintext highlighter-rouge">0xEBBF</code> are valid. <a href="#fnref:kanji-count" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:other-modes" role="doc-endnote">
+    <li id="fn:other-modes">
       <p>This only uses two of the modes: what about Alphanumeric and Kanji? According to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent"><code class="language-plaintext highlighter-rouge">encodeURIComponent</code></a> the largest subset of Alphanumeric that’s URL safe is only 39 characters (0–9, A–Z, *-.), and losing 5 characters introduces an additional 3.9% overhead, similar to how going from 256 characters to 64 for base64 has 33% overhead. It seems like Kanji are similarly not URL safe, and thus violate that requirement too. <a href="#fnref:other-modes" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:other-bases" role="doc-endnote">
+    <li id="fn:other-bases">
       <p>This table shows the values for all those options, including the results on the example JSON data, sorted by overhead / storage size:</p>
 
       <table>
@@ -1459,9 +1459,9 @@ a.post-heading {
 
       <p>There’s two variants of base 8: encoding each byte as its own 3 digit base-8 number (<em>bytes</em>), or ignoring byte boundaries and encoding 3 bits at a time (<em>bits</em>) which is similar to how base 10 and base 36 work. This was <a href="https://news.ycombinator.com/item?id=39905843">suggested by a reader</a>.</p>
 
-      <p>Base 39 is maximal URL-safe subset of the Alphanumeric character set<sup id="fnref:other-modes:1" role="doc-noteref"><a href="#fn:other-modes" class="footnote" rel="footnote">2</a></sup>. <a href="#fnref:other-bases" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Base 39 is maximal URL-safe subset of the Alphanumeric character set<sup id="fnref:other-modes:1"><a href="#fn:other-modes" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>. <a href="#fnref:other-bases" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:optimisation" role="doc-endnote">
+    <li id="fn:optimisation">
       <p>In the QR code standard (ISO/IEC 18004:2015(E)), Annex J “Optimisation of bit stream length” suggests a method to automatically split up an input stream to optimise the modes, so a sufficiently smart library could just take a single string and arrange the segments itself. <a href="#fnref:optimisation" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>

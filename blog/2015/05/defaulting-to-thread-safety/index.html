@@ -808,8 +808,8 @@ despite closures being very magic… how?</p>
 4
 </pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">fn</span> <span class="n">spawn</span><span class="o">&lt;</span><span class="n">F</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">JoinHandle</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
     <span class="k">where</span>
-        <span class="n">F</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="nv">'static</span> <span class="o">+</span> <span class="nf">FnOnce</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">T</span><span class="p">,</span>
-        <span class="n">T</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="nv">'static</span>
+        <span class="n">F</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="k">'static</span> <span class="o">+</span> <span class="nf">FnOnce</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="n">T</span><span class="p">,</span>
+        <span class="n">T</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="k">'static</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <div class="join"></div>
@@ -849,7 +849,7 @@ from the child thread back to the parent (<code class="language-plaintext highli
 also independent of any stack frames (<code class="language-plaintext highlighter-rouge">'static</code>).</p>
 
 <p>This all sounds fine and dandy. But there’s one hitch: the <code class="language-plaintext highlighter-rouge">Send</code>
-trait is defined entirely<sup id="fnref:almost" role="doc-noteref"><a href="#fn:almost" class="footnote" rel="footnote">0</a></sup> in the standard library. The
+trait is defined entirely<sup id="fnref:almost"><a href="#fn:almost" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> in the standard library. The
 compiler doesn’t know anything about it. But, somehow, even the purely
 compiler-internal types constructed for closures can implement it.</p>
 
@@ -892,14 +892,14 @@ but <code class="language-plaintext highlighter-rouge">i16</code> doesn’t,</p>
 13
 14
 15
-</pre></td><td class="code"><pre><span class="c">// implement `Trait`</span>
+</pre></td><td class="code"><pre><span class="c1">// implement `Trait`</span>
 <span class="k">enum</span> <span class="n">Good</span> <span class="p">{</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span> <span class="p">}</span>
 <span class="k">struct</span> <span class="n">Excellent</span><span class="p">;</span>
 <span class="k">struct</span> <span class="n">Wonderful</span> <span class="p">{</span> <span class="n">x</span><span class="p">:</span> <span class="nb">u8</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">String</span> <span class="p">}</span>
 <span class="k">type</span> <span class="n">Splendid</span> <span class="o">=</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">u8</span><span class="o">&gt;</span><span class="p">;</span>
 <span class="k">type</span> <span class="n">Brilliant</span> <span class="o">=</span> <span class="p">(</span><span class="nb">u8</span><span class="p">,</span> <span class="nb">String</span><span class="p">);</span>
 
-<span class="c">// don't implement `Trait`</span>
+<span class="c1">// don't implement `Trait`</span>
 <span class="k">enum</span> <span class="n">Bad</span> <span class="p">{</span>
     <span class="nf">X</span><span class="p">(</span><span class="nb">i16</span><span class="p">),</span>
     <span class="nf">Y</span><span class="p">(</span><span class="nb">u8</span><span class="p">)</span>
@@ -937,20 +937,20 @@ with <code class="language-plaintext highlighter-rouge">Send</code>. To demonstr
 18
 </pre></td><td class="code"><pre><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">rc</span><span class="p">::</span><span class="nb">Rc</span><span class="p">;</span>
 
-<span class="c">// can only be used with `Send` types.</span>
-<span class="k">fn</span> <span class="n">check_send</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="nb">Send</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
+<span class="c1">// can only be used with `Send` types.</span>
+<span class="k">fn</span> <span class="n">check_send</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="nb">Send</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
 
 <span class="k">let</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i32</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="k">let</span> <span class="n">vec</span><span class="p">:</span> <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">Option</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="nd">vec!</span><span class="p">[</span><span class="nb">None</span><span class="p">,</span> <span class="nb">None</span><span class="p">,</span> <span class="nb">None</span><span class="p">];</span>
 
 <span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="k">move</span> <span class="p">||</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="mi">_</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vec</span><span class="p">);</span> <span class="c">// make sure they're captured</span>
+    <span class="k">let</span> <span class="n">_</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vec</span><span class="p">);</span> <span class="c1">// make sure they're captured</span>
 <span class="p">};</span>
 <span class="nf">check_send</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
 
 <span class="k">let</span> <span class="n">pointer</span><span class="p">:</span> <span class="nb">Rc</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">Rc</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 <span class="k">let</span> <span class="n">g</span> <span class="o">=</span> <span class="k">move</span> <span class="p">||</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="mi">_</span> <span class="o">=</span> <span class="n">pointer</span><span class="p">;</span> <span class="c">// make sure it is captured</span>
+    <span class="k">let</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pointer</span><span class="p">;</span> <span class="c1">// make sure it is captured</span>
 <span class="p">};</span>
 <span class="nf">check_send</span><span class="p">(</span><span class="n">g</span><span class="p">);</span>
 </pre></td></tr></tbody></table></code></pre></figure>
@@ -1015,7 +1015,7 @@ building safe abstractions, you need to be careful to have the right
 trait implementations.</p>
 
 <p>However, it’s not as scary as it sounds. Safety is still the
-(sometimes conservative) default in the <em>vast</em> majority<sup id="fnref:vast" role="doc-noteref"><a href="#fn:vast" class="footnote" rel="footnote">1</a></sup> of
+(sometimes conservative) default in the <em>vast</em> majority<sup id="fnref:vast"><a href="#fn:vast" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> of
 low-level cases. The standard library has negative implementations of
 <code class="language-plaintext highlighter-rouge">Send</code> for the raw pointer types <code class="language-plaintext highlighter-rouge">*const T</code> and <code class="language-plaintext highlighter-rouge">*mut T</code>, so data
 structures containing them need to explicitly opt <em>in</em> if they are in
@@ -1162,10 +1162,10 @@ closures too. A closure that only captures thread-shareable values
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="n">thread</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="n">upto</span><span class="o">&lt;</span><span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">usize</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span>
-    <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="nv">'static</span> <span class="o">+</span> <span class="nf">Fn</span><span class="p">(</span><span class="nb">usize</span><span class="p">)</span> <span class="o">+</span> <span class="n">Sync</span>
+    <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nb">Send</span> <span class="o">+</span> <span class="k">'static</span> <span class="o">+</span> <span class="nf">Fn</span><span class="p">(</span><span class="nb">usize</span><span class="p">)</span> <span class="o">+</span> <span class="nb">Sync</span>
 <span class="p">{</span>
     <span class="k">let</span> <span class="n">func</span> <span class="o">=</span> <span class="nn">Arc</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="n">func</span><span class="p">);</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="mi">0</span><span class="o">..</span><span class="n">n</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="n">n</span> <span class="p">{</span>
         <span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="n">func</span><span class="nf">.clone</span><span class="p">();</span>
         <span class="nn">thread</span><span class="p">::</span><span class="nf">spawn</span><span class="p">(</span><span class="k">move</span> <span class="p">||</span> <span class="nf">f</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
     <span class="p">}</span>
@@ -1175,7 +1175,7 @@ closures too. A closure that only captures thread-shareable values
     <span class="k">let</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"hello"</span><span class="p">;</span>
     <span class="nf">upto</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">|</span><span class="n">i</span><span class="p">|</span> <span class="nd">println!</span><span class="p">(</span><span class="s">"thread #{}: {}"</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">message</span><span class="p">));</span>
 
-    <span class="c">// as above, don't let `main` finish</span>
+    <span class="c1">// as above, don't let `main` finish</span>
     <span class="nn">thread</span><span class="p">::</span><span class="nf">sleep_ms</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
@@ -1255,12 +1255,12 @@ traits more closely.)</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:almost" role="doc-endnote">
+    <li id="fn:almost">
       <p>They’re currently still “lang-items” (i.e. known to the
        compiler), but Niko Matsakis tells me “it’s because compiler
        needs refactoring”, i.e. an implementation detail. <a href="#fnref:almost" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:vast" role="doc-endnote">
+    <li id="fn:vast">
       <p>There’s only 3 negative implementations (approximated by
      matches for <code class="language-plaintext highlighter-rouge">/\bimpl.*!/</code>) in my <code class="language-plaintext highlighter-rouge">projects</code> folder, which
      contains 100-200 Rust libraries over 1.3 million lines,

@@ -798,14 +798,14 @@ function call through the vtable stored in a trait object.</p>
     <span class="k">fn</span> <span class="nf">method_b</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c">// automatically inserted by the compiler</span>
+<span class="c1">// automatically inserted by the compiler</span>
 <span class="k">impl</span><span class="o">&lt;</span><span class="nv">'a</span><span class="o">&gt;</span> <span class="n">Foo</span> <span class="k">for</span> <span class="n">Foo</span><span class="o">+</span><span class="nv">'a</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">method_a</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">u8</span> <span class="p">{</span>
-         <span class="c">// dynamic dispatch to `method_a` of erased type</span>
+         <span class="c1">// dynamic dispatch to `method_a` of erased type</span>
          <span class="k">self</span><span class="nf">.method_a</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="k">fn</span> <span class="nf">method_b</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">f32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span> <span class="p">{</span>
-         <span class="c">// as above</span>
+         <span class="c1">// as above</span>
          <span class="k">self</span><span class="nf">.method_b</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -845,7 +845,7 @@ generic methods:</p>
 <span class="p">}</span>
 
 <span class="k">impl</span> <span class="n">Bar</span> <span class="k">for</span> <span class="nb">u8</span> <span class="p">{</span>
-    <span class="k">fn</span> <span class="n">bad</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="mi">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
+    <span class="k">fn</span> <span class="n">bad</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="p">{}</span>
 <span class="p">}</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -877,7 +877,7 @@ the IO traits <code class="language-plaintext highlighter-rouge">Read</code> and
 and <code class="language-plaintext highlighter-rouge">Writer</code> at that point).</p>
 
 <p>Focusing on the former, before object safety it was defined
-something<sup id="fnref:associated-type" role="doc-noteref"><a href="#fn:associated-type" class="footnote" rel="footnote">0</a></sup> like:</p>
+something<sup id="fnref:associated-type"><a href="#fn:associated-type" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> like:</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -897,23 +897,23 @@ something<sup id="fnref:associated-type" role="doc-noteref"><a href="#fn:associa
 16
 17
 18
-</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="nb">Iterator</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span><span class="p">;</span>
 
-    <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
     <span class="k">fn</span> <span class="nf">size_hint</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="p">(</span><span class="nb">usize</span><span class="p">,</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">usize</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="c">// ... methods methods methods ...</span>
+    <span class="c1">// ... methods methods methods ...</span>
 
-    <span class="k">fn</span> <span class="n">zip</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">U</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Zip</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span> <span class="nn">U</span><span class="p">::</span><span class="n">IntoIter</span><span class="o">&gt;</span>
-        <span class="k">where</span> <span class="n">U</span><span class="p">:</span> <span class="n">IntoIterator</span>
+    <span class="k">fn</span> <span class="n">zip</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">U</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Zip</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="nn">U</span><span class="p">::</span><span class="n">IntoIter</span><span class="o">&gt;</span>
+        <span class="k">where</span> <span class="n">U</span><span class="p">:</span> <span class="nb">IntoIterator</span>
     <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="k">fn</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">B</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span>
-        <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nf">FnMut</span><span class="p">(</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">B</span>
+    <span class="k">fn</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">B</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Map</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span>
+        <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nf">FnMut</span><span class="p">(</span><span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">B</span>
     <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="c">// etc</span>
+    <span class="c1">// etc</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -950,29 +950,29 @@ outside”.</p>
 21
 22
 23
-</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="nb">Iterator</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span><span class="p">;</span>
 
-    <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
 
     <span class="k">fn</span> <span class="nf">size_hint</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="p">(</span><span class="nb">usize</span><span class="p">,</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">usize</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">trait</span> <span class="n">IteratorExt</span><span class="p">:</span> <span class="n">Sized</span> <span class="o">+</span> <span class="n">Iterator</span> <span class="p">{</span>
-    <span class="c">// ... methods methods methods ...</span>
+<span class="k">trait</span> <span class="n">IteratorExt</span><span class="p">:</span> <span class="nb">Sized</span> <span class="o">+</span> <span class="nb">Iterator</span> <span class="p">{</span>
+    <span class="c1">// ... methods methods methods ...</span>
 
-    <span class="k">fn</span> <span class="n">zip</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">U</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Zip</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span> <span class="nn">U</span><span class="p">::</span><span class="n">IntoIter</span><span class="o">&gt;</span>
-        <span class="k">where</span> <span class="n">U</span><span class="p">:</span> <span class="n">IntoIterator</span>
+    <span class="k">fn</span> <span class="n">zip</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">U</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Zip</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="nn">U</span><span class="p">::</span><span class="n">IntoIter</span><span class="o">&gt;</span>
+        <span class="k">where</span> <span class="n">U</span><span class="p">:</span> <span class="nb">IntoIterator</span>
     <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="k">fn</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">B</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span>
-        <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nf">FnMut</span><span class="p">(</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">B</span>
+    <span class="k">fn</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">B</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Map</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span>
+        <span class="k">where</span> <span class="n">F</span><span class="p">:</span> <span class="nf">FnMut</span><span class="p">(</span><span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">B</span>
     <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="c">// etc</span>
+    <span class="c1">// etc</span>
 <span class="p">}</span>
-<span class="c">// blanket impl, for all iterators</span>
-<span class="k">impl</span><span class="o">&lt;</span><span class="n">I</span><span class="p">:</span> <span class="n">Iterator</span><span class="o">&gt;</span> <span class="n">IteratorExt</span> <span class="k">for</span> <span class="n">I</span> <span class="p">{}</span>
+<span class="c1">// blanket impl, for all iterators</span>
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">I</span><span class="p">:</span> <span class="nb">Iterator</span><span class="o">&gt;</span> <span class="n">IteratorExt</span> <span class="k">for</span> <span class="n">I</span> <span class="p">{}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>The <code class="language-plaintext highlighter-rouge">next</code> and <code class="language-plaintext highlighter-rouge">size_hint</code> methods are object safe, so this version of
@@ -997,8 +997,8 @@ implementation of <code class="language-plaintext highlighter-rouge">IteratorExt
 10
 11
 12
-</pre></td><td class="code"><pre><span class="c">// make Box&lt;...&gt; an Iterator by deferring to the contents</span>
-<span class="k">impl</span><span class="o">&lt;</span><span class="n">I</span><span class="p">:</span> <span class="n">Iterator</span> <span class="o">+</span> <span class="o">?</span><span class="n">Sized</span><span class="o">&gt;</span> <span class="n">Iterator</span> <span class="k">for</span> <span class="nb">Box</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="c1">// make Box&lt;...&gt; an Iterator by deferring to the contents</span>
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">I</span><span class="p">:</span> <span class="nb">Iterator</span> <span class="o">+</span> <span class="o">?</span><span class="nb">Sized</span><span class="o">&gt;</span> <span class="nb">Iterator</span> <span class="k">for</span> <span class="nb">Box</span><span class="o">&lt;</span><span class="n">I</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span> <span class="o">=</span> <span class="nn">I</span><span class="p">::</span><span class="n">Item</span><span class="p">;</span>
 
     <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">I</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span> <span class="p">{</span>
@@ -1050,7 +1050,7 @@ convert <em>to</em> types with a <code class="language-plaintext highlighter-rou
 4
 5
 </pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">convert_to_string</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">String</span>
-    <span class="k">where</span> <span class="nb">String</span><span class="p">:</span> <span class="n">From</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
+    <span class="k">where</span> <span class="nb">String</span><span class="p">:</span> <span class="nb">From</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span>
 <span class="p">{</span>
     <span class="nn">String</span><span class="p">::</span><span class="nf">from</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="p">}</span>
@@ -1078,15 +1078,15 @@ for example, <code class="language-plaintext highlighter-rouge">OrdIterator</cod
 8
 9
 10
-</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">OrdIterator</span><span class="p">:</span> <span class="n">Iterator</span> <span class="p">{</span>
-     <span class="k">fn</span> <span class="nf">max</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
-     <span class="c">// ...</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">OrdIterator</span><span class="p">:</span> <span class="nb">Iterator</span> <span class="p">{</span>
+     <span class="k">fn</span> <span class="nf">max</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
+     <span class="c1">// ...</span>
 <span class="p">}</span>
 
-<span class="k">impl</span><span class="o">&lt;</span><span class="n">A</span><span class="p">:</span> <span class="nb">Ord</span><span class="p">,</span> <span class="n">I</span><span class="p">:</span> <span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Item</span> <span class="o">=</span> <span class="n">A</span><span class="o">&gt;&gt;</span> <span class="n">OrdIterator</span> <span class="k">for</span> <span class="n">I</span> <span class="p">{</span>
+<span class="k">impl</span><span class="o">&lt;</span><span class="n">A</span><span class="p">:</span> <span class="nb">Ord</span><span class="p">,</span> <span class="n">I</span><span class="p">:</span> <span class="nb">Iterator</span><span class="o">&lt;</span><span class="n">Item</span> <span class="o">=</span> <span class="n">A</span><span class="o">&gt;&gt;</span> <span class="n">OrdIterator</span> <span class="k">for</span> <span class="n">I</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">max</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="c">// ...</span>
+    <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1106,16 +1106,16 @@ with <code class="language-plaintext highlighter-rouge">where</code> clauses, e.
 9
 10
 11
-</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="nb">Iterator</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span><span class="p">;</span>
 
-    <span class="c">// ...</span>
+    <span class="c1">// ...</span>
 
-    <span class="k">fn</span> <span class="nf">max</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span>
-        <span class="k">where</span> <span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="p">:</span> <span class="nb">Ord</span>
+    <span class="k">fn</span> <span class="nf">max</span><span class="p">(</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span>
+        <span class="k">where</span> <span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="p">:</span> <span class="nb">Ord</span>
     <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="c">// ...</span>
+    <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1137,8 +1137,8 @@ gaining a <code class="language-plaintext highlighter-rouge">max</code> method t
 </pre></td><td class="code"><pre><span class="k">struct</span> <span class="n">NotOrd</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">10</span><span class="p">)</span><span class="nf">.max</span><span class="p">();</span> <span class="c">// ok</span>
-    <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">10</span><span class="p">)</span><span class="nf">.map</span><span class="p">(|</span><span class="mi">_</span><span class="p">|</span> <span class="n">NotOrd</span><span class="p">)</span><span class="nf">.max</span><span class="p">();</span>
+    <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">10</span><span class="p">)</span><span class="nf">.max</span><span class="p">();</span> <span class="c1">// ok</span>
+    <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">10</span><span class="p">)</span><span class="nf">.map</span><span class="p">(|</span><span class="n">_</span><span class="p">|</span> <span class="n">NotOrd</span><span class="p">)</span><span class="nf">.max</span><span class="p">();</span>
 <span class="p">}</span>
 <span class="cm">/*
 ...:5:29: 5:34 error: the trait `core::cmp::Ord` is not implemented for the type `NotOrd` [E0277]
@@ -1182,12 +1182,12 @@ safety.</p>
 14
 </pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Bar</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="n">bad</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span>
-        <span class="k">where</span> <span class="n">Self</span><span class="p">:</span> <span class="n">Sized</span><span class="p">;</span>
+        <span class="k">where</span> <span class="k">Self</span><span class="p">:</span> <span class="nb">Sized</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">impl</span> <span class="n">Bar</span> <span class="k">for</span> <span class="nb">u8</span> <span class="p">{</span>
-    <span class="k">fn</span> <span class="n">bad</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="mi">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span>
-        <span class="k">where</span> <span class="n">Self</span><span class="p">:</span> <span class="n">Sized</span>
+    <span class="k">fn</span> <span class="n">bad</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span>
+        <span class="k">where</span> <span class="k">Self</span><span class="p">:</span> <span class="nb">Sized</span>
     <span class="p">{}</span>
 <span class="p">}</span>
 
@@ -1238,24 +1238,24 @@ one can instead just guard the bad ones. <code class="language-plaintext highlig
 17
 18
 19
-</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Iterator</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="nb">Iterator</span> <span class="p">{</span>
     <span class="k">type</span> <span class="n">Item</span><span class="p">;</span>
 
-    <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
+    <span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span>
 
     <span class="k">fn</span> <span class="nf">size_hint</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="p">(</span><span class="nb">usize</span><span class="p">,</span> <span class="nb">Option</span><span class="o">&lt;</span><span class="nb">usize</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="c">// ... methods methods methods ...</span>
+    <span class="c1">// ... methods methods methods ...</span>
 
-    <span class="k">fn</span> <span class="n">zip</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">U</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Zip</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span> <span class="nn">U</span><span class="p">::</span><span class="n">IntoIter</span><span class="o">&gt;</span>
-        <span class="k">where</span> <span class="n">Self</span><span class="p">:</span> <span class="n">Sized</span><span class="p">,</span> <span class="n">U</span><span class="p">:</span> <span class="n">IntoIterator</span>
+    <span class="k">fn</span> <span class="n">zip</span><span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">U</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Zip</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="nn">U</span><span class="p">::</span><span class="n">IntoIter</span><span class="o">&gt;</span>
+        <span class="k">where</span> <span class="k">Self</span><span class="p">:</span> <span class="nb">Sized</span><span class="p">,</span> <span class="n">U</span><span class="p">:</span> <span class="nb">IntoIterator</span>
     <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="k">fn</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">B</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span>
-        <span class="k">where</span> <span class="n">Self</span><span class="p">:</span> <span class="n">Sized</span><span class="p">,</span> <span class="n">F</span><span class="p">:</span> <span class="nf">FnMut</span><span class="p">(</span><span class="nn">Self</span><span class="p">::</span><span class="n">Item</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">B</span>
+    <span class="k">fn</span> <span class="n">map</span><span class="o">&lt;</span><span class="n">B</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">,</span> <span class="n">f</span><span class="p">:</span> <span class="n">F</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Map</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">,</span> <span class="n">F</span><span class="o">&gt;</span>
+        <span class="k">where</span> <span class="k">Self</span><span class="p">:</span> <span class="nb">Sized</span><span class="p">,</span> <span class="n">F</span><span class="p">:</span> <span class="nf">FnMut</span><span class="p">(</span><span class="k">Self</span><span class="p">::</span><span class="n">Item</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">B</span>
     <span class="p">{</span> <span class="cm">/* ... */</span> <span class="p">}</span>
 
-    <span class="c">// etc</span>
+    <span class="c1">// etc</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1307,7 +1307,7 @@ for <code class="language-plaintext highlighter-rouge">Box&lt;I&gt;</code> where
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:associated-type" role="doc-endnote">
+    <li id="fn:associated-type">
       <p>I’m using an associated type for <code class="language-plaintext highlighter-rouge">Item</code> here, but
                 I believe it was probably still a generic
                 parameter <code class="language-plaintext highlighter-rouge">trait Iterator&lt;Item&gt; { ...</code> at this

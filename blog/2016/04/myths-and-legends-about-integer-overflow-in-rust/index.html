@@ -786,7 +786,7 @@ is <strong>checked for overflow</strong>, panicking if it occurs, and,</li>
 as two’s complement</strong>.</li>
 </ul>
 
-<p>These<sup id="fnref:unconditional" role="doc-noteref"><a href="#fn:unconditional" class="footnote" rel="footnote">0</a></sup> overflow checks can be manually disabled or
+<p>These<sup id="fnref:unconditional"><a href="#fn:unconditional" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> overflow checks can be manually disabled or
 enabled independently of the compilation mode both globally and at a
 per-operation level.</p>
 
@@ -813,12 +813,12 @@ use:</p>
 4
 5
 6
-</pre></td><td class="code"><pre><span class="c">// pseudo-Rust</span>
+</pre></td><td class="code"><pre><span class="c1">// pseudo-Rust</span>
 <span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
 
 <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
 <span class="k">let</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
-<span class="nd">assert_eq!</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span> <span class="c">// this could fail</span>
+<span class="nd">assert_eq!</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">);</span> <span class="c1">// this could fail</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This has disastrous consequences for things that rely on checking a
@@ -835,7 +835,7 @@ value for safety, like indexing an array with bounds checks <code class="languag
 9
 </pre></td><td class="code"><pre><span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
 
-<span class="c">// let y = foo[x]; is equivalent to</span>
+<span class="c1">// let y = foo[x]; is equivalent to</span>
 
 <span class="k">let</span> <span class="n">y</span> <span class="o">=</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">foo</span><span class="nf">.len</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">unsafe</span> <span class="p">{</span> <span class="o">*</span><span class="n">foo</span><span class="nf">.get_unchecked</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">}</span>
@@ -1021,7 +1021,7 @@ code and more instructions:</p>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
-<p>With <code class="language-plaintext highlighter-rouge">-O -Z force-overflow-checks</code>, on x86<sup id="fnref:arm" role="doc-noteref"><a href="#fn:arm" class="footnote" rel="footnote">1</a></sup>, this compiles to (with some
+<p>With <code class="language-plaintext highlighter-rouge">-O -Z force-overflow-checks</code>, on x86<sup id="fnref:arm"><a href="#fn:arm" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>, this compiles to (with some
 editing for clarity):</p>
 
 <figure class="highlight"><pre><code class="language-asm" data-lang="asm"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
@@ -1054,9 +1054,9 @@ checked:
 	callq	_ZN9panicking5panic20h4265c0105caa1121SaME@PLT
 </pre></td></tr></tbody></table></code></pre></figure>
 
-<p>It is definitely annoying that there are all<sup id="fnref:extra" role="doc-noteref"><a href="#fn:extra" class="footnote" rel="footnote">2</a></sup> those extra
+<p>It is definitely annoying that there are all<sup id="fnref:extra"><a href="#fn:extra" class="footnote" rel="footnote" role="doc-noteref">2</a></sup> those extra
 instructions, as is the fact that implementations are forced to use
-<code class="language-plaintext highlighter-rouge">add</code> rather than having the option to use <code class="language-plaintext highlighter-rouge">lea</code><sup id="fnref:lea" role="doc-noteref"><a href="#fn:lea" class="footnote" rel="footnote">3</a></sup>. However, an
+<code class="language-plaintext highlighter-rouge">add</code> rather than having the option to use <code class="language-plaintext highlighter-rouge">lea</code><sup id="fnref:lea"><a href="#fn:lea" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>. However, an
 even bigger performance hit is how overflow checks inhibit other
 optimisations, both because the checks themselves serialise code
 (inhibiting things like loop unrolling/reordering and vectorisation)
@@ -1155,7 +1155,7 @@ to both make signed overflow defined as two’s complement wrapping
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:unconditional" role="doc-endnote">
+    <li id="fn:unconditional">
       <p>There are some unconditional and uncontrollable
 overflow checks for arithmetic: <code class="language-plaintext highlighter-rouge">x / 0</code>, and <a href="http://blog.regehr.org/archives/887"><code class="language-plaintext highlighter-rouge">MIN / -1</code></a> (for
 signed integer types), and similarly for <code class="language-plaintext highlighter-rouge">%</code>. These computations
@@ -1164,12 +1164,12 @@ historical reason for why rustc has them unconditional), although,
 it seems to me that Rust could theoretically consider the
 latter a normal overflow and return <code class="language-plaintext highlighter-rouge">MIN</code> when the checks are off. <a href="#fnref:unconditional" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:arm" role="doc-endnote">
+    <li id="fn:arm">
       <p>On 32-bit ARM, LLVM <a href="https://llvm.org/bugs/show_bug.cgi?id=27571">currently decides</a> to emit a
 chain of redundant comparisons and register manipulations, so the
 penalty is even higher! <a href="#fnref:arm" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:extra" role="doc-endnote">
+    <li id="fn:extra">
       <p>There’s more instructions in the function version than there
       would be when <code class="language-plaintext highlighter-rouge">checked</code> is inlined (as it should be): the
       <code class="language-plaintext highlighter-rouge">pushq</code>/<code class="language-plaintext highlighter-rouge">pop</code>/<code class="language-plaintext highlighter-rouge">movl</code> register management wouldn’t be
@@ -1181,7 +1181,7 @@ penalty is even higher! <a href="#fnref:arm" class="reversefootnote" role="doc-
       contains <a href="https://llvm.org/bugs/show_bug.cgi?id=25614">a bug in its “shrink-wrapping” pass</a>
       (thanks for <a href="https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612/2?u=huon">the correction</a>, Eli Friedman). <a href="#fnref:extra" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:lea" role="doc-endnote">
+    <li id="fn:lea">
       <p>On x86, it can be extremely useful to be able to use <code class="language-plaintext highlighter-rouge">lea</code>
 (load effective address) for arithmetic: it can do relatively
 complicated computations, and is usually computed in a different

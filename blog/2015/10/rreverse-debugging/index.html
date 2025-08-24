@@ -851,7 +851,7 @@ executes.</p>
 machine (memory and registers) between each step, but this would be
 super-slow, and it won’t be nearly as nice to use as rr. The worst
 overhead I’ve noticed is the rr’d program taking <s>14× longer</s>, but it’s
-a pretty dumb program, and I only came up with it for this blog post<sup id="fnref:worst-case" role="doc-noteref"><a href="#fn:worst-case" class="footnote" rel="footnote">0</a></sup>:</p>
+a pretty dumb program, and I only came up with it for this blog post<sup id="fnref:worst-case"><a href="#fn:worst-case" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>:</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -863,12 +863,12 @@ a pretty dumb program, and I only came up with it for this blog post<sup id="fnr
 8
 9
 10
-</pre></td><td class="code"><pre><span class="c">// hammer.rs</span>
+</pre></td><td class="code"><pre><span class="c1">// hammer.rs</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fs</span><span class="p">::</span><span class="n">File</span><span class="p">;</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">io</span><span class="p">::</span><span class="nn">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="mi">_</span> <span class="n">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">100000</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">100000</span> <span class="p">{</span>
         <span class="k">let</span> <span class="k">mut</span> <span class="n">buffer</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">;</span> <span class="mi">1000</span><span class="p">];</span>
         <span class="nn">File</span><span class="p">::</span><span class="nf">open</span><span class="p">(</span><span class="s">"foo.txt"</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">()</span><span class="nf">.read</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="n">buffer</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">();</span>
     <span class="p">}</span>
@@ -904,7 +904,7 @@ sure about a lot of things. Reading random data is fine:</p>
 8
 9
 10
-</pre></td><td class="code"><pre><span class="c">// urandom.rs</span>
+</pre></td><td class="code"><pre><span class="c1">// urandom.rs</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">fs</span><span class="p">::</span><span class="n">File</span><span class="p">;</span>
 <span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">io</span><span class="p">::</span><span class="nn">prelude</span><span class="p">::</span><span class="o">*</span><span class="p">;</span>
 
@@ -957,7 +957,7 @@ the same in reverse.</p>
 
 <ul>
   <li>find out some code has a bug (oh no!),</li>
-  <li>record executions with <code class="language-plaintext highlighter-rouge">rr</code> until the bug exhibits how I want<sup id="fnref:rare" role="doc-noteref"><a href="#fn:rare" class="footnote" rel="footnote">1</a></sup>,</li>
+  <li>record executions with <code class="language-plaintext highlighter-rouge">rr</code> until the bug exhibits how I want<sup id="fnref:rare"><a href="#fn:rare" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>,</li>
   <li>replay the execution until there’s a sure-fire indicator it occurred
 (for instance, in Rust code, breaking on <code class="language-plaintext highlighter-rouge">rust_panic</code> will stop
 execution at any panic, including assertion failures),</li>
@@ -1064,14 +1064,14 @@ but it works flawlessly with Rust, and I’m sure other languages too.</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:worst-case" role="doc-endnote">
+    <li id="fn:worst-case">
       <p>I know pretty much nothing about the internals of rr or
 Linux, so I have no idea if this is actually triggering a
 particularly bad case; but I do know that rr will shim in/save the
 result of syscalls into the operating system, so doing a lot of
 them (as opening/reading/closing a file will do) is probably slow. <a href="#fnref:worst-case" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:rare" role="doc-endnote">
+    <li id="fn:rare">
       <p>The rr developers point out this means tracking down rare
      bugs is made easier: run rr on a test-case in a loop until
      the bug triggers, and then you can dissect it at leisure,

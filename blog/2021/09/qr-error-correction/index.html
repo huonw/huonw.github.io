@@ -858,7 +858,7 @@ a.post-heading {
 </figcaption>
 </figure>
 
-<p>Together, the version and error correction dictate how much data a given QR code can store<sup id="fnref:modes" role="doc-noteref"><a href="#fn:modes" class="footnote" rel="footnote">0</a></sup>:</p>
+<p>Together, the version and error correction dictate how much data a given QR code can store<sup id="fnref:modes"><a href="#fn:modes" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>:</p>
 
 <figure class="image plotly-plot has-caption">
   <div class="image-positioner">
@@ -960,7 +960,7 @@ a.post-heading {
   </tbody>
 </table>
 
-<p>Under the reasonable assumption that the camera is close to <a href="https://en.wikipedia.org/wiki/Rectilinear_lens">rectilinear</a>, this gives a measure of how close the user has to be that scales smoothly with the physical size of the QR code: if the device can read a 10cm QR code from 1m away, it’ll be able to read a 1m code from 10m. Similarly, fields of view can be used to predict distance: given two codes, where the first needs 4% field of view and the second only needs 1%, the second can likely be scanned from about twice as far<sup id="fnref:quadratic" role="doc-noteref"><a href="#fn:quadratic" class="footnote" rel="footnote">1</a></sup>.</p>
+<p>Under the reasonable assumption that the camera is close to <a href="https://en.wikipedia.org/wiki/Rectilinear_lens">rectilinear</a>, this gives a measure of how close the user has to be that scales smoothly with the physical size of the QR code: if the device can read a 10cm QR code from 1m away, it’ll be able to read a 1m code from 10m. Similarly, fields of view can be used to predict distance: given two codes, where the first needs 4% field of view and the second only needs 1%, the second can likely be scanned from about twice as far<sup id="fnref:quadratic"><a href="#fn:quadratic" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
 
 <p>Error correction definitely allows scanning a given QR code from further away. At version 40, a level H QR code only requires 1.7% field of view, while a level L one requires 2.4%.</p>
 
@@ -1018,7 +1018,7 @@ a.post-heading {
 
 <p>If one is trying to “send” 1000 bytes via QR code, using level H requires a field of view of 1.4%, while level L only needs half that (approximately), at 0.8%. This means a device can be further away and still read the L code successfully.</p>
 
-<p>This doesn’t seem to match the results in Figures 5 and 6. What’s going on? The level L code uses version 22 with 105<sup>2</sup> ≈ 11k modules, while level H requires version 36 with 161<sup>2</sup> ≈ 26k modules. This ratio (2.35) is much larger than the ratio between the module sizes (~1.3), so, sure, level H allows the individual modules to be smaller, but it requires using so many more that the overall QR code is larger than the level L ones<sup id="fnref:consistency" role="doc-noteref"><a href="#fn:consistency" class="footnote" rel="footnote">2</a></sup>.</p>
+<p>This doesn’t seem to match the results in Figures 5 and 6. What’s going on? The level L code uses version 22 with 105<sup>2</sup> ≈ 11k modules, while level H requires version 36 with 161<sup>2</sup> ≈ 26k modules. This ratio (2.35) is much larger than the ratio between the module sizes (~1.3), so, sure, level H allows the individual modules to be smaller, but it requires using so many more that the overall QR code is larger than the level L ones<sup id="fnref:consistency"><a href="#fn:consistency" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</p>
 
 <p>This seems to apply consistently across versions, as might be expected from Figure 3: a QR code at level L can store twice as much data as one at level H, for the same version. The data storage overhead of error correction doesn’t seem be worth the apparently dubious benefits.</p>
 
@@ -1118,15 +1118,15 @@ eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZH
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:modes" role="doc-endnote">
+    <li id="fn:modes">
       <p>There’s also the concept of the <em>mode</em>: Numeric, Alphanumeric, Binary or Kanji. However, they all store an (approximately) equal number of bits, so I’ll just use the Binary mode, because I’m far more used to talking about bytes than bits.</p>
 
       <p>Details: each mode defines an input character set and then an efficient way to encode those characters. For example, for Numeric, the permitted characters are 0, 1, …, 9, and they’re encoded with 3 digits in 10 bits. The Binary mode is probably familiar: one input byte is encoded into 8 bits in the QR code. To convert numbers in this post into bits, multiply by 8. To convert the number of bits to the number of input characters in each mode, divide by the appropriate coefficient (Numeric: 10/3; Alphanumeric: 11/2, Binary: 8, Kanji: 13). <a href="#fnref:modes" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:quadratic" role="doc-endnote">
+    <li id="fn:quadratic">
       <p>For fixed field of view, the distance scales linearly with the side length of the QR code and the field of view is proportional to the area, which scales (close to) quadratically with the side length, so the permitted distance is approximately inversely proportional to the square root of the required field of view: quadrupling the required field of view requires being half the distance (approximately). <a href="#fnref:quadratic" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:consistency" role="doc-endnote">
+    <li id="fn:consistency">
       <p>The various numbers flying around here match up: level L modules need to be ~30% larger than level H ones, and the level H QR code requires 2.35× more modules. This predicts that the level H code would have to be 2.35/1.3 = 1.81 times larger than level L one, and that’s pretty close to what we observed: 1.4/0.8 = 1.75. <a href="#fnref:consistency" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>

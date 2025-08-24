@@ -741,7 +741,7 @@ a.post-heading {
            
          </div>
       
-      <p>A trait object in <a href="http://rust-lang.org">Rust</a><sup id="fnref:version" role="doc-noteref"><a href="#fn:version" class="footnote" rel="footnote">0</a></sup> can only be
+      <p>A trait object in <a href="http://rust-lang.org">Rust</a><sup id="fnref:version"><a href="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> can only be
 constructed out of traits that satisfy certain restrictions, which are
 collectively called “object safety”. This object safety can appear to
 be a needless restriction at first, I’ll try to give a deeper
@@ -785,7 +785,7 @@ trait objects, but what is said applies to any.</p>
 have a trait <code class="language-plaintext highlighter-rouge">Foo</code> and a function like</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
-</pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">func</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="n">Foo</span> <span class="o">+</span> <span class="o">?</span><span class="n">Sized</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+</pre></td><td class="code"><pre><span class="k">fn</span> <span class="n">func</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="n">Foo</span> <span class="o">+</span> <span class="o">?</span><span class="nb">Sized</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>It would be nice to be able to call it like <code class="language-plaintext highlighter-rouge">func(object)</code> where
@@ -810,9 +810,9 @@ let’s define a trait and a function like:</p>
     <span class="k">fn</span> <span class="n">generic_method</span><span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">A</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="k">fn</span> <span class="n">func</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="n">Bad</span> <span class="o">+</span> <span class="o">?</span><span class="n">Sized</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">x</span><span class="nf">.generic_method</span><span class="p">(</span><span class="s">"foo"</span><span class="p">);</span> <span class="c">// A = &amp;str</span>
-    <span class="n">x</span><span class="nf">.generic_method</span><span class="p">(</span><span class="mi">1_u8</span><span class="p">);</span> <span class="c">// A = u8</span>
+<span class="k">fn</span> <span class="n">func</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="n">Bad</span> <span class="o">+</span> <span class="o">?</span><span class="nb">Sized</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">x</span><span class="nf">.generic_method</span><span class="p">(</span><span class="s">"foo"</span><span class="p">);</span> <span class="c1">// A = &amp;str</span>
+    <span class="n">x</span><span class="nf">.generic_method</span><span class="p">(</span><span class="mi">1_u8</span><span class="p">);</span> <span class="c1">// A = u8</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -849,7 +849,7 @@ which they are defined, for example, the UFCS function
 <code class="language-plaintext highlighter-rouge">Bad::generic_method</code> from the trait above effectively has signature:</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
-</pre></td><td class="code"><pre><span class="k">fn</span> <span class="nn">Bad</span><span class="p">::</span><span class="n">generic_method</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">:</span> <span class="n">Bad</span> <span class="o">+</span> <span class="o">?</span><span class="n">Sized</span><span class="p">,</span> <span class="n">A</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">A</span><span class="p">)</span>
+</pre></td><td class="code"><pre><span class="k">fn</span> <span class="nn">Bad</span><span class="p">::</span><span class="n">generic_method</span><span class="o">&lt;</span><span class="k">Self</span><span class="p">:</span> <span class="n">Bad</span> <span class="o">+</span> <span class="o">?</span><span class="nb">Sized</span><span class="p">,</span> <span class="n">A</span><span class="o">&gt;</span><span class="p">(</span><span class="k">self</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">Self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">A</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>If <code class="language-plaintext highlighter-rouge">fn method(&amp;self)</code> comes from a trait <code class="language-plaintext highlighter-rouge">Foo</code>, <code class="language-plaintext highlighter-rouge">x.method()</code> can
@@ -896,18 +896,18 @@ situation might look something like:</p>
     <span class="k">fn</span> <span class="nf">method2</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">usize</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="c">// autogenerated impl</span>
+<span class="c1">// autogenerated impl</span>
 <span class="k">impl</span><span class="o">&lt;</span><span class="nv">'a</span><span class="o">&gt;</span> <span class="n">Foo</span> <span class="k">for</span> <span class="n">Foo</span><span class="o">+</span><span class="nv">'a</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">method1</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c">// `self` is an `&amp;Foo` trait object.</span>
+        <span class="c1">// `self` is an `&amp;Foo` trait object.</span>
 
-        <span class="c">// load the right function pointer and call it with the opaque data pointer</span>
+        <span class="c1">// load the right function pointer and call it with the opaque data pointer</span>
         <span class="p">(</span><span class="k">self</span><span class="py">.vtable.method1</span><span class="p">)(</span><span class="k">self</span><span class="py">.data</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="k">fn</span> <span class="nf">method2</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span> <span class="k">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">usize</span> <span class="p">{</span>
-        <span class="c">// `self` is an `&amp;mut Foo` trait object</span>
+        <span class="c1">// `self` is an `&amp;mut Foo` trait object</span>
 
-        <span class="c">// as above, passing along the other arguments</span>
+        <span class="c1">// as above, passing along the other arguments</span>
         <span class="p">(</span><span class="k">self</span><span class="py">.vtable.method2</span><span class="p">)(</span><span class="k">self</span><span class="py">.data</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -949,26 +949,26 @@ possible ways to be object-unsafe are described
 22
 23
 </pre></td><td class="code"><pre><span class="k">pub</span> <span class="k">enum</span> <span class="n">ObjectSafetyViolation</span><span class="o">&lt;</span><span class="nv">'tcx</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="c">/// Self : Sized declared on the trait</span>
+    <span class="cd">/// Self : Sized declared on the trait</span>
     <span class="n">SizedSelf</span><span class="p">,</span>
 
-    <span class="c">/// Method has someting illegal</span>
+    <span class="cd">/// Method has someting illegal</span>
     <span class="nf">Method</span><span class="p">(</span><span class="nb">Rc</span><span class="o">&lt;</span><span class="nn">ty</span><span class="p">::</span><span class="n">Method</span><span class="o">&lt;</span><span class="nv">'tcx</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="n">MethodViolationCode</span><span class="p">),</span>
 <span class="p">}</span>
 
-<span class="c">/// Reasons a method might not be object-safe.</span>
+<span class="cd">/// Reasons a method might not be object-safe.</span>
 <span class="nd">#[derive(Copy,Clone,Show)]</span>
 <span class="k">pub</span> <span class="k">enum</span> <span class="n">MethodViolationCode</span> <span class="p">{</span>
-    <span class="c">/// e.g., `fn(self)`</span>
+    <span class="cd">/// e.g., `fn(self)`</span>
     <span class="n">ByValueSelf</span><span class="p">,</span>
 
-    <span class="c">/// e.g., `fn foo()`</span>
+    <span class="cd">/// e.g., `fn foo()`</span>
     <span class="n">StaticMethod</span><span class="p">,</span>
 
-    <span class="c">/// e.g., `fn foo(&amp;self, x: Self)` or `fn foo(&amp;self) -&gt; Self`</span>
+    <span class="cd">/// e.g., `fn foo(&amp;self, x: Self)` or `fn foo(&amp;self) -&gt; Self`</span>
     <span class="n">ReferencesSelf</span><span class="p">,</span>
 
-    <span class="c">/// e.g., `fn foo&lt;A&gt;()`</span>
+    <span class="cd">/// e.g., `fn foo&lt;A&gt;()`</span>
     <span class="n">Generic</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
@@ -984,7 +984,7 @@ possible ways to be object-unsafe are described
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Foo</span><span class="p">:</span> <span class="n">Sized</span> <span class="p">{</span>
+</pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Foo</span><span class="p">:</span> <span class="nb">Sized</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">method</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
@@ -1011,7 +1011,7 @@ more traits object safe by default.</p>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
-<p>At the moment<sup id="fnref:change-is-in-the-air" role="doc-noteref"><a href="#fn:change-is-in-the-air" class="footnote" rel="footnote">1</a></sup>, it’s not possible to use trait
+<p>At the moment<sup id="fnref:change-is-in-the-air"><a href="#fn:change-is-in-the-air" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>, it’s not possible to use trait
 objects by-value anywhere, due to the lack of sizedness. If one were
 to write an <code class="language-plaintext highlighter-rouge">impl Foo for Foo</code>, the signature of <code class="language-plaintext highlighter-rouge">method</code> would mean
 <code class="language-plaintext highlighter-rouge">self</code> has type <code class="language-plaintext highlighter-rouge">Foo</code>: a by-value unsized type, illegal!</p>
@@ -1036,7 +1036,7 @@ static method on the type <code class="language-plaintext highlighter-rouge">Foo
 5
 </pre></td><td class="code"><pre><span class="k">impl</span><span class="o">&lt;</span><span class="nv">'a</span><span class="o">&gt;</span> <span class="n">Foo</span> <span class="k">for</span> <span class="n">Foo</span><span class="o">+</span><span class="nv">'a</span> <span class="p">{</span>
     <span class="k">fn</span> <span class="nf">func</span><span class="p">()</span> <span class="k">-&gt;</span> <span class="nb">i32</span> <span class="p">{</span>
-        <span class="c">// what goes here??</span>
+        <span class="c1">// what goes here??</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
@@ -1057,7 +1057,7 @@ of which is unknown at compile time. For example:</p>
 2
 3
 </pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Foo</span> <span class="p">{</span>
-    <span class="k">fn</span> <span class="nf">method</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">Self</span><span class="p">);</span>
+    <span class="k">fn</span> <span class="nf">method</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="o">&amp;</span><span class="k">Self</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1116,7 +1116,7 @@ implementation might look like</p>
 
 <p>The vtable is a static struct of function pointers, somehow we have to
 select a function pointer from it that will work with the arbitrary
-type <code class="language-plaintext highlighter-rouge">A</code>. To have any hope of doing this, one would have<sup id="fnref:alternative" role="doc-noteref"><a href="#fn:alternative" class="footnote" rel="footnote">2</a></sup>
+type <code class="language-plaintext highlighter-rouge">A</code>. To have any hope of doing this, one would have<sup id="fnref:alternative"><a href="#fn:alternative" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>
 to pregenerate code for every type that could possibly be used for <code class="language-plaintext highlighter-rouge">A</code>
 and then fill in the <code class="language-plaintext highlighter-rouge">huh</code> above to select the right one. This would
 be effectively implicitly adding a whole series of methods to the
@@ -1130,11 +1130,11 @@ trait:</p>
 6
 7
 </pre></td><td class="code"><pre><span class="k">trait</span> <span class="n">Foo</span> <span class="p">{</span>
-    <span class="k">fn</span> <span class="nf">method_u8</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span>     <span class="c">// A = u8</span>
-    <span class="k">fn</span> <span class="nf">method_i8</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span>     <span class="c">// A = i8</span>
-    <span class="k">fn</span> <span class="nf">method_String</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span> <span class="c">// A = String</span>
-    <span class="k">fn</span> <span class="nf">method_unit</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span>   <span class="c">// A = ()</span>
-    <span class="c">// ...</span>
+    <span class="k">fn</span> <span class="nf">method_u8</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span>     <span class="c1">// A = u8</span>
+    <span class="k">fn</span> <span class="nf">method_i8</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span>     <span class="c1">// A = i8</span>
+    <span class="k">fn</span> <span class="nf">method_String</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span> <span class="c1">// A = String</span>
+    <span class="k">fn</span> <span class="nf">method_unit</span><span class="p">(</span><span class="o">&amp;</span><span class="k">self</span><span class="p">);</span>   <span class="c1">// A = ()</span>
+    <span class="c1">// ...</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -1185,12 +1185,12 @@ defined in scope).</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:version" role="doc-endnote">
+    <li id="fn:version">
       <p><a href="/blog/2015/01/peeking-inside-trait-objects/">As usual</a>, this post is designed to reflect
         the state of Rust at version <code class="language-plaintext highlighter-rouge">rustc 1.0.0-nightly
         (44a287e6e 2015-01-08 17:03:40 -0800)</code>. <a href="#fnref:version" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:change-is-in-the-air" role="doc-endnote">
+    <li id="fn:change-is-in-the-air">
       <p>There is desire to remove/relax this
                      restriction for function parameters, and
                      especially <code class="language-plaintext highlighter-rouge">self</code>, to allow them to be
@@ -1199,7 +1199,7 @@ defined in scope).</p>
                      <a href="http://doc.rust-lang.org/nightly/std/thunk/trait.Invoke.html">the <code class="language-plaintext highlighter-rouge">Invoke</code> trait</a> as a work-around
                      for the <code class="language-plaintext highlighter-rouge">FnOnce</code> trait. <a href="#fnref:change-is-in-the-air" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:alternative" role="doc-endnote">
+    <li id="fn:alternative">
       <p>Strictly speaking I suppose one could do some type of
             runtime codegen/JITing, but that’s not really
             something Rust wants to build into the language, as it

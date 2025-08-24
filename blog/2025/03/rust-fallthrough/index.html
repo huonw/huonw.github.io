@@ -740,7 +740,7 @@ a.post-heading {
       
       <p>Rust’s <code class="language-plaintext highlighter-rouge">match</code> statement can do a lot of things, even C-style fallthough to the next branch, despite having no real support for it. It turns out to be a “shallow” feature, where the C to Rust translation is easily done, without needing to understand the code itself. The hardest part is coming to terms with writing it, and then convincing someone else to let you land it!</p>
 
-<p>Here’s what the tail handling of the MurmurHash3 hash function could look like, in Rust, if you have enough courage<sup id="fnref:better" role="doc-noteref"><a href="#fn:better" class="footnote" rel="footnote">0</a></sup>:</p>
+<p>Here’s what the tail handling of the MurmurHash3 hash function could look like, in Rust, if you have enough courage<sup id="fnref:better"><a href="#fn:better" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>:</p>
 
 <figure class="highlight"><pre><code class="language-rust" data-lang="rust"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -768,13 +768,13 @@ a.post-heading {
           <span class="mi">3</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case3</span><span class="p">,</span>
           <span class="mi">2</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case2</span><span class="p">,</span>
           <span class="mi">1</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case1</span><span class="p">,</span>
-          <span class="mi">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'outer</span><span class="p">,</span>
+          <span class="n">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'outer</span><span class="p">,</span>
         <span class="p">}</span>
-      <span class="p">}</span> <span class="c">// 'case3:</span>
+      <span class="p">}</span> <span class="c1">// 'case3:</span>
       <span class="n">k1</span> <span class="o">^=</span> <span class="p">(</span><span class="n">tail</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">;</span>
-    <span class="p">}</span> <span class="c">// 'case2:</span>
+    <span class="p">}</span> <span class="c1">// 'case2:</span>
     <span class="n">k1</span> <span class="o">^=</span> <span class="p">(</span><span class="n">tail</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">;</span>
-  <span class="p">}</span> <span class="c">// case1:</span>
+  <span class="p">}</span> <span class="c1">// case1:</span>
   <span class="n">k1</span> <span class="o">^=</span> <span class="n">tail</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">;</span>
   <span class="n">k1</span> <span class="o">*=</span> <span class="n">c1</span><span class="p">;</span> <span class="n">k1</span> <span class="o">=</span> <span class="n">k1</span><span class="nf">.rotate_left</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span> <span class="n">k1</span> <span class="o">*=</span> <span class="n">c2</span><span class="p">;</span> <span class="n">h1</span> <span class="o">^=</span> <span class="n">k1</span><span class="p">;</span>
 <span class="p">}</span>
@@ -914,13 +914,13 @@ This post is essentially a prose version of the 10-year-old <a href="https://git
           <span class="mi">3</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case3</span><span class="p">,</span>
           <span class="mi">2</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case2</span><span class="p">,</span>
           <span class="mi">1</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case1</span><span class="p">,</span>
-          <span class="mi">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'outer</span><span class="p">,</span>
+          <span class="n">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'outer</span><span class="p">,</span>
         <span class="p">}</span>
-      <span class="p">}</span> <span class="c">// 'case3:</span>
+      <span class="p">}</span> <span class="c1">// 'case3:</span>
       <span class="n">k1</span> <span class="o">^=</span> <span class="p">(</span><span class="n">tail</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">;</span>
-    <span class="p">}</span> <span class="c">// 'case2:</span>
+    <span class="p">}</span> <span class="c1">// 'case2:</span>
     <span class="n">k1</span> <span class="o">^=</span> <span class="p">(</span><span class="n">tail</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">;</span>
-  <span class="p">}</span> <span class="c">// case1:</span>
+  <span class="p">}</span> <span class="c1">// case1:</span>
   <span class="n">k1</span> <span class="o">^=</span> <span class="n">tail</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">;</span>
   <span class="n">k1</span> <span class="o">*=</span> <span class="n">c1</span><span class="p">;</span> <span class="n">k1</span> <span class="o">=</span> <span class="n">k1</span><span class="nf">.rotate_left</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span> <span class="n">k1</span> <span class="o">*=</span> <span class="n">c2</span><span class="p">;</span> <span class="n">h1</span> <span class="o">^=</span> <span class="n">k1</span><span class="p">;</span>
 <span class="p">}</span>
@@ -962,20 +962,20 @@ This post is essentially a prose version of the 10-year-old <a href="https://git
   <span class="mi">3</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case3</span><span class="p">,</span>
   <span class="mi">2</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case2</span><span class="p">,</span>
   <span class="mi">1</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case1</span><span class="p">,</span>
-  <span class="mi">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'outer</span><span class="p">,</span>
+  <span class="n">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'outer</span><span class="p">,</span>
 <span class="p">}</span>
 
-<span class="p">}</span> <span class="c">// 'case3:</span>
+<span class="p">}</span> <span class="c1">// 'case3:</span>
 <span class="n">k1</span> <span class="o">^=</span> <span class="p">(</span><span class="n">tail</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">;</span>
 
-<span class="p">}</span> <span class="c">// 'case2:</span>
+<span class="p">}</span> <span class="c1">// 'case2:</span>
 <span class="n">k1</span> <span class="o">^=</span> <span class="p">(</span><span class="n">tail</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">;</span>
 
-<span class="p">}</span> <span class="c">// 'case1:</span>
+<span class="p">}</span> <span class="c1">// 'case1:</span>
 <span class="n">k1</span> <span class="o">^=</span> <span class="n">tail</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">as</span> <span class="nb">u32</span><span class="p">;</span>
 <span class="n">k1</span> <span class="o">*=</span> <span class="n">c1</span><span class="p">;</span> <span class="n">k1</span> <span class="o">=</span> <span class="n">k1</span><span class="nf">.rotate_left</span><span class="p">(</span><span class="mi">15</span><span class="p">);</span> <span class="n">k1</span> <span class="o">*=</span> <span class="n">c2</span><span class="p">;</span> <span class="n">h1</span> <span class="o">^=</span> <span class="n">k1</span><span class="p">;</span>
 
-<span class="p">}</span> <span class="c">// 'outer:</span>
+<span class="p">}</span> <span class="c1">// 'outer:</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>We can pretend the core functionality—all the updates to <code class="language-plaintext highlighter-rouge">k1</code>—is “straight-line” code, and then the <code class="language-plaintext highlighter-rouge">match</code> entrypoint is just <strong>choosing where to start executing</strong> within that code. (Maybe that presentation above is clearer to you, or the more conventional one is: the behaviour is the same.)</p>
@@ -1081,7 +1081,7 @@ This post is essentially a prose version of the 10-year-old <a href="https://git
             <span class="mi">12</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case12</span><span class="p">,</span>
             <span class="mi">56</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case56</span><span class="p">,</span>
             <span class="mi">34</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case34</span><span class="p">,</span>
-            <span class="mi">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'default</span><span class="p">,</span>
+            <span class="n">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'default</span><span class="p">,</span>
           <span class="p">}</span>
         <span class="p">}</span>
       <span class="p">}</span>
@@ -1126,18 +1126,18 @@ This post is essentially a prose version of the 10-year-old <a href="https://git
             <span class="mi">12</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case12</span><span class="p">,</span>
             <span class="mi">56</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case56</span><span class="p">,</span>
             <span class="mi">34</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'case34</span><span class="p">,</span>
-            <span class="mi">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'default</span><span class="p">,</span>
+            <span class="n">_</span> <span class="k">=&gt;</span> <span class="k">break</span> <span class="nv">'default</span><span class="p">,</span>
           <span class="p">}</span>
         <span class="p">}</span>
         <span class="nf">f1</span><span class="p">();</span>
-        <span class="c">// fallthrough</span>
+        <span class="c1">// fallthrough</span>
       <span class="p">}</span>
       <span class="nf">f2</span><span class="p">();</span>
-      <span class="c">// no fallthrough</span>
+      <span class="c1">// no fallthrough</span>
       <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="nf">f3</span><span class="p">();</span>
-    <span class="c">// conditional fallthrough</span>
+    <span class="c1">// conditional fallthrough</span>
     <span class="k">if</span> <span class="nf">f4</span><span class="p">()</span> <span class="p">{</span> <span class="k">break</span> <span class="nv">'outer</span><span class="p">;</span> <span class="p">}</span>
   <span class="p">}</span>
   <span class="nf">f5</span><span class="p">()</span>
@@ -1184,7 +1184,7 @@ This post is essentially a prose version of the 10-year-old <a href="https://git
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:better" role="doc-endnote">
+    <li id="fn:better">
       <p>There may be fundamentally-better ways to approach computing this value, completely different to the C-inspired versions in this post. <a href="#fnref:better" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>

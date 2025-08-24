@@ -770,7 +770,7 @@ a.post-heading {
   <li>as a <strong>maintainer</strong>, who is triaging, understanding and fixing issues, I always want a <strong>clear</strong> description with <strong>easy-to-follow</strong> “steps to reproduce”.</li>
 </ul>
 
-<p>As a user, even if as a purely self-interested user with no concern for anyone else<sup id="fnref:selfish" role="doc-noteref"><a href="#fn:selfish" class="footnote" rel="footnote">0</a></sup>, I know I’ll get the best result using a healthy dose of empathy and understanding for the maintainers who will help me: it is <strong>in my interest to make my issue as clear as possible</strong>! I want to help them help me!</p>
+<p>As a user, even if as a purely self-interested user with no concern for anyone else<sup id="fnref:selfish"><a href="#fn:selfish" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>, I know I’ll get the best result using a healthy dose of empathy and understanding for the maintainers who will help me: it is <strong>in my interest to make my issue as clear as possible</strong>! I want to help them help me!</p>
 
 <h2 id="structure">Structure</h2>
 
@@ -960,7 +960,7 @@ pants version
 
 <p>A particularly notable reason to avoid a shell script is lockfiles for dependencies: if I’m filing a bug against a library that has bunch of (transitive) dependencies involved, the exact versions of all those dependencies might be relevant, and/or might be helpful when revisiting the issue in the far future. Unfortunately, lockfiles are often huge, and thus not appropriate to include inline in a shell script. In this case, switching to a multi-file approach, like git repo or gist, may be the best way to share the reproducer.</p>
 
-<p>That said, sometimes one can get a good-enough solution for transitive dependencies without a full lockfile and thus stick with the shell script solution. In the Python ecosystem specifically, one can strike a good middle-ground using <code class="language-plaintext highlighter-rouge">pip freeze</code><sup id="fnref:uv" role="doc-noteref"><a href="#fn:uv" class="footnote" rel="footnote">1</a></sup>: imagine you’re working in a virtual environment to reproduce some issue:</p>
+<p>That said, sometimes one can get a good-enough solution for transitive dependencies without a full lockfile and thus stick with the shell script solution. In the Python ecosystem specifically, one can strike a good middle-ground using <code class="language-plaintext highlighter-rouge">pip freeze</code><sup id="fnref:uv"><a href="#fn:uv" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>: imagine you’re working in a virtual environment to reproduce some issue:</p>
 
 <ol>
   <li>once you’re successful, take a snapshot of the dependency versions with <code class="language-plaintext highlighter-rouge">pip freeze</code>, which outputs a bunch of pinned requirements, like <code class="language-plaintext highlighter-rouge">cowsay==6.1</code>, <code class="language-plaintext highlighter-rouge">numpy==2.2.4</code></li>
@@ -998,10 +998,10 @@ pants version
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:selfish" role="doc-endnote">
+    <li id="fn:selfish">
       <p>Of course, it’s even better to not be purely self-interested. Being a good person only adds even more reasons to be polite, empathetic, and gracious. <a href="#fnref:selfish" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:uv" role="doc-endnote">
+    <li id="fn:uv">
       <p>For Python, and particularly reproducers that involve a single Python script (with or without PyPI dependencies), one can also use <a href="https://docs.astral.sh/uv">uv</a>: have PEP 723 metadata at the start of the script with both <code class="language-plaintext highlighter-rouge">dependencies = [...]</code> for top-level dependencies but also, crucially, <code class="language-plaintext highlighter-rouge">[tool.uv].exclude-newer = "..."</code> field for <a href="https://docs.astral.sh/uv/guides/scripts/#improving-reproducibility">improved reproducibility</a>. This isn’t exactly a lockfile, but will mean new releases of any transitive dependencies are less likely to break the script in future. That said, sticking to “plain old pip” is usually the most reliable strategy for sharing Python reproducers, though: almost everyone with Python installed will also have pip installed, and chucking a few <code class="language-plaintext highlighter-rouge">python -m venv venv</code>/<code class="language-plaintext highlighter-rouge">pip install ...</code> commands into a shell script works fine! <a href="#fnref:uv" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
