@@ -6,5 +6,3 @@ group :jekyll_plugins do
   gem "jekyll-seo-tag", "2.7.1"
   gem "jekyll-relative-links", "0.6.1"
 end
-
-gem "webrick", "~> 1.7"

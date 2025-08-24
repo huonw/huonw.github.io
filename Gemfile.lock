@@ -96,7 +96,6 @@ DEPENDENCIES
   jekyll-relative-links (= 0.6.1)
   jekyll-seo-tag (= 2.7.1)
   jekyll-sitemap (= 1.4.0)
-  webrick (~> 1.7)
 
 BUNDLED WITH
    2.2.33
