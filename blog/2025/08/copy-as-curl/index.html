@@ -738,9 +738,11 @@ a.post-heading {
            
          </div>
       
-      <p>The network tab of a browser’s developer tools shows a list of requests. Sometimes there’s a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there’s an unexpected 403 permission error. The dev tools UIs provide one-click <strong>“copy as cURL”</strong> functionality to conveniently extract an executable ‘replay’ of the request, and it can be easily edited. This makes <strong>communicating</strong> and <strong>debugging</strong> issues with HTTP requests much easier.</p>
+      <p>The network tab of a browser’s developer tools shows a list of requests. Sometimes there’s a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there’s an unexpected 403 permission error. The dev tools UIs provide one-click <strong>“Copy as cURL”</strong> functionality to conveniently extract an executable ‘replay’ of the request, and it can be easily edited. This makes <strong>communicating</strong> and <strong>debugging</strong> issues with HTTP requests much easier.</p>
 
-<p>Read on to see how to extract this, why it’s useful, how to work with it, a case study where I used to debug a weird issue, and even some downsides.</p>
+<p>Many a time I have had another software engineer ask me “I did $vague_description and it failed”, requiring a few rounds of questioning to work out exactly what they did, and exactly what seemed like a failure, and guide them through triaging or debugging the issue. There’s a (mild) superpower to get to the debugging, the interesting part of those discussions: recognise when a problem is a problem caused by a HTTP request failing, and habitually capture and share a replay of that request with “Copy as cURL”.</p>
+
+<p>Read on to see how to copy, why it’s useful, how to work with it, a case study where I used to debug a weird issue, and even some downsides.</p>
 
 <figure class="image has-caption">
   <div class="image-positioner">

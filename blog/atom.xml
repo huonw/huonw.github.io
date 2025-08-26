@@ -4,7 +4,7 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2025-08-26T07:18:46+00:00</updated>
+  <updated>2025-08-26T07:29:30+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
@@ -23,9 +23,11 @@
       <name>Huon Wilson</name>
       <uri>https://huonw.github.io/</uri>
     </author>
-    <content type="html">&lt;p&gt;The network tab of a browser’s developer tools shows a list of requests. Sometimes there’s a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there’s an unexpected 403 permission error. The dev tools UIs provide one-click &lt;strong&gt;“copy as cURL”&lt;/strong&gt; functionality to conveniently extract an executable ‘replay’ of the request, and it can be easily edited. This makes &lt;strong&gt;communicating&lt;/strong&gt; and &lt;strong&gt;debugging&lt;/strong&gt; issues with HTTP requests much easier.&lt;/p&gt;
+    <content type="html">&lt;p&gt;The network tab of a browser’s developer tools shows a list of requests. Sometimes there’s a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there’s an unexpected 403 permission error. The dev tools UIs provide one-click &lt;strong&gt;“Copy as cURL”&lt;/strong&gt; functionality to conveniently extract an executable ‘replay’ of the request, and it can be easily edited. This makes &lt;strong&gt;communicating&lt;/strong&gt; and &lt;strong&gt;debugging&lt;/strong&gt; issues with HTTP requests much easier.&lt;/p&gt;
 
-&lt;p&gt;Read on to see how to extract this, why it’s useful, how to work with it, a case study where I used to debug a weird issue, and even some downsides.&lt;/p&gt;
+&lt;p&gt;Many a time I have had another software engineer ask me “I did $vague_description and it failed”, requiring a few rounds of questioning to work out exactly what they did, and exactly what seemed like a failure, and guide them through triaging or debugging the issue. There’s a (mild) superpower to get to the debugging, the interesting part of those discussions: recognise when a problem is a problem caused by a HTTP request failing, and habitually capture and share a replay of that request with “Copy as cURL”.&lt;/p&gt;
+
+&lt;p&gt;Read on to see how to copy, why it’s useful, how to work with it, a case study where I used to debug a weird issue, and even some downsides.&lt;/p&gt;
 
 &lt;figure class=&quot;image has-caption&quot;&gt;
   &lt;div class=&quot;image-positioner&quot;&gt;
