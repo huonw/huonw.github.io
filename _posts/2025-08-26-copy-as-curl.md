@@ -10,9 +10,11 @@ not_rust: true
 comments:
 ---
 
-The network tab of a browser's developer tools shows a list of requests. Sometimes there's a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there's an unexpected 403 permission error. The dev tools UIs provide one-click **"copy as cURL"** functionality to conveniently extract an executable 'replay' of the request, and it can be easily edited. This makes **communicating** and **debugging** issues with HTTP requests much easier.
+The network tab of a browser's developer tools shows a list of requests. Sometimes there's a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there's an unexpected 403 permission error. The dev tools UIs provide one-click **"Copy as cURL"** functionality to conveniently extract an executable 'replay' of the request, and it can be easily edited. This makes **communicating** and **debugging** issues with HTTP requests much easier.
 
-Read on to see how to extract this, why it's useful, how to work with it, a case study where I used to debug a weird issue, and even some downsides.
+Many a time I have had another software engineer ask me "I did $vague_description and it failed", requiring a few rounds of questioning to work out exactly what they did, and exactly what seemed like a failure, and guide them through triaging or debugging the issue. There's a (mild) superpower to get to the debugging, the interesting part of those discussions: recognise when a problem is a problem caused by a HTTP request failing, and habitually capture and share a replay of that request with "Copy as cURL".
+
+Read on to see how to copy, why it's useful, how to work with it, a case study where I used to debug a weird issue, and even some downsides.
 
 {% include image.html src="firefox.png" caption="The Network tab of Firefox's dev tools offers 'Copy as cURL' under the 'Copy Value' option of the context menu for each request." alt="A screenshot of Firefox showing example.com with developer tools open on the 'Network' tab, and the context menu expanded for the request that loads the root HTML page. The 'Copy Value' submenu of the context menu is also expanded, showing options like 'Copy URL', 'Copy as cURL' and others." width="1208" height="938" %}
 
