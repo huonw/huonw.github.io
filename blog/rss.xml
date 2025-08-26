@@ -6,8 +6,266 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Sun, 24 Aug 2025 06:13:55 +0000</pubDate>
-        <lastBuildDate>Sun, 24 Aug 2025 06:13:55 +0000</lastBuildDate>
+        <pubDate>Tue, 26 Aug 2025 07:18:46 +0000</pubDate>
+        <lastBuildDate>Tue, 26 Aug 2025 07:18:46 +0000</lastBuildDate>
+        
+        
+        <item>
+            <title>Convenient 'Copy as cURL': explicit, executable, editable request replays</title>
+            <link>https://huonw.github.io/blog/2025/08/copy-as-curl/</link>
+            <pubDate>Tue, 26 Aug 2025 00:00:00 +0000</pubDate>
+            <author>Huon Wilson</author>
+            <guid>https://huonw.github.io/blog/2025/08/copy-as-curl</guid>
+            <description>&lt;p&gt;The network tab of a browser’s developer tools shows a list of requests. Sometimes there’s a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there’s an unexpected 403 permission error. The dev tools UIs provide one-click &lt;strong&gt;“copy as cURL”&lt;/strong&gt; functionality to conveniently extract an executable ‘replay’ of the request, and it can be easily edited. This makes &lt;strong&gt;communicating&lt;/strong&gt; and &lt;strong&gt;debugging&lt;/strong&gt; issues with HTTP requests much easier.&lt;/p&gt;
+
+&lt;p&gt;Read on to see how to extract this, why it’s useful, how to work with it, a case study where I used to debug a weird issue, and even some downsides.&lt;/p&gt;
+
+&lt;figure class=&quot;image has-caption&quot;&gt;
+  &lt;div class=&quot;image-positioner&quot;&gt;
+    
+    &lt;a href=&quot;firefox.png&quot;&gt;
+      &lt;img src=&quot;firefox.png&quot; alt=&quot;A screenshot of Firefox showing example.com with developer tools open on the &apos;Network&apos; tab, and the context menu expanded for the request that loads the root HTML page. The &apos;Copy Value&apos; submenu of the context menu is also expanded, showing options like &apos;Copy URL&apos;, &apos;Copy as cURL&apos; and others.&quot; width=&quot;1208&quot; height=&quot;938&quot; /&gt;
+    &lt;/a&gt;
+    
+  &lt;/div&gt;
+  &lt;figcaption&gt;&lt;p&gt;The Network tab of Firefox’s dev tools offers ‘Copy as cURL’ under the ‘Copy Value’ option of the context menu for each request.&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;In all browsers I tried (Firefox, Safari, Chrome, on macOS), doing this means:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Open developer tools (aka Browser Tools → Web Developer Tools, DevTools, or Web Inspector).&lt;/li&gt;
+  &lt;li&gt;Find the “Network” tab.&lt;/li&gt;
+  &lt;li&gt;Trigger the problematic request, by, for instance: reloading, clicking a button, or some other action that causes it.&lt;/li&gt;
+  &lt;li&gt;Right-click the relevant row, and “Copy as cURL” (under a “Copy” or “Copy Value” parent option in some browsers).&lt;/li&gt;
+  &lt;li&gt;Paste the value into a terminal or script, to start executing it.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;“Copy as cURL” gives bulky &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; CLI invocation that captures almost&lt;sup id=&quot;fnref:almost&quot;&gt;&lt;a href=&quot;#fn:almost&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;0&lt;/a&gt;&lt;/sup&gt; exactly what &lt;strong&gt;the browser sent to the server&lt;/strong&gt;, explicitly including all headers, authentication information, and any request data, in a &lt;strong&gt;directly executable&lt;/strong&gt; way. Being executable means it can be used to easily replay the request as the browser sent it. The output looks something like:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;curl &lt;span class=&quot;s1&quot;&gt;&apos;https://example.com/path/goes/here&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;GET&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Sec-Fetch-Site: none&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Cookie: some=really; long=cookie_that; keeps=going_and_going...&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Accept-Encoding: gzip, deflate, br&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Sec-Fetch-Mode: navigate&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Host: example.com&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:142.0) Gecko/20100101 Firefox/142.0&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Accept-Language: en-AU,en;q=0.9&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Sec-Fetch-Dest: document&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Connection: keep-alive&apos;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;aside data-icon=&quot;ℹ️&quot;&gt;
+
+cURL CLI cheatsheet: a value by itself without a flag is interpreted as a URL; &lt;code&gt;-X&lt;/code&gt;/&lt;code&gt;--request&lt;/code&gt; specifies which HTTP method to use; &lt;code&gt;-H&lt;/code&gt;/&lt;code&gt;--header&lt;/code&gt; specifies a HTTP header (can be specified multiple times); &lt;code&gt;--data-binary&lt;/code&gt; or &lt;code&gt;--data-raw&lt;/code&gt; also often appear (not shown above) with a chunk of JSON, form, or other data.
+
+&lt;/aside&gt;
+
+&lt;p&gt;This makes for:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Unambiguous communication&lt;/strong&gt; with other people (or your future self) because all the information is right there.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Easy edit-run debugging loops&lt;/strong&gt; because it is executable and a easily-edited shell script.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’ve maintained HTTP APIs, and a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; invocation that demonstrates a problem is an &lt;strong&gt;amazing start&lt;/strong&gt; in fixing that problem: in most cases, I won’t have go ask questions like “which endpoint are you hitting?”, “which account are you logged in as?”, “which filters are you applying in your search?”, or, for internal users, “which environment is this in?”. I can immediately dive in and hopefully reproduce it for myself in seconds, and that’s the first step to a quick fix.&lt;/p&gt;
+
+&lt;p&gt;This isn’t just for server problems: if it turns out a &lt;strong&gt;client created an incorrect request&lt;/strong&gt; and the server is correctly rejecting it, the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; invocation still makes it easier to &lt;strong&gt;identify and discuss&lt;/strong&gt; exactly what the client has done wrong, and, again, that’s the first step to a quick fix.&lt;/p&gt;
+
+&lt;h2 id=&quot;working-with-the-output&quot;&gt;Working with the output&lt;/h2&gt;
+
+&lt;p&gt;The “copy as cURL” output is a bit idiosyncratic, but with a bit of practice, it’s not too hard to work with. Here’s some tips:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Ensure you have a &lt;strong&gt;fast-feedback loop&lt;/strong&gt;: so that it’s quick to make a change to the cURL invocation, verify if the problem still reproduces, and revert if not.&lt;/li&gt;
+  &lt;li&gt;Use the line structure to quickly &lt;strong&gt;eliminate or reduce irrelevant arguments and data&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Manipulate any &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--data-binary&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--data-raw&lt;/code&gt; arguments to &lt;strong&gt;make the data simpler&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;If possible, &lt;strong&gt;decode authentication data&lt;/strong&gt; to deduce extra information.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Adjust&lt;/strong&gt; the specifics, like the environment targeted or the exact objects manipulated, for safety or convenience.&lt;/li&gt;
+  &lt;li&gt;Consider whether other methods of capturing the same information work better for you.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I’ve found a (informed-)guess-and-check style of debugging to work well here: having a quick edit/run cycle for executing the reproducer is. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; invocations are just a bunch of static data with no dynamic moving parts, so I’ve found spending a few minutes blasting through dozens of different deletions/tweaks is a productive first step, rather than deeply considering the application-specific symptoms and building intricate harnesses related to them. Once the noise has been removed by that initial step, the deep debugging is usually much easier.&lt;/p&gt;
+
+&lt;p&gt;The output has a lot of lines, each ending with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\&lt;/code&gt; line-continuation character. These lines build up the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; invocation and are just split up for convenience, so that each argument and its paired value are alone on their own line. This makes for &lt;strong&gt;easy editing&lt;/strong&gt;: once I’ve verified the reproducer works, I quickly eliminate irrelevant information by &lt;strong&gt;deleting whole lines&lt;/strong&gt;. The formatting means there’s no need to search for where one string ends and the next starts: bulk whole-line deletion commands work wonders.&lt;/p&gt;
+
+&lt;p&gt;If a request has &lt;strong&gt;a request body&lt;/strong&gt;, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;POST&lt;/code&gt;ing a JSON blob, there will also be a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--data-binary&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--data-raw&lt;/code&gt; argument containing that body data. The data may be formatted with a whole lot of distracting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;\&lt;/code&gt; escapes. In many cases, like with JSON data, &lt;strong&gt;pretty printing&lt;/strong&gt; it and pasting the result back into the shell script as a multi-line string often makes it far nicer to manipulate, without changing the meaning. For instance, using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;echo &quot;... json goes here ...&quot; | jq .&lt;/code&gt; to get multi-line output. (There is some warnings: getting the shell quoting correct can take a bit of care, and, in extreme cases, adjusting whitespace may change the behaviour of the request. As always, this is something I’ll try, but revert or adjust if it changes behaviour.)&lt;/p&gt;
+
+&lt;p&gt;If there’s &lt;strong&gt;authentication required&lt;/strong&gt;, the authentication credentials can be a blessing and a curse:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;it can provide &lt;strong&gt;useful hints&lt;/strong&gt;, like which user was running a request (for instance, the payload of a &lt;a href=&quot;https://www.jwt.io/&quot;&gt;JWT&lt;/a&gt; often has a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sub&lt;/code&gt; claim, that’s often a user ID in some form),&lt;/li&gt;
+  &lt;li&gt;they may &lt;strong&gt;expire&lt;/strong&gt;: executing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;curl&lt;/code&gt; command even just minutes or hours after it was first copied may fail due to irrelevant “authentication expired” issues. In my circumstances, I load up our web app, copy fresh credentials, and edit the script to use those new ones instead.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you’re unlucky, you’ll first see a problem in production, and, Murphy’s law says the weirdest problems will occur for a major customer during particularly tense contract renewal negotiations. In this case, it’s best to &lt;strong&gt;not replay the exact problematic request&lt;/strong&gt;, especially if it is a mutation. In these cases, I edit the script to run against an internal dev environment or a local server, and/or change the specific data to refer to a testing account and entities rather than those of the customer. As always, this may stop the problem reproducing, so I’ll test the change and revert or adjust it as required.&lt;/p&gt;
+
+&lt;p&gt;Some browsers offer &lt;strong&gt;other ways&lt;/strong&gt; to copy an executable version of a request, like “Copy as fetch” or “Copy as PowerShell”. These are broadly equivalent to “Copy as cURL”, and may be better for your circumstances. They all the same key benefits: unambiguous, complete, and executable.&lt;/p&gt;
+
+&lt;h2 id=&quot;case-study-failing-redirects&quot;&gt;Case study: failing redirects&lt;/h2&gt;
+
+&lt;p&gt;At a previous job, we found that links in notification emails stopped loading for us, but  only in some browsers. These links hit a server for a redirect. Using “copy as cURL” allowed me to &lt;strong&gt;systematically&lt;/strong&gt; get to the bottom of it.&lt;/p&gt;
+
+&lt;p&gt;Initially, it wasn’t obvious &lt;strong&gt;why&lt;/strong&gt; the links stopped loading, but the &lt;strong&gt;symptom&lt;/strong&gt; was obvious, by looking in the browser dev tools:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;when we saw problematic behaviour, the redirect server responded with a 400 error,&lt;/li&gt;
+  &lt;li&gt;when we saw normal behaviour, the redirect server responded with a 302 redirect.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Debugging gets easier with such a clear symptom: I already had the network tab open, so I “copy as cURL”‘d a problematic request straight into a script I could run locally:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;curl &lt;span class=&quot;s1&quot;&gt;&apos;https://example.com/path/goes/here&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;GET&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Sec-Fetch-Site: none&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Cookie: some=really; long=cookie_that; keeps=going_and_going...&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Accept-Encoding: gzip, deflate, br&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Sec-Fetch-Mode: navigate&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Host: app.exoflare.io&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Accept-Language: en-AU,en;q=0.9&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Sec-Fetch-Dest: document&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Connection: keep-alive&apos;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is very much cut down from the real example, but incorporates the core information I had to work with: a request with a whole bunch of headers, and still no obvious cause. I added the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-i&lt;/code&gt;/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--include&lt;/code&gt; flag to see more information about the server’s response and ran the script locally, &lt;strong&gt;all before making any other changes&lt;/strong&gt;. Indeed, running the script gave the same unexpected 400 error, just as it does in the browser. I had &lt;strong&gt;verified&lt;/strong&gt; that I had a standalone reproducer, and, most crucially, I was ready to edit it.&lt;/p&gt;
+
+&lt;p&gt;When I’ve got an executable example that demonstrates the problem, my usual pattern is a debugging loop to try to get to a &lt;strong&gt;minimal example&lt;/strong&gt;, since eliminating all the irrelevant noise often sheds light on the cause. For this specific case, my loop started as:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Delete&lt;/strong&gt; one or more headers (or other pieces of data) that might be irrelevant&lt;sup id=&quot;fnref:bisect&quot;&gt;&lt;a href=&quot;#fn:bisect&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Run&lt;/strong&gt; the request.&lt;/li&gt;
+  &lt;li&gt;If the old/bad behaviour &lt;strong&gt;still appears&lt;/strong&gt;, the deleted data was apparently not related to the problem and can be left out; if the bad behaviour &lt;strong&gt;disappears&lt;/strong&gt;, the deleted data does seem to be related to the problem, so &lt;strong&gt;restore it&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Repeat&lt;/strong&gt; until the example is reduced.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Usually deleting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Sec-Fetch-...&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;User-Agent&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Accept...&lt;/code&gt; and even &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cookie&lt;/code&gt; (our app doesn’t use cookies for authentication) is a safe bet… I started along those lines and found that the cookie value was actually important: I deleted all headers except the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-H &apos;Cookie: ...&lt;/code&gt; one and the request would still fail, but deleting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cookie&lt;/code&gt; caused the request to start working. So, it seemed like cookies were impacting the behaviour, leaving me with a request like:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;curl &lt;span class=&quot;s1&quot;&gt;&apos;https://example.com/path/goes/here&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;GET&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Cookie: some=really; long=cookie_that; keeps=going_and_going...&apos;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#   ^ This cookie is crucial?!&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This was very unexpected! The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cookie&lt;/code&gt; header just contained some analytics metadata. I didn’t expect the redirect server to read them, so why would they change behaviour?&lt;/p&gt;
+
+&lt;p&gt;The cause still wasn’t obvious, so let’s keep reducing to get to a truly minimal example: now on the &lt;em&gt;value&lt;/em&gt; of the header. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Cookie&lt;/code&gt; header expects a value with a particular syntax, describing multiple individual cookies: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name1=value1; name2=value2; ...&lt;/code&gt;. I deleted those cookies one-by-one, and found that one specific cookie seemed to cause the problem. But, the particular cookie name/value pair seemed innocuous: again, why that one?&lt;/p&gt;
+
+&lt;p&gt;You know the answer: &lt;strong&gt;keep reducing&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, by cutting out parts of the cookie itself. It was something like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;some_cookie=abc,def,...&lt;/code&gt;. I found that truncating the cookie value like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abc,de&lt;/code&gt; still showed the bad behaviour, but &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;abc,d&lt;/code&gt; worked! This was just “randomly” in the middle of cookie value, not at any sort of obvious boundary.&lt;/p&gt;
+
+&lt;p&gt;After a little more futzing around, I deduced that the problem was a server-side limit on maximum total request size: it just happened that the cookie header was very large sometimes, causing the request to be rejected. Using a fake header with big chunk of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;s showed exactly the same behaviour, with a threshold of the number of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;s where having one less gives the desired 302 redirect and one more sees the problematic 400 error:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-shell&quot; data-lang=&quot;shell&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;curl &lt;span class=&quot;s1&quot;&gt;&apos;https://example.com/path/goes/here&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;GET&apos;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;X-DemoHeader: aaaaaaaaaaaaaaaaaaaa...&apos;&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;At this point, we’ve reduced our original “Copy as cURL” script down to an insightful reproducer, and thus we:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;were confident our production users were unaffected (only internal testers would have cookies that large), reducing the panic/urgency,&lt;/li&gt;
+  &lt;li&gt;immediately identified a short-term workaround to unblock internal users (clear cookies!), and&lt;/li&gt;
+  &lt;li&gt;started on a real fix (avoid cookies being set in this context).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This debugging process probably took me an hour or so, but would surely have taken me far longer if I didn’t have an unambiguous “here’s what the full request was” and an easy way to iterate. Who knows how long it would’ve taken to guess at total request size as a possible cause!&lt;/p&gt;
+
+&lt;h2 id=&quot;downsides&quot;&gt;Downsides&lt;/h2&gt;
+
+&lt;p&gt;I’ve encountered two downsides with “copy as cURL”:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Sharing of secrets&lt;/strong&gt;: the requests may include authentication information (like a JWT or a session cookie), or the request data might have confidential information in it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Verbosity&lt;/strong&gt;: the output can be very large.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I find both of these tolerable, but I do make sure to &lt;strong&gt;explicitly&lt;/strong&gt; think about both every time I use and share “copy as cURL”.&lt;/p&gt;
+
+&lt;p&gt;For &lt;strong&gt;secrets&lt;/strong&gt;, I am usually copying a request using a short-lived JWT token in an &lt;strong&gt;internal development environment&lt;/strong&gt;. Sharing this sort of secret with colleagues is often perfectly okay: they already have full access to the dev environment, and impersonating me there is pointless. Plus, this sort of token is only valid for an short time, so it quickly becomes completely useless. Thus, my explicit assessment is usually “this is fine”.&lt;/p&gt;
+
+&lt;p&gt;If it’s not fine, like &lt;strong&gt;sharing openly&lt;/strong&gt;, I’ll look at the values and minimally delete/mutate/replace any confidential parts. However, this risks removing some useful information, like which user is authenticated, and can have other unexpectedly-relevant impacts, like changing the size of the request. Thus, it’s always worth a careful evaluation to decide which parts must be changed and which can be retained.&lt;/p&gt;
+
+&lt;p&gt;For the &lt;strong&gt;verbosity&lt;/strong&gt;, there’s two aspects:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Choosing how to &lt;strong&gt;share&lt;/strong&gt; the script in a nice way. Many options are possible, and I’ll chose one based where it is being shared:
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;Paste directly&lt;/strong&gt;, if the presentation medium makes that fine (for instance, a code block where very long lines scroll horizontally, instead of wrapping or forcing the page wide).&lt;/li&gt;
+      &lt;li&gt;Attach as a &lt;strong&gt;separate file&lt;/strong&gt; (for instance, in an email or chat message).&lt;/li&gt;
+      &lt;li&gt;&lt;strong&gt;Collapse&lt;/strong&gt; it using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;details&amp;gt; &amp;lt;/details&amp;gt;&lt;/code&gt; element in HTML (including some Markdown environments, like GitHub-flavoured markdown).&lt;/li&gt;
+      &lt;li&gt;Put it into a &lt;strong&gt;paste-bin&lt;/strong&gt; like &lt;a href=&quot;https://gist.github.com&quot;&gt;Gist&lt;/a&gt; and link to it.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Manipulating&lt;/strong&gt; it to debug a problem: it takes a bit of practice to get comfortable, but not too much at all. For instance, the “delete a line”, “rerun”, “restore if required”, “repeat” loop described above is a quick habit to build, and usually quickly makes the invocations far more tractable.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;When there’s a problem with how a server is responding to a browser’s network request, right-clicking that request in dev tools to “copy as cURL” gives an executable ‘replay’ of that request. This feature allows me to unambiguously and efficiently &lt;strong&gt;describe&lt;/strong&gt; the problem to others, and helps me more easily &lt;strong&gt;debug&lt;/strong&gt; it too.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=Convenient%20&apos;Copy%20as%20cURL&apos;:%20explicit,%20executable,%20editable%20request%20replays%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/08/copy-as-curl/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Convenient%20&apos;Copy%20as%20cURL&apos;:%20explicit,%20executable,%20editable%20request%20replays&amp;amp;url=https://huonw.github.io/blog/2025/08/copy-as-curl/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/08/copy-as-curl/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/08/copy-as-curl/&amp;amp;title=Convenient%20&apos;Copy%20as%20cURL&apos;:%20explicit,%20executable,%20editable%20request%20replays&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol start=&quot;0&quot;&gt;
+    &lt;li id=&quot;fn:almost&quot;&gt;
+      &lt;p&gt;Why &lt;em&gt;almost&lt;/em&gt; exactly? cURL and browsers can differ slightly in &lt;a href=&quot;https://github.com/lwthiker/curl-impersonate&quot;&gt;some low-level protocol details&lt;/a&gt;. Hopefully, you’re lucky enough to not encounter bugs at this level! &lt;a href=&quot;#fnref:almost&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:bisect&quot;&gt;
+      &lt;p&gt;If there’s a lot of data to handle and/or it’s completely not obvious what’s relevant and what’s not, bisecting can work: delete half the lines and see what happens. If the behaviour disappears, restore that half and try deleting the other half. Repeat with the halves of what remains. That said, there’s no rules for what to do, and it’s best to just start reducing/deleting in some way to make some sort of progress, rather than over-thinking it. &lt;a href=&quot;#fnref:bisect&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        
         
         
         <item>

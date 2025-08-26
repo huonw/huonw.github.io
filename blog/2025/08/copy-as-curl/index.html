@@ -1,0 +1,1080 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Convenient &apos;Copy as cURL&apos;: explicit, executable, editable request replays |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2025/08/copy-as-curl/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="Developer tools in browsers offer a &quot;copy as cURL&quot; function for network requests, giving an executable and editable &apos;replay&apos; of the request. This is very convenient for sharing and debugging API requests." />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Convenient &apos;Copy as cURL&apos;: explicit, executable, editable request replays" />
+  <meta name="twitter:description" content="Developer tools in browsers offer a &quot;copy as cURL&quot; function for network requests, giving an executable and editable &apos;replay&apos; of the request. This is very convenient for sharing and debugging API requests." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2025/08/copy-as-curl/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2025/08/copy-as-curl/" />
+  <meta property="og:title" content="Convenient &apos;Copy as cURL&apos;: explicit, executable, editable request replays" />
+  <meta property="og:description" content="Developer tools in browsers offer a &quot;copy as cURL&quot; function for network requests, giving an executable and editable &apos;replay&apos; of the request. This is very convenient for sharing and debugging API requests." />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#info-list li {
+  margin: 0 1em;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    text-align:justify;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post {
+  margin: 0;
+}
+
+.post-post + .post-post {
+  border-top: 1px dashed  #ddd;
+  margin-top: 1em;
+  padding-top: 1em;
+}
+
+a.post-heading {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+  gap: 1em;
+}
+.post-heading * {
+  margin: 0;
+}
+
+.post-title {
+  font-size: 1.2em;
+  flex-grow: 1;
+  text-decoration: underline;
+}
+
+.post-heading .post-date {
+  font-style: italic;
+  flex-shrink: 0;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-more {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://bsky.app/profile/huonw.bsky.social">Bluesky</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Convenient 'Copy as cURL': explicit, executable, editable request replays</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">26 Aug 2025</span>
+           
+           
+         </div>
+      
+      <p>The network tab of a browser’s developer tools shows a list of requests. Sometimes there’s a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there’s an unexpected 403 permission error. The dev tools UIs provide one-click <strong>“copy as cURL”</strong> functionality to conveniently extract an executable ‘replay’ of the request, and it can be easily edited. This makes <strong>communicating</strong> and <strong>debugging</strong> issues with HTTP requests much easier.</p>
+
+<p>Read on to see how to extract this, why it’s useful, how to work with it, a case study where I used to debug a weird issue, and even some downsides.</p>
+
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="firefox.png">
+      <img src="firefox.png" alt="A screenshot of Firefox showing example.com with developer tools open on the 'Network' tab, and the context menu expanded for the request that loads the root HTML page. The 'Copy Value' submenu of the context menu is also expanded, showing options like 'Copy URL', 'Copy as cURL' and others." width="1208" height="938" />
+    </a>
+    
+  </div>
+  <figcaption><p>The Network tab of Firefox’s dev tools offers ‘Copy as cURL’ under the ‘Copy Value’ option of the context menu for each request.</p>
+</figcaption>
+</figure>
+
+<p>In all browsers I tried (Firefox, Safari, Chrome, on macOS), doing this means:</p>
+
+<ol>
+  <li>Open developer tools (aka Browser Tools → Web Developer Tools, DevTools, or Web Inspector).</li>
+  <li>Find the “Network” tab.</li>
+  <li>Trigger the problematic request, by, for instance: reloading, clicking a button, or some other action that causes it.</li>
+  <li>Right-click the relevant row, and “Copy as cURL” (under a “Copy” or “Copy Value” parent option in some browsers).</li>
+  <li>Paste the value into a terminal or script, to start executing it.</li>
+</ol>
+
+<p>“Copy as cURL” gives bulky <code class="language-plaintext highlighter-rouge">curl</code> CLI invocation that captures almost<sup id="fnref:almost"><a href="#fn:almost" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> exactly what <strong>the browser sent to the server</strong>, explicitly including all headers, authentication information, and any request data, in a <strong>directly executable</strong> way. Being executable means it can be used to easily replay the request as the browser sent it. The output looks something like:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre>curl <span class="s1">'https://example.com/path/goes/here'</span> <span class="se">\</span>
+<span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Sec-Fetch-Site: none'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Cookie: some=really; long=cookie_that; keeps=going_and_going...'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Accept-Encoding: gzip, deflate, br'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Sec-Fetch-Mode: navigate'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Host: example.com'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:142.0) Gecko/20100101 Firefox/142.0'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Accept-Language: en-AU,en;q=0.9'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Sec-Fetch-Dest: document'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Connection: keep-alive'</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<aside data-icon="ℹ️">
+
+cURL CLI cheatsheet: a value by itself without a flag is interpreted as a URL; <code>-X</code>/<code>--request</code> specifies which HTTP method to use; <code>-H</code>/<code>--header</code> specifies a HTTP header (can be specified multiple times); <code>--data-binary</code> or <code>--data-raw</code> also often appear (not shown above) with a chunk of JSON, form, or other data.
+
+</aside>
+
+<p>This makes for:</p>
+
+<ul>
+  <li><strong>Unambiguous communication</strong> with other people (or your future self) because all the information is right there.</li>
+  <li><strong>Easy edit-run debugging loops</strong> because it is executable and a easily-edited shell script.</li>
+</ul>
+
+<p>I’ve maintained HTTP APIs, and a <code class="language-plaintext highlighter-rouge">curl</code> invocation that demonstrates a problem is an <strong>amazing start</strong> in fixing that problem: in most cases, I won’t have go ask questions like “which endpoint are you hitting?”, “which account are you logged in as?”, “which filters are you applying in your search?”, or, for internal users, “which environment is this in?”. I can immediately dive in and hopefully reproduce it for myself in seconds, and that’s the first step to a quick fix.</p>
+
+<p>This isn’t just for server problems: if it turns out a <strong>client created an incorrect request</strong> and the server is correctly rejecting it, the <code class="language-plaintext highlighter-rouge">curl</code> invocation still makes it easier to <strong>identify and discuss</strong> exactly what the client has done wrong, and, again, that’s the first step to a quick fix.</p>
+
+<h2 id="working-with-the-output">Working with the output</h2>
+
+<p>The “copy as cURL” output is a bit idiosyncratic, but with a bit of practice, it’s not too hard to work with. Here’s some tips:</p>
+
+<ul>
+  <li>Ensure you have a <strong>fast-feedback loop</strong>: so that it’s quick to make a change to the cURL invocation, verify if the problem still reproduces, and revert if not.</li>
+  <li>Use the line structure to quickly <strong>eliminate or reduce irrelevant arguments and data</strong>.</li>
+  <li>Manipulate any <code class="language-plaintext highlighter-rouge">--data-binary</code>/<code class="language-plaintext highlighter-rouge">--data-raw</code> arguments to <strong>make the data simpler</strong>.</li>
+  <li>If possible, <strong>decode authentication data</strong> to deduce extra information.</li>
+  <li><strong>Adjust</strong> the specifics, like the environment targeted or the exact objects manipulated, for safety or convenience.</li>
+  <li>Consider whether other methods of capturing the same information work better for you.</li>
+</ul>
+
+<p>I’ve found a (informed-)guess-and-check style of debugging to work well here: having a quick edit/run cycle for executing the reproducer is. The <code class="language-plaintext highlighter-rouge">curl</code> invocations are just a bunch of static data with no dynamic moving parts, so I’ve found spending a few minutes blasting through dozens of different deletions/tweaks is a productive first step, rather than deeply considering the application-specific symptoms and building intricate harnesses related to them. Once the noise has been removed by that initial step, the deep debugging is usually much easier.</p>
+
+<p>The output has a lot of lines, each ending with the <code class="language-plaintext highlighter-rouge">\</code> line-continuation character. These lines build up the <code class="language-plaintext highlighter-rouge">curl</code> invocation and are just split up for convenience, so that each argument and its paired value are alone on their own line. This makes for <strong>easy editing</strong>: once I’ve verified the reproducer works, I quickly eliminate irrelevant information by <strong>deleting whole lines</strong>. The formatting means there’s no need to search for where one string ends and the next starts: bulk whole-line deletion commands work wonders.</p>
+
+<p>If a request has <strong>a request body</strong>, like <code class="language-plaintext highlighter-rouge">POST</code>ing a JSON blob, there will also be a <code class="language-plaintext highlighter-rouge">--data-binary</code> or <code class="language-plaintext highlighter-rouge">--data-raw</code> argument containing that body data. The data may be formatted with a whole lot of distracting <code class="language-plaintext highlighter-rouge">\</code> escapes. In many cases, like with JSON data, <strong>pretty printing</strong> it and pasting the result back into the shell script as a multi-line string often makes it far nicer to manipulate, without changing the meaning. For instance, using <code class="language-plaintext highlighter-rouge">echo "... json goes here ..." | jq .</code> to get multi-line output. (There is some warnings: getting the shell quoting correct can take a bit of care, and, in extreme cases, adjusting whitespace may change the behaviour of the request. As always, this is something I’ll try, but revert or adjust if it changes behaviour.)</p>
+
+<p>If there’s <strong>authentication required</strong>, the authentication credentials can be a blessing and a curse:</p>
+
+<ul>
+  <li>it can provide <strong>useful hints</strong>, like which user was running a request (for instance, the payload of a <a href="https://www.jwt.io/">JWT</a> often has a <code class="language-plaintext highlighter-rouge">sub</code> claim, that’s often a user ID in some form),</li>
+  <li>they may <strong>expire</strong>: executing the <code class="language-plaintext highlighter-rouge">curl</code> command even just minutes or hours after it was first copied may fail due to irrelevant “authentication expired” issues. In my circumstances, I load up our web app, copy fresh credentials, and edit the script to use those new ones instead.</li>
+</ul>
+
+<p>If you’re unlucky, you’ll first see a problem in production, and, Murphy’s law says the weirdest problems will occur for a major customer during particularly tense contract renewal negotiations. In this case, it’s best to <strong>not replay the exact problematic request</strong>, especially if it is a mutation. In these cases, I edit the script to run against an internal dev environment or a local server, and/or change the specific data to refer to a testing account and entities rather than those of the customer. As always, this may stop the problem reproducing, so I’ll test the change and revert or adjust it as required.</p>
+
+<p>Some browsers offer <strong>other ways</strong> to copy an executable version of a request, like “Copy as fetch” or “Copy as PowerShell”. These are broadly equivalent to “Copy as cURL”, and may be better for your circumstances. They all the same key benefits: unambiguous, complete, and executable.</p>
+
+<h2 id="case-study-failing-redirects">Case study: failing redirects</h2>
+
+<p>At a previous job, we found that links in notification emails stopped loading for us, but  only in some browsers. These links hit a server for a redirect. Using “copy as cURL” allowed me to <strong>systematically</strong> get to the bottom of it.</p>
+
+<p>Initially, it wasn’t obvious <strong>why</strong> the links stopped loading, but the <strong>symptom</strong> was obvious, by looking in the browser dev tools:</p>
+
+<ul>
+  <li>when we saw problematic behaviour, the redirect server responded with a 400 error,</li>
+  <li>when we saw normal behaviour, the redirect server responded with a 302 redirect.</li>
+</ul>
+
+<p>Debugging gets easier with such a clear symptom: I already had the network tab open, so I “copy as cURL”‘d a problematic request straight into a script I could run locally:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre>curl <span class="s1">'https://example.com/path/goes/here'</span> <span class="se">\</span>
+<span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Sec-Fetch-Site: none'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Cookie: some=really; long=cookie_that; keeps=going_and_going...'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Accept-Encoding: gzip, deflate, br'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Sec-Fetch-Mode: navigate'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Host: app.exoflare.io'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Accept-Language: en-AU,en;q=0.9'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Sec-Fetch-Dest: document'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Connection: keep-alive'</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This is very much cut down from the real example, but incorporates the core information I had to work with: a request with a whole bunch of headers, and still no obvious cause. I added the <code class="language-plaintext highlighter-rouge">-i</code>/<code class="language-plaintext highlighter-rouge">--include</code> flag to see more information about the server’s response and ran the script locally, <strong>all before making any other changes</strong>. Indeed, running the script gave the same unexpected 400 error, just as it does in the browser. I had <strong>verified</strong> that I had a standalone reproducer, and, most crucially, I was ready to edit it.</p>
+
+<p>When I’ve got an executable example that demonstrates the problem, my usual pattern is a debugging loop to try to get to a <strong>minimal example</strong>, since eliminating all the irrelevant noise often sheds light on the cause. For this specific case, my loop started as:</p>
+
+<ol>
+  <li><strong>Delete</strong> one or more headers (or other pieces of data) that might be irrelevant<sup id="fnref:bisect"><a href="#fn:bisect" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</li>
+  <li><strong>Run</strong> the request.</li>
+  <li>If the old/bad behaviour <strong>still appears</strong>, the deleted data was apparently not related to the problem and can be left out; if the bad behaviour <strong>disappears</strong>, the deleted data does seem to be related to the problem, so <strong>restore it</strong>.</li>
+  <li><strong>Repeat</strong> until the example is reduced.</li>
+</ol>
+
+<p>Usually deleting <code class="language-plaintext highlighter-rouge">Sec-Fetch-...</code>, <code class="language-plaintext highlighter-rouge">User-Agent</code>, <code class="language-plaintext highlighter-rouge">Accept...</code> and even <code class="language-plaintext highlighter-rouge">Cookie</code> (our app doesn’t use cookies for authentication) is a safe bet… I started along those lines and found that the cookie value was actually important: I deleted all headers except the <code class="language-plaintext highlighter-rouge">-H 'Cookie: ...</code> one and the request would still fail, but deleting <code class="language-plaintext highlighter-rouge">Cookie</code> caused the request to start working. So, it seemed like cookies were impacting the behaviour, leaving me with a request like:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="code"><pre>curl <span class="s1">'https://example.com/path/goes/here'</span> <span class="se">\</span>
+<span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Cookie: some=really; long=cookie_that; keeps=going_and_going...'</span>
+<span class="c">#   ^ This cookie is crucial?!</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>This was very unexpected! The <code class="language-plaintext highlighter-rouge">Cookie</code> header just contained some analytics metadata. I didn’t expect the redirect server to read them, so why would they change behaviour?</p>
+
+<p>The cause still wasn’t obvious, so let’s keep reducing to get to a truly minimal example: now on the <em>value</em> of the header. The <code class="language-plaintext highlighter-rouge">Cookie</code> header expects a value with a particular syntax, describing multiple individual cookies: <code class="language-plaintext highlighter-rouge">name1=value1; name2=value2; ...</code>. I deleted those cookies one-by-one, and found that one specific cookie seemed to cause the problem. But, the particular cookie name/value pair seemed innocuous: again, why that one?</p>
+
+<p>You know the answer: <strong>keep reducing</strong>.</p>
+
+<p>Now, by cutting out parts of the cookie itself. It was something like <code class="language-plaintext highlighter-rouge">some_cookie=abc,def,...</code>. I found that truncating the cookie value like <code class="language-plaintext highlighter-rouge">abc,de</code> still showed the bad behaviour, but <code class="language-plaintext highlighter-rouge">abc,d</code> worked! This was just “randomly” in the middle of cookie value, not at any sort of obvious boundary.</p>
+
+<p>After a little more futzing around, I deduced that the problem was a server-side limit on maximum total request size: it just happened that the cookie header was very large sometimes, causing the request to be rejected. Using a fake header with big chunk of <code class="language-plaintext highlighter-rouge">a</code>s showed exactly the same behaviour, with a threshold of the number of <code class="language-plaintext highlighter-rouge">a</code>s where having one less gives the desired 302 redirect and one more sees the problematic 400 error:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="code"><pre>curl <span class="s1">'https://example.com/path/goes/here'</span> <span class="se">\</span>
+<span class="nt">-X</span> <span class="s1">'GET'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'X-DemoHeader: aaaaaaaaaaaaaaaaaaaa...'</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>At this point, we’ve reduced our original “Copy as cURL” script down to an insightful reproducer, and thus we:</p>
+
+<ul>
+  <li>were confident our production users were unaffected (only internal testers would have cookies that large), reducing the panic/urgency,</li>
+  <li>immediately identified a short-term workaround to unblock internal users (clear cookies!), and</li>
+  <li>started on a real fix (avoid cookies being set in this context).</li>
+</ul>
+
+<p>This debugging process probably took me an hour or so, but would surely have taken me far longer if I didn’t have an unambiguous “here’s what the full request was” and an easy way to iterate. Who knows how long it would’ve taken to guess at total request size as a possible cause!</p>
+
+<h2 id="downsides">Downsides</h2>
+
+<p>I’ve encountered two downsides with “copy as cURL”:</p>
+
+<ol>
+  <li><strong>Sharing of secrets</strong>: the requests may include authentication information (like a JWT or a session cookie), or the request data might have confidential information in it.</li>
+  <li><strong>Verbosity</strong>: the output can be very large.</li>
+</ol>
+
+<p>I find both of these tolerable, but I do make sure to <strong>explicitly</strong> think about both every time I use and share “copy as cURL”.</p>
+
+<p>For <strong>secrets</strong>, I am usually copying a request using a short-lived JWT token in an <strong>internal development environment</strong>. Sharing this sort of secret with colleagues is often perfectly okay: they already have full access to the dev environment, and impersonating me there is pointless. Plus, this sort of token is only valid for an short time, so it quickly becomes completely useless. Thus, my explicit assessment is usually “this is fine”.</p>
+
+<p>If it’s not fine, like <strong>sharing openly</strong>, I’ll look at the values and minimally delete/mutate/replace any confidential parts. However, this risks removing some useful information, like which user is authenticated, and can have other unexpectedly-relevant impacts, like changing the size of the request. Thus, it’s always worth a careful evaluation to decide which parts must be changed and which can be retained.</p>
+
+<p>For the <strong>verbosity</strong>, there’s two aspects:</p>
+
+<ul>
+  <li>Choosing how to <strong>share</strong> the script in a nice way. Many options are possible, and I’ll chose one based where it is being shared:
+    <ul>
+      <li><strong>Paste directly</strong>, if the presentation medium makes that fine (for instance, a code block where very long lines scroll horizontally, instead of wrapping or forcing the page wide).</li>
+      <li>Attach as a <strong>separate file</strong> (for instance, in an email or chat message).</li>
+      <li><strong>Collapse</strong> it using a <code class="language-plaintext highlighter-rouge">&lt;details&gt; &lt;/details&gt;</code> element in HTML (including some Markdown environments, like GitHub-flavoured markdown).</li>
+      <li>Put it into a <strong>paste-bin</strong> like <a href="https://gist.github.com">Gist</a> and link to it.</li>
+    </ul>
+  </li>
+  <li><strong>Manipulating</strong> it to debug a problem: it takes a bit of practice to get comfortable, but not too much at all. For instance, the “delete a line”, “rerun”, “restore if required”, “repeat” loop described above is a quick habit to build, and usually quickly makes the invocations far more tractable.</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<p>When there’s a problem with how a server is responding to a browser’s network request, right-clicking that request in dev tools to “copy as cURL” gives an executable ‘replay’ of that request. This feature allows me to unambiguously and efficiently <strong>describe</strong> the problem to others, and helps me more easily <strong>debug</strong> it too.</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Convenient%20'Copy%20as%20cURL':%20explicit,%20executable,%20editable%20request%20replays%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/08/copy-as-curl/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Convenient%20'Copy%20as%20cURL':%20explicit,%20executable,%20editable%20request%20replays&amp;url=https://huonw.github.io/blog/2025/08/copy-as-curl/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/08/copy-as-curl/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/08/copy-as-curl/&amp;title=Convenient%20'Copy%20as%20cURL':%20explicit,%20executable,%20editable%20request%20replays" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:almost">
+      <p>Why <em>almost</em> exactly? cURL and browsers can differ slightly in <a href="https://github.com/lwthiker/curl-impersonate">some low-level protocol details</a>. Hopefully, you’re lucky enough to not encounter bugs at this level! <a href="#fnref:almost" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:bisect">
+      <p>If there’s a lot of data to handle and/or it’s completely not obvious what’s relevant and what’s not, bisecting can work: delete half the lines and see what happens. If the behaviour disappears, restore that half and try deleting the other half. Repeat with the halves of what remains. That said, there’s no rules for what to do, and it’s best to just start reducing/deleting in some way to make some sort of progress, rather than over-thinking it. <a href="#fnref:bisect" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2025/04/standalone-shell-script-reproducer/">
+                   <h3>Communicating bugs: use a single standalone shell script</h3>
+                     <p>When I file a bug, I can get more reliable minimal working examples using a shell script, leading to better bugs and faster help.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/03/rust-fallthrough/">
+                   <h3>Take a break: Rust match has fallthrough</h3>
+                     <p>Match + labelled blocks &amp; breaks = fallthrough. It works, but it’s not very pretty!
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/03/ev-newtons/">
+                   <h3>Newtons are a unit of mileage</h3>
+                     <p>For an EV, Newtons (N) is a seemingly sensible version of L/100km or mpg, for measuring the efficiency of the car. Summing drag and rolling resistance forces aligns closely to real world observations.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>
