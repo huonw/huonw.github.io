@@ -2,31 +2,33 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>  2018–08 |  Huon on the internet</title>
+  <title>  Is that a deprecation? Or is it just removed? |  Huon on the internet</title>
 
   <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
   
-  <link rel="canonical" href="https://huonw.github.io/blog/2018/08/">
+  <link rel="canonical" href="https://huonw.github.io/blog/2025/09/deprecating-vs-removing/">
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   
 
   
-  <meta name="description" content="" />
+  <meta name="description" content="It&apos;s useful to have a specific label for &quot;make changes that discourage use of some code&quot;, different to &quot;remove the code&quot;." />
 
   
   <meta name="twitter:card" content="summary" />
   
   <meta name="twitter:site" content="@huon_w" />
-  <meta name="twitter:title" content="2018–08" />
-  <meta name="twitter:description" content="" />
-  <meta name="twitter:url" content="https://huonw.github.io/blog/2018/08/">
+  <meta name="twitter:title" content="Is that a deprecation? Or is it just removed?" />
+  <meta name="twitter:description" content="It&apos;s useful to have a specific label for &quot;make changes that discourage use of some code&quot;, different to &quot;remove the code&quot;." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2025/09/deprecating-vs-removing/">
 
   <!-- facebook -->
-  <meta property="og:url" content="https://huonw.github.io/blog/2018/08/" />
-  <meta property="og:title" content="2018–08" />
-  <meta property="og:description" content="" />
+  <meta property="og:url" content="https://huonw.github.io/blog/2025/09/deprecating-vs-removing/" />
+  <meta property="og:title" content="Is that a deprecation? Or is it just removed?" />
+  <meta property="og:description" content="It&apos;s useful to have a specific label for &quot;make changes that discourage use of some code&quot;, different to &quot;remove the code&quot;." />
+  
+  <meta property="og:type" content="article" />
   
   
   
@@ -724,210 +726,125 @@ a.post-heading {
   <main>
     <article>
       
-        <h1 id="title"> 2018–08</h1>
+        <h1 id="title"> Is that a deprecation? Or is it just removed?</h1>
         
       
       
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">08 Sep 2025</span>
+           
+           
+         </div>
       
-<nav>
-<ul class="post-list">
+      <p>I’ve noticed different people seem to use the word “deprecating” to mean two different things, when it comes to code and/or features: either removing entirely, or discouraging its use. I think it’s useful to have specific labels for both of these of concepts, so that communication is clearer.</p>
 
- 
- 
+<p>When you want to <strong>discourage new users</strong> of some existing code/feature, and…</p>
 
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
+<ul>
+  <li>existing users <strong>continue working</strong> for now, call it <strong>deprecating</strong></li>
+  <li>existing users <strong>stop working</strong> immediately, call it <strong>removing</strong> (or deleting, renaming, or… something else, as appropriate)</li>
 </ul>
-</nav>
+
+<p>Rephrased: describing the removal of <em>X</em> as “<em>X</em> is deprecated” is misleading: a reader may expect that <em>X</em> is still usable, merely discouraged. This confusion may lead to the reader expecting that they’ve got some time migrate away from <em>X</em>, but, no, they must stop using it right now.</p>
+
+<p>This is English-language pedantry, but I’m trying not to be overly prescriptive here, but rather observe that there’s two concepts, and having separate labels for separate concepts is useful. My understanding of common labels is above, maybe you have different ones… but either way, it’s helpful if most of us are on the same page.</p>
+
+<h2 id="making-it-happen">Making it happen</h2>
+
+<p>If we’re fine to break all consumers of a piece of code or a feature, then removing is easy: just delete that code. Maybe it’s an internal function, and thus we know for sure that there’s no more consumers.</p>
+
+<p>If we’re wanting to allow consumers to keep working (for now), there’s a many ways that we can communicate the deprecation, such as:</p>
+
+<ul>
+  <li>Update documentation, including highlighting the change in a changelog/release-notes.</li>
+  <li>If it’s a feature that appears in a UI of some sort, add descriptive “use something else” text when users use it.</li>
+  <li>If it’s a code function, use language features like, for instance:
+    <ul>
+      <li>In Python, <a href="https://docs.python.org/3/library/warnings.html#warnings.deprecated">the <code class="language-plaintext highlighter-rouge">@deprecated</code> decorator</a> and/or manually emitting <a href="https://docs.python.org/3/library/exceptions.html#DeprecationWarning">runtime <code class="language-plaintext highlighter-rouge">DeprecationWarning</code>s</a> are good choices.</li>
+      <li>In Rust, <a href="https://doc.rust-lang.org/reference/attributes/diagnostics.html#r-attributes.diagnostics.deprecated">the <code class="language-plaintext highlighter-rouge">#[deprecated(...)]</code> attribute</a> does what’s desired.</li>
+      <li>In JavaScript and TypeScript, <a href="https://jsdoc.app/tags-deprecated">JSDoc’s <code class="language-plaintext highlighter-rouge">@deprecated</code> tag</a> is relevant.</li>
+      <li>In a GraphQL API, one can use <a href="https://spec.graphql.org/October2021/#sec--deprecated">the <code class="language-plaintext highlighter-rouge">@deprecated</code> directive</a> in a schema, and generated clients may even convert this into their own native deprecation marker like those above.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>With any of these, tooling may give warnings that migration is needed, but the functionality will still work (for now).</p>
+
+<h2 id="removing-is-different-to-deprecating">Removing is different to deprecating</h2>
+
+<p>I occasionally see people say they’re “deprecating” something, when they’re actually completely removing it. Deprecating in the sense of “discourage use”/”emit warnings” is a useful action, and it seems valuable to have a specific term for it.</p>
+
+<p>Are you discouraging usage, but it still works? That’s <strong>deprecating</strong>.</p>
+
+<p>Are you stopping all usage? That’s <strong>not</strong> deprecating.</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Is%20that%20a%20deprecation?%20Or%20is%20it%20just%20removed?%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/09/deprecating-vs-removing/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Is%20that%20a%20deprecation?%20Or%20is%20it%20just%20removed?&amp;url=https://huonw.github.io/blog/2025/09/deprecating-vs-removing/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/09/deprecating-vs-removing/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/09/deprecating-vs-removing/&amp;title=Is%20that%20a%20deprecation?%20Or%20is%20it%20just%20removed?" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
 
 
     </article>
 
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2025/08/copy-as-curl/">
+                   <h3>Convenient 'Copy as cURL': explicit, executable, editable request replays</h3>
+                     <p>Developer tools in browsers offer a “copy as cURL” function for network requests, giving an executable and editable ‘replay’ of the request. This is very convenient for sharing and debugging API requests.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/04/standalone-shell-script-reproducer/">
+                   <h3>Communicating bugs: use a single standalone shell script</h3>
+                     <p>When I file a bug, I can get more reliable minimal working examples using a shell script, leading to better bugs and faster help.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/03/rust-fallthrough/">
+                   <h3>Take a break: Rust match has fallthrough</h3>
+                     <p>Match + labelled blocks &amp; breaks = fallthrough. It works, but it’s not very pretty!
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
     
   </main>
 

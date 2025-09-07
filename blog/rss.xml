@@ -6,8 +6,74 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Tue, 26 Aug 2025 07:29:30 +0000</pubDate>
-        <lastBuildDate>Tue, 26 Aug 2025 07:29:30 +0000</lastBuildDate>
+        <pubDate>Sun, 07 Sep 2025 23:21:59 +0000</pubDate>
+        <lastBuildDate>Sun, 07 Sep 2025 23:21:59 +0000</lastBuildDate>
+        
+        
+        <item>
+            <title>Is that a deprecation? Or is it just removed?</title>
+            <link>https://huonw.github.io/blog/2025/09/deprecating-vs-removing/</link>
+            <pubDate>Mon, 08 Sep 2025 00:00:00 +0000</pubDate>
+            <author>Huon Wilson</author>
+            <guid>https://huonw.github.io/blog/2025/09/deprecating-vs-removing</guid>
+            <description>&lt;p&gt;I’ve noticed different people seem to use the word “deprecating” to mean two different things, when it comes to code and/or features: either removing entirely, or discouraging its use. I think it’s useful to have specific labels for both of these of concepts, so that communication is clearer.&lt;/p&gt;
+
+&lt;p&gt;When you want to &lt;strong&gt;discourage new users&lt;/strong&gt; of some existing code/feature, and…&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;existing users &lt;strong&gt;continue working&lt;/strong&gt; for now, call it &lt;strong&gt;deprecating&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;existing users &lt;strong&gt;stop working&lt;/strong&gt; immediately, call it &lt;strong&gt;removing&lt;/strong&gt; (or deleting, renaming, or… something else, as appropriate)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Rephrased: describing the removal of &lt;em&gt;X&lt;/em&gt; as “&lt;em&gt;X&lt;/em&gt; is deprecated” is misleading: a reader may expect that &lt;em&gt;X&lt;/em&gt; is still usable, merely discouraged. This confusion may lead to the reader expecting that they’ve got some time migrate away from &lt;em&gt;X&lt;/em&gt;, but, no, they must stop using it right now.&lt;/p&gt;
+
+&lt;p&gt;This is English-language pedantry, but I’m trying not to be overly prescriptive here, but rather observe that there’s two concepts, and having separate labels for separate concepts is useful. My understanding of common labels is above, maybe you have different ones… but either way, it’s helpful if most of us are on the same page.&lt;/p&gt;
+
+&lt;h2 id=&quot;making-it-happen&quot;&gt;Making it happen&lt;/h2&gt;
+
+&lt;p&gt;If we’re fine to break all consumers of a piece of code or a feature, then removing is easy: just delete that code. Maybe it’s an internal function, and thus we know for sure that there’s no more consumers.&lt;/p&gt;
+
+&lt;p&gt;If we’re wanting to allow consumers to keep working (for now), there’s a many ways that we can communicate the deprecation, such as:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Update documentation, including highlighting the change in a changelog/release-notes.&lt;/li&gt;
+  &lt;li&gt;If it’s a feature that appears in a UI of some sort, add descriptive “use something else” text when users use it.&lt;/li&gt;
+  &lt;li&gt;If it’s a code function, use language features like, for instance:
+    &lt;ul&gt;
+      &lt;li&gt;In Python, &lt;a href=&quot;https://docs.python.org/3/library/warnings.html#warnings.deprecated&quot;&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@deprecated&lt;/code&gt; decorator&lt;/a&gt; and/or manually emitting &lt;a href=&quot;https://docs.python.org/3/library/exceptions.html#DeprecationWarning&quot;&gt;runtime &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DeprecationWarning&lt;/code&gt;s&lt;/a&gt; are good choices.&lt;/li&gt;
+      &lt;li&gt;In Rust, &lt;a href=&quot;https://doc.rust-lang.org/reference/attributes/diagnostics.html#r-attributes.diagnostics.deprecated&quot;&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;#[deprecated(...)]&lt;/code&gt; attribute&lt;/a&gt; does what’s desired.&lt;/li&gt;
+      &lt;li&gt;In JavaScript and TypeScript, &lt;a href=&quot;https://jsdoc.app/tags-deprecated&quot;&gt;JSDoc’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@deprecated&lt;/code&gt; tag&lt;/a&gt; is relevant.&lt;/li&gt;
+      &lt;li&gt;In a GraphQL API, one can use &lt;a href=&quot;https://spec.graphql.org/October2021/#sec--deprecated&quot;&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@deprecated&lt;/code&gt; directive&lt;/a&gt; in a schema, and generated clients may even convert this into their own native deprecation marker like those above.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With any of these, tooling may give warnings that migration is needed, but the functionality will still work (for now).&lt;/p&gt;
+
+&lt;h2 id=&quot;removing-is-different-to-deprecating&quot;&gt;Removing is different to deprecating&lt;/h2&gt;
+
+&lt;p&gt;I occasionally see people say they’re “deprecating” something, when they’re actually completely removing it. Deprecating in the sense of “discourage use”/”emit warnings” is a useful action, and it seems valuable to have a specific term for it.&lt;/p&gt;
+
+&lt;p&gt;Are you discouraging usage, but it still works? That’s &lt;strong&gt;deprecating&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Are you stopping all usage? That’s &lt;strong&gt;not&lt;/strong&gt; deprecating.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=Is%20that%20a%20deprecation?%20Or%20is%20it%20just%20removed?%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/09/deprecating-vs-removing/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Is%20that%20a%20deprecation?%20Or%20is%20it%20just%20removed?&amp;amp;url=https://huonw.github.io/blog/2025/09/deprecating-vs-removing/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/09/deprecating-vs-removing/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/09/deprecating-vs-removing/&amp;amp;title=Is%20that%20a%20deprecation?%20Or%20is%20it%20just%20removed?&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+</description>
+        </item>
+        
         
         
         <item>
