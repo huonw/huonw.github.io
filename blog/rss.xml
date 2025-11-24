@@ -6,8 +6,52 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Sun, 07 Sep 2025 23:21:59 +0000</pubDate>
-        <lastBuildDate>Sun, 07 Sep 2025 23:21:59 +0000</lastBuildDate>
+        <pubDate>Mon, 24 Nov 2025 23:54:48 +0000</pubDate>
+        <lastBuildDate>Mon, 24 Nov 2025 23:54:48 +0000</lastBuildDate>
+        
+        
+        <item>
+            <title>Context privateering: debugging custom instructions like a pirate</title>
+            <link>https://huonw.github.io/blog/2025/11/piraite/</link>
+            <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
+            <author>Huon Wilson</author>
+            <guid>https://huonw.github.io/blog/2025/11/piraite</guid>
+            <description>&lt;p&gt;I occasionally add context instructions to an AI tool, but then am not sure whether those changes were picked up by the tool. The &lt;em&gt;fun&lt;/em&gt; way to debug this is to add “Always speak like a pirate” to the instructions. This works in all tools. Context engineering!&lt;/p&gt;
+
+&lt;h2 id=&quot;context&quot;&gt;Context&lt;/h2&gt;
+
+&lt;p&gt;I use LLM tools like Claude Code. These come with the ability to customise the context fed to the model with files like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/CLAUDE.md&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;project&amp;gt;/CLAUDE.md&lt;/code&gt;, which can be used for personal and/or project-specific guidelines and tips.&lt;/p&gt;
+
+&lt;p&gt;When editing them, sometimes I find the tool is opaque, and it’s not clear if I’ve configured things correctly and/or the latest version has been picked up, especially with long-running sessions. The instructions themselves don’t always influence the model output in an obvious way, so it can be hard to tell when they’re being included by just viewing tool output.&lt;/p&gt;
+
+&lt;p&gt;Many tools have methods for introspecting what the model is seeing (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/context&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/memory&lt;/code&gt; in Claude Code), but maybe not to the level of detail required to identify which version of each file is being used. But these techniques are all tool-specific if they’re exposed at all, and thus may require diving deep into each and every tool.&lt;/p&gt;
+
+&lt;h2 id=&quot;fleet-of-techniques&quot;&gt;Fleet of techniques&lt;/h2&gt;
+
+&lt;p&gt;Thus, my generic “works everywhere” approach is to add very obvious steering to the file I’m trying to check: “Always speak like a pirate”.&lt;/p&gt;
+
+&lt;p&gt;Me mateys, if tha model starts sayin’ “Arrr” and speakin’ like this, ye ken it’s readin’ the instructions. If it’s speaking normally, you know it’s not taken effect and the instructions likely haven’t been read.&lt;/p&gt;
+
+&lt;p&gt;This works in any tool: if you can provide custom instructions, you can tell it to do something obivous like this. It also works with more than just pirates, of course. Poets, fairies and ents can help you debug, as long as they obviously influence how text would be written.&lt;/p&gt;
+
+&lt;p&gt;(Boring instructions like “End every message with $random_value” work too, if you must.)&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=Context%20privateering:%20debugging%20custom%20instructions%20like%20a%20pirate%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/11/piraite/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Context%20privateering:%20debugging%20custom%20instructions%20like%20a%20pirate%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2025/11/piraite/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/11/piraite/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/11/piraite/&amp;amp;title=Context%20privateering:%20debugging%20custom%20instructions%20like%20a%20pirate&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+</description>
+        </item>
+        
         
         
         <item>

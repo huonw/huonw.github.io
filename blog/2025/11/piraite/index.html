@@ -2,31 +2,33 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>  2016–06 |  Huon on the internet</title>
+  <title>  Context privateering: debugging custom instructions like a pirate |  Huon on the internet</title>
 
   <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
   
-  <link rel="canonical" href="https://huonw.github.io/blog/2016/06/">
+  <link rel="canonical" href="https://huonw.github.io/blog/2025/11/piraite/">
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   
 
   
-  <meta name="description" content="" />
+  <meta name="description" content="Adding &quot;always speak like a pirate&quot; to instructions for an AI tool is a helpful generic trick for debugging whether those instructions are being read correctly." />
 
   
   <meta name="twitter:card" content="summary" />
   
   <meta name="twitter:site" content="@huon_w" />
-  <meta name="twitter:title" content="2016–06" />
-  <meta name="twitter:description" content="" />
-  <meta name="twitter:url" content="https://huonw.github.io/blog/2016/06/">
+  <meta name="twitter:title" content="Context privateering: debugging custom instructions like a pirate" />
+  <meta name="twitter:description" content="Adding &quot;always speak like a pirate&quot; to instructions for an AI tool is a helpful generic trick for debugging whether those instructions are being read correctly." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2025/11/piraite/">
 
   <!-- facebook -->
-  <meta property="og:url" content="https://huonw.github.io/blog/2016/06/" />
-  <meta property="og:title" content="2016–06" />
-  <meta property="og:description" content="" />
+  <meta property="og:url" content="https://huonw.github.io/blog/2025/11/piraite/" />
+  <meta property="og:title" content="Context privateering: debugging custom instructions like a pirate" />
+  <meta property="og:description" content="Adding &quot;always speak like a pirate&quot; to instructions for an AI tool is a helpful generic trick for debugging whether those instructions are being read correctly." />
+  
+  <meta property="og:type" content="article" />
   
   
   
@@ -724,219 +726,103 @@ a.post-heading {
   <main>
     <article>
       
-        <h1 id="title"> 2016–06</h1>
+        <h1 id="title"> Context privateering: debugging custom instructions like a pirate</h1>
         
       
       
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">25 Nov 2025</span>
+           
+           
+         </div>
       
-<nav>
-<ul class="post-list">
+      <p>I occasionally add context instructions to an AI tool, but then am not sure whether those changes were picked up by the tool. The <em>fun</em> way to debug this is to add “Always speak like a pirate” to the instructions. This works in all tools. Context engineering!</p>
 
- 
- 
+<h2 id="context">Context</h2>
 
- 
+<p>I use LLM tools like Claude Code. These come with the ability to customise the context fed to the model with files like <code class="language-plaintext highlighter-rouge">~/.claude/CLAUDE.md</code> or <code class="language-plaintext highlighter-rouge">&lt;project&gt;/CLAUDE.md</code>, which can be used for personal and/or project-specific guidelines and tips.</p>
 
- 
- 
+<p>When editing them, sometimes I find the tool is opaque, and it’s not clear if I’ve configured things correctly and/or the latest version has been picked up, especially with long-running sessions. The instructions themselves don’t always influence the model output in an obvious way, so it can be hard to tell when they’re being included by just viewing tool output.</p>
 
- 
+<p>Many tools have methods for introspecting what the model is seeing (like <code class="language-plaintext highlighter-rouge">/context</code> and <code class="language-plaintext highlighter-rouge">/memory</code> in Claude Code), but maybe not to the level of detail required to identify which version of each file is being used. But these techniques are all tool-specific if they’re exposed at all, and thus may require diving deep into each and every tool.</p>
 
- 
- 
+<h2 id="fleet-of-techniques">Fleet of techniques</h2>
 
- 
+<p>Thus, my generic “works everywhere” approach is to add very obvious steering to the file I’m trying to check: “Always speak like a pirate”.</p>
 
- 
- 
+<p>Me mateys, if tha model starts sayin’ “Arrr” and speakin’ like this, ye ken it’s readin’ the instructions. If it’s speaking normally, you know it’s not taken effect and the instructions likely haven’t been read.</p>
 
- 
+<p>This works in any tool: if you can provide custom instructions, you can tell it to do something obivous like this. It also works with more than just pirates, of course. Poets, fairies and ents can help you debug, as long as they obviously influence how text would be written.</p>
 
- 
- 
+<p>(Boring instructions like “End every message with $random_value” work too, if you must.)</p>
 
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
+<section id="external-links" class="no-print">
   
- 
-
- 
- 
-
- 
-  
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
-</ul>
-</nav>
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Context%20privateering:%20debugging%20custom%20instructions%20like%20a%20pirate%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/11/piraite/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Context%20privateering:%20debugging%20custom%20instructions%20like%20a%20pirate%20%23rustlang&amp;url=https://huonw.github.io/blog/2025/11/piraite/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/11/piraite/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/11/piraite/&amp;title=Context%20privateering:%20debugging%20custom%20instructions%20like%20a%20pirate" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
 
 
     </article>
 
+    
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2025/09/deprecating-vs-removing/">
+                   <h3>Is that a deprecation? Or is it just removed?</h3>
+                     <p>It’s useful to have a specific label for “make changes that discourage use of some code”, different to “remove the code”.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/08/copy-as-curl/">
+                   <h3>Convenient 'Copy as cURL': explicit, executable, editable request replays</h3>
+                     <p>Developer tools in browsers offer a “copy as cURL” function for network requests, giving an executable and editable ‘replay’ of the request. This is very convenient for sharing and debugging API requests.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/04/standalone-shell-script-reproducer/">
+                   <h3>Communicating bugs: use a single standalone shell script</h3>
+                     <p>When I file a bug, I can get more reliable minimal working examples using a shell script, leading to better bugs and faster help.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
     
   </main>
 

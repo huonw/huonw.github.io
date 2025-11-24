@@ -45,6 +45,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     };
     var posts = [
         
+        {path: "/blog/2025/11/piraite/", title: "Context privateering: debugging custom instructions like a pirate"},
+        
         {path: "/blog/2025/09/deprecating-vs-removing/", title: "Is that a deprecation? Or is it just removed?"},
         
         {path: "/blog/2025/08/copy-as-curl/", title: "Convenient 'Copy as cURL': explicit, executable, editable request replays"},
