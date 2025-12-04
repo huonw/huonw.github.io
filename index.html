@@ -121,6 +121,11 @@ body {
     position:relative;
 }
 
+#no-ai {
+    text-align: center;
+    font-size: small;
+}
+
 .lazily-filled {
   position: relative;
 }
@@ -733,6 +738,26 @@ a.post-heading {
   
     
       <li class="post-post">
+  <a href="/blog/2025/12/typescript-monotonic/" class="post-heading">
+    <h2 class="post-title">TypeScript strictness is non-monotonic: strict-null-checks and no-implicit-any interact</h2>
+    <span class="post-date">03 Dec 2025</span>
+  </a>
+  <div class="post-excerpt"><p>The TypeScript compiler options <code class="language-plaintext highlighter-rouge">strictNullChecks</code> and <code class="language-plaintext highlighter-rouge">noImplicitAny</code> interact in a strange way: enabling just <code class="language-plaintext highlighter-rouge">strictNullChecks</code> leads to type errors that disappear after enabling <code class="language-plaintext highlighter-rouge">noImplicitAny</code> too, meaning getting stricter has fewer errors!</p>
+   <a href="/blog/2025/12/typescript-monotonic/" class="post-more">Keep reading</a></div>
+  <div class="clear"></div>
+</li>
+
+    
+  
+ 
+
+ 
+ 
+
+ 
+  
+    
+      <li class="post-post">
   <a href="/blog/2025/11/piraite/" class="post-heading">
     <h2 class="post-title">Context privateering: debugging custom instructions like a pirate</h2>
     <span class="post-date">25 Nov 2025</span>
@@ -779,26 +804,6 @@ a.post-heading {
   </a>
   <div class="post-excerpt"><p>The network tab of a browser’s developer tools shows a list of requests. Sometimes there’s a problem with one of those requests! Maybe the server is crashing and returning a 500 error, or maybe there’s an unexpected 403 permission error. The dev tools UIs provide one-click <strong>“Copy as cURL”</strong> functionality to conveniently extract an executable ‘replay’ of the request, and it can be easily edited. This makes <strong>communicating</strong> and <strong>debugging</strong> issues with HTTP requests much easier.</p>
    <a href="/blog/2025/08/copy-as-curl/" class="post-more">Keep reading</a></div>
-  <div class="clear"></div>
-</li>
-
-    
-  
- 
-
- 
- 
-
- 
-  
-    
-      <li class="post-post">
-  <a href="/blog/2025/04/standalone-shell-script-reproducer/" class="post-heading">
-    <h2 class="post-title">Communicating bugs: use a single standalone shell script</h2>
-    <span class="post-date">11 Apr 2025</span>
-  </a>
-  <div class="post-excerpt"><p>Hitting a bug is no fun: maybe it interferes with your work or play, or maybe it means you have to dive down a debugging rabbit hole. Remotely debugging a bug <em>someone else</em> has found is even less fun… I’ve settled on using a shell script for sharing executable self-contained reproducers for issues I find in software libraries and developer tools, to get help faster.</p>
-   <a href="/blog/2025/04/standalone-shell-script-reproducer/" class="post-more">Keep reading</a></div>
   <div class="clear"></div>
 </li>
 

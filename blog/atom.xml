@@ -4,13 +4,240 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2025-11-24T23:54:48+00:00</updated>
+  <updated>2025-12-04T20:56:30+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
     <email>dbau.pp@gmail.com</email>
   </author>
 
+  
+  
+  <entry>
+    <id>https://huonw.github.io/blog/2025/12/typescript-monotonic</id>
+    <link type="text/html" rel="alternate" href="https://huonw.github.io/blog/2025/12/typescript-monotonic/"/>
+    <title>TypeScript strictness is non-monotonic: strict-null-checks and no-implicit-any interact</title>
+    <published>2025-12-03T00:00:00+00:00</published>
+    <updated>2025-12-03T00:00:00+00:00</updated>
+    <author>
+      <name>Huon Wilson</name>
+      <uri>https://huonw.github.io/</uri>
+    </author>
+    <content type="html">&lt;p&gt;The TypeScript compiler options &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; interact in a strange way: enabling just &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt; leads to type errors that disappear after enabling &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; too, meaning getting stricter has fewer errors!&lt;/p&gt;
+
+&lt;p&gt;This is a low-consequence curiosity, but I did trip over it in the real world, while updating some modules at work to be stricter.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-context&quot;&gt;The context&lt;/h2&gt;
+
+&lt;p&gt;TypeScript is a powerful tool for taming a JavaScript codebase, but getting the most assurance requires using it in “strict” mode.&lt;/p&gt;
+
+&lt;p&gt;Adopting TypeScript in an existing JavaScript codebase can be done incrementally by turning on each of the strict sub-settings, and working through the errors, one-by-one. The incremental approach makes the adoption feasible: don’t fix the &lt;em&gt;whole world&lt;/em&gt; in one big bang, make several smaller changes until, finally, the world is fixed.&lt;/p&gt;
+
+&lt;p&gt;At work, we’ve recently been ratcheting up our strictness incrementally in this manner, and I came across this interaction.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-example&quot;&gt;The example&lt;/h2&gt;
+
+&lt;p&gt;What’s the type of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;array&lt;/code&gt; in this code snippet?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;array&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;details&gt;
+  &lt;summary&gt;
+As a standalone snippet, it looks weird and pointless (&quot;why not &lt;code&gt;const array = [123];&lt;/code&gt;?&quot;), but it&apos;s the minimal version of real-world code (click for example).
+&lt;/summary&gt;
+
+  &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;featureFlags&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[];&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;enableRocket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;featureFlags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;rocket&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;enableParachute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;featureFlags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;parachute&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;prepareForLandSpeedRecord&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;featureFlags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;/details&gt;
+
+&lt;p&gt;There’s no explicit annotation, so TypeScript needs to infer it. The inference is a bit fancy, because it requires “time-travel”: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;const array = []&lt;/code&gt; declaration doesn’t say anything about what might be in the array, that only comes from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push&lt;/code&gt; later in the code.&lt;/p&gt;
+
+&lt;p&gt;Given all this, it’s not too surprising that the exact inferred type depends on two TypeScript language options:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;Inferred type&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;least strict&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any[]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;never[]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;most strict&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;the-options&quot;&gt;The options&lt;/h2&gt;
+
+&lt;p&gt;The two options that are influencing the inferred type here are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.typescriptlang.org/tsconfig/#strictNullChecks&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;&lt;/a&gt;: properly enforce handling of optional/nullable values. For instance, when enabled, a nullable string variable (type &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string | null&lt;/code&gt;) can’t be used directly where a plain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;string&lt;/code&gt; value is expected.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.typescriptlang.org/tsconfig/#noImplicitAny&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt;&lt;/a&gt;: avoid inferring the “catch-all” &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any&lt;/code&gt; type in some ambiguous cases.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It’s best to have them both enabled: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt; solves the &lt;a href=&quot;https://en.wikipedia.org/wiki/Null_pointer#History&quot;&gt;“billion dollar mistake”&lt;/a&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; reduces the number of error-prone &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any&lt;/code&gt;s that infect the codebase.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-problem&quot;&gt;The problem&lt;/h2&gt;
+
+&lt;p&gt;The third configuration in our table above, with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt; enabled and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; disabled, infers &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;array: never[]&lt;/code&gt;. The code snippet is thus invalid and is rejected with an error (&lt;a href=&quot;https://www.typescriptlang.org/play/?strict=false&amp;amp;noImplicitAny=false&amp;amp;strictFunctionTypes=false&amp;amp;strictPropertyInitialization=false&amp;amp;strictBindCallApply=false&amp;amp;noImplicitThis=false&amp;amp;noImplicitReturns=false&amp;amp;alwaysStrict=false&amp;amp;esModuleInterop=false&amp;amp;declaration=false&amp;amp;noErrorTruncation=true&amp;amp;noImplicitOverride=false&amp;amp;ts=5.9.3#code/GYVwdgxgLglg9mABMAFASkQbwFCL4gegMRQDkAhAOkRiQENlxp4kAjAUwjpAGd3EGUOAAcAtABt2AN3bjEUugCcYdVpMQATTuKV1YCGj0Q9xMAOYALKOICex4ZxXi02XPggIeUAYsV07ALyIANoAugDcbnhKfjaUwrwWKACMAEwAzGiRAL5AA&quot;&gt;live example&lt;/a&gt;):&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-typescript&quot; data-lang=&quot;typescript&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;nx&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//         ^^^ error: Argument of type &apos;123&apos; is not assignable to parameter of type &apos;never&apos;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Nothing (not the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;123&lt;/code&gt; literal, nor any other &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number&lt;/code&gt;, nor anything else) is a “subtype” of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;never&lt;/code&gt;, and so, yes, it makes sense that this code is invalid.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-strangeness&quot;&gt;The strangeness&lt;/h2&gt;
+
+&lt;p&gt;“Enable some stricter requirements, and get an error” is not surprising and not noteworthy… but let’s look closely at the table again:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt;&lt;/th&gt;
+      &lt;th&gt;Inferred type&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;least strict&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any[]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;error!&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+      &lt;td&gt;❌&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;never[]&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;most strict&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+      &lt;td&gt;✅&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;So, if we’re starting with a lax codebase, and looking to make it strict, we might:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;enable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;, and hit a new error (no surprise), then&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;resolve this error&lt;/strong&gt; without code changes, just by enabling &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; (surprise!).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As we’re going towards fully strict, enabling strictness options one-by-one can make some “spurious” errors appear transiently, just in the intermediate semi-strict state. The number of errors goes up and then down as we turn on settings!&lt;/p&gt;
+
+&lt;p&gt;I’d personally expect enabling strict options to be monotonic: more options enabled = more errors emitted. This pair of options violates that expectation.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-solution&quot;&gt;The solution&lt;/h2&gt;
+
+&lt;p&gt;There’s a few ways to “solve” this weirdness when trying to make a TypeScript codebase strict:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Just fix the errors with explicit annotations like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;const array: number[] = []&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Use a different one-by-one order: enable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; first and then &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;. As the table shows, the inference gives &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;array: number[]&lt;/code&gt; for both steps in this order, and thus there’s no error.&lt;/li&gt;
+  &lt;li&gt;Enable them together: instead of trying to be fully incremental, just enable these two options in one step.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;the-explanation&quot;&gt;The explanation&lt;/h2&gt;
+
+&lt;p&gt;Why does having &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt; enabled and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; disabled lead to an error that doesn’t appear elsewhere? &lt;a href=&quot;https://stackoverflow.com/a/72660888&quot;&gt;jcalz explains it well on StackOverflow&lt;/a&gt;, with the core being:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;This problematic combination is an edge-case which was left for &lt;strong&gt;backwards compatibility&lt;/strong&gt;, where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;array&lt;/code&gt;’s type is inferred as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;never[]&lt;/code&gt; at its declaration and that’s locked in for the rest of the code.&lt;/li&gt;
+  &lt;li&gt;Enabling &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; has the compiler use “evolving” types in ambiguous locations (places where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any&lt;/code&gt; would be inferred, without &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt;): thus, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;array&lt;/code&gt;’s type is &lt;em&gt;not&lt;/em&gt; confirmed on the line of its declaration and can incorporate the information from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;push&lt;/code&gt; for inference.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-editorialising&quot;&gt;The editorialising&lt;/h2&gt;
+
+&lt;p&gt;This feels like a cute brainteaser, rather than a major issue:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;It’s not a major imposition or significant waste of time to fix the spurious errors, and arguably having the annotation may make this sort of code clearer.&lt;/li&gt;
+  &lt;li&gt;It’s understandable that the semi-strict state might have weird behaviour: I imagine the TypeScript developers are more interested in a good experience with full strictness, as hopefully the intermediate states are just stepping stones, rather than a long-term situation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-summary&quot;&gt;The summary&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt; TypeScript options interact in a curious way: enabling them one-by-one in the “wrong” order leads to errors that appear and then disappear, violating the expectation of monotonicity (stricter options enabled = more errors). This can occur in real code, but has minimal impact, as it’s easy to resolve and/or side-step.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=TypeScript%20strictness%20is%20non-monotonic:%20strict-null-checks%20and%20no-implicit-any%20interact%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/12/typescript-monotonic/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=TypeScript%20strictness%20is%20non-monotonic:%20strict-null-checks%20and%20no-implicit-any%20interact%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2025/12/typescript-monotonic/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/12/typescript-monotonic/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/12/typescript-monotonic/&amp;amp;title=TypeScript%20strictness%20is%20non-monotonic:%20strict-null-checks%20and%20no-implicit-any%20interact&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+</content>
+  </entry>
+  
   
   
   <entry>
