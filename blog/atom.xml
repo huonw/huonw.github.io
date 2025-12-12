@@ -4,13 +4,113 @@
   <title>Huon on the internet</title>
   <link href="https://huonw.github.io/blog/"/>
   <link type="application/atom+xml" rel="self" href="https://huonw.github.io/blog/atom.xml"/>
-  <updated>2025-12-04T20:56:30+00:00</updated>
+  <updated>2025-12-12T22:10:47+00:00</updated>
   <id>https://huonw.github.io/</id>
   <author>
     <name>Huon Wilson</name>
     <email>dbau.pp@gmail.com</email>
   </author>
 
+  
+  
+  <entry>
+    <id>https://huonw.github.io/blog/2025/12/magit-insert-worktrees</id>
+    <link type="text/html" rel="alternate" href="https://huonw.github.io/blog/2025/12/magit-insert-worktrees/"/>
+    <title>magit-insert-worktrees improves status buffers</title>
+    <published>2025-12-13T00:00:00+00:00</published>
+    <updated>2025-12-13T00:00:00+00:00</updated>
+    <author>
+      <name>Huon Wilson</name>
+      <uri>https://huonw.github.io/</uri>
+    </author>
+    <content type="html">&lt;p&gt;The Magit package for Emacs is my Git UI of choice, and git worktrees are very convenient. They mesh up particularly well by adding the built-in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;magit-insert-worktrees&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;magit-status-sections-hook&lt;/code&gt;. With this, the magit status buffer shows a summary of the branch/HEAD/path of all worktrees, and allow jumping between them in a flash.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-emacs-lisp&quot; data-lang=&quot;emacs-lisp&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;;; Show all worktrees at the end of the status buffer (if more than one)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;magit-status-sections-hook&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#&apos;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;magit-insert-worktrees&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;image has-caption&quot;&gt;
+  &lt;div class=&quot;image-positioner&quot;&gt;
+    
+    &lt;a href=&quot;example.png&quot;&gt;
+      &lt;img src=&quot;example.png&quot; alt=&quot;A screenshot of a magit status buffer, with several sections: the default &apos;Head&apos; with the &apos;huonw/magit-insert-worktrees-docs&apos; branch checked out, a partially expanded &apos;Unstaged changes (1)&apos; section with a change to the &apos;docs/magit.org&apos; file, a collapsed &apos;Recent commits&apos; section, and then a &apos;Worktrees (3)&apos; section, with three lines: &apos;huonw/magit-insert-worktrees-docs&apos; branch (blue, outlined) at ~/projects/magit/magit, &apos;main&apos; branch (blue, no outline) at ../magit2/, and then a detached HEAD commit hash (yellow, no outline) at ../magit3/.&quot; /&gt;
+    &lt;/a&gt;
+    
+  &lt;/div&gt;
+  &lt;figcaption&gt;&lt;p&gt;A magit status buffer with all the usual features, plus the new ‘Worktrees’ section at the end: the outlined row with an absolute path is the worktree for the current status buffer, and the other two are elsewhere on disk. Hitting RET on any worktree switches to it.&lt;/p&gt;
+&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;aside data-icon=&quot;ℹ️&quot;&gt;
+  &lt;p&gt;This post is about a particular feature of the &lt;a href=&quot;https://magit.vc/&quot;&gt;Magit&lt;/a&gt; package for interfacing to &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; within &lt;a href=&quot;https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html&quot;&gt;Emacs&lt;/a&gt;. I can’t say enough good things about Magit (it’s both incredibly powerful but also accessibly surfaces &amp;amp; teaches so much of the raw git interface; even when I’ve been written code in a different editor, I’ll still use Magit to interact with Git)… but I also am not going to excessively extol its virtues or explain all the details here, as &lt;a href=&quot;https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git&quot;&gt;others have already done so&lt;/a&gt;.&lt;/p&gt;
+&lt;/aside&gt;
+
+&lt;h2 id=&quot;worktrees&quot;&gt;Worktrees&lt;/h2&gt;
+
+&lt;p&gt;Git has a feature called &lt;a href=&quot;https://git-scm.com/docs/git-worktree&quot;&gt;worktrees&lt;/a&gt;, which are a nifty way to do work in parallel: different branches checked out in different directories, but all sharing a single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.git&lt;/code&gt; directory. This means less disk space used on duplicate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.git&lt;/code&gt; clones, but, more usefully, data like branches &amp;amp; stashes is shared.&lt;/p&gt;
+
+&lt;p&gt;There’s lots of ways to use worktrees, and they’re especially handy in the age of AI agents. At the most basic level, they’re &lt;strong&gt;useful for working concurrently&lt;/strong&gt;, like &lt;a href=&quot;/blog/2020/04/worktrees-and-pyenv/&quot;&gt;reducing context switching when balancing deep projects, code reviewing, and small fixes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I know some people like to create a new worktree for each branch they work on, and then remove them once finished (or get their agents to do so). I personally generally have fixed long-lived worktrees&lt;sup id=&quot;fnref:why-fixed&quot;&gt;&lt;a href=&quot;#fn:why-fixed&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;0&lt;/a&gt;&lt;/sup&gt; that I cycle branches through as required: for my main work repo, I’m up to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name2&lt;/code&gt;, …, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;name5&lt;/code&gt; at the moment… and if I ever need a 6th one, I’ll just create it.&lt;/p&gt;
+
+&lt;h2 id=&quot;finding-the-worktrees&quot;&gt;Finding the worktrees&lt;/h2&gt;
+
+&lt;p&gt;In either case, I find it annoying to keep track of what worktrees are ‘live’. There’s workable solutions, but they’re a bit of friction:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;CLI: run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git worktree list&lt;/code&gt; or some alias.&lt;/li&gt;
+  &lt;li&gt;Magit: hit &lt;a href=&quot;https://docs.magit.vc/magit/Worktree.html&quot;&gt;keybinding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Z g&lt;/code&gt; in magit buffers&lt;/a&gt; to see a switcher.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The magit status buffer is the entry-point to a Git repo, and surfaces a lot of information that’s handy to have immediately available, in collapsible sections, things like diffs of any uncommitted and branch summaries. It reduces friction by making &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git status&lt;/code&gt; automatic and interactive, and is customisable.&lt;/p&gt;
+
+&lt;p&gt;I wanted to apply that mindset to worktrees too, and so, recently, started writing my own worktree section inserter… but then thought to double check the Magit source code for anything similar, and found exactly what I wanted&lt;sup id=&quot;fnref:docs&quot;&gt;&lt;a href=&quot;#fn:docs&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;!&lt;/p&gt;
+
+&lt;p&gt;Magit has a &lt;a href=&quot;https://github.com/huonw/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276&quot;&gt;builtin &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;magit-insert-worktrees&lt;/code&gt; function&lt;/a&gt; that inserts a section &lt;strong&gt;summarising all worktrees&lt;/strong&gt; (or nothing, if there’s only one worktree). It’s &lt;strong&gt;interactive&lt;/strong&gt;: hitting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RET&lt;/code&gt; on any worktree shows the magit status buffer for it.&lt;/p&gt;
+
+&lt;p&gt;It’s not used by default, so it needs to be &lt;strong&gt;explicitly enabled&lt;/strong&gt; by adding to the hook that the status buffer executes to show all the sections. My init files now include:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-emacs-lisp&quot; data-lang=&quot;emacs-lisp&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;;; Show all worktrees at the end of the status buffer (if more than one)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;&apos;magit-status-sections-hook&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#&apos;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;magit-insert-worktrees&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;My status buffers now look like the screenshot above. Yay!&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=magit-insert-worktrees%20improves%20status%20buffers%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/12/magit-insert-worktrees/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=magit-insert-worktrees%20improves%20status%20buffers%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/&amp;amp;title=magit-insert-worktrees%20improves%20status%20buffers&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol start=&quot;0&quot;&gt;
+    &lt;li id=&quot;fn:why-fixed&quot;&gt;
+      &lt;p&gt;I’ve settled on long-lived worktrees for two reasons:&lt;/p&gt;
+      &lt;ol&gt;
+        &lt;li&gt;IME many code-bases have at least a little bit of static setup that’s intentionally not tracked in Git (like initialising an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env&lt;/code&gt; file from an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.env.example&lt;/code&gt; file), and starting a new worktree requires redoing this… this can be solved with scripts, or just be side-stepped.&lt;/li&gt;
+        &lt;li&gt;I have an (arguably bad) habit of taking notes, leaving reference data and/or creating ad-hoc scripts in untracked files in a worktree, and sometimes want to return to them and persist them later (commit, or paste into a issue tracker, or similar), so creating then &lt;em&gt;deleting&lt;/em&gt; worktrees risks accidentally losing them.&lt;/li&gt;
+      &lt;/ol&gt;
+      &lt;p&gt;&lt;a href=&quot;#fnref:why-fixed&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:docs&quot;&gt;
+      &lt;p&gt;This function appears to have existed since 2016, but not be mentioned in the manual, so I submitted &lt;a href=&quot;https://github.com/magit/magit/pull/5492&quot;&gt;an addition&lt;/a&gt;. &lt;a href=&quot;#fnref:docs&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+  </entry>
+  
   
   
   <entry>

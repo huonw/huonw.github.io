@@ -2,31 +2,33 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>  2019–05 |  Huon on the internet</title>
+  <title>  magit-insert-worktrees improves status buffers |  Huon on the internet</title>
 
   <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
   
-  <link rel="canonical" href="https://huonw.github.io/blog/2019/05/">
+  <link rel="canonical" href="https://huonw.github.io/blog/2025/12/magit-insert-worktrees/">
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   
 
   
-  <meta name="description" content="" />
+  <meta name="description" content="When using Emacs&apos; Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer." />
 
   
   <meta name="twitter:card" content="summary" />
   
   <meta name="twitter:site" content="@huon_w" />
-  <meta name="twitter:title" content="2019–05" />
-  <meta name="twitter:description" content="" />
-  <meta name="twitter:url" content="https://huonw.github.io/blog/2019/05/">
+  <meta name="twitter:title" content="magit-insert-worktrees improves status buffers" />
+  <meta name="twitter:description" content="When using Emacs&apos; Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2025/12/magit-insert-worktrees/">
 
   <!-- facebook -->
-  <meta property="og:url" content="https://huonw.github.io/blog/2019/05/" />
-  <meta property="og:title" content="2019–05" />
-  <meta property="og:description" content="" />
+  <meta property="og:url" content="https://huonw.github.io/blog/2025/12/magit-insert-worktrees/" />
+  <meta property="og:title" content="magit-insert-worktrees improves status buffers" />
+  <meta property="og:description" content="When using Emacs&apos; Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer." />
+  
+  <meta property="og:type" content="article" />
   
   
   
@@ -729,225 +731,156 @@ a.post-heading {
   <main>
     <article>
       
-        <h1 id="title"> 2019–05</h1>
+        <h1 id="title"> magit-insert-worktrees improves status buffers</h1>
         
       
       
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">13 Dec 2025</span>
+           
+           
+         </div>
       
-<nav>
-<ul class="post-list">
+      <p>The Magit package for Emacs is my Git UI of choice, and git worktrees are very convenient. They mesh up particularly well by adding the built-in <code class="language-plaintext highlighter-rouge">magit-insert-worktrees</code> to <code class="language-plaintext highlighter-rouge">magit-status-sections-hook</code>. With this, the magit status buffer shows a summary of the branch/HEAD/path of all worktrees, and allow jumping between them in a flash.</p>
 
- 
- 
+<figure class="highlight"><pre><code class="language-emacs-lisp" data-lang="emacs-lisp"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre><span class="c1">;; Show all worktrees at the end of the status buffer (if more than one)</span>
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'magit-status-sections-hook</span> <span class="nf">#'</span><span class="nv">magit-insert-worktrees</span> <span class="no">t</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></figure>
 
- 
+<figure class="image has-caption">
+  <div class="image-positioner">
+    
+    <a href="example.png">
+      <img src="example.png" alt="A screenshot of a magit status buffer, with several sections: the default 'Head' with the 'huonw/magit-insert-worktrees-docs' branch checked out, a partially expanded 'Unstaged changes (1)' section with a change to the 'docs/magit.org' file, a collapsed 'Recent commits' section, and then a 'Worktrees (3)' section, with three lines: 'huonw/magit-insert-worktrees-docs' branch (blue, outlined) at ~/projects/magit/magit, 'main' branch (blue, no outline) at ../magit2/, and then a detached HEAD commit hash (yellow, no outline) at ../magit3/." />
+    </a>
+    
+  </div>
+  <figcaption><p>A magit status buffer with all the usual features, plus the new ‘Worktrees’ section at the end: the outlined row with an absolute path is the worktree for the current status buffer, and the other two are elsewhere on disk. Hitting RET on any worktree switches to it.</p>
+</figcaption>
+</figure>
 
- 
- 
+<aside data-icon="ℹ️">
+  <p>This post is about a particular feature of the <a href="https://magit.vc/">Magit</a> package for interfacing to <a href="https://git-scm.com/">Git</a> within <a href="https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html">Emacs</a>. I can’t say enough good things about Magit (it’s both incredibly powerful but also accessibly surfaces &amp; teaches so much of the raw git interface; even when I’ve been written code in a different editor, I’ll still use Magit to interact with Git)… but I also am not going to excessively extol its virtues or explain all the details here, as <a href="https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git">others have already done so</a>.</p>
+</aside>
 
- 
+<h2 id="worktrees">Worktrees</h2>
 
- 
- 
+<p>Git has a feature called <a href="https://git-scm.com/docs/git-worktree">worktrees</a>, which are a nifty way to do work in parallel: different branches checked out in different directories, but all sharing a single <code class="language-plaintext highlighter-rouge">.git</code> directory. This means less disk space used on duplicate <code class="language-plaintext highlighter-rouge">.git</code> clones, but, more usefully, data like branches &amp; stashes is shared.</p>
 
- 
+<p>There’s lots of ways to use worktrees, and they’re especially handy in the age of AI agents. At the most basic level, they’re <strong>useful for working concurrently</strong>, like <a href="/blog/2020/04/worktrees-and-pyenv/">reducing context switching when balancing deep projects, code reviewing, and small fixes</a>.</p>
 
- 
- 
+<p>I know some people like to create a new worktree for each branch they work on, and then remove them once finished (or get their agents to do so). I personally generally have fixed long-lived worktrees<sup id="fnref:why-fixed"><a href="#fn:why-fixed" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> that I cycle branches through as required: for my main work repo, I’m up to <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">name2</code>, …, <code class="language-plaintext highlighter-rouge">name5</code> at the moment… and if I ever need a 6th one, I’ll just create it.</p>
 
- 
+<h2 id="finding-the-worktrees">Finding the worktrees</h2>
 
- 
- 
+<p>In either case, I find it annoying to keep track of what worktrees are ‘live’. There’s workable solutions, but they’re a bit of friction:</p>
 
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
+<ul>
+  <li>CLI: run <code class="language-plaintext highlighter-rouge">git worktree list</code> or some alias.</li>
+  <li>Magit: hit <a href="https://docs.magit.vc/magit/Worktree.html">keybinding <code class="language-plaintext highlighter-rouge">Z g</code> in magit buffers</a> to see a switcher.</li>
 </ul>
-</nav>
 
+<p>The magit status buffer is the entry-point to a Git repo, and surfaces a lot of information that’s handy to have immediately available, in collapsible sections, things like diffs of any uncommitted and branch summaries. It reduces friction by making <code class="language-plaintext highlighter-rouge">git status</code> automatic and interactive, and is customisable.</p>
+
+<p>I wanted to apply that mindset to worktrees too, and so, recently, started writing my own worktree section inserter… but then thought to double check the Magit source code for anything similar, and found exactly what I wanted<sup id="fnref:docs"><a href="#fn:docs" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>!</p>
+
+<p>Magit has a <a href="https://github.com/huonw/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276">builtin <code class="language-plaintext highlighter-rouge">magit-insert-worktrees</code> function</a> that inserts a section <strong>summarising all worktrees</strong> (or nothing, if there’s only one worktree). It’s <strong>interactive</strong>: hitting <code class="language-plaintext highlighter-rouge">RET</code> on any worktree shows the magit status buffer for it.</p>
+
+<p>It’s not used by default, so it needs to be <strong>explicitly enabled</strong> by adding to the hook that the status buffer executes to show all the sections. My init files now include:</p>
+
+<figure class="highlight"><pre><code class="language-emacs-lisp" data-lang="emacs-lisp"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre><span class="c1">;; Show all worktrees at the end of the status buffer (if more than one)</span>
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'magit-status-sections-hook</span> <span class="nf">#'</span><span class="nv">magit-insert-worktrees</span> <span class="no">t</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>My status buffers now look like the screenshot above. Yay!</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=magit-insert-worktrees%20improves%20status%20buffers%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2025/12/magit-insert-worktrees/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=magit-insert-worktrees%20improves%20status%20buffers%20%23rustlang&amp;url=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/&amp;title=magit-insert-worktrees%20improves%20status%20buffers" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:why-fixed">
+      <p>I’ve settled on long-lived worktrees for two reasons:</p>
+      <ol>
+        <li>IME many code-bases have at least a little bit of static setup that’s intentionally not tracked in Git (like initialising an <code class="language-plaintext highlighter-rouge">.env</code> file from an <code class="language-plaintext highlighter-rouge">.env.example</code> file), and starting a new worktree requires redoing this… this can be solved with scripts, or just be side-stepped.</li>
+        <li>I have an (arguably bad) habit of taking notes, leaving reference data and/or creating ad-hoc scripts in untracked files in a worktree, and sometimes want to return to them and persist them later (commit, or paste into a issue tracker, or similar), so creating then <em>deleting</em> worktrees risks accidentally losing them.</li>
+      </ol>
+      <p><a href="#fnref:why-fixed" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:docs">
+      <p>This function appears to have existed since 2016, but not be mentioned in the manual, so I submitted <a href="https://github.com/magit/magit/pull/5492">an addition</a>. <a href="#fnref:docs" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
     </article>
 
+    
+    <div id="no-ai">This article is from a human: I used no AI to write it.</div>
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2025/12/typescript-monotonic/">
+                   <h3>TypeScript strictness is non-monotonic: strict-null-checks and no-implicit-any interact</h3>
+                     <p>A curiosity about the interaction between two TypeScript compiler settings, that lead to errors that appear and disappear, as one increases strictness.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/11/piraite/">
+                   <h3>Context privateering: debugging custom instructions like a pirate</h3>
+                     <p>Adding “always speak like a pirate” to instructions for an AI tool is a helpful generic trick for debugging whether those instructions are being read correctly.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/09/deprecating-vs-removing/">
+                   <h3>Is that a deprecation? Or is it just removed?</h3>
+                     <p>It’s useful to have a specific label for “make changes that discourage use of some code”, different to “remove the code”.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
     
   </main>
 
