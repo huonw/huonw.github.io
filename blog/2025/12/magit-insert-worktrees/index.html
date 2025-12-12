@@ -764,7 +764,7 @@ a.post-heading {
 </figure>
 
 <aside data-icon="ℹ️">
-  <p>This post is about a particular feature of the <a href="https://magit.vc/">Magit</a> package for interfacing to <a href="https://git-scm.com/">Git</a> within <a href="https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html">Emacs</a>. I can’t say enough good things about Magit (it’s both incredibly powerful but also accessibly surfaces &amp; teaches so much of the raw git interface; even when I’ve been written code in a different editor, I’ll still use Magit to interact with Git)… but I also am not going to excessively extol its virtues or explain all the details here, as <a href="https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git">others have already done so</a>.</p>
+  <p>This post is about a particular feature of the <a href="https://magit.vc/">Magit</a> package for interfacing to <a href="https://git-scm.com/">Git</a> within <a href="https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html">Emacs</a>. I can’t say enough good things about Magit (it’s both incredibly powerful but also accessibly surfaces &amp; teaches so much of the raw git interface; even when I’ve been written code in a different editor, I’ll still use Magit to interact with Git)… but I also am not going to excessively extol its virtues or explain all the details here, as <a href="https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git">others</a> have <a href="https://emacsair.me/2017/09/01/the-magical-git-interface/">already</a> done <a href="https://emacsair.me/2017/09/01/magit-walk-through/">so</a>.</p>
 </aside>
 
 <h2 id="worktrees">Worktrees</h2>
@@ -784,7 +784,7 @@ a.post-heading {
   <li>Magit: hit <a href="https://docs.magit.vc/magit/Worktree.html">keybinding <code class="language-plaintext highlighter-rouge">Z g</code> in magit buffers</a> to see a switcher.</li>
 </ul>
 
-<p>The magit status buffer is the entry-point to a Git repo, and surfaces a lot of information that’s handy to have immediately available, in collapsible sections, things like diffs of any uncommitted and branch summaries. It reduces friction by making <code class="language-plaintext highlighter-rouge">git status</code> automatic and interactive, and is customisable.</p>
+<p>The magit status buffer is the entry-point to a Git repo, and surfaces a lot of information that’s handy to have immediately available, in collapsible sections, things like diffs of any uncommitted and branch summaries. It reduces friction by making <code class="language-plaintext highlighter-rouge">git status</code>/<code class="language-plaintext highlighter-rouge">git diff</code>/… automatic and interactive, and is customisable.</p>
 
 <p>I wanted to apply that mindset to worktrees too, and so, recently, started writing my own worktree section inserter… but then thought to double check the Magit source code for anything similar, and found exactly what I wanted<sup id="fnref:docs"><a href="#fn:docs" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>!</p>
 
