@@ -18,7 +18,7 @@ The Magit package for Emacs is my Git UI of choice, and git worktrees are very c
 {% include image.html src="example.png" caption="A magit status buffer with all the usual features, plus the new 'Worktrees' section at the end: the outlined row with an absolute path is the worktree for the current status buffer, and the other two are elsewhere on disk. Hitting RET on any worktree switches to it." alt="A screenshot of a magit status buffer, with several sections: the default 'Head' with the 'huonw/magit-insert-worktrees-docs' branch checked out, a partially expanded 'Unstaged changes (1)' section with a change to the 'docs/magit.org' file, a collapsed 'Recent commits' section, and then a 'Worktrees (3)' section, with three lines: 'huonw/magit-insert-worktrees-docs' branch (blue, outlined) at ~/projects/magit/magit, 'main' branch (blue, no outline) at ../magit2/, and then a detached HEAD commit hash (yellow, no outline) at ../magit3/." %}
 
 <aside data-icon="ℹ️" markdown="1">
-This post is about a particular feature of the [Magit](https://magit.vc/) package for interfacing to [Git](https://git-scm.com/) within [Emacs](https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html). I can't say enough good things about Magit (it's both incredibly powerful but also accessibly surfaces & teaches so much of the raw git interface; even when I've been written code in a different editor, I'll still use Magit to interact with Git)... but I also am not going to excessively extol its virtues or explain all the details here, as [others have already done so](https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git).
+This post is about a particular feature of the [Magit](https://magit.vc/) package for interfacing to [Git](https://git-scm.com/) within [Emacs](https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html). I can't say enough good things about Magit (it's both incredibly powerful but also accessibly surfaces & teaches so much of the raw git interface; even when I've been written code in a different editor, I'll still use Magit to interact with Git)... but I also am not going to excessively extol its virtues or explain all the details here, as [others](https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git) have [already](https://emacsair.me/2017/09/01/the-magical-git-interface/) done [so](https://emacsair.me/2017/09/01/magit-walk-through/).
 </aside>
 
 ## Worktrees
@@ -47,7 +47,7 @@ In either case, I find it annoying to keep track of what worktrees are 'live'. T
 
 [wt-docs]: https://docs.magit.vc/magit/Worktree.html
 
-The magit status buffer is the entry-point to a Git repo, and surfaces a lot of information that's handy to have immediately available, in collapsible sections, things like diffs of any uncommitted and branch summaries. It reduces friction by making `git status` automatic and interactive, and is customisable.
+The magit status buffer is the entry-point to a Git repo, and surfaces a lot of information that's handy to have immediately available, in collapsible sections, things like diffs of any uncommitted and branch summaries. It reduces friction by making `git status`/`git diff`/... automatic and interactive, and is customisable.
 
 I wanted to apply that mindset to worktrees too, and so, recently, started writing my own worktree section inserter... but then thought to double check the Magit source code for anything similar, and found exactly what I wanted[^docs]!
 
