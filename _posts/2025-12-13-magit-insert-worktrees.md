@@ -55,7 +55,7 @@ Magit has a [builtin `magit-insert-worktrees` function][func] that inserts a sec
 
 It's not used by default, so it needs to be **explicitly enabled** by adding to the hook that the status buffer executes to show all the sections. My init files now include:
 
-[func]: https://github.com/huonw/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276
+[func]: https://github.com/magit/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276
 [^docs]: This function appears to have existed since 2016, but not be mentioned in the manual, so I submitted [an addition][pr].
 
 [pr]: https://github.com/magit/magit/pull/5492
