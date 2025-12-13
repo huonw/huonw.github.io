@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Fri, 12 Dec 2025 22:29:57 +0000</pubDate>
-        <lastBuildDate>Fri, 12 Dec 2025 22:29:57 +0000</lastBuildDate>
+        <pubDate>Sat, 13 Dec 2025 22:42:27 +0000</pubDate>
+        <lastBuildDate>Sat, 13 Dec 2025 22:42:27 +0000</lastBuildDate>
         
         
         <item>
@@ -61,7 +61,7 @@
 
 &lt;p&gt;I wanted to apply that mindset to worktrees too, and so, recently, started writing my own worktree section inserter… but then thought to double check the Magit source code for anything similar, and found exactly what I wanted&lt;sup id=&quot;fnref:docs&quot;&gt;&lt;a href=&quot;#fn:docs&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;!&lt;/p&gt;
 
-&lt;p&gt;Magit has a &lt;a href=&quot;https://github.com/huonw/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276&quot;&gt;builtin &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;magit-insert-worktrees&lt;/code&gt; function&lt;/a&gt; that inserts a section &lt;strong&gt;summarising all worktrees&lt;/strong&gt; (or nothing, if there’s only one worktree). It’s &lt;strong&gt;interactive&lt;/strong&gt;: hitting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RET&lt;/code&gt; on any worktree shows the magit status buffer for it.&lt;/p&gt;
+&lt;p&gt;Magit has a &lt;a href=&quot;https://github.com/magit/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276&quot;&gt;builtin &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;magit-insert-worktrees&lt;/code&gt; function&lt;/a&gt; that inserts a section &lt;strong&gt;summarising all worktrees&lt;/strong&gt; (or nothing, if there’s only one worktree). It’s &lt;strong&gt;interactive&lt;/strong&gt;: hitting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RET&lt;/code&gt; on any worktree shows the magit status buffer for it.&lt;/p&gt;
 
 &lt;p&gt;It’s not used by default, so it needs to be &lt;strong&gt;explicitly enabled&lt;/strong&gt; by adding to the hook that the status buffer executes to show all the sections. My init files now include:&lt;/p&gt;
 

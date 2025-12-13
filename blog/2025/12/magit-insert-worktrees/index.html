@@ -788,7 +788,7 @@ a.post-heading {
 
 <p>I wanted to apply that mindset to worktrees too, and so, recently, started writing my own worktree section inserter… but then thought to double check the Magit source code for anything similar, and found exactly what I wanted<sup id="fnref:docs"><a href="#fn:docs" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>!</p>
 
-<p>Magit has a <a href="https://github.com/huonw/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276">builtin <code class="language-plaintext highlighter-rouge">magit-insert-worktrees</code> function</a> that inserts a section <strong>summarising all worktrees</strong> (or nothing, if there’s only one worktree). It’s <strong>interactive</strong>: hitting <code class="language-plaintext highlighter-rouge">RET</code> on any worktree shows the magit status buffer for it.</p>
+<p>Magit has a <a href="https://github.com/magit/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276">builtin <code class="language-plaintext highlighter-rouge">magit-insert-worktrees</code> function</a> that inserts a section <strong>summarising all worktrees</strong> (or nothing, if there’s only one worktree). It’s <strong>interactive</strong>: hitting <code class="language-plaintext highlighter-rouge">RET</code> on any worktree shows the magit status buffer for it.</p>
 
 <p>It’s not used by default, so it needs to be <strong>explicitly enabled</strong> by adding to the hook that the status buffer executes to show all the sections. My init files now include:</p>
 
