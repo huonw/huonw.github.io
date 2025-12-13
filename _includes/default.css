@@ -172,11 +172,6 @@ header a:not(:hover) {
 
 
 main {
-    text-align:justify;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
     line-height: 1.5em;
 
     position: relative;
