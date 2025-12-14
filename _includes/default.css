@@ -347,7 +347,14 @@ figcaption::before {
   width: 25px;
   padding-right: 5px;
 }
-.highlight td.code {
+/* highlight/endhighlight code blocks */
+figure.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+/* no-highlight/endhighlight code blocks (e.g. in footnotes) */
+div.highlight {
   overflow-x: auto;
   padding: 0;
   padding-left: 0.5em;
