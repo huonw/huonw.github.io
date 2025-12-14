@@ -227,6 +227,11 @@ table {
   text-align: left;
 }
 
+/* ensure tables don't make the whole page scroll, NB. requires manual <div class="table-wrapper" markdown="1">...</div> due to https://github.com/gettalong/kramdown/issues/69 */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 td, th {
   padding: 0.1em 0.75em;
 }
@@ -264,9 +269,10 @@ header a:not(:hover) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 0.5em 2em;
 }
 #info-list li {
-  margin: 0 1em;
+  margin: 0;
 }
 
 #page-footer {
@@ -280,11 +286,6 @@ header a:not(:hover) {
 
 
 main {
-    text-align:justify;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
     line-height: 1.5em;
 
     position: relative;
@@ -459,7 +460,14 @@ figcaption::before {
   width: 25px;
   padding-right: 5px;
 }
-.highlight td.code {
+/* highlight/endhighlight code blocks */
+figure.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+/* no-highlight/endhighlight code blocks (e.g. in footnotes) */
+div.highlight {
   overflow-x: auto;
   padding: 0;
   padding-left: 0.5em;
@@ -755,7 +763,9 @@ table { max-width: 600px; border-spacing: 0 0.4em; border-collapse: separate; }
 td { vertical-align: top; }
 </style>
 
-<table><tr><td class="number">1</td><td class="thing">stable release
+<div class="table-wrapper">
+
+  <table><tr><td class="number">1</td><td class="thing">stable release
 </td></tr><tr><td class="number">2</td><td class="thing">‘Rust’ compilers
 </td></tr><tr><td class="number">3</td><td class="thing"><a href="https://github.com/graydon/bors">bots</a> <a href="https://github.com/nrc/highfive">on</a> <a href="https://github.com/barosl/homu">Github</a>
 </td></tr><tr><td class="number">4</td><td class="thing">years of <a href="https://en.wikipedia.org/wiki/Bootstrapping_%28compilers%29">bootstrapping</a> (<a href="http://github.com/rust-lang/rust/commit/7b95b5c033435e0b8902c3f3afb14c80e04fee83"><code class="language-plaintext highlighter-rouge">7b95b5c</code></a> is the innocuous commit of the first snapshot)
@@ -814,6 +824,8 @@ td { vertical-align: top; }
 </td></tr><tr><td class="number">27,466,060</td><td class="thing">bytes of files in the 1.0 source tree
 </td></tr><tr><td class="number">∞</td><td class="thing">code breakage in the lead up
 </td></tr></table>
+
+</div>
 
 <p>Happy 1.0!</p>
 

@@ -226,6 +226,11 @@ table {
   text-align: left;
 }
 
+/* ensure tables don't make the whole page scroll, NB. requires manual <div class="table-wrapper" markdown="1">...</div> due to https://github.com/gettalong/kramdown/issues/69 */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 td, th {
   padding: 0.1em 0.75em;
 }
@@ -263,9 +268,10 @@ header a:not(:hover) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 0.5em 2em;
 }
 #info-list li {
-  margin: 0 1em;
+  margin: 0;
 }
 
 #page-footer {
@@ -279,11 +285,6 @@ header a:not(:hover) {
 
 
 main {
-    text-align:justify;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
     line-height: 1.5em;
 
     position: relative;
@@ -458,7 +459,14 @@ figcaption::before {
   width: 25px;
   padding-right: 5px;
 }
-.highlight td.code {
+/* highlight/endhighlight code blocks */
+figure.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+/* no-highlight/endhighlight code blocks (e.g. in footnotes) */
+div.highlight {
   overflow-x: auto;
   padding: 0;
   padding-left: 0.5em;
@@ -780,74 +788,82 @@ a.post-heading {
   <li>
     <p><strong>error correction</strong> (EC): a measure of redundancy in the QR code, translating into how much “damage” it can tolerate and still be readable. This is how images and logos can be directly embedded into QR codes, without any special consideration. This is <strong>chosen</strong> when creating the QR code. The number of modules that can be damaged for each level is:</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>EC</th>
-          <th style="text-align: right">max damage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>L (low)</td>
-          <td style="text-align: right">7%</td>
-        </tr>
-        <tr>
-          <td>M (medium)</td>
-          <td style="text-align: right">15%</td>
-        </tr>
-        <tr>
-          <td>Q (quartile)</td>
-          <td style="text-align: right">25%</td>
-        </tr>
-        <tr>
-          <td>H (high)</td>
-          <td style="text-align: right">30%</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+
+      <table>
+        <thead>
+          <tr>
+            <th>EC</th>
+            <th style="text-align: right">max damage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>L (low)</td>
+            <td style="text-align: right">7%</td>
+          </tr>
+          <tr>
+            <td>M (medium)</td>
+            <td style="text-align: right">15%</td>
+          </tr>
+          <tr>
+            <td>Q (quartile)</td>
+            <td style="text-align: right">25%</td>
+          </tr>
+          <tr>
+            <td>H (high)</td>
+            <td style="text-align: right">30%</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
   </li>
   <li>
     <p><strong>version</strong>: the number of little squares (modules) along each side of the big square. This is normally <strong>computed</strong> automatically when creating the QR code (from the data and error correction).</p>
 
-    <table>
-      <thead>
-        <tr>
-          <th style="text-align: right">version</th>
-          <th style="text-align: right">modules</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="text-align: right">1</td>
-          <td style="text-align: right">21</td>
-        </tr>
-        <tr>
-          <td style="text-align: right">2</td>
-          <td style="text-align: right">25</td>
-        </tr>
-        <tr>
-          <td style="text-align: right">…</td>
-          <td style="text-align: right">…</td>
-        </tr>
-        <tr>
-          <td style="text-align: right"><em>n</em></td>
-          <td style="text-align: right">4<em>n</em> + 17</td>
-        </tr>
-        <tr>
-          <td style="text-align: right">…</td>
-          <td style="text-align: right">…</td>
-        </tr>
-        <tr>
-          <td style="text-align: right">39</td>
-          <td style="text-align: right">173</td>
-        </tr>
-        <tr>
-          <td style="text-align: right">40</td>
-          <td style="text-align: right">177</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align: right">version</th>
+            <th style="text-align: right">modules</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="text-align: right">1</td>
+            <td style="text-align: right">21</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">2</td>
+            <td style="text-align: right">25</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">…</td>
+            <td style="text-align: right">…</td>
+          </tr>
+          <tr>
+            <td style="text-align: right"><em>n</em></td>
+            <td style="text-align: right">4<em>n</em> + 17</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">…</td>
+            <td style="text-align: right">…</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">39</td>
+            <td style="text-align: right">173</td>
+          </tr>
+          <tr>
+            <td style="text-align: right">40</td>
+            <td style="text-align: right">177</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
   </li>
 </ul>
 
@@ -877,37 +893,41 @@ a.post-heading {
 
 <p>That plot indicates a QR code using EC level H can store <strong>less than half</strong> the data of one using level L: the closest they get is at version 3 (53 vs. 24 bytes). The other levels have less overhead, but it’s still a cost that’s paid:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>EC</th>
-      <th style="text-align: right">max bytes (version 40)</th>
-      <th style="text-align: right">storage relative to L (mean)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>L</td>
-      <td style="text-align: right">2953</td>
-      <td style="text-align: right">100%</td>
-    </tr>
-    <tr>
-      <td>M</td>
-      <td style="text-align: right">2331</td>
-      <td style="text-align: right">79%</td>
-    </tr>
-    <tr>
-      <td>Q</td>
-      <td style="text-align: right">1663</td>
-      <td style="text-align: right">57%</td>
-    </tr>
-    <tr>
-      <td>H</td>
-      <td style="text-align: right">1273</td>
-      <td style="text-align: right">43%</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>EC</th>
+        <th style="text-align: right">max bytes (version 40)</th>
+        <th style="text-align: right">storage relative to L (mean)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>L</td>
+        <td style="text-align: right">2953</td>
+        <td style="text-align: right">100%</td>
+      </tr>
+      <tr>
+        <td>M</td>
+        <td style="text-align: right">2331</td>
+        <td style="text-align: right">79%</td>
+      </tr>
+      <tr>
+        <td>Q</td>
+        <td style="text-align: right">1663</td>
+        <td style="text-align: right">57%</td>
+      </tr>
+      <tr>
+        <td>H</td>
+        <td style="text-align: right">1273</td>
+        <td style="text-align: right">43%</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>That’s some hefty overhead: presumably it is useful for something… I did some experiments.</p>
 
@@ -940,30 +960,34 @@ a.post-heading {
 
 <p>A camera generally doesn’t care about the actual distance, as it just “thinks” in the pixels it sees. Thus, it’s the size of the QR code within the overall image that matters. I call this the <em>field of view</em>. Example, for the full sized version of Figure 4:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th> </th>
-      <th style="text-align: right">size (px)</th>
-      <th style="text-align: right">total (px)</th>
-      <th style="text-align: right">field of view</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>full image</td>
-      <td style="text-align: right">2592 × 1944</td>
-      <td style="text-align: right">5.04m</td>
-      <td style="text-align: right">100%</td>
-    </tr>
-    <tr>
-      <td>QR code</td>
-      <td style="text-align: right">700 × 700</td>
-      <td style="text-align: right">0.49m</td>
-      <td style="text-align: right">9.7%</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th> </th>
+        <th style="text-align: right">size (px)</th>
+        <th style="text-align: right">total (px)</th>
+        <th style="text-align: right">field of view</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>full image</td>
+        <td style="text-align: right">2592 × 1944</td>
+        <td style="text-align: right">5.04m</td>
+        <td style="text-align: right">100%</td>
+      </tr>
+      <tr>
+        <td>QR code</td>
+        <td style="text-align: right">700 × 700</td>
+        <td style="text-align: right">0.49m</td>
+        <td style="text-align: right">9.7%</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>Under the reasonable assumption that the camera is close to <a href="https://en.wikipedia.org/wiki/Rectilinear_lens">rectilinear</a>, this gives a measure of how close the user has to be that scales smoothly with the physical size of the QR code: if the device can read a 10cm QR code from 1m away, it’ll be able to read a 1m code from 10m. Similarly, fields of view can be used to predict distance: given two codes, where the first needs 4% field of view and the second only needs 1%, the second can likely be scanned from about twice as far<sup id="fnref:quadratic"><a href="#fn:quadratic" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
 
@@ -1049,32 +1073,36 @@ a.post-heading {
 
 <p>Across all of these experiments, <strong>60% more</strong> EC level H QR codes could be scanned successfully than level L ones:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>EC</th>
-      <th style="text-align: right">number successfully scanned</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>L</td>
-      <td style="text-align: right">1257</td>
-    </tr>
-    <tr>
-      <td>M</td>
-      <td style="text-align: right">1600</td>
-    </tr>
-    <tr>
-      <td>Q</td>
-      <td style="text-align: right">1839</td>
-    </tr>
-    <tr>
-      <td>H</td>
-      <td style="text-align: right">2001</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>EC</th>
+        <th style="text-align: right">number successfully scanned</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>L</td>
+        <td style="text-align: right">1257</td>
+      </tr>
+      <tr>
+        <td>M</td>
+        <td style="text-align: right">1600</td>
+      </tr>
+      <tr>
+        <td>Q</td>
+        <td style="text-align: right">1839</td>
+      </tr>
+      <tr>
+        <td>H</td>
+        <td style="text-align: right">2001</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>This is driven by resilience to damage: the QR code at level H is more likely to be able to be read when there’s significant damage. The following plot has a point for each successful scan, against the percentage of pixels damaged.</p>
 

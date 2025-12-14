@@ -226,6 +226,11 @@ table {
   text-align: left;
 }
 
+/* ensure tables don't make the whole page scroll, NB. requires manual <div class="table-wrapper" markdown="1">...</div> due to https://github.com/gettalong/kramdown/issues/69 */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 td, th {
   padding: 0.1em 0.75em;
 }
@@ -263,9 +268,10 @@ header a:not(:hover) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 0.5em 2em;
 }
 #info-list li {
-  margin: 0 1em;
+  margin: 0;
 }
 
 #page-footer {
@@ -279,11 +285,6 @@ header a:not(:hover) {
 
 
 main {
-    text-align:justify;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
     line-height: 1.5em;
 
     position: relative;
@@ -458,7 +459,14 @@ figcaption::before {
   width: 25px;
   padding-right: 5px;
 }
-.highlight td.code {
+/* highlight/endhighlight code blocks */
+figure.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+/* no-highlight/endhighlight code blocks (e.g. in footnotes) */
+div.highlight {
   overflow-x: auto;
   padding: 0;
   padding-left: 0.5em;
@@ -1250,78 +1258,86 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>The QR code uses the highest error correction (EC) level: H. As explored in <a href="/blog/2021/09/qr-error-correction/"><em>QR error correction helps and hinders scanning</em></a>, there’s four levels of error correction, and they correspond to how many modules can be corrupted and still have the QR code scannable. They also influence how much data can be stored:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>EC level</th>
-      <th style="text-align: right">max damage</th>
-      <th style="text-align: right">data storage (vs. L)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>H (high)</td>
-      <td style="text-align: right">30%</td>
-      <td style="text-align: right">43%</td>
-    </tr>
-    <tr>
-      <td>Q (quartile)</td>
-      <td style="text-align: right">25%</td>
-      <td style="text-align: right">57%</td>
-    </tr>
-    <tr>
-      <td>M (medium)</td>
-      <td style="text-align: right">15%</td>
-      <td style="text-align: right">79%</td>
-    </tr>
-    <tr>
-      <td>L (low)</td>
-      <td style="text-align: right">7%</td>
-      <td style="text-align: right">100%</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>EC level</th>
+        <th style="text-align: right">max damage</th>
+        <th style="text-align: right">data storage (vs. L)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>H (high)</td>
+        <td style="text-align: right">30%</td>
+        <td style="text-align: right">43%</td>
+      </tr>
+      <tr>
+        <td>Q (quartile)</td>
+        <td style="text-align: right">25%</td>
+        <td style="text-align: right">57%</td>
+      </tr>
+      <tr>
+        <td>M (medium)</td>
+        <td style="text-align: right">15%</td>
+        <td style="text-align: right">79%</td>
+      </tr>
+      <tr>
+        <td>L (low)</td>
+        <td style="text-align: right">7%</td>
+        <td style="text-align: right">100%</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>I imagine that most codes are placed in relatively non-hostile environments (indoors, or at least under cover), so the use of EC level H could be reduced, or made configurable. Dropping down one level, to Q, reduces the version from 16 to 13, making each module (small square) larger—17% more area—and thus the overall QR code easier to scan.</p>
 
 <p>Dropping further makes the modules larger, although the biggest win comes from moving from H to Q, and each lower level is less resilient.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>EC level</th>
-      <th style="text-align: right">version</th>
-      <th style="text-align: right">module size (vs. H)</th>
-      <th style="text-align: right">vs. previous</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>H</td>
-      <td style="text-align: right">16</td>
-      <td style="text-align: right">-</td>
-      <td style="text-align: right">-</td>
-    </tr>
-    <tr>
-      <td>Q</td>
-      <td style="text-align: right">13</td>
-      <td style="text-align: right">+17%</td>
-      <td style="text-align: right">+17%</td>
-    </tr>
-    <tr>
-      <td>M</td>
-      <td style="text-align: right">11</td>
-      <td style="text-align: right">+33%</td>
-      <td style="text-align: right">+13%</td>
-    </tr>
-    <tr>
-      <td>L</td>
-      <td style="text-align: right">9</td>
-      <td style="text-align: right">+53%</td>
-      <td style="text-align: right">+15%</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>EC level</th>
+        <th style="text-align: right">version</th>
+        <th style="text-align: right">module size (vs. H)</th>
+        <th style="text-align: right">vs. previous</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>H</td>
+        <td style="text-align: right">16</td>
+        <td style="text-align: right">-</td>
+        <td style="text-align: right">-</td>
+      </tr>
+      <tr>
+        <td>Q</td>
+        <td style="text-align: right">13</td>
+        <td style="text-align: right">+17%</td>
+        <td style="text-align: right">+17%</td>
+      </tr>
+      <tr>
+        <td>M</td>
+        <td style="text-align: right">11</td>
+        <td style="text-align: right">+33%</td>
+        <td style="text-align: right">+13%</td>
+      </tr>
+      <tr>
+        <td>L</td>
+        <td style="text-align: right">9</td>
+        <td style="text-align: right">+53%</td>
+        <td style="text-align: right">+15%</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>This also doesn’t change anything about the data that is encoded, and so should continue to work with the existing app.</p>
 
@@ -1438,27 +1454,31 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>The lowest hanging fruit for actual change is in 4, the query. This query is currently a single parameter <code class="language-plaintext highlighter-rouge">data</code> with value base64-encoded JSON value <code class="language-plaintext highlighter-rouge">eyJ0…fQ==</code> . The JSON includes a <code class="language-plaintext highlighter-rouge">baddress</code> field… I <strong>cannot find any place</strong> in the app or website that displays this, and indeed removing it seems to function just fine. The resulting encoded JSON is <code class="language-plaintext break-all highlighter-rouge">eyJ0IjoiY292aWQxOV9idXNpbmVzcyIsImJpZCI6IjEyMTMyMSIsImJuYW1lIjoiVGVzdCBOU1cgR292ZXJubWVudCBRUiBjb2RlIn0=</code>, which is 104 characters, down from 160.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>JSON value</th>
-      <th style="text-align: right">URL length</th>
-      <th style="text-align: right">version at Q</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Original with <code class="language-plaintext highlighter-rouge">baddress</code></td>
-      <td style="text-align: right">228</td>
-      <td style="text-align: right">13</td>
-    </tr>
-    <tr>
-      <td>New without <code class="language-plaintext highlighter-rouge">baddress</code></td>
-      <td style="text-align: right">172</td>
-      <td style="text-align: right">11</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>JSON value</th>
+        <th style="text-align: right">URL length</th>
+        <th style="text-align: right">version at Q</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Original with <code class="language-plaintext highlighter-rouge">baddress</code></td>
+        <td style="text-align: right">228</td>
+        <td style="text-align: right">13</td>
+      </tr>
+      <tr>
+        <td>New without <code class="language-plaintext highlighter-rouge">baddress</code></td>
+        <td style="text-align: right">172</td>
+        <td style="text-align: right">11</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>Sounds good. Let’s <strong>choose to remove the <code class="language-plaintext highlighter-rouge">baddress</code> field</strong>.</p>
 
@@ -1545,72 +1565,80 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>QR codes encode the data in one of <a href="https://en.wikipedia.org/wiki/QR_code#Storage">four modes</a>, based on the characters that the data contains:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Mode</th>
-      <th>Permitted characters</th>
-      <th style="text-align: right">Bits per character</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Numeric</td>
-      <td>0123456789</td>
-      <td style="text-align: right">3.33</td>
-    </tr>
-    <tr>
-      <td>Alphanumeric</td>
-      <td>0–9, A–Z, space, $%*+-./:</td>
-      <td style="text-align: right">5.5</td>
-    </tr>
-    <tr>
-      <td>Binary</td>
-      <td>any byte</td>
-      <td style="text-align: right">8</td>
-    </tr>
-    <tr>
-      <td>Kanji</td>
-      <td><a href="https://en.wikipedia.org/wiki/JIS_X_0208">Shift JIS X 0208</a></td>
-      <td style="text-align: right">13</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>Mode</th>
+        <th>Permitted characters</th>
+        <th style="text-align: right">Bits per character</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Numeric</td>
+        <td>0123456789</td>
+        <td style="text-align: right">3.33</td>
+      </tr>
+      <tr>
+        <td>Alphanumeric</td>
+        <td>0–9, A–Z, space, $%*+-./:</td>
+        <td style="text-align: right">5.5</td>
+      </tr>
+      <tr>
+        <td>Binary</td>
+        <td>any byte</td>
+        <td style="text-align: right">8</td>
+      </tr>
+      <tr>
+        <td>Kanji</td>
+        <td><a href="https://en.wikipedia.org/wiki/JIS_X_0208">Shift JIS X 0208</a></td>
+        <td style="text-align: right">13</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>Lower bits per character is better: it means we can fit more characters in a given space. Most data in URL QR codes will use the Binary mode, because there will typically be lowercase letters, but we can do better using the Alphanumeric one: a lot of components of a URL can be upper case without causing issues or changing the behaviour. For instance, the domain name is case-insensitive, and a lot of servers treat the path case-insensitively too. Base64 encoding is case-sensitive so we cannot upper-case.</p>
 
 <p>Fortunately, QR codes can encode the data <strong>in multiple segments with different modes</strong><sup id="fnref:optimal"><a href="#fn:optimal" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>, so we can still benefit from this: the first part can be encoded in Alphanumeric, while the second part with the base64 value can be Binary.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>url</th>
-      <th style="text-align: right">works with app</th>
-      <th style="text-align: right">L</th>
-      <th style="text-align: right">Q</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Original:<br /><code class="language-plaintext break-all highlighter-rouge">https://www.service.nsw.gov.au/campaign/service-nsw-mobile-app?data=eyJ…</code></td>
-      <td style="text-align: right">yes</td>
-      <td style="text-align: right">8</td>
-      <td style="text-align: right">11</td>
-    </tr>
-    <tr>
-      <td>Upper-case domain and scheme:<br /><code class="language-plaintext break-all highlighter-rouge">HTTPS://WWW.SERVICE.NSW.GOV.AU/campaign/service-nsw-mobile-app?data=eyJ…</code></td>
-      <td style="text-align: right">yes</td>
-      <td style="text-align: right">8</td>
-      <td style="text-align: right">11</td>
-    </tr>
-    <tr>
-      <td>Only data lower-case:<br /><code class="language-plaintext break-all highlighter-rouge">HTTPS://WWW.SERVICE.NSW.GOV.AU/CAMPAIGN/SERVICE-NSW-MOBILE-APP?DATA=eyJ…</code></td>
-      <td style="text-align: right">no</td>
-      <td style="text-align: right">7</td>
-      <td style="text-align: right">11</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>url</th>
+        <th style="text-align: right">works with app</th>
+        <th style="text-align: right">L</th>
+        <th style="text-align: right">Q</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Original:<br /><code class="language-plaintext break-all highlighter-rouge">https://www.service.nsw.gov.au/campaign/service-nsw-mobile-app?data=eyJ…</code></td>
+        <td style="text-align: right">yes</td>
+        <td style="text-align: right">8</td>
+        <td style="text-align: right">11</td>
+      </tr>
+      <tr>
+        <td>Upper-case domain and scheme:<br /><code class="language-plaintext break-all highlighter-rouge">HTTPS://WWW.SERVICE.NSW.GOV.AU/campaign/service-nsw-mobile-app?data=eyJ…</code></td>
+        <td style="text-align: right">yes</td>
+        <td style="text-align: right">8</td>
+        <td style="text-align: right">11</td>
+      </tr>
+      <tr>
+        <td>Only data lower-case:<br /><code class="language-plaintext break-all highlighter-rouge">HTTPS://WWW.SERVICE.NSW.GOV.AU/CAMPAIGN/SERVICE-NSW-MOBILE-APP?DATA=eyJ…</code></td>
+        <td style="text-align: right">no</td>
+        <td style="text-align: right">7</td>
+        <td style="text-align: right">11</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>The second option—upper-casing only the domain and scheme—is as far as we get and still (seemingly) <strong>work with existing app installations</strong>.</p>
 
@@ -1642,42 +1670,46 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>We can do better, because we’ve got simple textual data and simple values (plain strings). This means that we could pass the values in the URL directly, either via a query parameters, or in the path directly, which saves us a little overhead of <code class="language-plaintext highlighter-rouge">?N=…</code>. We’ve already got the <code class="language-plaintext highlighter-rouge">/C</code> in the URL to indicate a check-in, so we can probably drop the <code class="language-plaintext highlighter-rouge">"t": "covid19_business"</code>, and our scheme here is very hand-crafted, so we can optimise the parameters down as much as we like.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>encoding</th>
-      <th style="text-align: right">length</th>
-      <th style="text-align: right">Q</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Original, JSON + Base64:<br /><code class="language-plaintext break-all highlighter-rouge">...?DATA=eyJ0…</code></td>
-      <td style="text-align: right">172</td>
-      <td style="text-align: right">11</td>
-    </tr>
-    <tr>
-      <td>URL parameters:<br /><code class="language-plaintext break-all highlighter-rouge">...?T=COVID19_BUSINESS&amp;BID=121321&amp;BNAME=name…</code></td>
-      <td style="text-align: right">126</td>
-      <td style="text-align: right">8</td>
-    </tr>
-    <tr>
-      <td>Better URL parameters:<br /><code class="language-plaintext break-all highlighter-rouge">...?I=121321&amp;N=name…</code></td>
-      <td style="text-align: right">101</td>
-      <td style="text-align: right">7</td>
-    </tr>
-    <tr>
-      <td>ID in path:<br /><code class="language-plaintext break-all highlighter-rouge">.../121321&amp;N=name…</code></td>
-      <td style="text-align: right">99</td>
-      <td style="text-align: right">7</td>
-    </tr>
-    <tr>
-      <td>Everything in path:<br /><code class="language-plaintext break-all highlighter-rouge">.../121321/name…</code></td>
-      <td style="text-align: right">67</td>
-      <td style="text-align: right">7</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>encoding</th>
+        <th style="text-align: right">length</th>
+        <th style="text-align: right">Q</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Original, JSON + Base64:<br /><code class="language-plaintext break-all highlighter-rouge">...?DATA=eyJ0…</code></td>
+        <td style="text-align: right">172</td>
+        <td style="text-align: right">11</td>
+      </tr>
+      <tr>
+        <td>URL parameters:<br /><code class="language-plaintext break-all highlighter-rouge">...?T=COVID19_BUSINESS&amp;BID=121321&amp;BNAME=name…</code></td>
+        <td style="text-align: right">126</td>
+        <td style="text-align: right">8</td>
+      </tr>
+      <tr>
+        <td>Better URL parameters:<br /><code class="language-plaintext break-all highlighter-rouge">...?I=121321&amp;N=name…</code></td>
+        <td style="text-align: right">101</td>
+        <td style="text-align: right">7</td>
+      </tr>
+      <tr>
+        <td>ID in path:<br /><code class="language-plaintext break-all highlighter-rouge">.../121321&amp;N=name…</code></td>
+        <td style="text-align: right">99</td>
+        <td style="text-align: right">7</td>
+      </tr>
+      <tr>
+        <td>Everything in path:<br /><code class="language-plaintext break-all highlighter-rouge">.../121321/name…</code></td>
+        <td style="text-align: right">67</td>
+        <td style="text-align: right">7</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>This makes a huge difference. Our URL is now down to 97 characters (from 228 originally): <code class="language-plaintext break-all highlighter-rouge">HTTPS://WWW.SERVICE.NSW.GOV.AU/CAMPAIGN/SERVICE-NSW-MOBILE-APP/121321/Test+NSW+Government+QR+code</code>.</p>
 
@@ -1770,32 +1802,36 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>Let’s just cut that down. There’s two nice options here: no path at all, or a very short one.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>path</th>
-      <th style="text-align: right">length</th>
-      <th style="text-align: right">Q</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Original <code class="language-plaintext break-all highlighter-rouge">CAMPAIGN/SERVICE-NSW-MOBILE-APP</code></td>
-      <td style="text-align: right">97</td>
-      <td style="text-align: right">7</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext highlighter-rouge">C</code></td>
-      <td style="text-align: right">67</td>
-      <td style="text-align: right">5</td>
-    </tr>
-    <tr>
-      <td>Empty</td>
-      <td style="text-align: right">65</td>
-      <td style="text-align: right">5</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>path</th>
+        <th style="text-align: right">length</th>
+        <th style="text-align: right">Q</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Original <code class="language-plaintext break-all highlighter-rouge">CAMPAIGN/SERVICE-NSW-MOBILE-APP</code></td>
+        <td style="text-align: right">97</td>
+        <td style="text-align: right">7</td>
+      </tr>
+      <tr>
+        <td><code class="language-plaintext highlighter-rouge">C</code></td>
+        <td style="text-align: right">67</td>
+        <td style="text-align: right">5</td>
+      </tr>
+      <tr>
+        <td>Empty</td>
+        <td style="text-align: right">65</td>
+        <td style="text-align: right">5</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>There’s not much difference here, so it feels better to include the <code class="language-plaintext highlighter-rouge">C</code> to distinguish when a link is for a check-in. If the path is empty, the URL looks like <code class="language-plaintext break-all highlighter-rouge">HTTPS://WWW.SERVICE.NSW.GOV.AU/121321/...</code>, which means the front page of <code class="language-plaintext break-all highlighter-rouge">HTTPS://WWW.SERVICE.NSW.GOV.AU</code> needs to be detecting whether the path looks like a check-in ID and redirect to the appropriate page (when loaded in a web browser), and that sounds annoying and would require relatively unusual code.</p>
 
@@ -1884,42 +1920,46 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>The domain being used is long: <code class="language-plaintext break-all highlighter-rouge">WWW.SERVICE.NSW.GOV.AU</code>. We definitely don’t need to be spelling that all out. There’s a variety of options here: shortenings of the current URL like <code class="language-plaintext break-all highlighter-rouge">Q.SERVICE.NSW.GOV.AU</code> or <code class="language-plaintext highlighter-rouge">S.NSW.GOV.AU</code>; or something really short, like <code class="language-plaintext highlighter-rouge">NSW.AU</code> (this domain doesn’t exist, but any 6 character domain would be equivalent). The best choice probably depends on the bureaucracy and dev/sys-ops requirements with the relevant organisations.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>domain</th>
-      <th style="text-align: right">length</th>
-      <th style="text-align: right">L</th>
-      <th style="text-align: right">Q</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Original<br /><code class="language-plaintext break-all highlighter-rouge">WWW.SERVICE.NSW.GOV.AU</code></td>
-      <td style="text-align: right">67</td>
-      <td style="text-align: right">4</td>
-      <td style="text-align: right">5</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext break-all highlighter-rouge">Q.SERVICE.NSW.GOV.AU</code></td>
-      <td style="text-align: right">65</td>
-      <td style="text-align: right">4</td>
-      <td style="text-align: right">5</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext break-all highlighter-rouge">S.NSW.GOV.AU</code></td>
-      <td style="text-align: right">57</td>
-      <td style="text-align: right">3</td>
-      <td style="text-align: right">5</td>
-    </tr>
-    <tr>
-      <td><code class="language-plaintext break-all highlighter-rouge">NSW.AU</code></td>
-      <td style="text-align: right">51</td>
-      <td style="text-align: right">3</td>
-      <td style="text-align: right">4</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>domain</th>
+        <th style="text-align: right">length</th>
+        <th style="text-align: right">L</th>
+        <th style="text-align: right">Q</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Original<br /><code class="language-plaintext break-all highlighter-rouge">WWW.SERVICE.NSW.GOV.AU</code></td>
+        <td style="text-align: right">67</td>
+        <td style="text-align: right">4</td>
+        <td style="text-align: right">5</td>
+      </tr>
+      <tr>
+        <td><code class="language-plaintext break-all highlighter-rouge">Q.SERVICE.NSW.GOV.AU</code></td>
+        <td style="text-align: right">65</td>
+        <td style="text-align: right">4</td>
+        <td style="text-align: right">5</td>
+      </tr>
+      <tr>
+        <td><code class="language-plaintext break-all highlighter-rouge">S.NSW.GOV.AU</code></td>
+        <td style="text-align: right">57</td>
+        <td style="text-align: right">3</td>
+        <td style="text-align: right">5</td>
+      </tr>
+      <tr>
+        <td><code class="language-plaintext break-all highlighter-rouge">NSW.AU</code></td>
+        <td style="text-align: right">51</td>
+        <td style="text-align: right">3</td>
+        <td style="text-align: right">4</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>Most of these choices don’t a difference at level Q, but they do reduce the overall data (and thus may make a difference in some cases) and reduce the version at level L. Let’s <strong>choose <code class="language-plaintext highlighter-rouge">S.NSW.GOV.AU</code></strong>, because being scoped within the <code class="language-plaintext highlighter-rouge">GOV.AU</code> second-level domain seems more trustworthy: <code class="language-plaintext break-all highlighter-rouge">HTTPS://S.NSW.GOV.AU/C/121321/Test+NSW+Government+QR+code</code>.</p>
 
@@ -2110,32 +2150,36 @@ QR codes come in 40 different sizes, called <strong>versions</strong>, starting 
 
 <p>For instance, a 200 bit <a href="https://en.wikipedia.org/wiki/BLS_digital_signature">BLS signature</a> may give sufficient security. To get a sense of the overhead this might impose, we can pretend we’ve generated a signature of this size somehow and add it to the URL (this <strong>isn’t</strong> a real cryptographic protocol, don’t take my word for it). First, encode it as a 61 digit number to benefit from the Numeric QR mode, and, then, add it as an extra query parameter <code class="language-plaintext highlighter-rouge">…?…&amp;S=16069…</code>. This does make the URLs longer, and thus requires higher versions, but our optimisations have made room for this, meaning that the QR codes are still easier to scan while having better security:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>QR code</th>
-      <th style="text-align: right">unsigned version</th>
-      <th style="text-align: right">signed version</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>original</td>
-      <td style="text-align: right">16</td>
-      <td style="text-align: right">17</td>
-    </tr>
-    <tr>
-      <td>optimised for app</td>
-      <td style="text-align: right">11</td>
-      <td style="text-align: right">12</td>
-    </tr>
-    <tr>
-      <td>fully optimised</td>
-      <td style="text-align: right">5</td>
-      <td style="text-align: right">7</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th>QR code</th>
+        <th style="text-align: right">unsigned version</th>
+        <th style="text-align: right">signed version</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>original</td>
+        <td style="text-align: right">16</td>
+        <td style="text-align: right">17</td>
+      </tr>
+      <tr>
+        <td>optimised for app</td>
+        <td style="text-align: right">11</td>
+        <td style="text-align: right">12</td>
+      </tr>
+      <tr>
+        <td>fully optimised</td>
+        <td style="text-align: right">5</td>
+        <td style="text-align: right">7</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <figure class="image ">
   <div class="image-positioner">

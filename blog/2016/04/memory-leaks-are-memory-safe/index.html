@@ -227,6 +227,11 @@ table {
   text-align: left;
 }
 
+/* ensure tables don't make the whole page scroll, NB. requires manual <div class="table-wrapper" markdown="1">...</div> due to https://github.com/gettalong/kramdown/issues/69 */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 td, th {
   padding: 0.1em 0.75em;
 }
@@ -264,9 +269,10 @@ header a:not(:hover) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 0.5em 2em;
 }
 #info-list li {
-  margin: 0 1em;
+  margin: 0;
 }
 
 #page-footer {
@@ -280,11 +286,6 @@ header a:not(:hover) {
 
 
 main {
-    text-align:justify;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
     line-height: 1.5em;
 
     position: relative;
@@ -459,7 +460,14 @@ figcaption::before {
   width: 25px;
   padding-right: 5px;
 }
-.highlight td.code {
+/* highlight/endhighlight code blocks */
+figure.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+/* no-highlight/endhighlight code blocks (e.g. in footnotes) */
+div.highlight {
   overflow-x: auto;
   padding: 0;
   padding-left: 0.5em;
@@ -759,27 +767,31 @@ programmers.</p>
 a memory leak is <em>not</em> doing something with valid data</strong>. In table
 form:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th> </th>
-      <th>Valid data</th>
-      <th>Invalid data</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Used</strong></td>
-      <td>👍</td>
-      <td>Memory unsafety</td>
-    </tr>
-    <tr>
-      <td><strong>Not used</strong></td>
-      <td>Memory leak</td>
-      <td>👍</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th> </th>
+        <th>Valid data</th>
+        <th>Invalid data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Used</strong></td>
+        <td>👍</td>
+        <td>Memory unsafety</td>
+      </tr>
+      <tr>
+        <td><strong>Not used</strong></td>
+        <td>Memory leak</td>
+        <td>👍</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>The best programs lie in the 👍 cells only: they manipulate valid
 things, and don’t manipulate invalid ones. Passable programs might
@@ -912,27 +924,31 @@ unsafety.</p>
 it is “leak nothing”: the revised table for Rust (and anything
 similar) still has its memory leak cell.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th> </th>
-      <th>Valid data</th>
-      <th>Invalid data</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><strong>Used</strong></td>
-      <td>👍</td>
-      <td>Impossible</td>
-    </tr>
-    <tr>
-      <td><strong>Not used</strong></td>
-      <td>Memory leak</td>
-      <td>👍</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th> </th>
+        <th>Valid data</th>
+        <th>Invalid data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Used</strong></td>
+        <td>👍</td>
+        <td>Impossible</td>
+      </tr>
+      <tr>
+        <td><strong>Not used</strong></td>
+        <td>Memory leak</td>
+        <td>👍</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>I’m not including this section because I think it’s a great promotion
 of Rust (being allowed to have invalid data that one can’t use doesn’t

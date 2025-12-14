@@ -227,6 +227,11 @@ table {
   text-align: left;
 }
 
+/* ensure tables don't make the whole page scroll, NB. requires manual <div class="table-wrapper" markdown="1">...</div> due to https://github.com/gettalong/kramdown/issues/69 */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 td, th {
   padding: 0.1em 0.75em;
 }
@@ -264,9 +269,10 @@ header a:not(:hover) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 0.5em 2em;
 }
 #info-list li {
-  margin: 0 1em;
+  margin: 0;
 }
 
 #page-footer {
@@ -280,11 +286,6 @@ header a:not(:hover) {
 
 
 main {
-    text-align:justify;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
     line-height: 1.5em;
 
     position: relative;
@@ -459,7 +460,14 @@ figcaption::before {
   width: 25px;
   padding-right: 5px;
 }
-.highlight td.code {
+/* highlight/endhighlight code blocks */
+figure.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+/* no-highlight/endhighlight code blocks (e.g. in footnotes) */
+div.highlight {
   overflow-x: auto;
   padding: 0;
   padding-left: 0.5em;
@@ -890,30 +898,34 @@ same modification to <code class="language-plaintext highlighter-rouge">distance
 str.cmxa</code> (as recommended), using version 4.01.0. I ran each 3 times
 (times in seconds) on <a href="https://github.com/c4fsharp/Dojo-Digits-Recognizer/tree/1eb4297a49dbd82a952c1523f5413519b8f1d62a/Dojo">these CSV files</a>.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: right">Lang</th>
-      <th style="text-align: right">1</th>
-      <th style="text-align: right">2</th>
-      <th style="text-align: right">3</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: right">Rust</td>
-      <td style="text-align: right">3.56</td>
-      <td style="text-align: right">3.46</td>
-      <td style="text-align: right">3.86</td>
-    </tr>
-    <tr>
-      <td style="text-align: right">OCaml</td>
-      <td style="text-align: right">13.9</td>
-      <td style="text-align: right">14.7</td>
-      <td style="text-align: right">14.1</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: right">Lang</th>
+        <th style="text-align: right">1</th>
+        <th style="text-align: right">2</th>
+        <th style="text-align: right">3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="text-align: right">Rust</td>
+        <td style="text-align: right">3.56</td>
+        <td style="text-align: right">3.46</td>
+        <td style="text-align: right">3.86</td>
+      </tr>
+      <tr>
+        <td style="text-align: right">OCaml</td>
+        <td style="text-align: right">13.9</td>
+        <td style="text-align: right">14.7</td>
+        <td style="text-align: right">14.1</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>So the Rust code is about 3.5–4× faster than the
 OCaml.</p>

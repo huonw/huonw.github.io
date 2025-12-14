@@ -224,6 +224,11 @@ table {
   text-align: left;
 }
 
+/* ensure tables don't make the whole page scroll, NB. requires manual <div class="table-wrapper" markdown="1">...</div> due to https://github.com/gettalong/kramdown/issues/69 */
+.table-wrapper {
+  overflow-x: auto;
+}
+
 td, th {
   padding: 0.1em 0.75em;
 }
@@ -261,9 +266,10 @@ header a:not(:hover) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 0.5em 2em;
 }
 #info-list li {
-  margin: 0 1em;
+  margin: 0;
 }
 
 #page-footer {
@@ -277,11 +283,6 @@ header a:not(:hover) {
 
 
 main {
-    text-align:justify;
-    -moz-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
     line-height: 1.5em;
 
     position: relative;
@@ -456,7 +457,14 @@ figcaption::before {
   width: 25px;
   padding-right: 5px;
 }
-.highlight td.code {
+/* highlight/endhighlight code blocks */
+figure.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+/* no-highlight/endhighlight code blocks (e.g. in footnotes) */
+div.highlight {
   overflow-x: auto;
   padding: 0;
   padding-left: 0.5em;
@@ -798,42 +806,46 @@ As a standalone snippet, it looks weird and pointless ("why not <code>const arra
 
 <p>Given all this, it’s not too surprising that the exact inferred type depends on two TypeScript language options:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th> </th>
-      <th><code class="language-plaintext break-all highlighter-rouge">strictNullChecks</code></th>
-      <th><code class="language-plaintext break-all highlighter-rouge">noImplicitAny</code></th>
-      <th>Inferred type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>least strict</td>
-      <td>❌</td>
-      <td>❌</td>
-      <td><code class="language-plaintext highlighter-rouge">any[]</code></td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>❌</td>
-      <td>✅</td>
-      <td><code class="language-plaintext highlighter-rouge">number[]</code></td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>✅</td>
-      <td>❌</td>
-      <td><code class="language-plaintext highlighter-rouge">never[]</code></td>
-    </tr>
-    <tr>
-      <td>most strict</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td><code class="language-plaintext highlighter-rouge">number[]</code></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th> </th>
+        <th><code class="language-plaintext break-all highlighter-rouge">strictNullChecks</code></th>
+        <th><code class="language-plaintext break-all highlighter-rouge">noImplicitAny</code></th>
+        <th>Inferred type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>least strict</td>
+        <td>❌</td>
+        <td>❌</td>
+        <td><code class="language-plaintext highlighter-rouge">any[]</code></td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>❌</td>
+        <td>✅</td>
+        <td><code class="language-plaintext highlighter-rouge">number[]</code></td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>✅</td>
+        <td>❌</td>
+        <td><code class="language-plaintext highlighter-rouge">never[]</code></td>
+      </tr>
+      <tr>
+        <td>most strict</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td><code class="language-plaintext highlighter-rouge">number[]</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <h2 id="the-options">The options</h2>
 
@@ -862,42 +874,46 @@ As a standalone snippet, it looks weird and pointless ("why not <code>const arra
 
 <p>“Enable some stricter requirements, and get an error” is not surprising and not noteworthy… but let’s look closely at the table again:</p>
 
-<table>
-  <thead>
-    <tr>
-      <th> </th>
-      <th><code class="language-plaintext break-all highlighter-rouge">strictNullChecks</code></th>
-      <th><code class="language-plaintext break-all highlighter-rouge">noImplicitAny</code></th>
-      <th>Inferred type</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>least strict</td>
-      <td>❌</td>
-      <td>❌</td>
-      <td><code class="language-plaintext highlighter-rouge">any[]</code></td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>❌</td>
-      <td>✅</td>
-      <td><code class="language-plaintext highlighter-rouge">number[]</code></td>
-    </tr>
-    <tr>
-      <td><strong>error!</strong></td>
-      <td>✅</td>
-      <td>❌</td>
-      <td><strong><code class="language-plaintext highlighter-rouge">never[]</code></strong></td>
-    </tr>
-    <tr>
-      <td>most strict</td>
-      <td>✅</td>
-      <td>✅</td>
-      <td><code class="language-plaintext highlighter-rouge">number[]</code></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+
+  <table>
+    <thead>
+      <tr>
+        <th> </th>
+        <th><code class="language-plaintext break-all highlighter-rouge">strictNullChecks</code></th>
+        <th><code class="language-plaintext break-all highlighter-rouge">noImplicitAny</code></th>
+        <th>Inferred type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>least strict</td>
+        <td>❌</td>
+        <td>❌</td>
+        <td><code class="language-plaintext highlighter-rouge">any[]</code></td>
+      </tr>
+      <tr>
+        <td> </td>
+        <td>❌</td>
+        <td>✅</td>
+        <td><code class="language-plaintext highlighter-rouge">number[]</code></td>
+      </tr>
+      <tr>
+        <td><strong>error!</strong></td>
+        <td>✅</td>
+        <td>❌</td>
+        <td><strong><code class="language-plaintext highlighter-rouge">never[]</code></strong></td>
+      </tr>
+      <tr>
+        <td>most strict</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td><code class="language-plaintext highlighter-rouge">number[]</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
 
 <p>So, if we’re starting with a lax codebase, and looking to make it strict, we might:</p>
 

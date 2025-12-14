@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Sat, 13 Dec 2025 22:42:27 +0000</pubDate>
-        <lastBuildDate>Sat, 13 Dec 2025 22:42:27 +0000</lastBuildDate>
+        <pubDate>Sun, 14 Dec 2025 04:13:15 +0000</pubDate>
+        <lastBuildDate>Sun, 14 Dec 2025 04:13:15 +0000</lastBuildDate>
         
         
         <item>
@@ -167,42 +167,46 @@ As a standalone snippet, it looks weird and pointless (&quot;why not &lt;code&gt
 
 &lt;p&gt;Given all this, it’s not too surprising that the exact inferred type depends on two TypeScript language options:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Inferred type&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;least strict&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any[]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;✅&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;✅&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;never[]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;most strict&lt;/td&gt;
-      &lt;td&gt;✅&lt;/td&gt;
-      &lt;td&gt;✅&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt; &lt;/th&gt;
+        &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;&lt;/th&gt;
+        &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt;&lt;/th&gt;
+        &lt;th&gt;Inferred type&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;least strict&lt;/td&gt;
+        &lt;td&gt;❌&lt;/td&gt;
+        &lt;td&gt;❌&lt;/td&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any[]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt; &lt;/td&gt;
+        &lt;td&gt;❌&lt;/td&gt;
+        &lt;td&gt;✅&lt;/td&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt; &lt;/td&gt;
+        &lt;td&gt;✅&lt;/td&gt;
+        &lt;td&gt;❌&lt;/td&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;never[]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;most strict&lt;/td&gt;
+        &lt;td&gt;✅&lt;/td&gt;
+        &lt;td&gt;✅&lt;/td&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;h2 id=&quot;the-options&quot;&gt;The options&lt;/h2&gt;
 
@@ -231,42 +235,46 @@ As a standalone snippet, it looks weird and pointless (&quot;why not &lt;code&gt
 
 &lt;p&gt;“Enable some stricter requirements, and get an error” is not surprising and not noteworthy… but let’s look closely at the table again:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt;&lt;/th&gt;
-      &lt;th&gt;Inferred type&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;least strict&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any[]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;✅&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;error!&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;✅&lt;/td&gt;
-      &lt;td&gt;❌&lt;/td&gt;
-      &lt;td&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;never[]&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;most strict&lt;/td&gt;
-      &lt;td&gt;✅&lt;/td&gt;
-      &lt;td&gt;✅&lt;/td&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt; &lt;/th&gt;
+        &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;strictNullChecks&lt;/code&gt;&lt;/th&gt;
+        &lt;th&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;noImplicitAny&lt;/code&gt;&lt;/th&gt;
+        &lt;th&gt;Inferred type&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;least strict&lt;/td&gt;
+        &lt;td&gt;❌&lt;/td&gt;
+        &lt;td&gt;❌&lt;/td&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;any[]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt; &lt;/td&gt;
+        &lt;td&gt;❌&lt;/td&gt;
+        &lt;td&gt;✅&lt;/td&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;strong&gt;error!&lt;/strong&gt;&lt;/td&gt;
+        &lt;td&gt;✅&lt;/td&gt;
+        &lt;td&gt;❌&lt;/td&gt;
+        &lt;td&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;never[]&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;most strict&lt;/td&gt;
+        &lt;td&gt;✅&lt;/td&gt;
+        &lt;td&gt;✅&lt;/td&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number[]&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;So, if we’re starting with a lax codebase, and looking to make it strict, we might:&lt;/p&gt;
 
@@ -2437,54 +2445,58 @@ eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZH
     &lt;li id=&quot;fn:table&quot;&gt;
       &lt;p&gt;Here’s a table with the full results, including both cold and warm file system caches, taking the minimum value of each benchmark (that is, the most favourable observation):&lt;/p&gt;
 
-      &lt;table&gt;
-        &lt;thead&gt;
-          &lt;tr&gt;
-            &lt;th&gt;Concurrency&lt;/th&gt;
-            &lt;th&gt;IO&lt;/th&gt;
-            &lt;th&gt;Cold (s)&lt;/th&gt;
-            &lt;th&gt;Warm (s)&lt;/th&gt;
-          &lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody&gt;
-          &lt;tr&gt;
-            &lt;td&gt;Async&lt;/td&gt;
-            &lt;td&gt;Mmap&lt;/td&gt;
-            &lt;td&gt;2.5&lt;/td&gt;
-            &lt;td&gt;0.12&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td&gt;Async&lt;/td&gt;
-            &lt;td&gt;Conventional&lt;/td&gt;
-            &lt;td&gt;0.62&lt;/td&gt;
-            &lt;td&gt;0.22&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td&gt;Sync &lt;small&gt;8 threads&lt;/small&gt;&lt;/td&gt;
-            &lt;td&gt;Mmap&lt;/td&gt;
-            &lt;td&gt;0.75&lt;/td&gt;
-            &lt;td&gt;0.049&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td&gt;Sync &lt;small&gt;8 threads&lt;/small&gt;&lt;/td&gt;
-            &lt;td&gt;Conventional&lt;/td&gt;
-            &lt;td&gt;0.62&lt;/td&gt;
-            &lt;td&gt;0.063&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td&gt;Sync &lt;small&gt;1 thread&lt;/small&gt;&lt;/td&gt;
-            &lt;td&gt;Mmap&lt;/td&gt;
-            &lt;td&gt;2.5&lt;/td&gt;
-            &lt;td&gt;0.12&lt;/td&gt;
-          &lt;/tr&gt;
-          &lt;tr&gt;
-            &lt;td&gt;Sync &lt;small&gt;1 thread&lt;/small&gt;&lt;/td&gt;
-            &lt;td&gt;Conventional&lt;/td&gt;
-            &lt;td&gt;0.67&lt;/td&gt;
-            &lt;td&gt;0.14&lt;/td&gt;
-          &lt;/tr&gt;
-        &lt;/tbody&gt;
-      &lt;/table&gt;
+      &lt;div class=&quot;table-wrapper&quot;&gt;
+
+        &lt;table&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Concurrency&lt;/th&gt;
+              &lt;th&gt;IO&lt;/th&gt;
+              &lt;th&gt;Cold (s)&lt;/th&gt;
+              &lt;th&gt;Warm (s)&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Async&lt;/td&gt;
+              &lt;td&gt;Mmap&lt;/td&gt;
+              &lt;td&gt;2.5&lt;/td&gt;
+              &lt;td&gt;0.12&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Async&lt;/td&gt;
+              &lt;td&gt;Conventional&lt;/td&gt;
+              &lt;td&gt;0.62&lt;/td&gt;
+              &lt;td&gt;0.22&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Sync &lt;small&gt;8 threads&lt;/small&gt;&lt;/td&gt;
+              &lt;td&gt;Mmap&lt;/td&gt;
+              &lt;td&gt;0.75&lt;/td&gt;
+              &lt;td&gt;0.049&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Sync &lt;small&gt;8 threads&lt;/small&gt;&lt;/td&gt;
+              &lt;td&gt;Conventional&lt;/td&gt;
+              &lt;td&gt;0.62&lt;/td&gt;
+              &lt;td&gt;0.063&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Sync &lt;small&gt;1 thread&lt;/small&gt;&lt;/td&gt;
+              &lt;td&gt;Mmap&lt;/td&gt;
+              &lt;td&gt;2.5&lt;/td&gt;
+              &lt;td&gt;0.12&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td&gt;Sync &lt;small&gt;1 thread&lt;/small&gt;&lt;/td&gt;
+              &lt;td&gt;Conventional&lt;/td&gt;
+              &lt;td&gt;0.67&lt;/td&gt;
+              &lt;td&gt;0.14&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+      &lt;/div&gt;
       &lt;p&gt;&lt;a href=&quot;#fnref:table&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:table:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:maxed-out&quot;&gt;
@@ -3770,78 +3782,86 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;The QR code uses the highest error correction (EC) level: H. As explored in &lt;a href=&quot;/blog/2021/09/qr-error-correction/&quot;&gt;&lt;em&gt;QR error correction helps and hinders scanning&lt;/em&gt;&lt;/a&gt;, there’s four levels of error correction, and they correspond to how many modules can be corrupted and still have the QR code scannable. They also influence how much data can be stored:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;EC level&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;max damage&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;data storage (vs. L)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;H (high)&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;30%&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;43%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Q (quartile)&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;25%&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;57%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;M (medium)&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;15%&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;79%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;L (low)&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7%&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;100%&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;EC level&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;max damage&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;data storage (vs. L)&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;H (high)&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;30%&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;43%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Q (quartile)&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;25%&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;57%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;M (medium)&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;15%&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;79%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;L (low)&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;7%&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;100%&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;I imagine that most codes are placed in relatively non-hostile environments (indoors, or at least under cover), so the use of EC level H could be reduced, or made configurable. Dropping down one level, to Q, reduces the version from 16 to 13, making each module (small square) larger—17% more area—and thus the overall QR code easier to scan.&lt;/p&gt;
 
 &lt;p&gt;Dropping further makes the modules larger, although the biggest win comes from moving from H to Q, and each lower level is less resilient.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;EC level&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;version&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;module size (vs. H)&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;vs. previous&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;H&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;16&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;-&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;-&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;13&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;+17%&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;+17%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;M&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;+33%&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;+13%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;L&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;+53%&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;+15%&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;EC level&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;version&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;module size (vs. H)&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;vs. previous&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;H&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;16&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;-&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;-&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Q&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;13&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;+17%&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;+17%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;M&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;+33%&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;+13%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;L&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;9&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;+53%&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;+15%&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;This also doesn’t change anything about the data that is encoded, and so should continue to work with the existing app.&lt;/p&gt;
 
@@ -3958,27 +3978,31 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;The lowest hanging fruit for actual change is in 4, the query. This query is currently a single parameter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;data&lt;/code&gt; with value base64-encoded JSON value &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eyJ0…fQ==&lt;/code&gt; . The JSON includes a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;baddress&lt;/code&gt; field… I &lt;strong&gt;cannot find any place&lt;/strong&gt; in the app or website that displays this, and indeed removing it seems to function just fine. The resulting encoded JSON is &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;eyJ0IjoiY292aWQxOV9idXNpbmVzcyIsImJpZCI6IjEyMTMyMSIsImJuYW1lIjoiVGVzdCBOU1cgR292ZXJubWVudCBRUiBjb2RlIn0=&lt;/code&gt;, which is 104 characters, down from 160.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;JSON value&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;URL length&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;version at Q&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Original with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;baddress&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;228&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;13&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;New without &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;baddress&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;172&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;JSON value&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;URL length&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;version at Q&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Original with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;baddress&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;228&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;13&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;New without &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;baddress&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;172&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;Sounds good. Let’s &lt;strong&gt;choose to remove the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;baddress&lt;/code&gt; field&lt;/strong&gt;.&lt;/p&gt;
 
@@ -4065,72 +4089,80 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;QR codes encode the data in one of &lt;a href=&quot;https://en.wikipedia.org/wiki/QR_code#Storage&quot;&gt;four modes&lt;/a&gt;, based on the characters that the data contains:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Mode&lt;/th&gt;
-      &lt;th&gt;Permitted characters&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Bits per character&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Numeric&lt;/td&gt;
-      &lt;td&gt;0123456789&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;3.33&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Alphanumeric&lt;/td&gt;
-      &lt;td&gt;0–9, A–Z, space, $%*+-./:&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5.5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Binary&lt;/td&gt;
-      &lt;td&gt;any byte&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;8&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Kanji&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/JIS_X_0208&quot;&gt;Shift JIS X 0208&lt;/a&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;13&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Mode&lt;/th&gt;
+        &lt;th&gt;Permitted characters&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Bits per character&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Numeric&lt;/td&gt;
+        &lt;td&gt;0123456789&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;3.33&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Alphanumeric&lt;/td&gt;
+        &lt;td&gt;0–9, A–Z, space, $%*+-./:&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;5.5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Binary&lt;/td&gt;
+        &lt;td&gt;any byte&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;8&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Kanji&lt;/td&gt;
+        &lt;td&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/JIS_X_0208&quot;&gt;Shift JIS X 0208&lt;/a&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;13&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;Lower bits per character is better: it means we can fit more characters in a given space. Most data in URL QR codes will use the Binary mode, because there will typically be lowercase letters, but we can do better using the Alphanumeric one: a lot of components of a URL can be upper case without causing issues or changing the behaviour. For instance, the domain name is case-insensitive, and a lot of servers treat the path case-insensitively too. Base64 encoding is case-sensitive so we cannot upper-case.&lt;/p&gt;
 
 &lt;p&gt;Fortunately, QR codes can encode the data &lt;strong&gt;in multiple segments with different modes&lt;/strong&gt;&lt;sup id=&quot;fnref:optimal&quot;&gt;&lt;a href=&quot;#fn:optimal&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;, so we can still benefit from this: the first part can be encoded in Alphanumeric, while the second part with the base64 value can be Binary.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;url&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;works with app&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;L&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Q&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Original:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;https://www.service.nsw.gov.au/campaign/service-nsw-mobile-app?data=eyJ…&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;8&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Upper-case domain and scheme:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;HTTPS://WWW.SERVICE.NSW.GOV.AU/campaign/service-nsw-mobile-app?data=eyJ…&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;yes&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;8&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Only data lower-case:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;HTTPS://WWW.SERVICE.NSW.GOV.AU/CAMPAIGN/SERVICE-NSW-MOBILE-APP?DATA=eyJ…&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;no&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;url&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;works with app&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;L&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Q&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Original:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;https://www.service.nsw.gov.au/campaign/service-nsw-mobile-app?data=eyJ…&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;yes&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;8&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Upper-case domain and scheme:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;HTTPS://WWW.SERVICE.NSW.GOV.AU/campaign/service-nsw-mobile-app?data=eyJ…&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;yes&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;8&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Only data lower-case:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;HTTPS://WWW.SERVICE.NSW.GOV.AU/CAMPAIGN/SERVICE-NSW-MOBILE-APP?DATA=eyJ…&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;no&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;The second option—upper-casing only the domain and scheme—is as far as we get and still (seemingly) &lt;strong&gt;work with existing app installations&lt;/strong&gt;.&lt;/p&gt;
 
@@ -4162,42 +4194,46 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;We can do better, because we’ve got simple textual data and simple values (plain strings). This means that we could pass the values in the URL directly, either via a query parameters, or in the path directly, which saves us a little overhead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?N=…&lt;/code&gt;. We’ve already got the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/C&lt;/code&gt; in the URL to indicate a check-in, so we can probably drop the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;t&quot;: &quot;covid19_business&quot;&lt;/code&gt;, and our scheme here is very hand-crafted, so we can optimise the parameters down as much as we like.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;encoding&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;length&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Q&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Original, JSON + Base64:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;...?DATA=eyJ0…&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;172&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;URL parameters:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;...?T=COVID19_BUSINESS&amp;amp;BID=121321&amp;amp;BNAME=name…&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;126&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;8&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Better URL parameters:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;...?I=121321&amp;amp;N=name…&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;101&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;ID in path:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;.../121321&amp;amp;N=name…&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;99&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Everything in path:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;.../121321/name…&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;67&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;encoding&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;length&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Q&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Original, JSON + Base64:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;...?DATA=eyJ0…&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;172&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;URL parameters:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;...?T=COVID19_BUSINESS&amp;amp;BID=121321&amp;amp;BNAME=name…&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;126&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;8&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Better URL parameters:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;...?I=121321&amp;amp;N=name…&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;101&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;ID in path:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;.../121321&amp;amp;N=name…&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;99&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Everything in path:&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;.../121321/name…&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;67&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;This makes a huge difference. Our URL is now down to 97 characters (from 228 originally): &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;HTTPS://WWW.SERVICE.NSW.GOV.AU/CAMPAIGN/SERVICE-NSW-MOBILE-APP/121321/Test+NSW+Government+QR+code&lt;/code&gt;.&lt;/p&gt;
 
@@ -4290,32 +4326,36 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;Let’s just cut that down. There’s two nice options here: no path at all, or a very short one.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;path&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;length&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Q&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Original &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;CAMPAIGN/SERVICE-NSW-MOBILE-APP&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;97&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;67&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Empty&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;65&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;path&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;length&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Q&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Original &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;CAMPAIGN/SERVICE-NSW-MOBILE-APP&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;97&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;67&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Empty&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;65&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;There’s not much difference here, so it feels better to include the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;C&lt;/code&gt; to distinguish when a link is for a check-in. If the path is empty, the URL looks like &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;HTTPS://WWW.SERVICE.NSW.GOV.AU/121321/...&lt;/code&gt;, which means the front page of &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;HTTPS://WWW.SERVICE.NSW.GOV.AU&lt;/code&gt; needs to be detecting whether the path looks like a check-in ID and redirect to the appropriate page (when loaded in a web browser), and that sounds annoying and would require relatively unusual code.&lt;/p&gt;
 
@@ -4404,42 +4444,46 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;The domain being used is long: &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;WWW.SERVICE.NSW.GOV.AU&lt;/code&gt;. We definitely don’t need to be spelling that all out. There’s a variety of options here: shortenings of the current URL like &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;Q.SERVICE.NSW.GOV.AU&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;S.NSW.GOV.AU&lt;/code&gt;; or something really short, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;NSW.AU&lt;/code&gt; (this domain doesn’t exist, but any 6 character domain would be equivalent). The best choice probably depends on the bureaucracy and dev/sys-ops requirements with the relevant organisations.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;domain&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;length&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;L&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Q&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Original&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;WWW.SERVICE.NSW.GOV.AU&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;67&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;Q.SERVICE.NSW.GOV.AU&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;65&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;S.NSW.GOV.AU&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;57&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;NSW.AU&lt;/code&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;51&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;domain&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;length&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;L&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Q&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Original&lt;br /&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;WWW.SERVICE.NSW.GOV.AU&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;67&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;4&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;Q.SERVICE.NSW.GOV.AU&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;65&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;4&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;S.NSW.GOV.AU&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;57&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;3&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;NSW.AU&lt;/code&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;51&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;3&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;4&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;Most of these choices don’t a difference at level Q, but they do reduce the overall data (and thus may make a difference in some cases) and reduce the version at level L. Let’s &lt;strong&gt;choose &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;S.NSW.GOV.AU&lt;/code&gt;&lt;/strong&gt;, because being scoped within the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GOV.AU&lt;/code&gt; second-level domain seems more trustworthy: &lt;code class=&quot;language-plaintext break-all highlighter-rouge&quot;&gt;HTTPS://S.NSW.GOV.AU/C/121321/Test+NSW+Government+QR+code&lt;/code&gt;.&lt;/p&gt;
 
@@ -4630,32 +4674,36 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;For instance, a 200 bit &lt;a href=&quot;https://en.wikipedia.org/wiki/BLS_digital_signature&quot;&gt;BLS signature&lt;/a&gt; may give sufficient security. To get a sense of the overhead this might impose, we can pretend we’ve generated a signature of this size somehow and add it to the URL (this &lt;strong&gt;isn’t&lt;/strong&gt; a real cryptographic protocol, don’t take my word for it). First, encode it as a 61 digit number to benefit from the Numeric QR mode, and, then, add it as an extra query parameter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;…?…&amp;amp;S=16069…&lt;/code&gt;. This does make the URLs longer, and thus requires higher versions, but our optimisations have made room for this, meaning that the QR codes are still easier to scan while having better security:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;QR code&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;unsigned version&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;signed version&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;original&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;16&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;17&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;optimised for app&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;12&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;fully optimised&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;QR code&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;unsigned version&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;signed version&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;original&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;16&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;17&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;optimised for app&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;11&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;12&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;fully optimised&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;5&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;7&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;figure class=&quot;image &quot;&gt;
   &lt;div class=&quot;image-positioner&quot;&gt;
@@ -4910,74 +4958,82 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;error correction&lt;/strong&gt; (EC): a measure of redundancy in the QR code, translating into how much “damage” it can tolerate and still be readable. This is how images and logos can be directly embedded into QR codes, without any special consideration. This is &lt;strong&gt;chosen&lt;/strong&gt; when creating the QR code. The number of modules that can be damaged for each level is:&lt;/p&gt;
 
-    &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;EC&lt;/th&gt;
-          &lt;th style=&quot;text-align: right&quot;&gt;max damage&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;L (low)&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;7%&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;M (medium)&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;15%&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Q (quartile)&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;25%&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;H (high)&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;30%&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;div class=&quot;table-wrapper&quot;&gt;
+
+      &lt;table&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;EC&lt;/th&gt;
+            &lt;th style=&quot;text-align: right&quot;&gt;max damage&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td&gt;L (low)&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;7%&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;M (medium)&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;15%&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;Q (quartile)&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;25%&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;H (high)&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;30%&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+
+    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;version&lt;/strong&gt;: the number of little squares (modules) along each side of the big square. This is normally &lt;strong&gt;computed&lt;/strong&gt; automatically when creating the QR code (from the data and error correction).&lt;/p&gt;
 
-    &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th style=&quot;text-align: right&quot;&gt;version&lt;/th&gt;
-          &lt;th style=&quot;text-align: right&quot;&gt;modules&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;1&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;21&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;2&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;25&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;…&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;…&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;&lt;em&gt;n&lt;/em&gt;&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;4&lt;em&gt;n&lt;/em&gt; + 17&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;…&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;…&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;39&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;173&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;40&lt;/td&gt;
-          &lt;td style=&quot;text-align: right&quot;&gt;177&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
+    &lt;div class=&quot;table-wrapper&quot;&gt;
+
+      &lt;table&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th style=&quot;text-align: right&quot;&gt;version&lt;/th&gt;
+            &lt;th style=&quot;text-align: right&quot;&gt;modules&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;1&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;21&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;2&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;25&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;…&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;…&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;&lt;em&gt;n&lt;/em&gt;&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;4&lt;em&gt;n&lt;/em&gt; + 17&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;…&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;…&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;39&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;173&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;40&lt;/td&gt;
+            &lt;td style=&quot;text-align: right&quot;&gt;177&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+
+    &lt;/div&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -5007,37 +5063,41 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;That plot indicates a QR code using EC level H can store &lt;strong&gt;less than half&lt;/strong&gt; the data of one using level L: the closest they get is at version 3 (53 vs. 24 bytes). The other levels have less overhead, but it’s still a cost that’s paid:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;EC&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;max bytes (version 40)&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;storage relative to L (mean)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;L&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;2953&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;100%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;M&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;2331&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;79%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;1663&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;57%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;H&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;1273&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;43%&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;EC&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;max bytes (version 40)&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;storage relative to L (mean)&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;L&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;2953&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;100%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;M&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;2331&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;79%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Q&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;1663&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;57%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;H&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;1273&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;43%&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;That’s some hefty overhead: presumably it is useful for something… I did some experiments.&lt;/p&gt;
 
@@ -5070,30 +5130,34 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;A camera generally doesn’t care about the actual distance, as it just “thinks” in the pixels it sees. Thus, it’s the size of the QR code within the overall image that matters. I call this the &lt;em&gt;field of view&lt;/em&gt;. Example, for the full sized version of Figure 4:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;size (px)&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;total (px)&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;field of view&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;full image&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;2592 × 1944&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;5.04m&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;100%&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;QR code&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;700 × 700&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;0.49m&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;9.7%&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt; &lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;size (px)&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;total (px)&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;field of view&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;full image&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;2592 × 1944&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;5.04m&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;100%&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;QR code&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;700 × 700&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;0.49m&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;9.7%&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;Under the reasonable assumption that the camera is close to &lt;a href=&quot;https://en.wikipedia.org/wiki/Rectilinear_lens&quot;&gt;rectilinear&lt;/a&gt;, this gives a measure of how close the user has to be that scales smoothly with the physical size of the QR code: if the device can read a 10cm QR code from 1m away, it’ll be able to read a 1m code from 10m. Similarly, fields of view can be used to predict distance: given two codes, where the first needs 4% field of view and the second only needs 1%, the second can likely be scanned from about twice as far&lt;sup id=&quot;fnref:quadratic&quot;&gt;&lt;a href=&quot;#fn:quadratic&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
 
@@ -5179,32 +5243,36 @@ QR codes come in 40 different sizes, called &lt;strong&gt;versions&lt;/strong&gt
 
 &lt;p&gt;Across all of these experiments, &lt;strong&gt;60% more&lt;/strong&gt; EC level H QR codes could be scanned successfully than level L ones:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;EC&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;number successfully scanned&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;L&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;1257&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;M&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;1600&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Q&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;1839&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;H&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;2001&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;EC&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;number successfully scanned&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;L&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;1257&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;M&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;1600&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Q&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;1839&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;H&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;2001&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;This is driven by resilience to damage: the QR code at level H is more likely to be able to be read when there’s significant damage. The following plot has a point for each successful scan, against the percentage of pixels damaged.&lt;/p&gt;
 
@@ -6143,27 +6211,31 @@ programmers.&lt;/p&gt;
 a memory leak is &lt;em&gt;not&lt;/em&gt; doing something with valid data&lt;/strong&gt;. In table
 form:&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt;Valid data&lt;/th&gt;
-      &lt;th&gt;Invalid data&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Used&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;👍&lt;/td&gt;
-      &lt;td&gt;Memory unsafety&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Not used&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;Memory leak&lt;/td&gt;
-      &lt;td&gt;👍&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt; &lt;/th&gt;
+        &lt;th&gt;Valid data&lt;/th&gt;
+        &lt;th&gt;Invalid data&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;strong&gt;Used&lt;/strong&gt;&lt;/td&gt;
+        &lt;td&gt;👍&lt;/td&gt;
+        &lt;td&gt;Memory unsafety&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;strong&gt;Not used&lt;/strong&gt;&lt;/td&gt;
+        &lt;td&gt;Memory leak&lt;/td&gt;
+        &lt;td&gt;👍&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;The best programs lie in the 👍 cells only: they manipulate valid
 things, and don’t manipulate invalid ones. Passable programs might
@@ -6296,27 +6368,31 @@ unsafety.&lt;/p&gt;
 it is “leak nothing”: the revised table for Rust (and anything
 similar) still has its memory leak cell.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt; &lt;/th&gt;
-      &lt;th&gt;Valid data&lt;/th&gt;
-      &lt;th&gt;Invalid data&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Used&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;👍&lt;/td&gt;
-      &lt;td&gt;Impossible&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;&lt;strong&gt;Not used&lt;/strong&gt;&lt;/td&gt;
-      &lt;td&gt;Memory leak&lt;/td&gt;
-      &lt;td&gt;👍&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt; &lt;/th&gt;
+        &lt;th&gt;Valid data&lt;/th&gt;
+        &lt;th&gt;Invalid data&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;strong&gt;Used&lt;/strong&gt;&lt;/td&gt;
+        &lt;td&gt;👍&lt;/td&gt;
+        &lt;td&gt;Impossible&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;strong&gt;Not used&lt;/strong&gt;&lt;/td&gt;
+        &lt;td&gt;Memory leak&lt;/td&gt;
+        &lt;td&gt;👍&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;I’m not including this section because I think it’s a great promotion
 of Rust (being allowed to have invalid data that one can’t use doesn’t
@@ -8571,7 +8647,9 @@ table { max-width: 600px; border-spacing: 0 0.4em; border-collapse: separate; }
 td { vertical-align: top; }
 &lt;/style&gt;
 
-&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;number&quot;&gt;1&lt;/td&gt;&lt;td class=&quot;thing&quot;&gt;stable release
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;&lt;tr&gt;&lt;td class=&quot;number&quot;&gt;1&lt;/td&gt;&lt;td class=&quot;thing&quot;&gt;stable release
 &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;number&quot;&gt;2&lt;/td&gt;&lt;td class=&quot;thing&quot;&gt;‘Rust’ compilers
 &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;number&quot;&gt;3&lt;/td&gt;&lt;td class=&quot;thing&quot;&gt;&lt;a href=&quot;https://github.com/graydon/bors&quot;&gt;bots&lt;/a&gt; &lt;a href=&quot;https://github.com/nrc/highfive&quot;&gt;on&lt;/a&gt; &lt;a href=&quot;https://github.com/barosl/homu&quot;&gt;Github&lt;/a&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;number&quot;&gt;4&lt;/td&gt;&lt;td class=&quot;thing&quot;&gt;years of &lt;a href=&quot;https://en.wikipedia.org/wiki/Bootstrapping_%28compilers%29&quot;&gt;bootstrapping&lt;/a&gt; (&lt;a href=&quot;http://github.com/rust-lang/rust/commit/7b95b5c033435e0b8902c3f3afb14c80e04fee83&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;7b95b5c&lt;/code&gt;&lt;/a&gt; is the innocuous commit of the first snapshot)
@@ -8630,6 +8708,8 @@ td { vertical-align: top; }
 &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;number&quot;&gt;27,466,060&lt;/td&gt;&lt;td class=&quot;thing&quot;&gt;bytes of files in the 1.0 source tree
 &lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td class=&quot;number&quot;&gt;∞&lt;/td&gt;&lt;td class=&quot;thing&quot;&gt;code breakage in the lead up
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;Happy 1.0!&lt;/p&gt;
 
@@ -8859,32 +8939,36 @@ flexible. Conversely, &lt;code class=&quot;language-plaintext highlighter-rouge&
 (i.e. functions with generics bounded by the trait) the most
 flexibility, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;self&lt;/code&gt; the least.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt; &lt;/th&gt;
-      &lt;th&gt;&lt;strong&gt;Implementer&lt;/strong&gt;&lt;/th&gt;
-      &lt;th&gt;&lt;strong&gt;Consumer&lt;/strong&gt;&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;self&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Can move out and mutate&lt;/td&gt;
-      &lt;td&gt;Can only call method once&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;&lt;code&gt;&amp;amp;mut&amp;nbsp;self&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Can’t move out, can mutate&lt;/td&gt;
-      &lt;td&gt;Can call many times, only with unique access&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;self&lt;/code&gt;&lt;/td&gt;
-      &lt;td&gt;Can’t move out or mutate&lt;/td&gt;
-      &lt;td&gt;Can call many times, with no restrictions&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt; &lt;/th&gt;
+        &lt;th&gt;&lt;strong&gt;Implementer&lt;/strong&gt;&lt;/th&gt;
+        &lt;th&gt;&lt;strong&gt;Consumer&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;self&lt;/code&gt;&lt;/td&gt;
+        &lt;td&gt;Can move out and mutate&lt;/td&gt;
+        &lt;td&gt;Can only call method once&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;&lt;code&gt;&amp;amp;mut&amp;nbsp;self&lt;/code&gt;&lt;/td&gt;
+        &lt;td&gt;Can’t move out, can mutate&lt;/td&gt;
+        &lt;td&gt;Can call many times, only with unique access&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;self&lt;/code&gt;&lt;/td&gt;
+        &lt;td&gt;Can’t move out or mutate&lt;/td&gt;
+        &lt;td&gt;Can call many times, with no restrictions&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;div class=&quot;join&quot;&gt;&lt;/div&gt;
 
@@ -11078,36 +11162,40 @@ as well as the obvious one of doing a full sort and indexing to
 retrieve the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k&lt;/code&gt;th element. All offer the same interface, so decision
 between them is only guided by performance.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Algorithm&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Huge (ms)&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Large (µs)&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Small (ns)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Sort&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;7.2&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;87.8&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;264&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Quickselect&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;1.1&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;9.7&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;83&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Floyd–Rivest&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;0.48&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;2.4&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;72&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Algorithm&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Huge (ms)&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Large (µs)&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Small (ns)&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Sort&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;7.2&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;87.8&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;264&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Quickselect&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;1.1&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;9.7&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;83&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Floyd–Rivest&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;0.48&lt;/strong&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;2.4&lt;/strong&gt;&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;&lt;strong&gt;72&lt;/strong&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;Hence, Floyd–Rivest has the honour of being
 &lt;a href=&quot;http://huonw.github.io/order-stat/order_stat/fn.kth.html&quot;&gt;the star&lt;/a&gt;
@@ -14106,30 +14194,34 @@ same modification to &lt;code class=&quot;language-plaintext highlighter-rouge&q
 str.cmxa&lt;/code&gt; (as recommended), using version 4.01.0. I ran each 3 times
 (times in seconds) on &lt;a href=&quot;https://github.com/c4fsharp/Dojo-Digits-Recognizer/tree/1eb4297a49dbd82a952c1523f5413519b8f1d62a/Dojo&quot;&gt;these CSV files&lt;/a&gt;.&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;Lang&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: right&quot;&gt;3&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;Rust&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;3.56&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;3.46&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;3.86&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;OCaml&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;13.9&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;14.7&lt;/td&gt;
-      &lt;td style=&quot;text-align: right&quot;&gt;14.1&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div class=&quot;table-wrapper&quot;&gt;
+
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;Lang&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;1&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;2&lt;/th&gt;
+        &lt;th style=&quot;text-align: right&quot;&gt;3&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;Rust&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;3.56&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;3.46&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;3.86&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;OCaml&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;13.9&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;14.7&lt;/td&gt;
+        &lt;td style=&quot;text-align: right&quot;&gt;14.1&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/div&gt;
 
 &lt;p&gt;So the Rust code is about 3.5–4× faster than the
 OCaml.&lt;/p&gt;
