@@ -113,10 +113,14 @@ str.cmxa` (as recommended), using version 4.01.0. I ran each 3 times
 
 [csv]: https://github.com/c4fsharp/Dojo-Digits-Recognizer/tree/1eb4297a49dbd82a952c1523f5413519b8f1d62a/Dojo
 
+<div class="table-wrapper" markdown="1">
+
 | Lang  | 1    | 2    | 3    |
 |------:|-----:|-----:|-----:|
 | Rust  | 3.56 | 3.46 | 3.86 |
 | OCaml | 13.9 | 14.7 | 14.1 |
+
+</div>
 
 So the Rust code is about 3.5&ndash;4&times; faster than the
 OCaml.

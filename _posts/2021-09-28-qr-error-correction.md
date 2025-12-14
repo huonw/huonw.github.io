@@ -39,6 +39,8 @@ What are these two factors?
 
 - **error correction** (EC): a measure of redundancy in the QR code, translating into how much "damage" it can tolerate and still be readable. This is how images and logos can be directly embedded into QR codes, without any special consideration. This is **chosen** when creating the QR code. The number of modules that can be damaged for each level is:
 
+  <div class="table-wrapper" markdown="1">
+
   | EC           | max damage |
   |--------------|-----------:|
   | L (low)      |         7% |
@@ -46,7 +48,11 @@ What are these two factors?
   | Q (quartile) |        25% |
   | H (high)     |        30% |
 
+  </div>
+
 - **version**: the number of little squares (modules) along each side of the big square. This is normally **computed** automatically when creating the QR code (from the data and error correction).
+
+  <div class="table-wrapper" markdown="1">
 
   | version |   modules |
   |--------:|----------:|
@@ -57,6 +63,8 @@ What are these two factors?
   |     ... |       ... |
   |      39 |       173 |
   |      40 |       177 |
+
+  </div>
 
 {% include image.html src="v1-v18-v40.png" width="1110" height="378" caption="Three QR codes, using versions 1, 18 and 40 (from left to right)." alt="An image showing three QR codes placed horizontally, the left most one consists of only a very large modules, while they're barely distinguishable in the right most one." %}
 
@@ -73,12 +81,16 @@ Together, the version and error correction dictate how much data a given QR code
 
 That plot indicates a QR code using EC level H can store **less than half** the data of one using level L: the closest they get is at version 3 (53 vs. 24 bytes). The other levels have less overhead, but it's still a cost that's paid:
 
+<div class="table-wrapper" markdown="1">
+
 | EC | max bytes (version 40) | storage relative to L (mean) |
 |----|-----------------------:|-----------------------------:|
 | L  |                   2953 |                         100% |
 | M  |                   2331 |                          79% |
 | Q  |                   1663 |                          57% |
 | H  |                   1273 |                          43% |
+
+</div>
 
 That's some hefty overhead: presumably it is useful for something... I did some experiments.
 
@@ -102,10 +114,14 @@ Error correction sounds useful for scanning: if the QR code is further away or s
 
 A camera generally doesn't care about the actual distance, as it just "thinks" in the pixels it sees. Thus, it's the size of the QR code within the overall image that matters. I call this the *field of view*. Example, for the full sized version of Figure 4:
 
+<div class="table-wrapper" markdown="1">
+
 |            |     size (px)  | total (px) | field of view |
 |------------|------------------:|-------------:|--------------:|
 | full image | 2592 &times; 1944 |        5.04m |          100% |
 | QR code    |   700 &times; 700 |        0.49m |          9.7% |
+
+</div>
 
 Under the reasonable assumption that the camera is close to [rectilinear](https://en.wikipedia.org/wiki/Rectilinear_lens), this gives a measure of how close the user has to be that scales smoothly with the physical size of the QR code: if the device can read a 10cm QR code from 1m away, it'll be able to read a 1m code from 10m. Similarly, fields of view can be used to predict distance: given two codes, where the first needs 4% field of view and the second only needs 1%, the second can likely be scanned from about twice as far[^quadratic].
 
@@ -157,12 +173,16 @@ I generated 10 different noise patterns, and thresholded them at 8 different lev
 
 Across all of these experiments, **60% more** EC level H QR codes could be scanned successfully than level L ones:
 
+<div class="table-wrapper" markdown="1">
+
 | EC | number successfully scanned |
 |----|----------------------------:|
 | L  |                        1257 |
 | M  |                        1600 |
 | Q  |                        1839 |
 | H  |                        2001 |
+
+</div>
 
 This is driven by resilience to damage: the QR code at level H is more likely to be able to be read when there's significant damage. The following plot has a point for each successful scan, against the percentage of pixels damaged.
 

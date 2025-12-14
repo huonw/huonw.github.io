@@ -56,12 +56,16 @@ There's no explicit annotation, so TypeScript needs to infer it. The inference i
 
 Given all this, it's not too surprising that the exact inferred type depends on two TypeScript language options:
 
+<div class="table-wrapper" markdown="1">
+
 |              | `strictNullChecks`{:.break-all} | `noImplicitAny`{:.break-all} | Inferred type |
 |--------------|---------------------------------|------------------------------|---------------|
 | least strict | ❌                              | ❌                           | `any[]`       |
 |              | ❌                              | ✅                           | `number[]`    |
 |              | ✅                              | ❌                           | `never[]`     |
 | most strict  | ✅                              | ✅                           | `number[]`    |
+
+</div>
 
 ## The options
 
@@ -94,12 +98,16 @@ Nothing (not the `123` literal, nor any other `number`, nor anything else) is a 
 
 "Enable some stricter requirements, and get an error" is not surprising and not noteworthy... but let's look closely at the table again:
 
+<div class="table-wrapper" markdown="1">
+
 |              | `strictNullChecks`{:.break-all} | `noImplicitAny`{:.break-all} | Inferred type |
 |--------------|---------------------------------|------------------------------|---------------|
 | least strict | ❌                              | ❌                           | `any[]`       |
 |              | ❌                              | ✅                           | `number[]`    |
 | **error!**   | ✅                              | ❌                           | **`never[]`** |
 | most strict  | ✅                              | ✅                           | `number[]`    |
+
+</div>
 
 So, if we're starting with a lax codebase, and looking to make it strict, we might:
 

@@ -225,11 +225,15 @@ retrieve the `k`th element. All offer the same interface, so decision
 between them is only guided by performance.
 
 
+<div class="table-wrapper" markdown="1">
+
 | Algorithm | Huge (ms) | Large (µs) | Small (ns) |
 |---|---:|---:|---:|
 | Sort | 7.2  | 87.8 | 264 |
 | Quickselect | 1.1 | 9.7  | 83  |
 | Floyd–Rivest | **0.48** | **2.4**  | **72** |
+
+</div>
 
 Hence, Floyd–Rivest has the honour of being
 [the star](http://huonw.github.io/order-stat/order_stat/fn.kth.html)

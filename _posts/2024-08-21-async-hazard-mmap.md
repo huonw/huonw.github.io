@@ -52,6 +52,8 @@ The results[^table] are clear: using memory mapped IO with `async`/`await` seems
 
 [^table]: Here's a table with the full results, including both cold and warm file system caches, taking the minimum value of each benchmark (that is, the most favourable observation):
 
+    <div class="table-wrapper" markdown="1">
+
     | Concurrency                   | IO           | Cold (s) | Warm (s) |
     |-------------------------------|--------------|----------|----------|
     | Async                         | Mmap         | 2.5      | 0.12     |
@@ -61,7 +63,7 @@ The results[^table] are clear: using memory mapped IO with `async`/`await` seems
     | Sync <small>1 thread</small>  | Mmap         | 2.5      | 0.12     |
     | Sync <small>1 thread</small>  | Conventional | 0.67     | 0.14     |
 
-
+    </div>
 
 
 Meanwhile, using conventional IO behaves more like we'd hope: using either form of concurrency is **noticeably faster** than running sequentially. Using either `async`/`await` or operating system threads results in reading all files in less than 0.65 seconds[^maxed-out], while the sequential single-threaded version takes only a bit longer (0.7s) but with little overlap in the distributions.

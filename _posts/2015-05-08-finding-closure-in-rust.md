@@ -187,11 +187,15 @@ flexible. Conversely, `&self` gives *consumers* of the trait
 (i.e. functions with generics bounded by the trait) the most
 flexibility, and `self` the least.
 
+<div class="table-wrapper" markdown="1">
+
 |             | **Implementer**                | **Consumer**                                 |
 |------------:|----------------------------|-------------------------------------------------|
 |      `self` | Can move out and mutate    | Can only call method once                       |
 | <code>&amp;mut&nbsp;self</code> | Can't move out, can mutate | Can call many times, only with unique access |
 |     `&self` | Can't move out or mutate   | Can call many times, with no restrictions       |
+
+</div>
 
 <div class="join"></div>
 

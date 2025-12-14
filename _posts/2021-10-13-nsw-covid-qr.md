@@ -275,6 +275,8 @@ The QR code uses the highest error correction (EC) level: H. As explored in [*QR
 
 [qr-error-correction]: {% post_url 2021-09-28-qr-error-correction %}
 
+<div class="table-wrapper" markdown="1">
+
 | EC level     | max damage | data storage (vs. L) |
 |--------------|-----------:|---------------------:|
 | H (high)     |        30% |                  43% |
@@ -282,9 +284,13 @@ The QR code uses the highest error correction (EC) level: H. As explored in [*QR
 | M (medium)   |        15% |                  79% |
 | L (low)      |         7% |                 100% |
 
+</div>
+
 I imagine that most codes are placed in relatively non-hostile environments (indoors, or at least under cover), so the use of EC level H could be reduced, or made configurable. Dropping down one level, to Q, reduces the version from 16 to 13, making each module (small square) larger&mdash;17% more area&mdash;and thus the overall QR code easier to scan.
 
 Dropping further makes the modules larger, although the biggest win comes from moving from H to Q, and each lower level is less resilient.
+
+<div class="table-wrapper" markdown="1">
 
 | EC level | version | module size (vs. H) | vs. previous |
 |----------|--------:|--------------------:|-------------:|
@@ -292,6 +298,8 @@ Dropping further makes the modules larger, although the biggest win comes from m
 | Q        |      13 |                +17% |         +17% |
 | M        |      11 |                +33% |         +13% |
 | L        |      9 |                +53% |          +15% |
+
+</div>
 
 This also doesn't change anything about the data that is encoded, and so should continue to work with the existing app.
 
@@ -325,10 +333,14 @@ The simplest part to look at is the scheme, because there's two options `https:/
 
 The lowest hanging fruit for actual change is in 4, the query. This query is currently a single parameter `data` with value base64-encoded JSON value `eyJ0…fQ==` . The JSON includes a `baddress` field... I **cannot find any place** in the app or website that displays this, and indeed removing it seems to function just fine. The resulting encoded JSON is `eyJ0IjoiY292aWQxOV9idXNpbmVzcyIsImJpZCI6IjEyMTMyMSIsImJuYW1lIjoiVGVzdCBOU1cgR292ZXJubWVudCBRUiBjb2RlIn0=`{:.break-all}, which is 104 characters, down from 160.
 
+<div class="table-wrapper" markdown="1">
+
 | JSON value                     | URL length | version at Q |
 |--------------------------|-----------:|-------------:|
 | Original with `baddress` |        228 |           13 |
 | New without `baddress`   |        172 |           11 |
+
+</div>
 
 Sounds good. Let's **choose to remove the `baddress` field**.
 
@@ -348,12 +360,16 @@ Sounds good. Let's **choose to remove the `baddress` field**.
 
 QR codes encode the data in one of [four modes][modes], based on the characters that the data contains:
 
+<div class="table-wrapper" markdown="1">
+
 | Mode         | Permitted characters      | Bits per character |
 |--------------|---------------------------|-------------------:|
 | Numeric      | 0123456789                |               3.33 |
 | Alphanumeric | 0–9, A–Z, space, $%*+-./: |                5.5 |
 | Binary       | any byte                  |                  8 |
 | Kanji        | [Shift JIS X 0208][x0208] |                 13 |
+
+</div>
 
 [modes]: https://en.wikipedia.org/wiki/QR_code#Storage
 [x0208]: https://en.wikipedia.org/wiki/JIS_X_0208
@@ -366,11 +382,15 @@ Fortunately, QR codes can encode the data **in multiple segments with different 
 
 [optimal]: https://www.nayuki.io/page/optimal-text-segmentation-for-qr-codes
 
+<div class="table-wrapper" markdown="1">
+
 | url                                                                                                                       | works with app | L |  Q |
 |---------------------------------------------------------------------------------------------------------------------------|---------------:|--:|---:|
 | Original:<br/>`https://www.service.nsw.gov.au/campaign/service-nsw-mobile-app?data=eyJ…`{:.break-all}                     |            yes | 8 | 11 |
 | Upper-case domain and scheme:<br/>`HTTPS://WWW.SERVICE.NSW.GOV.AU/campaign/service-nsw-mobile-app?data=eyJ…`{:.break-all} |            yes | 8 | 11 |
 | Only data lower-case:<br/>`HTTPS://WWW.SERVICE.NSW.GOV.AU/CAMPAIGN/SERVICE-NSW-MOBILE-APP?DATA=eyJ…`{:.break-all}         |             no | 7 | 11 |
+
+</div>
 
 The second option&mdash;upper-casing only the domain and scheme&mdash;is as far as we get and still (seemingly) **work with existing app installations**.
 
@@ -398,6 +418,8 @@ Unfortunately there's a lot of overhead from JSON (all the `{":,`s), and then ev
 
 We can do better, because we've got simple textual data and simple values (plain strings). This means that we could pass the values in the URL directly, either via a query parameters, or in the path directly, which saves us a little overhead of `?N=…`. We've already got the `/C` in the URL to indicate a check-in, so we can probably drop the `"t": "covid19_business"`, and our scheme here is very hand-crafted, so we can optimise the parameters down as much as we like.
 
+<div class="table-wrapper" markdown="1">
+
 | encoding                                                                         | length |  Q |
 |----------------------------------------------------------------------------------|-------:|---:|
 | Original, JSON + Base64:<br/>`...?DATA=eyJ0…`{:.break-all}                       |    172 | 11 |
@@ -405,6 +427,8 @@ We can do better, because we've got simple textual data and simple values (plain
 | Better URL parameters:<br/>`...?I=121321&N=name…`{:.break-all}                   |    101 |  7 |
 | ID in path:<br/>`.../121321&N=name…`{:.break-all}                                |     99 |  7 |
 | Everything in path:<br/>`.../121321/name…`{:.break-all}                          |     67 |  7 |
+
+</div>
 
 This makes a huge difference. Our URL is now down to 97 characters (from 228 originally): `HTTPS://WWW.SERVICE.NSW.GOV.AU/CAMPAIGN/SERVICE-NSW-MOBILE-APP/121321/Test+NSW+Government+QR+code`{:.break-all}.
 
@@ -430,11 +454,15 @@ Next, the initial `CAMPAIGN/SERVICE-NSW-MOBILE-APP` components of the path are r
 
 Let's just cut that down. There's two nice options here: no path at all, or a very short one.
 
+<div class="table-wrapper" markdown="1">
+
 | path                                                    | length |  Q |
 |---------------------------------------------------------|-------:|---:|
 | Original `CAMPAIGN/SERVICE-NSW-MOBILE-APP`{:.break-all} |    97 | 7 |
 | `C`                                                     |    67 | 5 |
 | Empty                                                   |    65 | 5 |
+
+</div>
 
 There's not much difference here, so it feels better to include the `C` to distinguish when a link is for a check-in. If the path is empty, the URL looks like `HTTPS://WWW.SERVICE.NSW.GOV.AU/121321/...`{:.break-all}, which means the front page of `HTTPS://WWW.SERVICE.NSW.GOV.AU`{:.break-all} needs to be detecting whether the path looks like a check-in ID and redirect to the appropriate page (when loaded in a web browser), and that sounds annoying and would require relatively unusual code.
 
@@ -456,12 +484,16 @@ Let's choose this **short single-character path**.
 
 The domain being used is long: `WWW.SERVICE.NSW.GOV.AU`{:.break-all}. We definitely don't need to be spelling that all out. There's a variety of options here: shortenings of the current URL like `Q.SERVICE.NSW.GOV.AU`{:.break-all} or `S.NSW.GOV.AU`; or something really short, like `NSW.AU` (this domain doesn't exist, but any 6 character domain would be equivalent). The best choice probably depends on the bureaucracy and dev/sys-ops requirements with the relevant organisations.
 
+<div class="table-wrapper" markdown="1">
+
 | domain                                             | length | L | Q |
 |----------------------------------------------------|-------:|--:|--:|
 | Original<br/>`WWW.SERVICE.NSW.GOV.AU`{:.break-all} |     67 | 4 | 5 |
 | `Q.SERVICE.NSW.GOV.AU`{:.break-all}                |     65 | 4 | 5 |
 | `S.NSW.GOV.AU`{:.break-all}                        |     57 | 3 | 5 |
 | `NSW.AU`{:.break-all}                              |     51 | 3 | 4 |
+
+</div>
 
 Most of these choices don't a difference at level Q, but they do reduce the overall data (and thus may make a difference in some cases) and reduce the version at level L. Let's **choose `S.NSW.GOV.AU`**, because being scoped within the `GOV.AU` second-level domain seems more trustworthy: `HTTPS://S.NSW.GOV.AU/C/121321/Test+NSW+Government+QR+code`{:.break-all}.
 
@@ -524,11 +556,15 @@ One way to make these secure[^threat-model] would be to **cryptographically sign
 
 For instance, a 200 bit [BLS signature][bls] may give sufficient security. To get a sense of the overhead this might impose, we can pretend we've generated a signature of this size somehow and add it to the URL (this **isn't** a real cryptographic protocol, don't take my word for it). First, encode it as a 61 digit number to benefit from the Numeric QR mode, and, then, add it as an extra query parameter `…?…&S=16069…`. This does make the URLs longer, and thus requires higher versions, but our optimisations have made room for this, meaning that the QR codes are still easier to scan while having better security:
 
+<div class="table-wrapper" markdown="1">
+
 | QR code           | unsigned version | signed version |
 |-------------------|-----------------:|---------------:|
 | original          |               16 |             17 |
 | optimised for app |               11 |             12 |
 | fully optimised   |                5 |              7 |
+
+</div>
 
 [bls]: https://en.wikipedia.org/wiki/BLS_digital_signature
 

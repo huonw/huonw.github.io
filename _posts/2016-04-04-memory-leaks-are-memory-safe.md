@@ -32,11 +32,14 @@ form:
 [ms]: https://en.wikipedia.org/wiki/Memory_safety
 [ml]: https://en.wikipedia.org/wiki/Memory_leak
 
+<div class="table-wrapper" markdown="1">
 
 || Valid data | Invalid data |
 |---------------|-------------|---------------|
 | **Used**           | 👍 | Memory unsafety |
 | **Not used**            | Memory leak | 👍 |
+
+</div>
 
 The best programs lie in the 👍 cells only: they manipulate valid
 things, and don't manipulate invalid ones. Passable programs might
@@ -195,10 +198,14 @@ However, a programming model that's not "leak everything" doesn't mean
 it is "leak nothing": the revised table for Rust (and anything
 similar) still has its memory leak cell.
 
+<div class="table-wrapper" markdown="1">
+
 || Valid data | Invalid data |
 |---------------|-------------|---------------|
 | **Used**           | 👍 | Impossible |
 | **Not used**            | Memory leak | 👍 |
+
+</div>
 
 I'm not including this section because I think it's a great promotion
 of Rust (being allowed to have invalid data that one can't use doesn't
