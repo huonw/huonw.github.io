@@ -533,14 +533,8 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
+  margin-top: 2em;
 }
 
 a.post-heading {
