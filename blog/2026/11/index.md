@@ -1,0 +1,6 @@
+---
+layout: default
+title: 2026–11
+---
+
+{% include archive.html year=2026 month=11 %}
