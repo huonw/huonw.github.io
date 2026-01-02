@@ -15,6 +15,7 @@
 {% else %}
  {% assign search_month = false %}
 {% endif %}
+{% assign found = false %}
 
 <nav>
 <ul class="post-list">
@@ -25,10 +26,17 @@
  {% unless search_year and this_year != search_year %}
   {% unless search_month and this_month != search_month %}
     {% unless post.draft %}
+      {% assign found = true %}
       {% include post_summary.html post=post %}
     {% endunless %}
   {% endunless %}
  {% endunless %}
 {% endfor %}
 </ul>
+{% unless found %}
+  <div class="post-list-empty">
+    <p>No matching posts.</p>
+    <p>Maybe <a href="/blog">my full archive</a> will have what you're looking for?</p>
+  </div>
+{% endunless %}
 </nav>

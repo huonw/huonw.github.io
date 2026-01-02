@@ -558,6 +558,10 @@ ul.post-list {
   display: none
 }
 
+.post-list-empty {
+    text-align: center;
+}
+
 /* media queries */
 
 
