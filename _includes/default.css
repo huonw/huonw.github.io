@@ -537,36 +537,20 @@ ul.post-list {
   margin-top: 2em;
 }
 
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
-}
-
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 

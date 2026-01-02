@@ -1,8 +1,7 @@
 <li class="post-post">
   <a href="{{ post.url }}" class="post-heading">
     <h2 class="post-title">{{ post.title }}</h2>
-    <span class="post-date">{{ post.date | date_to_string }}</span>
   </a>
-  <div class="post-excerpt">{{ post.excerpt | replace: "href", "href-disabled" }}   <a href="{{ post.url }}" class="post-more">Keep reading</a></div>
+  <div class="post-excerpt">{{ post.excerpt | replace: "href", "href-disabled" }}   <a href="{{ post.url }}" class="post-date">{{ post.date | date_to_string }}</a></div>
   <div class="clear"></div>
 </li>
