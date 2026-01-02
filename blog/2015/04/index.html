@@ -636,51 +636,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -918,10 +900,10 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/04/helping-travis-catch-the-rustc-train/" class="post-heading">
     <h2 class="post-title">Helping Travis catch the rustc train</h2>
-    <span class="post-date">28 Apr 2015</span>
   </a>
   <div class="post-excerpt"><p>I’ve been putting off configuring my continuous integration settings
 to match the Rust train model: it involves non-trivial branching on
@@ -929,7 +911,7 @@ the configuration, and duplicating that over a pile of repos is not
 something I looked forward to. So, instead, I wrote
 <a href-disabled="https://github.com/huonw/travis-cargo">travis-cargo</a> to make things
 easier.</p>
-   <a href="/blog/2015/04/helping-travis-catch-the-rustc-train/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/04/helping-travis-catch-the-rustc-train/" class="post-date">28 Apr 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -943,16 +925,16 @@ easier.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/04/little-libraries/" class="post-heading">
     <h2 class="post-title">Little libraries</h2>
-    <span class="post-date">27 Apr 2015</span>
   </a>
   <div class="post-excerpt"><p>I’ve been having a lot of fun recently solving “little” problems in
 Rust. I have a long term project to make something for displaying my
 (GPS-tagged) photos nicely and, along the way, I’ve discovered and
 filled in a few gaps by creating focused crates for small tasks.</p>
-   <a href="/blog/2015/04/little-libraries/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/04/little-libraries/" class="post-date">27 Apr 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1025,6 +1007,7 @@ filled in a few gaps by creating focused crates for small tasks.</p>
  
 
 </ul>
+
 </nav>
 
 
@@ -1034,7 +1017,7 @@ filled in a few gaps by creating focused crates for small tasks.</p>
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 

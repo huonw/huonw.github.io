@@ -636,51 +636,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -953,10 +935,10 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/01/object-safety/" class="post-heading">
     <h2 class="post-title">Object Safety</h2>
-    <span class="post-date">13 Jan 2015</span>
   </a>
   <div class="post-excerpt"><p>A trait object in <a href-disabled="http://rust-lang.org">Rust</a><sup id="fnref:version"><a href-disabled="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> can only be
 constructed out of traits that satisfy certain restrictions, which are
@@ -971,7 +953,7 @@ understanding into why it exists and related compiler behaviour.</p>
     </li>
   </ol>
 </div>
-   <a href="/blog/2015/01/object-safety/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/01/object-safety/" class="post-date">13 Jan 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -985,10 +967,10 @@ understanding into why it exists and related compiler behaviour.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/01/the-sized-trait/" class="post-heading">
     <h2 class="post-title">The Sized Trait</h2>
-    <span class="post-date">12 Jan 2015</span>
   </a>
   <div class="post-excerpt"><p>An important piece in my story about trait objects in
 <a href-disabled="http://rust-lang.org">Rust</a><sup id="fnref:version"><a href-disabled="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> is <a href-disabled="https://doc.rust-lang.org/nightly/std/marker/trait.Sized.html">the <code class="language-plaintext highlighter-rouge">Sized</code> trait</a>,
@@ -1003,7 +985,7 @@ so I’m slotting in this short post between
     </li>
   </ol>
 </div>
-   <a href="/blog/2015/01/the-sized-trait/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/01/the-sized-trait/" class="post-date">12 Jan 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1017,10 +999,10 @@ so I’m slotting in this short post between
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/01/peeking-inside-trait-objects/" class="post-heading">
     <h2 class="post-title">Peeking inside Trait Objects</h2>
-    <span class="post-date">10 Jan 2015</span>
   </a>
   <div class="post-excerpt"><p>One of the most powerful parts of
 <a href-disabled="http://rust-lang.org">the Rust programming language</a><sup id="fnref:version"><a href-disabled="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> is the
@@ -1037,7 +1019,7 @@ over a short series of posts.</p>
     </li>
   </ol>
 </div>
-   <a href="/blog/2015/01/peeking-inside-trait-objects/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/01/peeking-inside-trait-objects/" class="post-date">10 Jan 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1051,10 +1033,10 @@ over a short series of posts.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/01/crates.io-crate-graph/" class="post-heading">
     <h2 class="post-title">crates.io crate graph</h2>
-    <span class="post-date">04 Jan 2015</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="http://rust-lang.org/">Rust</a> is a systems programming language that
 comes with an awesome package manager <a href-disabled="http://doc.crates.io">Cargo</a>,
@@ -1062,7 +1044,7 @@ which hooks into the <a href-disabled="https://crates.io">crates.io</a> registry
 its possible sources of packages. The packages can have dependency
 relationships between each other, making the database into a natural
 directed graph.</p>
-   <a href="/blog/2015/01/crates.io-crate-graph/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/01/crates.io-crate-graph/" class="post-date">04 Jan 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1086,6 +1068,7 @@ directed graph.</p>
  
 
 </ul>
+
 </nav>
 
 
@@ -1095,7 +1078,7 @@ directed graph.</p>
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 

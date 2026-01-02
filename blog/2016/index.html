@@ -636,51 +636,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -831,10 +813,10 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/" class="post-heading">
     <h2 class="post-title">Myths and Legends about Integer Overflow in Rust</h2>
-    <span class="post-date">29 Apr 2016</span>
   </a>
   <div class="post-excerpt"><p>The primitive integer types supported by CPUs are finite
 approximations to the infinite set of integers we’re all used to. This
@@ -842,7 +824,7 @@ approximation breaks down and some computations will give results that
 don’t match real integers, like <code class="language-plaintext highlighter-rouge">255_u8 + 1 == 0</code>. Often, this
 mismatch is something the programmer didn’t think about, and thus can
 easily result in bugs.</p>
-   <a href="/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2016/04/myths-and-legends-about-integer-overflow-in-rust/" class="post-date">29 Apr 2016</a></div>
   <div class="clear"></div>
 </li>
 
@@ -856,10 +838,10 @@ easily result in bugs.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2016/04/memory-leaks-are-memory-safe/" class="post-heading">
     <h2 class="post-title">Memory Leaks are Memory Safe</h2>
-    <span class="post-date">04 Apr 2016</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="https://en.wikipedia.org/wiki/Memory_safety"><em>Memory unsafety</em></a> and <a href-disabled="https://en.wikipedia.org/wiki/Memory_leak"><em>memory leaks</em></a> are arguably the two
 categories of bugs that have received the most attention for
@@ -870,7 +852,7 @@ use of memory-safe managed languages hammers this point home: they
 avoid some memory unsafety by presenting a “leak everything” model to
 programmers.</p>
 
-   <a href="/blog/2016/04/memory-leaks-are-memory-safe/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2016/04/memory-leaks-are-memory-safe/" class="post-date">04 Apr 2016</a></div>
   <div class="clear"></div>
 </li>
 
@@ -994,6 +976,7 @@ programmers.</p>
  
 
 </ul>
+
 </nav>
 
 
@@ -1003,7 +986,7 @@ programmers.</p>
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 

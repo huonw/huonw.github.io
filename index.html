@@ -619,51 +619,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -745,13 +727,13 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2025/12/magit-insert-worktrees/" class="post-heading">
     <h2 class="post-title">magit-insert-worktrees improves status buffers</h2>
-    <span class="post-date">13 Dec 2025</span>
   </a>
   <div class="post-excerpt"><p>The Magit package for Emacs is my Git UI of choice, and git worktrees are very convenient. They mesh up particularly well by adding the built-in <code class="language-plaintext highlighter-rouge">magit-insert-worktrees</code> to <code class="language-plaintext highlighter-rouge">magit-status-sections-hook</code>. With this, the magit status buffer shows a summary of the branch/HEAD/path of all worktrees, and allow jumping between them in a flash.</p>
-   <a href="/blog/2025/12/magit-insert-worktrees/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2025/12/magit-insert-worktrees/" class="post-date">13 Dec 2025</a></div>
   <div class="clear"></div>
 </li>
 
@@ -765,13 +747,13 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2025/12/typescript-monotonic/" class="post-heading">
     <h2 class="post-title">TypeScript strictness is non-monotonic: strict-null-checks and no-implicit-any interact</h2>
-    <span class="post-date">03 Dec 2025</span>
   </a>
   <div class="post-excerpt"><p>The TypeScript compiler options <code class="language-plaintext highlighter-rouge">strictNullChecks</code> and <code class="language-plaintext highlighter-rouge">noImplicitAny</code> interact in a strange way: enabling just <code class="language-plaintext highlighter-rouge">strictNullChecks</code> leads to type errors that disappear after enabling <code class="language-plaintext highlighter-rouge">noImplicitAny</code> too, meaning getting stricter has fewer errors!</p>
-   <a href="/blog/2025/12/typescript-monotonic/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2025/12/typescript-monotonic/" class="post-date">03 Dec 2025</a></div>
   <div class="clear"></div>
 </li>
 
@@ -785,13 +767,13 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2025/11/piraite/" class="post-heading">
     <h2 class="post-title">Context privateering: debugging custom instructions like a pirate</h2>
-    <span class="post-date">25 Nov 2025</span>
   </a>
   <div class="post-excerpt"><p>I occasionally add context instructions to an AI tool, but then am not sure whether those changes were picked up by the tool. The <em>fun</em> way to debug this is to add “Always speak like a pirate” to the instructions. This works in all tools. Context engineering!</p>
-   <a href="/blog/2025/11/piraite/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2025/11/piraite/" class="post-date">25 Nov 2025</a></div>
   <div class="clear"></div>
 </li>
 
@@ -805,13 +787,13 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2025/09/deprecating-vs-removing/" class="post-heading">
     <h2 class="post-title">Is that a deprecation? Or is it just removed?</h2>
-    <span class="post-date">08 Sep 2025</span>
   </a>
   <div class="post-excerpt"><p>I’ve noticed different people seem to use the word “deprecating” to mean two different things, when it comes to code and/or features: either removing entirely, or discouraging its use. I think it’s useful to have specific labels for both of these of concepts, so that communication is clearer.</p>
-   <a href="/blog/2025/09/deprecating-vs-removing/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2025/09/deprecating-vs-removing/" class="post-date">08 Sep 2025</a></div>
   <div class="clear"></div>
 </li>
 
@@ -820,6 +802,7 @@ a.post-heading {
  
 
 </ul>
+
 </nav>
 
 
@@ -829,7 +812,7 @@ a.post-heading {
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 

@@ -636,51 +636,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -939,14 +921,14 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/02/some-notes-on-send-and-sync/" class="post-heading">
     <h2 class="post-title">Some notes on Send and Sync</h2>
-    <span class="post-date">20 Feb 2015</span>
   </a>
   <div class="post-excerpt"><p>If you’ve been in the <code class="language-plaintext highlighter-rouge">#rust-internals</code> IRC channel recently, you
 may’ve caught a madman raving about how much they like Rust:</p>
-   <a href="/blog/2015/02/some-notes-on-send-and-sync/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/02/some-notes-on-send-and-sync/" class="post-date">20 Feb 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -960,15 +942,15 @@ may’ve caught a madman raving about how much they like Rust:</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/02/rust-sydney-1/" class="post-heading">
     <h2 class="post-title">Rust Sydney's first meetup: trip report</h2>
-    <span class="post-date">14 Feb 2015</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="http://meetup.com/Rust-Sydney">Rust Sydney</a> had its first event last
 Monday!  The first Rust gathering I know of in Sydney, in Australia,
 or in the whole southern hemisphere.</p>
-   <a href="/blog/2015/02/rust-sydney-1/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/02/rust-sydney-1/" class="post-date">14 Feb 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1020,6 +1002,7 @@ or in the whole southern hemisphere.</p>
  
 
 </ul>
+
 </nav>
 
 
@@ -1029,7 +1012,7 @@ or in the whole southern hemisphere.</p>
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 

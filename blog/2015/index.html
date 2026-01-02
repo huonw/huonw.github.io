@@ -636,51 +636,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -841,10 +823,10 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/10/rreverse-debugging/" class="post-heading">
     <h2 class="post-title">Rreverrse Debugging</h2>
-    <span class="post-date">27 Oct 2015</span>
   </a>
   <div class="post-excerpt"><p>Imagine being able to step forward and <em>backwards</em> as code runs in
 your debugger. Imagine being able to do an test run multiple times
@@ -852,7 +834,7 @@ with exactly the same sequence of instructions and values, right down
 to memory addresses and IO. Imagine being able to run an executable
 thousands of times and then do all that in the one execution that
 triggers the rare bug that’s draining you of life…</p>
-   <a href="/blog/2015/10/rreverse-debugging/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/10/rreverse-debugging/" class="post-date">27 Oct 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -866,10 +848,10 @@ triggers the rare bug that’s draining you of life…</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/10/simple_parallel-revisiting-knn/" class="post-heading">
     <h2 class="post-title">simple_parallel 0.3: Revisiting k-NN</h2>
-    <span class="post-date">24 Oct 2015</span>
   </a>
   <div class="post-excerpt"><p>I recently released version 0.3 of my
 <a href-disabled="https://crates.io/crates/simple_parallel"><code class="language-plaintext highlighter-rouge">simple_parallel</code></a> crate, which builds on
@@ -878,7 +860,7 @@ triggers the rare bug that’s draining you of life…</p>
 with Rust 1.3.0 stable, and offers safe data-parallel <code class="language-plaintext highlighter-rouge">for</code> loops and
 <code class="language-plaintext highlighter-rouge">map</code>s.</p>
 
-   <a href="/blog/2015/10/simple_parallel-revisiting-knn/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/10/simple_parallel-revisiting-knn/" class="post-date">24 Oct 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -892,15 +874,15 @@ with Rust 1.3.0 stable, and offers safe data-parallel <code class="language-plai
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/08/simd-in-rust/" class="post-heading">
     <h2 class="post-title">SIMD in Rust</h2>
-    <span class="post-date">24 Aug 2015</span>
   </a>
   <div class="post-excerpt"><p>A new scheme for SIMD in <a href-disabled="https://www.rust-lang.org/">Rust</a> is available in the latest nightly
 compilers, fresh off the builders (get it while it’s hot!).</p>
 
-   <a href="/blog/2015/08/simd-in-rust/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/08/simd-in-rust/" class="post-date">24 Aug 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -914,15 +896,15 @@ compilers, fresh off the builders (get it while it’s hot!).</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/07/what-is-simd/" class="post-heading">
     <h2 class="post-title">What is SIMD?</h2>
-    <span class="post-date">10 Jul 2015</span>
   </a>
   <div class="post-excerpt"><p>I’m currently in San Francisco doing an internship at Mozilla
 Research, working on creating functionality for SIMD in the Rust
 programming language.</p>
-   <a href="/blog/2015/07/what-is-simd/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/07/what-is-simd/" class="post-date">10 Jul 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -936,17 +918,17 @@ programming language.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/06/travis-cargo-0.1.3/" class="post-heading">
     <h2 class="post-title">travis-cargo 0.1.3: --no-sudo</h2>
-    <span class="post-date">30 Jun 2015</span>
   </a>
   <div class="post-excerpt"><p>I just pushed <a href-disabled="https://github.com/huonw/travis-cargo">travis-cargo</a>
 version 0.1.3, which adds a <code class="language-plaintext highlighter-rouge">--no-sudo</code> command to
 <a href-disabled="/blog/2015/05/travis-on-the-train-part-2/">the <code class="language-plaintext highlighter-rouge">coveralls</code> and <code class="language-plaintext highlighter-rouge">coverage</code> subcommands</a> to allow
 recording/uploading test coverage without needing <code class="language-plaintext highlighter-rouge">sudo</code>.</p>
 
-   <a href="/blog/2015/06/travis-cargo-0.1.3/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/06/travis-cargo-0.1.3/" class="post-date">30 Jun 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -960,10 +942,10 @@ recording/uploading test coverage without needing <code class="language-plaintex
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/06/announcing-primal/" class="post-heading">
     <h2 class="post-title">Announcing Primal: Putting Raw Power Into Prime Numbers</h2>
-    <span class="post-date">08 Jun 2015</span>
   </a>
   <div class="post-excerpt"><p>Over the past few weeks I’ve been working on improving my
 <code class="language-plaintext highlighter-rouge">slow_primes</code> library, culminating in needing rename and the 0.2
@@ -971,7 +953,7 @@ release of <code class="language-plaintext highlighter-rouge">primal</code>, a R
 numbers with <a href-disabled="http://primesieve.org/">state-of-the-art algorithms</a>, while still
 maintaining an idiomatic and easy-to-use interface.</p>
 
-   <a href="/blog/2015/06/announcing-primal/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/06/announcing-primal/" class="post-date">08 Jun 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -985,17 +967,17 @@ maintaining an idiomatic and easy-to-use interface.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/defaulting-to-thread-safety/" class="post-heading">
     <h2 class="post-title">Defaulting to Thread-Safety: Closures and Concurrency</h2>
-    <span class="post-date">26 May 2015</span>
   </a>
   <div class="post-excerpt"><p>Rust has some powerful tricks to model properties of aggregate types
 via unsafe traits with default and negative implementations. These
 features motivated by offering flexible concurrency/parallelism, and
 allow powerful closure-based APIs without losing any thread-safety (or
 memory-safety) guarantees at all.</p>
-   <a href="/blog/2015/05/defaulting-to-thread-safety/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/defaulting-to-thread-safety/" class="post-date">26 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1009,10 +991,10 @@ memory-safety) guarantees at all.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/rust-1.0-in-numbers/" class="post-heading">
     <h2 class="post-title">Rust 1.0 in Numbers</h2>
-    <span class="post-date">20 May 2015</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="http://blog.rust-lang.org/2015/05/15/Rust-1.0.html">Rust 1.0</a> was
 made with<sup id="fnref:methodology"><a href-disabled="#fn:methodology" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>…</p>
@@ -1024,7 +1006,7 @@ made with<sup id="fnref:methodology"><a href-disabled="#fn:methodology" class="f
     </li>
   </ol>
 </div>
-   <a href="/blog/2015/05/rust-1.0-in-numbers/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/rust-1.0-in-numbers/" class="post-date">20 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1038,10 +1020,10 @@ made with<sup id="fnref:methodology"><a href-disabled="#fn:methodology" class="f
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/finding-closure-in-rust/" class="post-heading">
     <h2 class="post-title">Finding Closure in Rust</h2>
-    <span class="post-date">08 May 2015</span>
   </a>
   <div class="post-excerpt"><p>Have you ever used an <a href-disabled="http://doc.rust-lang.org/std/iter/trait.Iterator.html">iterator adapter</a> in <a href-disabled="http://rust-lang.org">Rust</a>?
 Called a method on <a href-disabled="http://doc.rust-lang.org/std/option/enum.Option.html"><code class="language-plaintext highlighter-rouge">Option</code></a>? <a href-disabled="http://doc.rust-lang.org/std/thread/fn.spawn.html">Spawned</a> a thread?
@@ -1049,7 +1031,7 @@ You’ve almost certainly used a <a href-disabled="https://en.wikipedia.org/wiki
 a little complicated, but it slides right into Rust’s normal ownership
 model so let’s reinvent it from scratch.</p>
 
-   <a href="/blog/2015/05/finding-closure-in-rust/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/finding-closure-in-rust/" class="post-date">08 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1063,16 +1045,16 @@ model so let’s reinvent it from scratch.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/where-self-meets-sized-revisiting-object-safety/" class="post-heading">
     <h2 class="post-title">Where Self Meets Sized: Revisiting Object Safety</h2>
-    <span class="post-date">06 May 2015</span>
   </a>
   <div class="post-excerpt"><p>The concept of object safety in Rust was recently refined to be more
 flexible in an important way: the checks can be disabled for specific
 methods by using <code class="language-plaintext highlighter-rouge">where</code> clauses to restrict them to only work when
 <code class="language-plaintext highlighter-rouge">Self: Sized</code>.</p>
-   <a href="/blog/2015/05/where-self-meets-sized-revisiting-object-safety/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/where-self-meets-sized-revisiting-object-safety/" class="post-date">06 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1086,10 +1068,10 @@ methods by using <code class="language-plaintext highlighter-rouge">where</code>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/travis-on-the-train-part-2/" class="post-heading">
     <h2 class="post-title">Travis on the train, part 2</h2>
-    <span class="post-date">01 May 2015</span>
   </a>
   <div class="post-excerpt"><p>After announcing <a href-disabled="https://github.com/huonw/travis-cargo">travis-cargo</a> a few days ago in
 <a href-disabled="/blog/2015/04/helping-travis-catch-the-rustc-train/"><em>Helping Travis catch the rustc train</em></a>, I got some
@@ -1099,7 +1081,7 @@ time automating <a href-disabled="https://users.rust-lang.org/t/tutorial-how-to-
 change</strong> for existing users of travis-cargo, but the migration is
 easy.</p>
 
-   <a href="/blog/2015/05/travis-on-the-train-part-2/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/travis-on-the-train-part-2/" class="post-date">01 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1113,10 +1095,10 @@ easy.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/04/helping-travis-catch-the-rustc-train/" class="post-heading">
     <h2 class="post-title">Helping Travis catch the rustc train</h2>
-    <span class="post-date">28 Apr 2015</span>
   </a>
   <div class="post-excerpt"><p>I’ve been putting off configuring my continuous integration settings
 to match the Rust train model: it involves non-trivial branching on
@@ -1124,7 +1106,7 @@ the configuration, and duplicating that over a pile of repos is not
 something I looked forward to. So, instead, I wrote
 <a href-disabled="https://github.com/huonw/travis-cargo">travis-cargo</a> to make things
 easier.</p>
-   <a href="/blog/2015/04/helping-travis-catch-the-rustc-train/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/04/helping-travis-catch-the-rustc-train/" class="post-date">28 Apr 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1138,16 +1120,16 @@ easier.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/04/little-libraries/" class="post-heading">
     <h2 class="post-title">Little libraries</h2>
-    <span class="post-date">27 Apr 2015</span>
   </a>
   <div class="post-excerpt"><p>I’ve been having a lot of fun recently solving “little” problems in
 Rust. I have a long term project to make something for displaying my
 (GPS-tagged) photos nicely and, along the way, I’ve discovered and
 filled in a few gaps by creating focused crates for small tasks.</p>
-   <a href="/blog/2015/04/little-libraries/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/04/little-libraries/" class="post-date">27 Apr 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1161,10 +1143,10 @@ filled in a few gaps by creating focused crates for small tasks.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/" class="post-heading">
     <h2 class="post-title">Rust infrastructure can be your infrastructure</h2>
-    <span class="post-date">17 Mar 2015</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="http://rust-lang.org">Rust</a> is a reasonably large project:
 <a href-disabled="https://github.com/rust-lang/rust">the compiler and standard libraries</a>
@@ -1175,7 +1157,7 @@ repositories in
 shouldn’t fall by the wayside, and, for rust-lang/rust alone, there
 are often more than 100 pull requests landing and a dozen new
 contributors in a single week.</p>
-   <a href="/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/" class="post-date">17 Mar 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1189,14 +1171,14 @@ contributors in a single week.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/02/some-notes-on-send-and-sync/" class="post-heading">
     <h2 class="post-title">Some notes on Send and Sync</h2>
-    <span class="post-date">20 Feb 2015</span>
   </a>
   <div class="post-excerpt"><p>If you’ve been in the <code class="language-plaintext highlighter-rouge">#rust-internals</code> IRC channel recently, you
 may’ve caught a madman raving about how much they like Rust:</p>
-   <a href="/blog/2015/02/some-notes-on-send-and-sync/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/02/some-notes-on-send-and-sync/" class="post-date">20 Feb 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1210,15 +1192,15 @@ may’ve caught a madman raving about how much they like Rust:</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/02/rust-sydney-1/" class="post-heading">
     <h2 class="post-title">Rust Sydney's first meetup: trip report</h2>
-    <span class="post-date">14 Feb 2015</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="http://meetup.com/Rust-Sydney">Rust Sydney</a> had its first event last
 Monday!  The first Rust gathering I know of in Sydney, in Australia,
 or in the whole southern hemisphere.</p>
-   <a href="/blog/2015/02/rust-sydney-1/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/02/rust-sydney-1/" class="post-date">14 Feb 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1232,10 +1214,10 @@ or in the whole southern hemisphere.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/01/object-safety/" class="post-heading">
     <h2 class="post-title">Object Safety</h2>
-    <span class="post-date">13 Jan 2015</span>
   </a>
   <div class="post-excerpt"><p>A trait object in <a href-disabled="http://rust-lang.org">Rust</a><sup id="fnref:version"><a href-disabled="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> can only be
 constructed out of traits that satisfy certain restrictions, which are
@@ -1250,7 +1232,7 @@ understanding into why it exists and related compiler behaviour.</p>
     </li>
   </ol>
 </div>
-   <a href="/blog/2015/01/object-safety/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/01/object-safety/" class="post-date">13 Jan 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1264,10 +1246,10 @@ understanding into why it exists and related compiler behaviour.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/01/the-sized-trait/" class="post-heading">
     <h2 class="post-title">The Sized Trait</h2>
-    <span class="post-date">12 Jan 2015</span>
   </a>
   <div class="post-excerpt"><p>An important piece in my story about trait objects in
 <a href-disabled="http://rust-lang.org">Rust</a><sup id="fnref:version"><a href-disabled="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> is <a href-disabled="https://doc.rust-lang.org/nightly/std/marker/trait.Sized.html">the <code class="language-plaintext highlighter-rouge">Sized</code> trait</a>,
@@ -1282,7 +1264,7 @@ so I’m slotting in this short post between
     </li>
   </ol>
 </div>
-   <a href="/blog/2015/01/the-sized-trait/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/01/the-sized-trait/" class="post-date">12 Jan 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1296,10 +1278,10 @@ so I’m slotting in this short post between
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/01/peeking-inside-trait-objects/" class="post-heading">
     <h2 class="post-title">Peeking inside Trait Objects</h2>
-    <span class="post-date">10 Jan 2015</span>
   </a>
   <div class="post-excerpt"><p>One of the most powerful parts of
 <a href-disabled="http://rust-lang.org">the Rust programming language</a><sup id="fnref:version"><a href-disabled="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> is the
@@ -1316,7 +1298,7 @@ over a short series of posts.</p>
     </li>
   </ol>
 </div>
-   <a href="/blog/2015/01/peeking-inside-trait-objects/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/01/peeking-inside-trait-objects/" class="post-date">10 Jan 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1330,10 +1312,10 @@ over a short series of posts.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/01/crates.io-crate-graph/" class="post-heading">
     <h2 class="post-title">crates.io crate graph</h2>
-    <span class="post-date">04 Jan 2015</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="http://rust-lang.org/">Rust</a> is a systems programming language that
 comes with an awesome package manager <a href-disabled="http://doc.crates.io">Cargo</a>,
@@ -1341,7 +1323,7 @@ which hooks into the <a href-disabled="https://crates.io">crates.io</a> registry
 its possible sources of packages. The packages can have dependency
 relationships between each other, making the database into a natural
 directed graph.</p>
-   <a href="/blog/2015/01/crates.io-crate-graph/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/01/crates.io-crate-graph/" class="post-date">04 Jan 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1365,6 +1347,7 @@ directed graph.</p>
  
 
 </ul>
+
 </nav>
 
 
@@ -1374,7 +1357,7 @@ directed graph.</p>
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 

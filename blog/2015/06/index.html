@@ -636,51 +636,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -869,17 +851,17 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/06/travis-cargo-0.1.3/" class="post-heading">
     <h2 class="post-title">travis-cargo 0.1.3: --no-sudo</h2>
-    <span class="post-date">30 Jun 2015</span>
   </a>
   <div class="post-excerpt"><p>I just pushed <a href-disabled="https://github.com/huonw/travis-cargo">travis-cargo</a>
 version 0.1.3, which adds a <code class="language-plaintext highlighter-rouge">--no-sudo</code> command to
 <a href-disabled="/blog/2015/05/travis-on-the-train-part-2/">the <code class="language-plaintext highlighter-rouge">coveralls</code> and <code class="language-plaintext highlighter-rouge">coverage</code> subcommands</a> to allow
 recording/uploading test coverage without needing <code class="language-plaintext highlighter-rouge">sudo</code>.</p>
 
-   <a href="/blog/2015/06/travis-cargo-0.1.3/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/06/travis-cargo-0.1.3/" class="post-date">30 Jun 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -893,10 +875,10 @@ recording/uploading test coverage without needing <code class="language-plaintex
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/06/announcing-primal/" class="post-heading">
     <h2 class="post-title">Announcing Primal: Putting Raw Power Into Prime Numbers</h2>
-    <span class="post-date">08 Jun 2015</span>
   </a>
   <div class="post-excerpt"><p>Over the past few weeks I’ve been working on improving my
 <code class="language-plaintext highlighter-rouge">slow_primes</code> library, culminating in needing rename and the 0.2
@@ -904,7 +886,7 @@ release of <code class="language-plaintext highlighter-rouge">primal</code>, a R
 numbers with <a href-disabled="http://primesieve.org/">state-of-the-art algorithms</a>, while still
 maintaining an idiomatic and easy-to-use interface.</p>
 
-   <a href="/blog/2015/06/announcing-primal/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/06/announcing-primal/" class="post-date">08 Jun 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1026,6 +1008,7 @@ maintaining an idiomatic and easy-to-use interface.</p>
  
 
 </ul>
+
 </nav>
 
 
@@ -1035,7 +1018,7 @@ maintaining an idiomatic and easy-to-use interface.</p>
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 

@@ -636,51 +636,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -883,17 +865,17 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/defaulting-to-thread-safety/" class="post-heading">
     <h2 class="post-title">Defaulting to Thread-Safety: Closures and Concurrency</h2>
-    <span class="post-date">26 May 2015</span>
   </a>
   <div class="post-excerpt"><p>Rust has some powerful tricks to model properties of aggregate types
 via unsafe traits with default and negative implementations. These
 features motivated by offering flexible concurrency/parallelism, and
 allow powerful closure-based APIs without losing any thread-safety (or
 memory-safety) guarantees at all.</p>
-   <a href="/blog/2015/05/defaulting-to-thread-safety/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/defaulting-to-thread-safety/" class="post-date">26 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -907,10 +889,10 @@ memory-safety) guarantees at all.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/rust-1.0-in-numbers/" class="post-heading">
     <h2 class="post-title">Rust 1.0 in Numbers</h2>
-    <span class="post-date">20 May 2015</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="http://blog.rust-lang.org/2015/05/15/Rust-1.0.html">Rust 1.0</a> was
 made with<sup id="fnref:methodology"><a href-disabled="#fn:methodology" class="footnote" rel="footnote" role="doc-noteref">0</a></sup>…</p>
@@ -922,7 +904,7 @@ made with<sup id="fnref:methodology"><a href-disabled="#fn:methodology" class="f
     </li>
   </ol>
 </div>
-   <a href="/blog/2015/05/rust-1.0-in-numbers/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/rust-1.0-in-numbers/" class="post-date">20 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -936,10 +918,10 @@ made with<sup id="fnref:methodology"><a href-disabled="#fn:methodology" class="f
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/finding-closure-in-rust/" class="post-heading">
     <h2 class="post-title">Finding Closure in Rust</h2>
-    <span class="post-date">08 May 2015</span>
   </a>
   <div class="post-excerpt"><p>Have you ever used an <a href-disabled="http://doc.rust-lang.org/std/iter/trait.Iterator.html">iterator adapter</a> in <a href-disabled="http://rust-lang.org">Rust</a>?
 Called a method on <a href-disabled="http://doc.rust-lang.org/std/option/enum.Option.html"><code class="language-plaintext highlighter-rouge">Option</code></a>? <a href-disabled="http://doc.rust-lang.org/std/thread/fn.spawn.html">Spawned</a> a thread?
@@ -947,7 +929,7 @@ You’ve almost certainly used a <a href-disabled="https://en.wikipedia.org/wiki
 a little complicated, but it slides right into Rust’s normal ownership
 model so let’s reinvent it from scratch.</p>
 
-   <a href="/blog/2015/05/finding-closure-in-rust/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/finding-closure-in-rust/" class="post-date">08 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -961,16 +943,16 @@ model so let’s reinvent it from scratch.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/where-self-meets-sized-revisiting-object-safety/" class="post-heading">
     <h2 class="post-title">Where Self Meets Sized: Revisiting Object Safety</h2>
-    <span class="post-date">06 May 2015</span>
   </a>
   <div class="post-excerpt"><p>The concept of object safety in Rust was recently refined to be more
 flexible in an important way: the checks can be disabled for specific
 methods by using <code class="language-plaintext highlighter-rouge">where</code> clauses to restrict them to only work when
 <code class="language-plaintext highlighter-rouge">Self: Sized</code>.</p>
-   <a href="/blog/2015/05/where-self-meets-sized-revisiting-object-safety/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/where-self-meets-sized-revisiting-object-safety/" class="post-date">06 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -984,10 +966,10 @@ methods by using <code class="language-plaintext highlighter-rouge">where</code>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2015/05/travis-on-the-train-part-2/" class="post-heading">
     <h2 class="post-title">Travis on the train, part 2</h2>
-    <span class="post-date">01 May 2015</span>
   </a>
   <div class="post-excerpt"><p>After announcing <a href-disabled="https://github.com/huonw/travis-cargo">travis-cargo</a> a few days ago in
 <a href-disabled="/blog/2015/04/helping-travis-catch-the-rustc-train/"><em>Helping Travis catch the rustc train</em></a>, I got some
@@ -997,7 +979,7 @@ time automating <a href-disabled="https://users.rust-lang.org/t/tutorial-how-to-
 change</strong> for existing users of travis-cargo, but the migration is
 easy.</p>
 
-   <a href="/blog/2015/05/travis-on-the-train-part-2/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2015/05/travis-on-the-train-part-2/" class="post-date">01 May 2015</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1084,6 +1066,7 @@ easy.</p>
  
 
 </ul>
+
 </nav>
 
 
@@ -1093,7 +1076,7 @@ easy.</p>
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 

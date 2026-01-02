@@ -636,51 +636,33 @@ ul.post-list {
   padding: 0;
 }
 
-.post-post {
-  margin: 0;
-}
-
 .post-post + .post-post {
-  border-top: 1px dashed  #ddd;
-  margin-top: 1em;
-  padding-top: 1em;
-}
-
-a.post-heading {
-  display: flex;
-  align-items: baseline;
-  text-decoration: none;
-  gap: 1em;
-}
-.post-heading * {
-  margin: 0;
+  margin-top: 2em;
 }
 
 .post-title {
   font-size: 1.2em;
-  flex-grow: 1;
-  text-decoration: underline;
-}
-
-.post-heading .post-date {
-  font-style: italic;
-  flex-shrink: 0;
 }
 
 .post-excerpt p {
   display: inline;
 }
 
-.post-more {
+.post-date {
   font-style: italic;
   white-space: nowrap;
   float: right;
   margin: 0;
+  margin-left: 3em;
   font-size: smaller;
 }
 
 .post-list .footnote, .post-list .footnotes, .post-list p:empty {
   display: none
+}
+
+.post-list-empty {
+    text-align: center;
 }
 
 /* media queries */
@@ -941,10 +923,10 @@ a.post-heading {
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2014/07/what-does-rusts-unsafe-mean/" class="post-heading">
     <h2 class="post-title">What does Rust's “unsafe” mean?</h2>
-    <span class="post-date">24 Jul 2014</span>
   </a>
   <div class="post-excerpt"><p><a href-disabled="http://rust-lang.org/">Rust</a> is an in-development<sup id="fnref:version"><a href-disabled="#fn:version" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> systems
 programming language with a strong focus on no-overhead memory
@@ -961,7 +943,7 @@ required. Enter the <code class="language-plaintext highlighter-rouge">unsafe</c
     </li>
   </ol>
 </div>
-   <a href="/blog/2014/07/what-does-rusts-unsafe-mean/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2014/07/what-does-rusts-unsafe-mean/" class="post-date">24 Jul 2014</a></div>
   <div class="clear"></div>
 </li>
 
@@ -975,10 +957,10 @@ required. Enter the <code class="language-plaintext highlighter-rouge">unsafe</c
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2014/06/error-handling-in-rust-knn-case-study/" class="post-heading">
     <h2 class="post-title">Error handling in Rust: a k-NN case study</h2>
-    <span class="post-date">11 Jun 2014</span>
   </a>
   <div class="post-excerpt"><p>After posting
 <a href-disabled="/blog/2014/06/comparing-knn-in-rust/">a Rust translation of some <em>k</em>-nearest neighbour code</a>,
@@ -987,7 +969,7 @@ I got a <a href-disabled="https://news.ycombinator.com/item?id=7875378">few</a>
 would you handle errors if you wanted to?”. This is the perfect chance
 to briefly demonstrate a few idioms.</p>
 
-   <a href="/blog/2014/06/error-handling-in-rust-knn-case-study/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2014/06/error-handling-in-rust-knn-case-study/" class="post-date">11 Jun 2014</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1001,17 +983,17 @@ to briefly demonstrate a few idioms.</p>
  
   
     
+      
       <li class="post-post">
   <a href="/blog/2014/06/comparing-knn-in-rust/" class="post-heading">
     <h2 class="post-title">Comparing k-NN in Rust</h2>
-    <span class="post-date">10 Jun 2014</span>
   </a>
   <div class="post-excerpt"><p>In my voyages around the internet, I came across <a href-disabled="http://philtomson.github.io/blog/2014/05/29/comparing-a-machine-learning-algorithm-implemented-in-f-number-and-ocaml/">a pair</a> of
 <a href-disabled="http://philtomson.github.io/blog/2014/05/30/stop-the-presses-ocaml-wins/">blog posts</a> which compare the implementation of a
 <em>k</em>-nearest neighbour (<em>k</em>-NN) classifier in F# and OCaml. I couldn’t
 resist writing the code into <a href-disabled="http://rust-lang.org/">Rust</a> to see how it fared.</p>
 
-   <a href="/blog/2014/06/comparing-knn-in-rust/" class="post-more">Keep reading</a></div>
+   <a href="/blog/2014/06/comparing-knn-in-rust/" class="post-date">10 Jun 2014</a></div>
   <div class="clear"></div>
 </li>
 
@@ -1020,6 +1002,7 @@ resist writing the code into <a href-disabled="http://rust-lang.org/">Rust</a> t
  
 
 </ul>
+
 </nav>
 
 
@@ -1029,7 +1012,7 @@ resist writing the code into <a href-disabled="http://rust-lang.org/">Rust</a> t
   </main>
 
   <footer id="page-footer">
-    <span>Huon Wilson &mdash; <span class="date">2021</span></span>
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
   </footer>
 </div>
 
