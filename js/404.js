@@ -45,6 +45,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     };
     var posts = [
         
+        {path: "/blog/2026/02/ai-plan/", title: "Staying engaged with AI plans: give inline feedback"},
+        
         {path: "/blog/2025/12/magit-insert-worktrees/", title: "magit-insert-worktrees improves status buffers"},
         
         {path: "/blog/2025/12/typescript-monotonic/", title: "TypeScript strictness is non-monotonic: strict-null-checks and no-implicit-any interact"},

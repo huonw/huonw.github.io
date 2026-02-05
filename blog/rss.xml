@@ -6,8 +6,127 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Fri, 02 Jan 2026 02:33:42 +0000</pubDate>
-        <lastBuildDate>Fri, 02 Jan 2026 02:33:42 +0000</lastBuildDate>
+        <pubDate>Thu, 05 Feb 2026 03:32:30 +0000</pubDate>
+        <lastBuildDate>Thu, 05 Feb 2026 03:32:30 +0000</lastBuildDate>
+        
+        
+        <item>
+            <title>Staying engaged with AI plans: give inline feedback</title>
+            <link>https://huonw.github.io/blog/2026/02/ai-plan/</link>
+            <pubDate>Thu, 05 Feb 2026 00:00:00 +0000</pubDate>
+            <author>Huon Wilson</author>
+            <guid>https://huonw.github.io/blog/2026/02/ai-plan</guid>
+            <description>&lt;p&gt;When I use an AI coding agent to make a plan, I make a habit of opening that plan in my editor and then leaving inline comments with questions, requests and corrections directly in the file. The agent seems to be happy enough to work with these, and I find it gives better results than reading the plan in the agent and using chat to give feedback.&lt;/p&gt;
+
+&lt;p&gt;By being a habit, it &lt;strong&gt;keeps me honest&lt;/strong&gt; and stops me from slipping into lazy bad habits: waving a plan through to implementation without engaging or proper consideration.&lt;sup id=&quot;fnref:experiments&quot;&gt;&lt;a href=&quot;#fn:experiments&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;0&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;Plus, providing feedback this way is &lt;strong&gt;low-overhead and convenient&lt;/strong&gt;: my editor is more “home” than the agent UI!&lt;/p&gt;
+
+&lt;h2 id=&quot;process&quot;&gt;Process&lt;/h2&gt;
+
+&lt;p&gt;I use Claude Code at work, and regularly engage its planning mode, with a process something like:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Do all the usual prompting/question answering to get to an initial plan, and the “Would you like to proceed?… Yes, clear context and auto-accept edits …” prompt.&lt;/li&gt;
+  &lt;li&gt;Hit &lt;a href=&quot;https://code.claude.com/docs/en/keybindings#chat-actions&quot;&gt;the ctrl+g keyboard shortcut&lt;/a&gt; to &lt;strong&gt;open the plan’s underlying markdown file in an external editor&lt;/strong&gt;&lt;sup id=&quot;fnref:emacs&quot;&gt;&lt;a href=&quot;#fn:emacs&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; (or find the plan manually in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/plans/&amp;lt;random-words&amp;gt;.md&lt;/code&gt;).&lt;/li&gt;
+  &lt;li&gt;Read through the plan in detail, &lt;strong&gt;leaving any feedback as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COMMENT: ...&lt;/code&gt; lines&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Return to Claude Code and &lt;strong&gt;reject the plan a pointer to those embedded comments&lt;/strong&gt;: “I’ve added feedback as COMMENT lines in the plan: read them and respond/fix”.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Repeat from step 2, as much as required&lt;/strong&gt;: review in editor, leave any comments, tell it to re-read.&lt;sup id=&quot;fnref:repeat&quot;&gt;&lt;a href=&quot;#fn:repeat&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This is like doing a code review, except without any fancy UI. The LLM tolerates having the feedback just splatted inline in the file, wherever and however convenient.&lt;/p&gt;
+
+&lt;p&gt;I try to stick the single-line &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COMMENT: ...&lt;/code&gt; feedback, but sometimes a code example (or similar) is helpful, and stretching the feedback over multiple lines has worked fine, as long as the feedback boundaries are clear enough.&lt;/p&gt;
+
+&lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;I was working on optimising our CI critical path by shifting some invocations of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example-slow-command&lt;/code&gt; that decided what work to do, from the sequential setup phase to a parallel work phase. My initial prompt didn’t communicate the goal properly (oops!), and the resulting plan wasn’t right.&lt;/p&gt;
+
+&lt;p&gt;No issue: I noticed this as I reviewed the plan, and left two &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COMMENT&lt;/code&gt;s: (This is a real-world example, but it’s been heavily edited to anonymise. The specific details don’t matter so much, just the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COMMENT&lt;/code&gt; workflow.)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-markdown&quot; data-lang=&quot;markdown&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;gh&quot;&gt;# Make `work.sh` run unconditionally&lt;/span&gt;
+
+&lt;span class=&quot;gu&quot;&gt;## Goal&lt;/span&gt;
+
+COMMENT: the goal is actually to move the &lt;span class=&quot;sb&quot;&gt;`example-slow-command`&lt;/span&gt; calls from &lt;span class=&quot;sb&quot;&gt;`setup.sh`&lt;/span&gt; to &lt;span class=&quot;sb&quot;&gt;`work.sh`&lt;/span&gt; so that it&apos;s run in parallel, not sequential.
+The &lt;span class=&quot;sb&quot;&gt;`work.sh`&lt;/span&gt; script should always run, even when &lt;span class=&quot;sb&quot;&gt;`example-slow-command`&lt;/span&gt; has empty output. Currently &lt;span class=&quot;sb&quot;&gt;`work.sh`&lt;/span&gt; is skipped entirely via an early &lt;span class=&quot;sb&quot;&gt;`return 0`&lt;/span&gt; in &lt;span class=&quot;sb&quot;&gt;`setup.sh`&lt;/span&gt;.
+
+...
+
+&lt;span class=&quot;gu&quot;&gt;## Files to modify&lt;/span&gt;
+
+| Files | Change |
+|-------|--------|
+COMMENT: per the goal, the only work this script should do is formatting &amp;amp; uploading yaml
+| &lt;span class=&quot;sb&quot;&gt;`setup.sh`&lt;/span&gt; | remove the if-empty check and early return |
+| &lt;span class=&quot;sb&quot;&gt;`work.sh`&lt;/span&gt; | replace &lt;span class=&quot;sb&quot;&gt;`return 2`&lt;/span&gt; with &lt;span class=&quot;sb&quot;&gt;`return 0`&lt;/span&gt; for empty input |
+
+...
+&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;After leaving them, I told the agent to re-read and address: it read the file again, acknowledged the comments, and chugged through the re-planning. The next version was good to go.&lt;/p&gt;
+
+&lt;p&gt;Notably, I shoved one of the comments in the middle of a table: no need to preserve valid markdown syntax!&lt;/p&gt;
+
+&lt;h2 id=&quot;laziness&quot;&gt;Laziness&lt;/h2&gt;
+
+&lt;p&gt;I’ve made this process a habit to &lt;strong&gt;force myself to be engaged&lt;/strong&gt; with the planning process, and not get lazy. When I’m paying attention to activity of an agent, I find that I’m regularly fixing mistakes and inconsistencies… when I’m not paying attention, the agent is presumably making the same errors, but there’s no-one around to notice it.&lt;/p&gt;
+
+&lt;p&gt;When doing the review directly in the Claude Code UI, I find the single-prompt chat interface limiting: I have to provide my feedback as one long comment, and describe which parts each comment applies to, and that’s inconvenient. I have also noticed I’m more likely to just skim the plan, rather than reading it properly.&lt;/p&gt;
+
+&lt;p&gt;Opening the plan in my usual editor and doing a line-by-line review comments keeps me honest and gives better results.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;I engage with the AI coding agent planning process by reviewing a plan in my editor and leaving comments inline. This is more convenient mechanically, and also makes me more likely to be properly engaged with the planning process.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=Staying%20engaged%20with%20AI%20plans:%20give%20inline%20feedback%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2026/02/ai-plan/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Staying%20engaged%20with%20AI%20plans:%20give%20inline%20feedback%20%23rustlang&amp;amp;url=https://huonw.github.io/blog/2026/02/ai-plan/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2026/02/ai-plan/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2026/02/ai-plan/&amp;amp;title=Staying%20engaged%20with%20AI%20plans:%20give%20inline%20feedback&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol start=&quot;0&quot;&gt;
+    &lt;li id=&quot;fn:experiments&quot;&gt;
+      &lt;p&gt;Being engaged matters less for throw-away experiments and explorations. &lt;a href=&quot;#fnref:experiments&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:emacs&quot;&gt;
+      &lt;p&gt;I use Emacs, so I’ve configured &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EDITOR=emacsclient&lt;/code&gt; in my shell, to override the default external editor. &lt;a href=&quot;#fnref:emacs&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:repeat&quot;&gt;
+      &lt;p&gt;A benefit of AI: it doesn’t get annoyed or tired when I give dribbled/piece-meal feedback, with unnecessary rounds of review…. but it does exhaust its context, so the review cycles can’t go forever. &lt;a href=&quot;#fnref:repeat&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        
         
         
         <item>

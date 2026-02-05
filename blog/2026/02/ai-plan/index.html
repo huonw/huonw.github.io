@@ -2,31 +2,33 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>  2024–12 |  Huon on the internet</title>
+  <title>  Staying engaged with AI plans: give inline feedback |  Huon on the internet</title>
 
   <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
   
-  <link rel="canonical" href="https://huonw.github.io/blog/2024/12/">
+  <link rel="canonical" href="https://huonw.github.io/blog/2026/02/ai-plan/">
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   
 
   
-  <meta name="description" content="" />
+  <meta name="description" content="I use my normal code editor to open the plans created by AI coding agents, and leave ad hoc feedback comments directly in the file. This is convenient and gives better results because I am more engaged with the plan." />
 
   
   <meta name="twitter:card" content="summary" />
   
   <meta name="twitter:site" content="@huon_w" />
-  <meta name="twitter:title" content="2024–12" />
-  <meta name="twitter:description" content="" />
-  <meta name="twitter:url" content="https://huonw.github.io/blog/2024/12/">
+  <meta name="twitter:title" content="Staying engaged with AI plans: give inline feedback" />
+  <meta name="twitter:description" content="I use my normal code editor to open the plans created by AI coding agents, and leave ad hoc feedback comments directly in the file. This is convenient and gives better results because I am more engaged with the plan." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2026/02/ai-plan/">
 
   <!-- facebook -->
-  <meta property="og:url" content="https://huonw.github.io/blog/2024/12/" />
-  <meta property="og:title" content="2024–12" />
-  <meta property="og:description" content="" />
+  <meta property="og:url" content="https://huonw.github.io/blog/2026/02/ai-plan/" />
+  <meta property="og:title" content="Staying engaged with AI plans: give inline feedback" />
+  <meta property="og:description" content="I use my normal code editor to open the plans created by AI coding agents, and leave ad hoc feedback comments directly in the file. This is convenient and gives better results because I am more engaged with the plan." />
+  
+  <meta property="og:type" content="article" />
   
   
   
@@ -719,242 +721,179 @@ ul.post-list {
   <main>
     <article>
       
-        <h1 id="title"> 2024–12</h1>
+        <h1 id="title"> Staying engaged with AI plans: give inline feedback</h1>
         
       
       
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">05 Feb 2026</span>
+           
+           
+         </div>
       
-<nav>
-<ul class="post-list">
+      <p>When I use an AI coding agent to make a plan, I make a habit of opening that plan in my editor and then leaving inline comments with questions, requests and corrections directly in the file. The agent seems to be happy enough to work with these, and I find it gives better results than reading the plan in the agent and using chat to give feedback.</p>
 
- 
- 
+<p>By being a habit, it <strong>keeps me honest</strong> and stops me from slipping into lazy bad habits: waving a plan through to implementation without engaging or proper consideration.<sup id="fnref:experiments"><a href="#fn:experiments" class="footnote" rel="footnote" role="doc-noteref">0</a></sup></p>
 
- 
+<p>Plus, providing feedback this way is <strong>low-overhead and convenient</strong>: my editor is more “home” than the agent UI!</p>
 
- 
- 
+<h2 id="process">Process</h2>
 
- 
+<p>I use Claude Code at work, and regularly engage its planning mode, with a process something like:</p>
 
- 
- 
+<ol>
+  <li>Do all the usual prompting/question answering to get to an initial plan, and the “Would you like to proceed?… Yes, clear context and auto-accept edits …” prompt.</li>
+  <li>Hit <a href="https://code.claude.com/docs/en/keybindings#chat-actions">the ctrl+g keyboard shortcut</a> to <strong>open the plan’s underlying markdown file in an external editor</strong><sup id="fnref:emacs"><a href="#fn:emacs" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> (or find the plan manually in <code class="language-plaintext highlighter-rouge">~/.claude/plans/&lt;random-words&gt;.md</code>).</li>
+  <li>Read through the plan in detail, <strong>leaving any feedback as <code class="language-plaintext highlighter-rouge">COMMENT: ...</code> lines</strong>.</li>
+  <li>Return to Claude Code and <strong>reject the plan a pointer to those embedded comments</strong>: “I’ve added feedback as COMMENT lines in the plan: read them and respond/fix”.</li>
+  <li><strong>Repeat from step 2, as much as required</strong>: review in editor, leave any comments, tell it to re-read.<sup id="fnref:repeat"><a href="#fn:repeat" class="footnote" rel="footnote" role="doc-noteref">2</a></sup></li>
+</ol>
 
- 
+<p>This is like doing a code review, except without any fancy UI. The LLM tolerates having the feedback just splatted inline in the file, wherever and however convenient.</p>
 
- 
- 
+<p>I try to stick the single-line <code class="language-plaintext highlighter-rouge">COMMENT: ...</code> feedback, but sometimes a code example (or similar) is helpful, and stretching the feedback over multiple lines has worked fine, as long as the feedback boundaries are clear enough.</p>
 
- 
+<h2 id="example">Example</h2>
 
- 
- 
+<p>I was working on optimising our CI critical path by shifting some invocations of a <code class="language-plaintext highlighter-rouge">example-slow-command</code> that decided what work to do, from the sequential setup phase to a parallel work phase. My initial prompt didn’t communicate the goal properly (oops!), and the resulting plan wasn’t right.</p>
 
- 
+<p>No issue: I noticed this as I reviewed the plan, and left two <code class="language-plaintext highlighter-rouge">COMMENT</code>s: (This is a real-world example, but it’s been heavily edited to anonymise. The specific details don’t matter so much, just the <code class="language-plaintext highlighter-rouge">COMMENT</code> workflow.)</p>
 
- 
- 
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="code"><pre><span class="gh"># Make `work.sh` run unconditionally</span>
 
- 
+<span class="gu">## Goal</span>
 
- 
- 
+COMMENT: the goal is actually to move the <span class="sb">`example-slow-command`</span> calls from <span class="sb">`setup.sh`</span> to <span class="sb">`work.sh`</span> so that it's run in parallel, not sequential.
+The <span class="sb">`work.sh`</span> script should always run, even when <span class="sb">`example-slow-command`</span> has empty output. Currently <span class="sb">`work.sh`</span> is skipped entirely via an early <span class="sb">`return 0`</span> in <span class="sb">`setup.sh`</span>.
 
- 
+...
 
- 
- 
+<span class="gu">## Files to modify</span>
 
- 
+| Files | Change |
+|-------|--------|
+COMMENT: per the goal, the only work this script should do is formatting &amp; uploading yaml
+| <span class="sb">`setup.sh`</span> | remove the if-empty check and early return |
+| <span class="sb">`work.sh`</span> | replace <span class="sb">`return 2`</span> with <span class="sb">`return 0`</span> for empty input |
 
- 
- 
+...
+</pre></td></tr></tbody></table></code></pre></figure>
 
- 
+<p>After leaving them, I told the agent to re-read and address: it read the file again, acknowledged the comments, and chugged through the re-planning. The next version was good to go.</p>
 
- 
- 
+<p>Notably, I shoved one of the comments in the middle of a table: no need to preserve valid markdown syntax!</p>
 
- 
+<h2 id="laziness">Laziness</h2>
 
- 
- 
+<p>I’ve made this process a habit to <strong>force myself to be engaged</strong> with the planning process, and not get lazy. When I’m paying attention to activity of an agent, I find that I’m regularly fixing mistakes and inconsistencies… when I’m not paying attention, the agent is presumably making the same errors, but there’s no-one around to notice it.</p>
 
- 
+<p>When doing the review directly in the Claude Code UI, I find the single-prompt chat interface limiting: I have to provide my feedback as one long comment, and describe which parts each comment applies to, and that’s inconvenient. I have also noticed I’m more likely to just skim the plan, rather than reading it properly.</p>
+
+<p>Opening the plan in my usual editor and doing a line-by-line review comments keeps me honest and gives better results.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>I engage with the AI coding agent planning process by reviewing a plan in my editor and leaving comments inline. This is more convenient mechanically, and also makes me more likely to be properly engaged with the planning process.</p>
+
+<section id="external-links" class="no-print">
   
- 
-
- 
- 
-
- 
-  
- 
-
- 
- 
-
- 
-  
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
- 
- 
-
- 
-
-</ul>
-
-  <div class="post-list-empty">
-    <p>No matching posts.</p>
-    <p>Maybe <a href="/blog">my full archive</a> will have what you're looking for?</p>
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Staying%20engaged%20with%20AI%20plans:%20give%20inline%20feedback%20by%20@huonw.bsky.social%20https://huonw.github.io/blog/2026/02/ai-plan/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Staying%20engaged%20with%20AI%20plans:%20give%20inline%20feedback%20%23rustlang&amp;url=https://huonw.github.io/blog/2026/02/ai-plan/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2026/02/ai-plan/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2026/02/ai-plan/&amp;title=Staying%20engaged%20with%20AI%20plans:%20give%20inline%20feedback" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
   </div>
+</section>
 
-</nav>
-
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:experiments">
+      <p>Being engaged matters less for throw-away experiments and explorations. <a href="#fnref:experiments" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:emacs">
+      <p>I use Emacs, so I’ve configured <code class="language-plaintext highlighter-rouge">EDITOR=emacsclient</code> in my shell, to override the default external editor. <a href="#fnref:emacs" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:repeat">
+      <p>A benefit of AI: it doesn’t get annoyed or tired when I give dribbled/piece-meal feedback, with unnecessary rounds of review…. but it does exhaust its context, so the review cycles can’t go forever. <a href="#fnref:repeat" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
     </article>
 
+    
+    <div id="no-ai">This article is from a human: I used no AI to write it.</div>
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2025/12/magit-insert-worktrees/">
+                   <h3>magit-insert-worktrees improves status buffers</h3>
+                     <p>When using Emacs’ Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/12/typescript-monotonic/">
+                   <h3>TypeScript strictness is non-monotonic: strict-null-checks and no-implicit-any interact</h3>
+                     <p>A curiosity about the interaction between two TypeScript compiler settings, that lead to errors that appear and disappear, as one increases strictness.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/11/piraite/">
+                   <h3>Context privateering: debugging custom instructions like a pirate</h3>
+                     <p>Adding “always speak like a pirate” to instructions for an AI tool is a helpful generic trick for debugging whether those instructions are being read correctly.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
     
   </main>
 
