@@ -747,13 +747,13 @@ ul.post-list {
   <li>Do all the usual prompting/question answering to get to an initial plan, and the “Would you like to proceed?… Yes, clear context and auto-accept edits …” prompt.</li>
   <li>Hit <a href="https://code.claude.com/docs/en/keybindings#chat-actions">the ctrl+g keyboard shortcut</a> to <strong>open the plan’s underlying markdown file in an external editor</strong><sup id="fnref:emacs"><a href="#fn:emacs" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> (or find the plan manually in <code class="language-plaintext highlighter-rouge">~/.claude/plans/&lt;random-words&gt;.md</code>).</li>
   <li>Read through the plan in detail, <strong>leaving any feedback as <code class="language-plaintext highlighter-rouge">COMMENT: ...</code> lines</strong>.</li>
-  <li>Return to Claude Code and <strong>reject the plan a pointer to those embedded comments</strong>: “I’ve added feedback as COMMENT lines in the plan: read them and respond/fix”.</li>
+  <li>Return to Claude Code and <strong>reject the plan, pointing to those embedded comments</strong>: “I’ve added feedback as COMMENT lines in the plan: read them and respond/fix”.</li>
   <li><strong>Repeat from step 2, as much as required</strong>: review in editor, leave any comments, tell it to re-read.<sup id="fnref:repeat"><a href="#fn:repeat" class="footnote" rel="footnote" role="doc-noteref">2</a></sup></li>
 </ol>
 
 <p>This is like doing a code review, except without any fancy UI. The LLM tolerates having the feedback just splatted inline in the file, wherever and however convenient.</p>
 
-<p>I try to stick the single-line <code class="language-plaintext highlighter-rouge">COMMENT: ...</code> feedback, but sometimes a code example (or similar) is helpful, and stretching the feedback over multiple lines has worked fine, as long as the feedback boundaries are clear enough.</p>
+<p>I try to stick to the single-line <code class="language-plaintext highlighter-rouge">COMMENT: ...</code> style, but sometimes a code example (or similar) is helpful, and stretching the feedback over multiple lines has worked fine, as long as the feedback boundaries are clear enough.</p>
 
 <h2 id="example">Example</h2>
 
@@ -831,7 +831,7 @@ COMMENT: per the goal, the only work this script should do is formatting &amp; u
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
     <li id="fn:experiments">
-      <p>Being engaged matters less for throw-away experiments and explorations. <a href="#fnref:experiments" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Being engaged matters less for throwaway experiments and explorations. <a href="#fnref:experiments" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:emacs">
       <p>I use Emacs, so I’ve configured <code class="language-plaintext highlighter-rouge">EDITOR=emacsclient</code> in my shell, to override the default external editor. <a href="#fnref:emacs" class="reversefootnote" role="doc-backlink">&#8617;</a></p>

@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Thu, 05 Feb 2026 03:32:30 +0000</pubDate>
-        <lastBuildDate>Thu, 05 Feb 2026 03:32:30 +0000</lastBuildDate>
+        <pubDate>Thu, 05 Feb 2026 04:08:05 +0000</pubDate>
+        <lastBuildDate>Thu, 05 Feb 2026 04:08:05 +0000</lastBuildDate>
         
         
         <item>
@@ -30,13 +30,13 @@
   &lt;li&gt;Do all the usual prompting/question answering to get to an initial plan, and the “Would you like to proceed?… Yes, clear context and auto-accept edits …” prompt.&lt;/li&gt;
   &lt;li&gt;Hit &lt;a href=&quot;https://code.claude.com/docs/en/keybindings#chat-actions&quot;&gt;the ctrl+g keyboard shortcut&lt;/a&gt; to &lt;strong&gt;open the plan’s underlying markdown file in an external editor&lt;/strong&gt;&lt;sup id=&quot;fnref:emacs&quot;&gt;&lt;a href=&quot;#fn:emacs&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; (or find the plan manually in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.claude/plans/&amp;lt;random-words&amp;gt;.md&lt;/code&gt;).&lt;/li&gt;
   &lt;li&gt;Read through the plan in detail, &lt;strong&gt;leaving any feedback as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COMMENT: ...&lt;/code&gt; lines&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;Return to Claude Code and &lt;strong&gt;reject the plan a pointer to those embedded comments&lt;/strong&gt;: “I’ve added feedback as COMMENT lines in the plan: read them and respond/fix”.&lt;/li&gt;
+  &lt;li&gt;Return to Claude Code and &lt;strong&gt;reject the plan, pointing to those embedded comments&lt;/strong&gt;: “I’ve added feedback as COMMENT lines in the plan: read them and respond/fix”.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Repeat from step 2, as much as required&lt;/strong&gt;: review in editor, leave any comments, tell it to re-read.&lt;sup id=&quot;fnref:repeat&quot;&gt;&lt;a href=&quot;#fn:repeat&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;This is like doing a code review, except without any fancy UI. The LLM tolerates having the feedback just splatted inline in the file, wherever and however convenient.&lt;/p&gt;
 
-&lt;p&gt;I try to stick the single-line &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COMMENT: ...&lt;/code&gt; feedback, but sometimes a code example (or similar) is helpful, and stretching the feedback over multiple lines has worked fine, as long as the feedback boundaries are clear enough.&lt;/p&gt;
+&lt;p&gt;I try to stick to the single-line &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;COMMENT: ...&lt;/code&gt; style, but sometimes a code example (or similar) is helpful, and stretching the feedback over multiple lines has worked fine, as long as the feedback boundaries are clear enough.&lt;/p&gt;
 
 &lt;h2 id=&quot;example&quot;&gt;Example&lt;/h2&gt;
 
@@ -114,7 +114,7 @@ COMMENT: per the goal, the only work this script should do is formatting &amp;am
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol start=&quot;0&quot;&gt;
     &lt;li id=&quot;fn:experiments&quot;&gt;
-      &lt;p&gt;Being engaged matters less for throw-away experiments and explorations. &lt;a href=&quot;#fnref:experiments&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;Being engaged matters less for throwaway experiments and explorations. &lt;a href=&quot;#fnref:experiments&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:emacs&quot;&gt;
       &lt;p&gt;I use Emacs, so I’ve configured &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EDITOR=emacsclient&lt;/code&gt; in my shell, to override the default external editor. &lt;a href=&quot;#fnref:emacs&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
