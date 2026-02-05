@@ -5,6 +5,7 @@ title: "Take a break: Rust match has fallthrough"
 description: >-
   Match + labelled blocks & breaks = fallthrough. It works, but it's not very pretty!
 
+hashtags: ["#rustlang"]
 comments:
 ---
 
@@ -294,4 +295,4 @@ One can (ab)use labelled breaks in Rust to support fallthrough-like behaviour in
 
 The <a href="https://github.com/pythonesque/fallthrough">pythonesque/fallthrough</a> and <a href="https://github.com/Jules-Bertholet/fallthrough">Jules-Bertholet/fallthrough</a> macros appear to automate the transformation and seem to make it prettier... although I haven't used them.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

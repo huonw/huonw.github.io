@@ -6,6 +6,7 @@ description: >
     and upload documentation is annoying. Getting a script to do it is
     far less annoying.
 
+hashtags: ["#rustlang"]
 comments:
     users: "https://users.rust-lang.org/t/helping-travis-catch-the-rustc-train/1167"
     r_rust: "http://www.reddit.com/r/rust/comments/344o0e/helping_travis_catch_the_rustc_train/"
@@ -164,4 +165,4 @@ contains a README with more details, and the script itself.
 [their similar shell script](https://users.rust-lang.org/t/psa-1-0-0-beta-2-is-out/1019/13)
 for inspiration.)
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

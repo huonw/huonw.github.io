@@ -2,8 +2,6 @@
 layout: default
 title: "Newtons are a unit of mileage"
 
-not_rust: true
-
 css:
   - "/css/katex-0.16.21.min.css"
 
@@ -28,6 +26,7 @@ style: |
     .image svg [id^="matplotlib.axis"] text { font-size: 14px !important; }
   }
 
+hashtags: []
 comments:
 ---
 
@@ -224,4 +223,4 @@ Back of the envelope calculations seem to back this up: combing rolling resistan
 
 Generalising that calculation shows usage is quadratically related to speed, and that the quadratic (drag) component is noticeable at normal driving speeds.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

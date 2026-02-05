@@ -3,6 +3,7 @@ layout: default
 title: Rust infrastructure can be your infrastructure
 description: |
     Homu and highfive were created for rust-lang, but you can easily benefit too.
+hashtags: ["#rustlang"]
 comments:
     users: "http://users.rust-lang.org/t/rust-infrastructure-can-be-your-infrastructure/688"
     r_rust: "http://www.reddit.com/r/rust/comments/2zf8ur/rust_infrastructure_can_be_your_infrastructure/"
@@ -276,4 +277,4 @@ for Homu and Highfive, so I wrote
 help. The code has some examples of using them to set-up these two pieces of
 infrastructure.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

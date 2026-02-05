@@ -8,6 +8,7 @@ description: >-
 style: |
 
 
+hashtags: []
 comments:
 ---
 
@@ -147,4 +148,4 @@ This feels like a cute brainteaser, rather than a major issue:
 The `strictNullChecks` and `noImplicitAny` TypeScript options interact in a curious way: enabling them one-by-one in the "wrong" order leads to errors that appear and then disappear, violating the expectation of monotonicity (stricter options enabled = more errors). This can occur in real code, but has minimal impact, as it's easy to resolve and/or side-step.
 
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

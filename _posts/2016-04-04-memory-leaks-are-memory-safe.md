@@ -7,6 +7,7 @@ description: >
     their names. Languages that are merely memory safe (both Rust and
     GC-reliant managed ones) have no guarantee of preventing memory leaks.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: "https://www.reddit.com/r/rust/comments/4dgvvh/memory_leaks_are_memory_safe_huon_on_the_internet/"
     users: "https://users.rust-lang.org/t/memory-leaks-are-memory-safe/5288?u=huon"
@@ -260,4 +261,4 @@ segfault or memory corruption.
 [locks]: http://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html#locks
 [socket]: http://blog.skylight.io/rust-means-never-having-to-close-a-socket/
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

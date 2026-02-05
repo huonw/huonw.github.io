@@ -3,6 +3,7 @@ layout: default
 title: Some notes on Send and Sync
 description: >
     The `Send` and `Sync` traits in Rust are cool, here are two edge-ish cases.
+hashtags: ["#rustlang"]
 comments:
     users: "http://users.rust-lang.org/t/some-notes-on-send-and-sync/400"
     r_rust: "http://www.reddit.com/r/rust/comments/2wjwcl/some_notes_on_send_and_sync/"
@@ -213,4 +214,4 @@ plain `T` is not, meaning `&mut T: Send` but not `T: Send`, so the
 relationship is not "if and only if", as wrongerontheinternet pointed
 out on /r/rust.)
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

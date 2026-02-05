@@ -4,6 +4,7 @@ title: SIMD in Rust
 description: >
     An overview of my work on improving SIMD in Rust.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: "https://www.reddit.com/r/rust/comments/3i85lg/simd_in_rust/"
     users: "https://users.rust-lang.org/t/improved-simd-in-rust/2604"
@@ -298,4 +299,4 @@ with more functionality and even longer SIMD vectors (Intel's new
 AVX512 has 512-bit vectors). I've got some vague ideas in this area,
 but nothing concrete yet.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

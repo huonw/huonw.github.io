@@ -5,6 +5,7 @@ description: >
     Closures in Rust are powerful and flexible, building on traits,
     generics and ownership.
 
+hashtags: ["#rustlang"]
 comments:
     users: "https://users.rust-lang.org/t/finding-closure-in-rust/1285"
     r_rust: "http://www.reddit.com/r/rust/comments/359tj5/finding_closure_in_rust/"
@@ -861,4 +862,4 @@ allocation and dynamic dispatch, but doesn't require them.
 draft, and many commenters on [/r/rust]({{ page.comments.r_rust }})
 and on IRC for finding inaccuracies and improvements.)
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

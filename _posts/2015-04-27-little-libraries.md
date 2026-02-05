@@ -4,6 +4,7 @@ title: Little libraries
 description: >
     On focused libraries in Rust.
 
+hashtags: ["#rustlang"]
 comments:
     users: "http://users.rust-lang.org/t/little-libraries/1159"
     r_rust: "http://www.reddit.com/r/rust/comments/340dtb/little_libraries/"
@@ -270,4 +271,4 @@ much crates.io
 [metadata](http://doc.crates.io/manifest.html#package-metadata) as you
 can.)
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

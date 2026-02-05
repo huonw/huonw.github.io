@@ -2,11 +2,10 @@
 layout: default
 title: "The joy of cooking (an app)"
 
-not_rust: true
-
 description: >-
     I've been writing a bunch of code designed to enhance the life of just me and my wife. It's great fun.
 
+hashtags: []
 comments:
 ---
 
@@ -76,4 +75,4 @@ I don't generally like cooking that much, except for when I'm cooking with my wi
 [magit]: https://magit.vc/
 [donkeybrains]: https://github.com/jokarls/donkeybrains
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

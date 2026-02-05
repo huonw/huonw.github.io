@@ -5,6 +5,7 @@ title: "Git worktrees and pyenv: developing Python libraries faster"
 description: >
     Git worktrees and pyenv are effective tools to minimise the cost of a mental context switch when working on a Python library.
 
+hashtags: ["#rustlang"]
 comments:
 ---
 
@@ -205,4 +206,4 @@ Using pyenv for version management has other benefits too:
 
 I use git worktrees to have parallel copies of the StellarGraph Python library that share git metadata, and pyenv & pyenv-virtualenv to manage the Python virtual environments for each. This reduces the overhead of switching contexts, and so makes it easier for me to do more work and collaborate efficiently, by fitting small fixes into the gaps around big features.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

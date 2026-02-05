@@ -6,6 +6,7 @@ description: >
     improvements, including support for recording test coverage via
     coveralls.io.
 
+hashtags: ["#rustlang"]
 comments:
     users: "https://users.rust-lang.org/t/travis-on-the-train-part-2/1196"
     r_rust: "http://www.reddit.com/r/rust/comments/34i7sr/travis_on_the_train_part_2/"
@@ -149,4 +150,4 @@ feedback.)
 
 [coverage-tute]: https://users.rust-lang.org/t/tutorial-how-to-collect-test-coverages-for-rust-project/650?u=huon
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

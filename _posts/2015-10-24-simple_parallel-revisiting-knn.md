@@ -5,6 +5,7 @@ description: >
     Two examples of using `simple_parallel`, which was recently
     updated to work on stable Rust.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: "https://www.reddit.com/r/rust/comments/3px8y9/simple_parallel_03_revisiting_knn/"
     users: "https://users.rust-lang.org/t/simple-parallel-0-3-revisiting-k-nn/3383"
@@ -309,4 +310,4 @@ extra argument).
 [scope_]: http://aturon.github.io/crossbeam-doc/crossbeam/struct.Scope.html
 [take2]: https://github.com/aturon/rfcs/blob/75db90de40849d7cd28e334388ffa74b9e7a9bcf/text/0000-scoped-take-2.md
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

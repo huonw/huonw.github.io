@@ -5,8 +5,7 @@ title: "Convenient 'Copy as cURL': explicit, executable, editable request replay
 description: >-
     Developer tools in browsers offer a "copy as cURL" function for network requests, giving an executable and editable 'replay' of the request. This is very convenient for sharing and debugging API requests.
 
-not_rust: true
-
+hashtags: []
 comments:
 ---
 
@@ -184,4 +183,4 @@ For the **verbosity**, there's two aspects:
 
 When there's a problem with how a server is responding to a browser's network request, right-clicking that request in dev tools to "copy as cURL" gives an executable 'replay' of that request. This feature allows me to unambiguously and efficiently **describe** the problem to others, and helps me more easily **debug** it too.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

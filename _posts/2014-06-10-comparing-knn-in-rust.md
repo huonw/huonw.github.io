@@ -5,6 +5,8 @@ description: >
     Implementing a k-nearest neighbour algorithm in Rust, using the
     powerful concurrency tools for simple and safe parallelisation.
 
+hashtags: ["#rustlang"]
+
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/27s7ei/comparing_knn_in_rust/"
     r_programming: "http://www.reddit.com/r/programming/comments/27s7g6/comparing_knn_in_rust/"
@@ -229,4 +231,4 @@ This gives a nice speed up, approximately halving the time required:
 the real time is now stable around 1.81 seconds (6.25 s of user time)
 on my machine.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

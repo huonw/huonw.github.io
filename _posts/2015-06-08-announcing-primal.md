@@ -5,6 +5,7 @@ description: >
     I recently released primal 0.2: a crate for high-performance
     computation of properties related to prime numbers.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/39134l/announcing_primal_putting_raw_power_into_prime/"
     users: "https://users.rust-lang.org/t/primal-putting-raw-power-into-prime-numbers/1747"
@@ -121,4 +122,4 @@ same task.)
 [primes]: http://huonw.github.io/primal/primal/struct.Primes.html
 [streaming]: http://huonw.github.io/primal/primal/struct.StreamingSieve.html#method.nth_prime
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

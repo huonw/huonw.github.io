@@ -6,6 +6,7 @@ description: >
     Rust can model properties of aggregate types with certain trait
     tricks, which makes closures and concurrent APIs interact well.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/37e6w2/defaulting_to_threadsafety_closures_and/"
     users: "https://users.rust-lang.org/t/defaulting-to-thread-safety-closures-and-concurrency/1583"
@@ -442,4 +443,4 @@ it. ([*Finding Closure in Rust*][closures] looks at the three closure
 traits more closely.)
 
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

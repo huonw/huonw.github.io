@@ -3,6 +3,7 @@ layout: default
 title: The Sized Trait
 description: "A short summary of the Sized trait and dynamically sized types in Rust."
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: http://www.reddit.com/r/rust/comments/2s2gee/the_sized_trait/
 ---
@@ -110,4 +111,4 @@ to be worth the breaking change...)
 [whypointers]: {% post_url 2015-01-10-peeking-inside-trait-objects %}#why-pointers
 [dst]: http://smallcultfollowing.com/babysteps/blog/2014/01/05/dst-take-5/
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

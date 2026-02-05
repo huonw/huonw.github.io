@@ -4,6 +4,7 @@ title: "Error handling in Rust: a k-NN case study"
 description: >
     Exploring idiomatic methods of handling runtime errors in Rust.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/27tuu5/error_handling_in_rust_a_knn_case_study/"
     r_programming: "http://www.reddit.com/r/programming/comments/27tuw8/error_handling_in_rust_a_knn_case_study/"
@@ -190,4 +191,4 @@ nicely due to Rust's affine types and various low-level details.
 
 [sequence]: http://hackage.haskell.org/package/base-4.7.0.0/docs/Prelude.html#v:sequence
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

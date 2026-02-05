@@ -9,6 +9,7 @@ js:
     - "/js/plotly.js"
 no_jquery: true
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: https://www.reddit.com/r/rust/comments/1exho0j/async_hazard_mmap_is_secretly_blocking_io/
     hn: https://news.ycombinator.com/item?id=41307065
@@ -185,7 +186,7 @@ Accessing files via memory mapped IO makes for a very convenient API: just read 
 - It's a **hazard at a distance**: a memory-mapped file can be coerced to a look like a normal byte array (`&[u8]`, `bytearray`/`list[int]`, or `void *`/`char *`) and passed deep into the async code before being indexed.
 - If data is **cached** by the operating system, `mmap` has less overhead than conventional IO and can be a little faster (on my system).
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}
 
 <script id="plotly-template" type="application/zlib">
 eJztWutu4ygUfhf/2kpoZPC9r1JVI2KTxCoxWYy3TaO8+56DISGXdkeabppRLNWqgz/O+TgX7tuo4YZHj9toxnX0+LSNhNZK/3zDolpJBYWRXsz+SnJi/x6iHXGYzaeYFdcvQiNEtp04hbIkJfZJ2UNEote2McvoMf6RQc01N0boDqvMWylXqoHqkfpHaMk3AO7bdyigMbwp2Tat2WBNtoOqZrNGLLZl90zw/1pJ17BvJjQSQVY1/BDGcuL8re1RrugaZHXZmiRa6Lbx316XrRFQFuJ92artlL4E7g3X5mMNO7TVzVBxRnN2siZbKq3WUqBPnpzjbMBuIzVYYd5hULutXz4ij9+kAE+W43uPfhxM3zbCfXVyWEDjoNtSUZ1Rg74iDyukr7kENk9P8Q+QbSOWQLRmD9EzwbKcFWkWV2WcVIxmeeUwKaEZSalDUZalVUyrPC7KNKFJMaLSAkKfZIVHlSVLMlallBZ5WsT5iCooYSUpmEOxQFuJ2kdUVZAkJqVHoZJQ6QiioA5RlUdZPdler0NlMWEFqTz7NFCGyh2qAPaMlKVDZWH7WJY5Q8QJYTkpvMbsWCFzKOAFxsi9JT4wKrixyEnueeXVsUpvekZoXJAicbAiMClq9jBwUZKRynuyDJsIij0sIzQHicxbttzrG63rcTkB/4HXvdojnUmWeBxYDZpNy7GtdB9VaHTsB1kMH54PWeDCPkiBoB+7bkIeqUdCS8HNiq+nnJxy8p5y0od9kAILOSXBlAR3mAQQ+DYN2t6ohearkyn/70/hD5KP9LBmSrgp4e4q4YLQP0mFaW00ZcR9Z0S4TFqJfplcc3hwdJxepLDmulZKN71lcbTv9T+zOdA5cLCMWjHufA1GwfC8aEGa0YM4wAGAQEhqHLJPxvHrUvccAj7OoVc25TcbwEWT+xWs+7+ZV7AF4EoWQt0CMaQRspI3QUqGnGDOPFNvt8DLMQm4Xdq0/xZqh037sOA23OmpBOxwicP15hbYeSqW3aDnvBbTtHCaFt7TtNCHPaaA4TPpEkBI2ft9iPNTSIgYfNLYnoSdnlSOZ2iYbUvBmzG9L8mhZULsg5HwqRzHdeS3e0Ys30BeIZp3nTLctKprxJwP0ljeXGv1GirLC/Aa6MIYgPo4s0Op3bCaCY1p2hvd1iZyaenPGa/ULYVdwTbqxd+D6EzL5dQxTB3DtTuGQ/St2m7opxCcQvC6Iej7w1eOk8QxDkADBdKF7VtHs1FoA7NeH0tKZAss4tSXIMOiDCCUVU5OtS8CUpTFpDpIpiAEbEDRPB4UE/fsUTGIQZV0X5HGgCghYmNr12iuOvPp7SO7DtxGs8XZVRX+cnZVRfKuOR6Fj+4C9Uv1itV6v1MxFnTN/vcwG7rWnAyuMEaP5wszYcdnLtsFDFqRFHOz/+oOImqpetHjELnma6F/nvNeS2WC4gs03aIJh+3FAK9+nP3VCzvYKsTu92Pc0GovB32mWPMGerSvU7fD9YwYJyxvXuyM1y8LrYZPPXVJN5b5+cDHTA7iQydf5Eeid6HVuSCgvfmj2L7/QWwxJpaQGuFEFCe+H81DD1NeP6cECWrNa3eyh9f69qvl4B7elyTL1TKv/tKk2+fa+d7sb8vHV+Om4Aa6TjWfR48UvfDfyXQLdHa7fwEhtg6y

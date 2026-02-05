@@ -5,6 +5,7 @@ description: >
     rr is the debugger for Rust (et al.) that is is almost too good to
     be true.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: "https://www.reddit.com/r/rust/comments/3qf6j9/rreverrse_debugging/"
     r_programming: "https://www.reddit.com/r/programming/comments/3qf6kq/rreverrse_debugging/"
@@ -291,4 +292,4 @@ believe that anything that works in GDB itself will work with rr: I
 believe it was designed with C/C++ applications like Firefox in mind,
 but it works flawlessly with Rust, and I'm sure other languages too.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

@@ -5,6 +5,7 @@ title: "Rust Sydney's first meetup: trip report"
 description: >
     Rust stuff happened in Sydney, yay!
 
+hashtags: ["#rustlang"]
 comments:
     users: "http://users.rust-lang.org/t/rust-sydneys-first-meetup-trip-report/341"
     r_rust: "http://www.reddit.com/r/rust/comments/2vvat9/rust_sydneys_first_meetup_trip_report/"
@@ -74,4 +75,4 @@ will post to [users.r-l.o](http://users.rust-lang.org) and
 (I have a [`rust-sydney`](https://github.com/huonw/rust-sydney/)
 repository for collecting related things.)
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

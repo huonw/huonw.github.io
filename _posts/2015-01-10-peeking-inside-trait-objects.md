@@ -4,6 +4,7 @@ title: Peeking inside Trait Objects
 description: >
     An introduction to the low-level details of trait objects in the Rust programming language.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: "http://www.reddit.com/r/rust/comments/2rutqb/peeking_inside_trait_objects/"
 ---
@@ -312,4 +313,4 @@ Putting the value behind a pointer means the size of the value is not
 relevant when we are tossing a trait object around, only the size of
 the pointer itself.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

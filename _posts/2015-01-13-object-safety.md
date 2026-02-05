@@ -5,6 +5,7 @@ title: Object Safety
 description: >
     An overview of so-called "object safety" in Rust, and why it is necessary for trait objects.
 
+hashtags: ["#rustlang"]
 comments:
     r_rust: http://www.reddit.com/r/rust/comments/2s2okp/object_safety/
 ---
@@ -371,4 +372,4 @@ defined in scope).
 [pp]: http://smallcultfollowing.com/babysteps/blog/2014/11/26/purging-proc/
 [invoke]: http://doc.rust-lang.org/nightly/std/thunk/trait.Invoke.html
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

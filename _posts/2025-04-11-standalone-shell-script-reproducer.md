@@ -2,9 +2,9 @@
 layout: default
 title: "Communicating bugs: use a single standalone shell script"
 
-not_rust: true
 description: >-
     When I file a bug, I can get more reliable minimal working examples using a shell script, leading to better bugs and faster help.
+hashtags: []
 comments:
 ---
 
@@ -217,4 +217,4 @@ This seems to strike a good balance of convenience for me (as a user reporting t
 
 This isn't a one-size-fits-all solution: other options for sharing a reproducer can be sensible.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

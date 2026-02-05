@@ -2,11 +2,10 @@
 layout: default
 title: "Mechanical sympathy for QR codes: making NSW check-in better"
 
-not_rust: true
-
 description: >-
     QR codes are now critical infrastructure here in NSW, Australia. Let's learn how to make them better.
 
+hashtags: []
 comments:
 
 hero_image: hero.png
@@ -603,7 +602,7 @@ Throughout this article we've stepped through a process of optimising QR codes f
 
 We didn't consider the realities of actually implementing these, within an existing app and/or support infrastructure. The appropriate technical trade-off can change dramatically.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}
 
 
 {% include blog/nsw-covid-qr/qr-poster-defs.svg %}

@@ -5,8 +5,7 @@ title: "Is that a deprecation? Or is it just removed?"
 description: >-
     It's useful to have a specific label for "make changes that discourage use of some code", different to "remove the code".
 
-not_rust: true
-
+hashtags: []
 comments:
 ---
 
@@ -52,4 +51,4 @@ Are you discouraging usage, but it still works? That's **deprecating**.
 
 Are you stopping all usage? That's **not** deprecating.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

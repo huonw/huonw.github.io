@@ -2,8 +2,6 @@
 layout: default
 title: "QR error correction helps and hinders scanning"
 
-not_rust: true
-
 description: >-
     A QR code can use one of four error correction levels. Higher error correction forces denser codes, but allows scanning in more situations. A trade-off!
 
@@ -13,6 +11,7 @@ no_jquery: true
 
 hero_image: hero.png
 
+hashtags: []
 comments:
 ---
 
@@ -206,7 +205,7 @@ The results I've talked about here are all empirical, and there's a bunch of rea
 3. The noise generated is random Perlin noise, which isn't likely to be what occurs in the real world.
 4. The overlaying of the noise carefully skips damaging the position patterns (the big squares in three corners), because the performance is catastrophically worse if they can be damaged too.
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}
 
 
 <script id="plotly-template" type="application/zlib">

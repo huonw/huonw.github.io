@@ -5,6 +5,7 @@ title: "magit-insert-worktrees improves status buffers"
 description: >-
     When using Emacs' Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer.
 
+hashtags: []
 comments:
 ---
 
@@ -67,4 +68,4 @@ It's not used by default, so it needs to be **explicitly enabled** by adding to 
 
 My status buffers now look like the screenshot above. Yay!
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}

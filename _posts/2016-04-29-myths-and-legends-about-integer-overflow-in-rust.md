@@ -5,6 +5,7 @@ title: Myths and Legends about Integer Overflow in Rust
 description: >
     Integer overflow detection/handling in Rust is sometimes misunderstood.
 
+hashtags: ["#rustlang"]
 comments:
     users: "https://users.rust-lang.org/t/myths-and-legends-about-integer-overflow-in-rust/5612"
     r_rust: "https://www.reddit.com/r/rust/comments/4gz93u/myths_and_legends_about_integer_overflow_in_rust/"
@@ -447,4 +448,4 @@ to both make signed overflow defined as two's complement wrapping
 [scott]: https://github.com/tsion
 [ubsan]: https://github.com/ubsan
 
-{% include comments.html c=page.comments %}
+{% include comments.html c=page.comments h=page.hashtags %}
