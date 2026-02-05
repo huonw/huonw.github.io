@@ -1,3 +1,4 @@
+{% assign absolute_url = site.url | append: page.url %}
 <section id="external-links" class="no-print">
   {% if include.c.size > 0 %}
   <div id="comments">
@@ -19,10 +20,10 @@
   <div id="external-page">
     <span class="external-label">Share this on</span>
     <ul class="external-list">
-      <li class="external-link"><a href="https://bsky.app/intent/compose?text={{ page.title | append: " by @" | append: site.bluesky | append: " " | append: site.url | append: page.url | uri_escape }}" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
-      <li class="external-link"><a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}{% unless page.not_rust %}%20%23rustlang{% endunless %}&url={{ site.url }}{{ page.url }}&via={{ site.twitter }}" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
-      <li class="external-link"><a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
-      <li class="external-link"><a href="https://www.reddit.com/submit?url={{ site.url }}{{ page.url }}&title={{ page.title | uri_escape }}" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text={{ page.title | append: " by @" | append: site.bluesky | append: " " | append: absolute_url | uri_escape }}" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}{% unless page.not_rust %}%20%23rustlang{% endunless %}&url={{ absolute_url }}&via={{ site.twitter }}" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u={{ absolute_url }}" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url={{ absolute_url }}&title={{ page.title | uri_escape }}" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
     </ul>
   </div>
 </section>
