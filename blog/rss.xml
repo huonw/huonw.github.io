@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Mon, 23 Mar 2026 04:20:26 +0000</pubDate>
-        <lastBuildDate>Mon, 23 Mar 2026 04:20:26 +0000</lastBuildDate>
+        <pubDate>Mon, 23 Mar 2026 08:55:07 +0000</pubDate>
+        <lastBuildDate>Mon, 23 Mar 2026 08:55:07 +0000</lastBuildDate>
         
         
         <item>
@@ -16,7 +16,7 @@
             <pubDate>Mon, 23 Mar 2026 00:00:00 +0000</pubDate>
             <author>Huon Wilson</author>
             <guid>https://huonw.github.io/blog/2026/03/multi-column-index</guid>
-            <description>&lt;p&gt;SQL databases support multi-column indices, where a single index can incorporate data from multiple columns. These are powerful, but the order of the columns matters, with differences observable in practice: there can be orders of magnitude between two similar &amp;amp; simple queries, depending on which uses a prefix of the index columns. Why does this limitation exist? Can we have an mental model for the indices that explains the behaviour?&lt;/p&gt;
+            <description>&lt;p&gt;SQL databases support multi-column indices, where a single index can incorporate data from multiple columns. These are powerful, but the order of the columns matters, with differences observable in practice: there can be orders of magnitude between two similar &amp;amp; simple queries, depending on which uses a prefix of the index columns. Why does this limitation exist? Can we have a mental model for the indices that explains the behaviour?&lt;/p&gt;
 
 &lt;p&gt;Yes, we can: thinking about indices as a sorted table with multiple columns provides that intuition:&lt;/p&gt;
 
@@ -51,7 +51,7 @@
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
-&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fork&lt;/span&gt;
+&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cutlery&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;knork&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;mahogany&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -133,9 +133,9 @@
 3
 4
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;c1&quot;&gt;-- kind-only, no colour&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fork&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;knork&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cutlery&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;knork&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;-- colour-only, no kind&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fork&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;mahogany&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cutlery&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;mahogany&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;After adding the multi-column &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;idx_cutlery_kind_colour&lt;/code&gt; index, the benchmarks&lt;sup id=&quot;fnref:benchmark:1&quot;&gt;&lt;a href=&quot;#fn:benchmark&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; prove the kind-only query gets much faster, but the colour-only is still slow&lt;sup id=&quot;fnref:slower&quot;&gt;&lt;a href=&quot;#fn:slower&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
@@ -200,9 +200,9 @@
 &lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;INDEX&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx_cutlery_kind_colour&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cutlery&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;-- kind-only, no colour&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fork&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;knork&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cutlery&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;knork&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;-- colour-only, no kind&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fork&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;mahogany&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cutlery&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colour&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;mahogany&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Comparing the queries and the index shows that, yes, indeed:&lt;/p&gt;
@@ -218,7 +218,7 @@
 
 &lt;p&gt;The default index in most SQL databases is ordered, relying on binary search for efficiency&lt;sup id=&quot;fnref:btree&quot;&gt;&lt;a href=&quot;#fn:btree&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, getting that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;O(log n)&lt;/code&gt; tastiness.&lt;/p&gt;
 
-&lt;p&gt;We can visualise this in an &lt;strong&gt;flat ordered table&lt;/strong&gt;, with the index columns plus a ‘locations’ column&lt;sup id=&quot;fnref:location&quot;&gt;&lt;a href=&quot;#fn:location&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;, ordered by the index columns, using each column of the multi-column index as a tie-breaker if the earlier ones are equal. We’re working with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;text&lt;/code&gt; columns, so everything is alphabetical.&lt;/p&gt;
+&lt;p&gt;We can visualise this in a &lt;strong&gt;flat ordered table&lt;/strong&gt;, with the index columns plus a ‘locations’ column&lt;sup id=&quot;fnref:location&quot;&gt;&lt;a href=&quot;#fn:location&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;, ordered by the index columns, using each column of the multi-column index as a tie-breaker if the earlier ones are equal. We’re working with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;text&lt;/code&gt; columns, so everything is alphabetical.&lt;/p&gt;
 
 &lt;p&gt;Here’s a version for 7 rows, with a few different kind and colour values:&lt;/p&gt;
 
@@ -459,7 +459,7 @@
 
 &lt;p&gt;The last row shows our colour-only query &lt;strong&gt;gets faster&lt;/strong&gt; with the multi-column index in the newer PostgreSQL.&lt;/p&gt;
 
-&lt;p&gt;It is still 4× slower than the superficially-similar kind-only query, and its speedup with the index is much smaller (“only” 30× instead of 103×)… but it is clear that the multi-column index &lt;em&gt;is&lt;/em&gt; now helpful, despite our query being on the second colum only.&lt;/p&gt;
+&lt;p&gt;It is still 4× slower than the superficially-similar kind-only query, and its speedup with the index is much smaller (“only” 30× instead of 103×)… but it is clear that the multi-column index &lt;em&gt;is&lt;/em&gt; now helpful, despite our query being on the second column only.&lt;/p&gt;
 
 &lt;p&gt;This seemingly violates what we just learned: we can’t binary search on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;colour&lt;/code&gt; column with our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kind&lt;/code&gt;-then-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;colour&lt;/code&gt; index? Has the index structure changed? Can we no longer use a sorted table analogy to guide our intuition?&lt;/p&gt;
 
@@ -536,7 +536,7 @@ CREATE TABLE cutlery (
 
 INSERT INTO cutlery (kind, colour)
 SELECT random(1, 2000)::text, random(1, 2000)::text
-FROM generate_series(1, 20000) AS t(id);
+FROM generate_series(1, 20000000) AS t(id);
 &lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&quot;&quot;&lt;/span&gt;
 
 &lt;span class=&quot;n&quot;&gt;QUERIES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
@@ -701,7 +701,7 @@ FROM generate_series(1, 20000) AS t(id);
       &lt;p&gt;At least, binary search conceptually: in practice, these indices are typically implemented as &lt;a href=&quot;https://en.wikipedia.org/wiki/B-tree&quot;&gt;B&lt;/a&gt; or &lt;a href=&quot;https://en.wikipedia.org/wiki/B%2B_tree&quot;&gt;B+&lt;/a&gt; trees. &lt;a href=&quot;#fnref:btree&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:location&quot;&gt;
-      &lt;p&gt;The pedagogically-convenient locations column represents whatever information the database engine needs to find the actual data stored for the rows corresponding to a given index entry, such as the primary key (MySQL), tuple identifier (PostgreSQL), or row ID (SQLite). The specifics seem to vary between DBMSes, and aren’t important for understanding how the “multi-column” part of an multi-column index works. &lt;a href=&quot;#fnref:location&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;The pedagogically-convenient locations column represents whatever information the database engine needs to find the actual data stored for the rows corresponding to a given index entry, such as the primary key (MySQL), tuple identifier (PostgreSQL), or row ID (SQLite). The specifics seem to vary between DBMSes, and aren’t important for understanding how the “multi-column” part of a multi-column index works. &lt;a href=&quot;#fnref:location&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;

@@ -733,7 +733,7 @@ ul.post-list {
            
          </div>
       
-      <p>SQL databases support multi-column indices, where a single index can incorporate data from multiple columns. These are powerful, but the order of the columns matters, with differences observable in practice: there can be orders of magnitude between two similar &amp; simple queries, depending on which uses a prefix of the index columns. Why does this limitation exist? Can we have an mental model for the indices that explains the behaviour?</p>
+      <p>SQL databases support multi-column indices, where a single index can incorporate data from multiple columns. These are powerful, but the order of the columns matters, with differences observable in practice: there can be orders of magnitude between two similar &amp; simple queries, depending on which uses a prefix of the index columns. Why does this limitation exist? Can we have a mental model for the indices that explains the behaviour?</p>
 
 <p>Yes, we can: thinking about indices as a sorted table with multiple columns provides that intuition:</p>
 
@@ -768,7 +768,7 @@ ul.post-list {
 
 <figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
-</pre></td><td class="code"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span>
+</pre></td><td class="code"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">cutlery</span>
 <span class="k">WHERE</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">'knork'</span> <span class="k">AND</span> <span class="n">colour</span> <span class="o">=</span> <span class="s1">'mahogany'</span><span class="p">;</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
@@ -850,9 +850,9 @@ ul.post-list {
 3
 4
 </pre></td><td class="code"><pre><span class="c1">-- kind-only, no colour</span>
-<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span> <span class="k">WHERE</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">'knork'</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">cutlery</span> <span class="k">WHERE</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">'knork'</span><span class="p">;</span>
 <span class="c1">-- colour-only, no kind</span>
-<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span> <span class="k">WHERE</span> <span class="n">colour</span> <span class="o">=</span> <span class="s1">'mahogany'</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">cutlery</span> <span class="k">WHERE</span> <span class="n">colour</span> <span class="o">=</span> <span class="s1">'mahogany'</span><span class="p">;</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>After adding the multi-column <code class="language-plaintext highlighter-rouge">idx_cutlery_kind_colour</code> index, the benchmarks<sup id="fnref:benchmark:1"><a href="#fn:benchmark" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> prove the kind-only query gets much faster, but the colour-only is still slow<sup id="fnref:slower"><a href="#fn:slower" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</p>
@@ -917,9 +917,9 @@ ul.post-list {
 </pre></td><td class="code"><pre><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_cutlery_kind_colour</span>
 <span class="k">ON</span> <span class="n">cutlery</span> <span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">colour</span><span class="p">);</span>
 <span class="c1">-- kind-only, no colour</span>
-<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span> <span class="k">WHERE</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">'knork'</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">cutlery</span> <span class="k">WHERE</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">'knork'</span><span class="p">;</span>
 <span class="c1">-- colour-only, no kind</span>
-<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span> <span class="k">WHERE</span> <span class="n">colour</span> <span class="o">=</span> <span class="s1">'mahogany'</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">cutlery</span> <span class="k">WHERE</span> <span class="n">colour</span> <span class="o">=</span> <span class="s1">'mahogany'</span><span class="p">;</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <p>Comparing the queries and the index shows that, yes, indeed:</p>
@@ -935,7 +935,7 @@ ul.post-list {
 
 <p>The default index in most SQL databases is ordered, relying on binary search for efficiency<sup id="fnref:btree"><a href="#fn:btree" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>, getting that <code class="language-plaintext highlighter-rouge">O(log n)</code> tastiness.</p>
 
-<p>We can visualise this in an <strong>flat ordered table</strong>, with the index columns plus a ‘locations’ column<sup id="fnref:location"><a href="#fn:location" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>, ordered by the index columns, using each column of the multi-column index as a tie-breaker if the earlier ones are equal. We’re working with <code class="language-plaintext highlighter-rouge">text</code> columns, so everything is alphabetical.</p>
+<p>We can visualise this in a <strong>flat ordered table</strong>, with the index columns plus a ‘locations’ column<sup id="fnref:location"><a href="#fn:location" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>, ordered by the index columns, using each column of the multi-column index as a tie-breaker if the earlier ones are equal. We’re working with <code class="language-plaintext highlighter-rouge">text</code> columns, so everything is alphabetical.</p>
 
 <p>Here’s a version for 7 rows, with a few different kind and colour values:</p>
 
@@ -1176,7 +1176,7 @@ ul.post-list {
 
 <p>The last row shows our colour-only query <strong>gets faster</strong> with the multi-column index in the newer PostgreSQL.</p>
 
-<p>It is still 4× slower than the superficially-similar kind-only query, and its speedup with the index is much smaller (“only” 30× instead of 103×)… but it is clear that the multi-column index <em>is</em> now helpful, despite our query being on the second colum only.</p>
+<p>It is still 4× slower than the superficially-similar kind-only query, and its speedup with the index is much smaller (“only” 30× instead of 103×)… but it is clear that the multi-column index <em>is</em> now helpful, despite our query being on the second column only.</p>
 
 <p>This seemingly violates what we just learned: we can’t binary search on the <code class="language-plaintext highlighter-rouge">colour</code> column with our <code class="language-plaintext highlighter-rouge">kind</code>-then-<code class="language-plaintext highlighter-rouge">colour</code> index? Has the index structure changed? Can we no longer use a sorted table analogy to guide our intuition?</p>
 
@@ -1253,7 +1253,7 @@ CREATE TABLE cutlery (
 
 INSERT INTO cutlery (kind, colour)
 SELECT random(1, 2000)::text, random(1, 2000)::text
-FROM generate_series(1, 20000) AS t(id);
+FROM generate_series(1, 20000000) AS t(id);
 </span><span class="sh">"""</span>
 
 <span class="n">QUERIES</span> <span class="o">=</span> <span class="p">{</span>
@@ -1418,7 +1418,7 @@ FROM generate_series(1, 20000) AS t(id);
       <p>At least, binary search conceptually: in practice, these indices are typically implemented as <a href="https://en.wikipedia.org/wiki/B-tree">B</a> or <a href="https://en.wikipedia.org/wiki/B%2B_tree">B+</a> trees. <a href="#fnref:btree" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:location">
-      <p>The pedagogically-convenient locations column represents whatever information the database engine needs to find the actual data stored for the rows corresponding to a given index entry, such as the primary key (MySQL), tuple identifier (PostgreSQL), or row ID (SQLite). The specifics seem to vary between DBMSes, and aren’t important for understanding how the “multi-column” part of an multi-column index works. <a href="#fnref:location" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>The pedagogically-convenient locations column represents whatever information the database engine needs to find the actual data stored for the rows corresponding to a given index entry, such as the primary key (MySQL), tuple identifier (PostgreSQL), or row ID (SQLite). The specifics seem to vary between DBMSes, and aren’t important for understanding how the “multi-column” part of a multi-column index works. <a href="#fnref:location" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
