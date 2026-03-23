@@ -45,7 +45,7 @@ WHERE kind = 'knork' AND colour = 'mahogany';
 
 ### Changes
 
-Slow query? We need an index. There's a few options worth considering:
+Slow query? We need an index. There are a few options worth considering:
 
 {% highlight sql linenos %}
 -- 1. index just kind:
@@ -274,7 +274,7 @@ Looks like we can get two orders of magnitude faster using one or both simple in
 
 ### Confusion
 
-Now, we were hyper-focused on just one particularly slow query, but most apps query their database in more than one way. Here's two very similar queries, with each dropping one of the two filtering conditions from the `WHERE` clause:
+Now, we were hyper-focused on just one particularly slow query, but most apps query their database in more than one way. Here are two very similar queries, with each dropping one of the two filtering conditions from the `WHERE` clause:
 
 {% highlight sql linenos %}
 -- kind-only, no colour
@@ -351,7 +351,7 @@ Here's a version for 7 rows, with a few different kind and colour values:
 
 This index works well for filtering `WHERE kind = 'knork' AND colour = 'mahogany'`, with two conceptual steps:
 
-1. Do a binary search on the `kind` column to find the three knork entries, efficiently skipping over the chopsticks and tongs. The column is ordered, so binary search can work.
+1. Do a binary search on the `kind` column to find the two knork entries, efficiently skipping over the chopsticks and tongs. The column is ordered, so binary search can work.
 
    | `kind` | `colour` | locations |
    |--------|----------|-----------|
@@ -428,7 +428,7 @@ No, the index data structure is the same, but Postgres 18 has [learned][skip-sca
 
 Like any index in a database, a multi-column index makes queries faster. It's an index on multiple columns, but it can even make queries only involving _some_ of those columns faster, but with differing behaviour depending on which subset of columns are involved.
 
-Thinking about the index as an ordered table of the indexed column's data gives some intuition for why a query with only the first indexed column is much faster than a query with the second (or later) index column.
+Thinking about the index as an ordered table of the indexed columns' data gives some intuition for why a query with only the first indexed column is much faster than a query with the second (or later) index column.
 
 {% include comments.html c=page.comments h=page.hashtags %}
 
