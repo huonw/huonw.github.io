@@ -9,7 +9,7 @@ hashtags: []
 comments:
 ---
 
-SQL databases support multi-column indices, where a single index can incorporate data from multiple columns. These are powerful, but the order of the columns matters, with differences observable in practice: there can be orders of magnitude between two similar & simple queries, depending on which uses a prefix of the index columns. Why does this limitation exist? Can we have an mental model for the indices that explains the behaviour?
+SQL databases support multi-column indices, where a single index can incorporate data from multiple columns. These are powerful, but the order of the columns matters, with differences observable in practice: there can be orders of magnitude between two similar & simple queries, depending on which uses a prefix of the index columns. Why does this limitation exist? Can we have a mental model for the indices that explains the behaviour?
 
 Yes, we can: thinking about indices as a sorted table with multiple columns provides that intuition:
 
@@ -37,7 +37,7 @@ CREATE TABLE cutlery (
 It turns out some people have a lot of forks and spoons, and want to find the item with the exact right shape and colour. Thus, we've discovered queries like this are common[^knork] and very slow:
 
 {% highlight sql linenos %}
-SELECT * FROM fork
+SELECT * FROM cutlery
 WHERE kind = 'knork' AND colour = 'mahogany';
 {% endhighlight %}
 
@@ -105,7 +105,7 @@ Options 1 & 2 are the simplest, and doing one (or both) may give sufficient perf
 
     INSERT INTO cutlery (kind, colour)
     SELECT random(1, 2000)::text, random(1, 2000)::text
-    FROM generate_series(1, 20000) AS t(id);
+    FROM generate_series(1, 20000000) AS t(id);
     """
 
     QUERIES = {
@@ -278,9 +278,9 @@ Now, we were hyper-focused on just one particularly slow query, but most apps qu
 
 {% highlight sql linenos %}
 -- kind-only, no colour
-SELECT * FROM fork WHERE kind = 'knork';
+SELECT * FROM cutlery WHERE kind = 'knork';
 -- colour-only, no kind
-SELECT * FROM fork WHERE colour = 'mahogany';
+SELECT * FROM cutlery WHERE colour = 'mahogany';
 {% endhighlight %}
 
 After adding the multi-column `idx_cutlery_kind_colour` index, the benchmarks[^benchmark] prove the kind-only query gets much faster, but the colour-only is still slow[^slower].
@@ -314,9 +314,9 @@ Let's bring the index and the single-column queries together:
 CREATE INDEX idx_cutlery_kind_colour
 ON cutlery (kind, colour);
 -- kind-only, no colour
-SELECT * FROM fork WHERE kind = 'knork';
+SELECT * FROM cutlery WHERE kind = 'knork';
 -- colour-only, no kind
-SELECT * FROM fork WHERE colour = 'mahogany';
+SELECT * FROM cutlery WHERE colour = 'mahogany';
 {% endhighlight %}
 
 Comparing the queries and the index shows that, yes, indeed:
@@ -332,11 +332,11 @@ The default index in most SQL databases is ordered, relying on binary search for
 
 [^btree]: At least, binary search conceptually: in practice, these indices are typically implemented as [B](https://en.wikipedia.org/wiki/B-tree) or [B+](https://en.wikipedia.org/wiki/B%2B_tree) trees.
 
-We can visualise this in an **flat ordered table**, with the index columns plus a 'locations' column[^location], ordered by the index columns, using each column of the multi-column index as a tie-breaker if the earlier ones are equal. We're working with `text` columns, so everything is alphabetical.
+We can visualise this in a **flat ordered table**, with the index columns plus a 'locations' column[^location], ordered by the index columns, using each column of the multi-column index as a tie-breaker if the earlier ones are equal. We're working with `text` columns, so everything is alphabetical.
 
 Here's a version for 7 rows, with a few different kind and colour values:
 
-[^location]: The pedagogically-convenient locations column represents whatever information the database engine needs to find the actual data stored for the rows corresponding to a given index entry, such as the primary key (MySQL), tuple identifier (PostgreSQL), or row ID (SQLite). The specifics seem to vary between DBMSes, and aren't important for understanding how the "multi-column" part of an multi-column index works.
+[^location]: The pedagogically-convenient locations column represents whatever information the database engine needs to find the actual data stored for the rows corresponding to a given index entry, such as the primary key (MySQL), tuple identifier (PostgreSQL), or row ID (SQLite). The specifics seem to vary between DBMSes, and aren't important for understanding how the "multi-column" part of a multi-column index works.
 
 | `kind`     | `colour`   | locations |
 |------------|------------|-----------|
@@ -414,7 +414,7 @@ I've tailored the numbers here: the benchmarks above were run with PostgreSQL (P
 
 The last row shows our colour-only query **gets faster** with the multi-column index in the newer PostgreSQL.
 
-It is still 4× slower than the superficially-similar kind-only query, and its speedup with the index is much smaller ("only" 30× instead of 103×)... but it is clear that the multi-column index _is_ now helpful, despite our query being on the second colum only.
+It is still 4× slower than the superficially-similar kind-only query, and its speedup with the index is much smaller ("only" 30× instead of 103×)... but it is clear that the multi-column index _is_ now helpful, despite our query being on the second column only.
 
 This seemingly violates what we just learned: we can't binary search on the `colour` column with our `kind`-then-`colour` index? Has the index structure changed? Can we no longer use a sorted table analogy to guide our intuition?
 
