@@ -774,7 +774,7 @@ ul.post-list {
 
 <h3 id="changes">Changes</h3>
 
-<p>Slow query? We need an index. There’s a few options worth considering:</p>
+<p>Slow query? We need an index. There are a few options worth considering:</p>
 
 <figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -843,7 +843,7 @@ ul.post-list {
 
 <h3 id="confusion">Confusion</h3>
 
-<p>Now, we were hyper-focused on just one particularly slow query, but most apps query their database in more than one way. Here’s two very similar queries, with each dropping one of the two filtering conditions from the <code class="language-plaintext highlighter-rouge">WHERE</code> clause:</p>
+<p>Now, we were hyper-focused on just one particularly slow query, but most apps query their database in more than one way. Here are two very similar queries, with each dropping one of the two filtering conditions from the <code class="language-plaintext highlighter-rouge">WHERE</code> clause:</p>
 
 <figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -987,7 +987,7 @@ ul.post-list {
 
 <ol>
   <li>
-    <p>Do a binary search on the <code class="language-plaintext highlighter-rouge">kind</code> column to find the three knork entries, efficiently skipping over the chopsticks and tongs. The column is ordered, so binary search can work.</p>
+    <p>Do a binary search on the <code class="language-plaintext highlighter-rouge">kind</code> column to find the two knork entries, efficiently skipping over the chopsticks and tongs. The column is ordered, so binary search can work.</p>
 
     <table>
       <thead>
@@ -1188,7 +1188,7 @@ ul.post-list {
 
 <p>Like any index in a database, a multi-column index makes queries faster. It’s an index on multiple columns, but it can even make queries only involving <em>some</em> of those columns faster, but with differing behaviour depending on which subset of columns are involved.</p>
 
-<p>Thinking about the index as an ordered table of the indexed column’s data gives some intuition for why a query with only the first indexed column is much faster than a query with the second (or later) index column.</p>
+<p>Thinking about the index as an ordered table of the indexed columns’ data gives some intuition for why a query with only the first indexed column is much faster than a query with the second (or later) index column.</p>
 
 <section id="external-links" class="no-print">
   

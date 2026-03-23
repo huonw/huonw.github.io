@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Mon, 23 Mar 2026 08:55:07 +0000</pubDate>
-        <lastBuildDate>Mon, 23 Mar 2026 08:55:07 +0000</lastBuildDate>
+        <pubDate>Mon, 23 Mar 2026 22:02:06 +0000</pubDate>
+        <lastBuildDate>Mon, 23 Mar 2026 22:02:06 +0000</lastBuildDate>
         
         
         <item>
@@ -57,7 +57,7 @@
 
 &lt;h3 id=&quot;changes&quot;&gt;Changes&lt;/h3&gt;
 
-&lt;p&gt;Slow query? We need an index. There’s a few options worth considering:&lt;/p&gt;
+&lt;p&gt;Slow query? We need an index. There are a few options worth considering:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -126,7 +126,7 @@
 
 &lt;h3 id=&quot;confusion&quot;&gt;Confusion&lt;/h3&gt;
 
-&lt;p&gt;Now, we were hyper-focused on just one particularly slow query, but most apps query their database in more than one way. Here’s two very similar queries, with each dropping one of the two filtering conditions from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WHERE&lt;/code&gt; clause:&lt;/p&gt;
+&lt;p&gt;Now, we were hyper-focused on just one particularly slow query, but most apps query their database in more than one way. Here are two very similar queries, with each dropping one of the two filtering conditions from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;WHERE&lt;/code&gt; clause:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
 2
@@ -270,7 +270,7 @@
 
 &lt;ol&gt;
   &lt;li&gt;
-    &lt;p&gt;Do a binary search on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kind&lt;/code&gt; column to find the three knork entries, efficiently skipping over the chopsticks and tongs. The column is ordered, so binary search can work.&lt;/p&gt;
+    &lt;p&gt;Do a binary search on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kind&lt;/code&gt; column to find the two knork entries, efficiently skipping over the chopsticks and tongs. The column is ordered, so binary search can work.&lt;/p&gt;
 
     &lt;table&gt;
       &lt;thead&gt;
@@ -471,7 +471,7 @@
 
 &lt;p&gt;Like any index in a database, a multi-column index makes queries faster. It’s an index on multiple columns, but it can even make queries only involving &lt;em&gt;some&lt;/em&gt; of those columns faster, but with differing behaviour depending on which subset of columns are involved.&lt;/p&gt;
 
-&lt;p&gt;Thinking about the index as an ordered table of the indexed column’s data gives some intuition for why a query with only the first indexed column is much faster than a query with the second (or later) index column.&lt;/p&gt;
+&lt;p&gt;Thinking about the index as an ordered table of the indexed columns’ data gives some intuition for why a query with only the first indexed column is much faster than a query with the second (or later) index column.&lt;/p&gt;
 
 &lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
   
