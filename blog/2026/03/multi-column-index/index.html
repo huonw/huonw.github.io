@@ -1,0 +1,1518 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>  Why don&apos;t multi-column indices help queries on the second column? |  Huon on the internet</title>
+
+  <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
+  <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
+  
+  <link rel="canonical" href="https://huonw.github.io/blog/2026/03/multi-column-index/">
+
+  <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+  
+
+  
+  <meta name="description" content="A sorted-table mental model explains vast differences in performance for similar queries involving only one of a multi-column index in a database." />
+
+  
+  <meta name="twitter:card" content="summary" />
+  
+  <meta name="twitter:site" content="@huon_w" />
+  <meta name="twitter:title" content="Why don&apos;t multi-column indices help queries on the second column?" />
+  <meta name="twitter:description" content="A sorted-table mental model explains vast differences in performance for similar queries involving only one of a multi-column index in a database." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2026/03/multi-column-index/">
+
+  <!-- facebook -->
+  <meta property="og:url" content="https://huonw.github.io/blog/2026/03/multi-column-index/" />
+  <meta property="og:title" content="Why don&apos;t multi-column indices help queries on the second column?" />
+  <meta property="og:description" content="A sorted-table mental model explains vast differences in performance for similar queries involving only one of a multi-column index in a database." />
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <style>
+    /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*,::after,::before{box-sizing:border-box}html{line-height:1.15;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4}body{margin:0;font-family:system-ui, -apple-system,'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'}hr{height:0;color:inherit}abbr[title]{text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}table{text-indent:0;border-color:inherit}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type='button'],[type='reset'],[type='submit'],button{-webkit-appearance:button}::-moz-focus-inner{border-style:none;padding:0}:-moz-focusring{outline:1px dotted ButtonText}:-moz-ui-invalid{box-shadow:none}legend{padding:0}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type='search']{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}
+
+
+    
+      /* Borrowed from mojombo: https://github.com/mojombo/mojombo.github.com/blob/master/css/syntax.css */
+
+.lineno { width: 2em; text-align:right; }
+.highlight pre {
+  white-space: pre;
+}
+.highlight .c { color: #777; font-style: italic; } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+
+html {
+    min-height:100%;
+}
+
+* {
+  margin: 0;
+}
+* + * {
+  margin-top: 0.75em;
+}
+
+
+body {
+  padding:0px;
+    counter-reset: footnotes;
+    counter-reset: figure;
+    margin:0px;
+    font-size: 18px;
+    background: white;
+    color: #101010;
+
+    font-variant: common-ligatures;
+    -moz-font-feature-settings: "kern" on;
+    -webkit-font-feature-settings: "kern" on;
+    font-feature-settings: "kern" on;
+}
+
+#wrapper {
+    margin: 0 auto;
+    max-width: 630px;
+    padding: 0.75em 15px;
+    width: 100%;
+    position:relative;
+}
+
+#no-ai {
+    text-align: center;
+    font-size: small;
+}
+
+.lazily-filled {
+  position: relative;
+}
+.lazily-filled > * {
+  z-index: 0;
+}
+.lazily-filled::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: rgb(229, 236, 246);
+  z-index: 1;
+}
+.lazily-filled::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-left: -64px;
+  margin-top: -64px;
+  border-radius: 50%;
+  border: 12px solid;
+  border-color: white transparent;
+  animation: spinner 5s linear;
+  /* eventually stop animating when it's hidden */
+  animation-iteration-count: 10;
+  z-index: 2;
+}
+.lazily-filled::before, .lazily-filled::after {
+  opacity: 0;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+.lazily-filled:empty::before, .lazily-filled:empty::after {
+  opacity: 1;
+  animation-iteration-count: infinite;
+  visibility: visible;
+}
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.plotly-plot * + * {
+  margin-top: 0;
+}
+
+/* wonky safari */
+.plotly text[style*="white-space: pre"] {
+  white-space: nowrap !important;
+}
+
+
+/* lists */
+li + li {
+  margin-top: 0.5em;
+}
+ul, ol {
+  padding-left: 1.5em;
+}
+
+table {
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* ensure tables don't make the whole page scroll, NB. requires manual <div class="table-wrapper" markdown="1">...</div> due to https://github.com/gettalong/kramdown/issues/69 */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+td, th {
+  padding: 0.1em 0.75em;
+}
+@media (max-width: 500px) {
+  td, th {
+    padding-left: 0.375em;
+    padding-right: 0.375em;
+  }
+}
+tr:nth-child(even) {
+  background: rgba(0, 0, 0, 5%);
+}
+thead {
+  border-bottom: 1px solid grey;
+  font-weight: bold;
+}
+
+header {
+  margin-bottom: 1.5em;
+}
+header a:not(:hover) {
+  text-decoration: none;
+}
+#blog-title {
+  hyphens: none;
+  font-variant: small-caps;
+  font-size: 1.5em;
+  font-weight: normal;
+  text-align: center;
+  line-height: 1em;
+}
+#info-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5em 2em;
+}
+#info-list li {
+  margin: 0;
+}
+
+#page-footer {
+  border-top: 1px solid lightgrey;
+  padding-top: 0.75em;
+  color: grey;
+  text-align: right;
+}
+
+.clear { clear: both; margin: 0; }
+
+
+main {
+    line-height: 1.5em;
+
+    position: relative;
+    z-index: 10;
+}
+
+a[href] {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/*  The authorship info */
+#info-intro {
+    font-style: italic;
+    text-align: center;
+}
+
+/* code */
+
+code, pre {
+  font-family: monospace;
+  font-variant: none;
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre {
+  background: #f0f0f0;
+}
+code {
+    background: #f7f7f7;
+    padding: 0 0.1em;
+    font-size: 0.9em;
+    border-radius: 3px;
+    border: 1px solid lightgrey;
+}
+pre code {
+    background: none;
+    padding: 0;
+    -moz-hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+    border-radius: 0;
+    border-width: 0;
+}
+h1 code, h2 code, h3 code, h4 code {
+  background: rgba(255,255,255,0.1);
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+/* quotes and similar */
+
+blockquote {
+    border: solid #eee;
+    border-width: 0 1px;
+    padding: 0 1.2em;
+    color: #444;
+    position: relative;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+aside {
+  padding: 0 1.2em;
+  color: #444;
+  position: relative;
+}
+aside[data-icon] {
+  padding-left: 2.4em;
+}
+aside[data-icon]:before {
+  content: attr(data-icon);
+  position: absolute;
+  left: 0;
+  text-align: center;
+  width: 2.4em;
+}
+
+/* images/figures */
+img, figure svg {
+  max-width: 100%;
+  height: auto;
+}
+figure svg {
+  width: 100%;
+}
+img:not(.inline-image), figure svg {
+    display: block;
+    margin: 0 auto;
+    clear: both;
+}
+
+.image-positioner {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-caption]:before {
+    content: attr(data-caption);
+}
+figure {
+  clear: both;
+}
+figure.image {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  min-width: 100%;
+}
+figcaption {
+  margin: 0 auto;
+  max-width: 570px;
+  padding: 0 10px;
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9em;
+}
+figcaption p {
+  display: inline;
+}
+figcaption::before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ". ";
+}
+
+.highlight table {
+  font-size: 0.9em;
+  padding: 0em;
+  width: 100%;
+  table-layout: fixed;
+  overflow-y: hidden;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+[data-lang] {
+  position: relative;
+  display: block;
+}
+[data-lang]::before {
+  content: attr(data-lang);
+  text-transform: capitalize;
+  top: 0;
+  right: 0;
+  position: absolute;
+  font-size: 1.5em;
+  color: #f3f3f3;
+  z-index: 1;
+}
+
+.highlight pre {
+  background: transparent;
+}
+.gutter {
+  padding: 0;
+  border: solid #ccc;
+  border-width: 0 1px 0 0;
+  color: #ccc;
+}
+.lineno {
+  width: 25px;
+  padding-right: 5px;
+}
+/* highlight/endhighlight code blocks */
+figure.highlight td.code {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+/* no-highlight/endhighlight code blocks (e.g. in footnotes) */
+div.highlight {
+  overflow-x: auto;
+  padding: 0;
+  padding-left: 0.5em;
+}
+
+
+/* HEADINGS */
+
+h1, h2 {
+    font-variant: small-caps;
+}
+
+h1, h2, h3, h4 {
+  -moz-hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  text-align: left;
+}
+
+h1 {
+  font-size: 2.2em;
+  text-align: center;
+  line-height: 1em;
+}
+h2 {
+  font-size: 1.7em;
+}
+h3 {
+  font-size: 1.4em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
+/* crates.io badges */
+
+.lib-info {
+  float: right;
+  width: 150px;
+  text-align: center;
+  margin: 0 1em;
+}
+.lib-badge {
+  vertical-align: middle;
+}
+.centered-libs {
+  text-align: center;
+}
+.centered-libs .lib-info {
+  float: none;
+}
+
+/* external links */
+
+#external-links {
+  margin-top: 2.25em;
+  text-align: center;
+}
+.external-label {
+  font-weight: bold;
+}
+#external-links ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+#external-links li {
+  list-style: none;
+  display: inline;
+}
+
+/* "Footnotes" */
+
+/* the div that holds them */
+.footnotes {
+    margin-top: 2.25em;
+    padding-top: 1.5em;
+    border-top: 1px solid rgb(240,240,240);
+    font-size: 0.9em;
+}
+.footnotes ol {
+  padding: 0;
+}
+.footnotes li {
+    list-style-position: outside;
+    margin-left: 30px;
+    margin-right: 10px;
+    color: #333;
+}
+
+.footnotes li:target, .footnotes li:hover {
+    color: black;
+    background-color: lightyellow;
+}
+
+.footnotes .reversefootnote {
+    text-decoration: none;
+}
+
+/* extra info after a post */
+#more {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid lightgray;
+}
+#me-icon {
+  max-width: 150px;
+  height: 150px;
+  background: url("/img/me.jpg");
+  background-size: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+}
+#by-line {
+  font-size: 0.8em;
+}
+#latest-list {
+  padding: 0;
+  list-style: none;
+}
+#latest-heading {
+  text-align: center;
+}
+#latest-heading a:not(:hover) {
+  text-decoration: none;
+}
+#latest-list a:hover h3 {
+  text-decoration: underline;
+}
+#latest-list a {
+  text-decoration: none;
+}
+.latest-post {
+  padding: 0;
+  font-size: 0.8em;
+}
+.latest-post > h3 {
+  font-weight: bold;
+}
+.latest-post * {
+  margin: 0;
+}
+
+/* post series */
+
+.post-series {
+  font-size: 0.8em;
+  border: 1px solid lightgray;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.post-series-title {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.post-series-list {
+  padding-left: 1.5em;
+  margin: 0;
+}
+.post-series .current {
+  font-style: italic;
+}
+
+/* archive pages */
+ul.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-post + .post-post {
+  margin-top: 2em;
+}
+
+.post-title {
+  font-size: 1.2em;
+}
+
+.post-excerpt p {
+  display: inline;
+}
+
+.post-date {
+  font-style: italic;
+  white-space: nowrap;
+  float: right;
+  margin: 0;
+  margin-left: 3em;
+  font-size: smaller;
+}
+
+.post-list .footnote, .post-list .footnotes, .post-list p:empty {
+  display: none
+}
+
+.post-list-empty {
+    text-align: center;
+}
+
+/* media queries */
+
+
+@media only print {
+    a {
+      text-decoration: none !important;
+    }
+    header {
+        display:none !important;
+    }
+
+    h1, h2, h3, h4 {
+        padding-left: 0 !important;
+    }
+
+    #wrapper {
+       max-width: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .footnotes .reversefootnote {
+         display: none !important;
+    }
+    [data-lang]::before {
+      content: "";
+    }
+}
+
+    
+
+    
+  </style>
+  
+</head>
+
+<body>
+<div id="wrapper">
+  <header>
+    <h1 id="blog-title"><a href="/">Huon on the internet</a></h1>
+    <nav>
+      <ul id="info-list" class="no-print">
+        <li><a href="/about">About</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="https://github.com/huonw">GitHub</a></li>
+        <li><a href="https://bsky.app/profile/huonw.bsky.social">Bluesky</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <article>
+      
+        <h1 id="title"> Why don't multi-column indices help queries on the second column?</h1>
+        
+      
+      
+         <div id="info-intro">
+           By <a href="/about">Huon Wilson</a>
+           
+             &mdash; <span class="date pub-date">23 Mar 2026</span>
+           
+           
+         </div>
+      
+      <p>SQL databases support multi-column indices, where a single index can incorporate data from multiple columns. These are powerful, but the order of the columns matters, with differences observable in practice: there can be orders of magnitude between two similar &amp; simple queries, depending on which uses a prefix of the index columns. Why does this limitation exist? Can we have an mental model for the indices that explains the behaviour?</p>
+
+<p>Yes, we can: thinking about indices as a sorted table with multiple columns provides that intuition:</p>
+
+<ul>
+  <li>For a query involving the <strong>first columns</strong>, successive lookups on the relevant subsets of the index always see <strong>ordered</strong> data, making an efficient <a href="https://en.wikipedia.org/wiki/Binary_search">binary search</a> possible,</li>
+  <li>For a query involving only a <strong>later column</strong>, that column’s data is arranged <strong>haphazardly</strong> in the index, meaning there’s no hope of a binary search.</li>
+</ul>
+
+<p>It’s the sorted nature of a database’s typical B-tree index that drives this trade-off.</p>
+
+<h2 id="context">Context</h2>
+
+<p>Imagine we’re building an app for silverware enthusiasts, so we set our table like so:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">cutlery</span> <span class="p">(</span>
+  <span class="n">id</span> <span class="nb">BIGINT</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+  <span class="c1">-- fork, spoon, knife, straw, strork, etc.</span>
+  <span class="n">kind</span> <span class="nb">TEXT</span><span class="p">,</span>
+  <span class="c1">-- silver, red, puce, etc.</span>
+  <span class="n">colour</span> <span class="nb">TEXT</span>
+<span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>It turns out some people have a lot of forks and spoons, and want to find the item with the exact right shape and colour. Thus, we’ve discovered queries like this are common<sup id="fnref:knork"><a href="#fn:knork" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> and very slow:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="code"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span>
+<span class="k">WHERE</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">'knork'</span> <span class="k">AND</span> <span class="n">colour</span> <span class="o">=</span> <span class="s1">'mahogany'</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="changes">Changes</h3>
+
+<p>Slow query? We need an index. There’s a few options worth considering:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="c1">-- 1. index just kind:</span>
+<span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_cutlery_kind</span>
+<span class="k">ON</span> <span class="n">cutlery</span> <span class="p">(</span><span class="n">kind</span><span class="p">);</span>
+
+<span class="c1">-- 2. index just colour:</span>
+<span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_cutlery_colour</span>
+<span class="k">ON</span> <span class="n">cutlery</span> <span class="p">(</span><span class="n">colour</span><span class="p">);</span>
+
+<span class="c1">-- 3. index both, together</span>
+<span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_cutlery_kind_colour</span>
+<span class="k">ON</span> <span class="n">cutlery</span> <span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">colour</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Options 1 &amp; 2 are the simplest, and doing one (or both) may give sufficient performance. But maybe not. Option 3 is a multi-column index, that combines both <code class="language-plaintext highlighter-rouge">kind</code> and <code class="language-plaintext highlighter-rouge">colour</code> into one data structure. Let’s benchmark<sup id="fnref:benchmark"><a href="#fn:benchmark" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> the options:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Indexing</th>
+      <th style="text-align: right">Time (ms)</th>
+      <th style="text-align: right">Speedup vs ‘None’</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>None</td>
+      <td style="text-align: right">420</td>
+      <td style="text-align: right">1×</td>
+    </tr>
+    <tr>
+      <td>Just kind (1)</td>
+      <td style="text-align: right">4.78</td>
+      <td style="text-align: right">88×</td>
+    </tr>
+    <tr>
+      <td>Just colour (2)</td>
+      <td style="text-align: right">4.60</td>
+      <td style="text-align: right">91×</td>
+    </tr>
+    <tr>
+      <td>Both (1 + 2)</td>
+      <td style="text-align: right">1.28</td>
+      <td style="text-align: right">328×</td>
+    </tr>
+    <tr>
+      <td>Multi-column (3)</td>
+      <td style="text-align: right">0.009</td>
+      <td style="text-align: right">46700×</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Looks like we can get two orders of magnitude faster using one or both simple indices, and another two orders faster with the multi-column one. Optimising something to be 50000× faster is a good day’s work!</p>
+
+<h3 id="confusion">Confusion</h3>
+
+<p>Now, we were hyper-focused on just one particularly slow query, but most apps query their database in more than one way. Here’s two very similar queries, with each dropping one of the two filtering conditions from the <code class="language-plaintext highlighter-rouge">WHERE</code> clause:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="c1">-- kind-only, no colour</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span> <span class="k">WHERE</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">'knork'</span><span class="p">;</span>
+<span class="c1">-- colour-only, no kind</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span> <span class="k">WHERE</span> <span class="n">colour</span> <span class="o">=</span> <span class="s1">'mahogany'</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>After adding the multi-column <code class="language-plaintext highlighter-rouge">idx_cutlery_kind_colour</code> index, the benchmarks<sup id="fnref:benchmark:1"><a href="#fn:benchmark" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> prove the kind-only query gets much faster, but the colour-only is still slow<sup id="fnref:slower"><a href="#fn:slower" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Query</th>
+      <th style="text-align: right">No index (ms)</th>
+      <th style="text-align: right">With index (ms)</th>
+      <th style="text-align: right">Speedup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Both columns</td>
+      <td style="text-align: right">420</td>
+      <td style="text-align: right">0.009</td>
+      <td style="text-align: right">46700×</td>
+    </tr>
+    <tr>
+      <td>Kind-only</td>
+      <td style="text-align: right">403</td>
+      <td style="text-align: right">4.79</td>
+      <td style="text-align: right">84×</td>
+    </tr>
+    <tr>
+      <td>Colour-only</td>
+      <td style="text-align: right">480</td>
+      <td style="text-align: right">492</td>
+      <td style="text-align: right">1×</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both of the “only” queries just drop one and keep one column compared to our original, but there’s a gulf between them.</p>
+
+<p>Why does the multi-column index improve one a lot, and the other not at all? Why is kind-only two orders of magnitude faster than the colour-only with this index?</p>
+
+<h2 id="callouts">Callouts</h2>
+
+<p>The database docs answer the immediate question. For instance, <a href="https://www.postgresql.org/docs/18/indexes-multicolumn.html">PostgreSQL</a> (emphasis mine):</p>
+
+<blockquote>
+  <p>the index is most efficient when there are constraints on the <strong>leading (leftmost) columns</strong></p>
+</blockquote>
+
+<p>And, similarly, <a href="https://dev.mysql.com/doc/refman/8.4/en/multiple-column-indexes.html">MySQL</a> (emphasis still mine):</p>
+
+<blockquote>
+  <p>If the table has a multiple-column index, <strong>any leftmost prefix</strong> of the index can be used by the optimizer to look up rows. For example, if you have a three-column index on <code class="language-plaintext highlighter-rouge">(col1, col2, col3)</code>, you have indexed search capabilities on <code class="language-plaintext highlighter-rouge">(col1)</code>, <code class="language-plaintext highlighter-rouge">(col1, col2)</code>, and <code class="language-plaintext highlighter-rouge">(col1, col2, col3)</code>.</p>
+</blockquote>
+
+<p>Let’s bring the index and the single-column queries together:</p>
+
+<figure class="highlight"><pre><code class="language-sql" data-lang="sql"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="n">idx_cutlery_kind_colour</span>
+<span class="k">ON</span> <span class="n">cutlery</span> <span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">colour</span><span class="p">);</span>
+<span class="c1">-- kind-only, no colour</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span> <span class="k">WHERE</span> <span class="n">kind</span> <span class="o">=</span> <span class="s1">'knork'</span><span class="p">;</span>
+<span class="c1">-- colour-only, no kind</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">fork</span> <span class="k">WHERE</span> <span class="n">colour</span> <span class="o">=</span> <span class="s1">'mahogany'</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Comparing the queries and the index shows that, yes, indeed:</p>
+
+<ul>
+  <li>The now-faster kind-only query uses the <em>first</em> column <code class="language-plaintext highlighter-rouge">kind</code> of the index, and thus the index is applicable and efficient.</li>
+  <li>The still-slow colour-only query uses only the <em>second</em> column <code class="language-plaintext highlighter-rouge">colour</code> of the index. This is not using a leftmost prefix of the index’s columns (<code class="language-plaintext highlighter-rouge">kind</code> is missing), and thus the index isn’t applicable.</li>
+</ul>
+
+<p>But, why? Why does an index like this have a constraint like that?</p>
+
+<h2 id="concepts">Concepts</h2>
+
+<p>The default index in most SQL databases is ordered, relying on binary search for efficiency<sup id="fnref:btree"><a href="#fn:btree" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>, getting that <code class="language-plaintext highlighter-rouge">O(log n)</code> tastiness.</p>
+
+<p>We can visualise this in an <strong>flat ordered table</strong>, with the index columns plus a ‘locations’ column<sup id="fnref:location"><a href="#fn:location" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>, ordered by the index columns, using each column of the multi-column index as a tie-breaker if the earlier ones are equal. We’re working with <code class="language-plaintext highlighter-rouge">text</code> columns, so everything is alphabetical.</p>
+
+<p>Here’s a version for 7 rows, with a few different kind and colour values:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><code class="language-plaintext highlighter-rouge">kind</code></th>
+      <th><code class="language-plaintext highlighter-rouge">colour</code></th>
+      <th>locations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>chopsticks</td>
+      <td>mahogany</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>chopsticks</td>
+      <td>zebra</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>knork</td>
+      <td>mahogany</td>
+      <td>2, 7</td>
+    </tr>
+    <tr>
+      <td>knork</td>
+      <td>salmon</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>tongs</td>
+      <td>aqua</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>tongs</td>
+      <td>periwinkle</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="column-lookup-both">Column-lookup: both</h3>
+
+<p>This index works well for filtering <code class="language-plaintext highlighter-rouge">WHERE kind = 'knork' AND colour = 'mahogany'</code>, with two conceptual steps:</p>
+
+<ol>
+  <li>
+    <p>Do a binary search on the <code class="language-plaintext highlighter-rouge">kind</code> column to find the three knork entries, efficiently skipping over the chopsticks and tongs. The column is ordered, so binary search can work.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th><code class="language-plaintext highlighter-rouge">kind</code></th>
+          <th><code class="language-plaintext highlighter-rouge">colour</code></th>
+          <th>locations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>knork</td>
+          <td>mahogany</td>
+          <td>2, 7</td>
+        </tr>
+        <tr>
+          <td>knork</td>
+          <td>salmon</td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>Do a second binary search on the reduced <code class="language-plaintext highlighter-rouge">colour</code> column to find the knork rows that are also mahogany. Now that we’ve restricted to only <code class="language-plaintext highlighter-rouge">kind = 'knork'</code> rows, the remaining two values are ordered too: <code class="language-plaintext highlighter-rouge">'mahogany' &lt; 'salmon'</code> (at least, they are alphabetically, I know nothing of your colour preferences).</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th><code class="language-plaintext highlighter-rouge">kind</code></th>
+          <th><code class="language-plaintext highlighter-rouge">colour</code></th>
+          <th>locations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>knork</td>
+          <td>mahogany</td>
+          <td>2, 7</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ol>
+
+<p>Thus, we’ve done two efficient binary searches to find the rows of interest, at locations 2 &amp; 7.</p>
+
+<h3 id="column-lookup-kind">Column-lookup: <code class="language-plaintext highlighter-rouge">kind</code></h3>
+
+<p>Similarly, the index works well for filtering <code class="language-plaintext highlighter-rouge">WHERE kind = 'knork'</code>. The process for finding locations 2, 4, &amp; 7 looks remarkably familiar, just one step shorter:</p>
+
+<ol>
+  <li>
+    <p>Binary search the <code class="language-plaintext highlighter-rouge">kind</code> column to find these matching entries.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th><code class="language-plaintext highlighter-rouge">kind</code></th>
+          <th><code class="language-plaintext highlighter-rouge">colour</code></th>
+          <th>locations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>knork</td>
+          <td>mahogany</td>
+          <td>2, 7</td>
+        </tr>
+        <tr>
+          <td>knork</td>
+          <td>salmon</td>
+          <td>4</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ol>
+
+<p>The index is applicable for searching by <code class="language-plaintext highlighter-rouge">kind</code> by <em>just</em> doing the first step of the search process, and ignoring that the <code class="language-plaintext highlighter-rouge">colour</code> column even exists.</p>
+
+<h3 id="column-lookup-colour">Column-lookup: <code class="language-plaintext highlighter-rouge">colour</code></h3>
+
+<p>However, it doesn’t work for <code class="language-plaintext highlighter-rouge">WHERE colour = 'mahogany'</code>: the table is <strong>not</strong> globally ordered by <code class="language-plaintext highlighter-rouge">colour</code>. We can see this viscerally:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><code class="language-plaintext highlighter-rouge">colour</code></th>
+      <th>locations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>mahogany</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>zebra</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>mahogany</td>
+      <td>2, 7</td>
+    </tr>
+    <tr>
+      <td>salmon</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>aqua</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>periwinkle</td>
+      <td>6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>That’s the original ‘index’ table, ignoring the irrelevant (for this query) <code class="language-plaintext highlighter-rouge">kind</code> column. The <code class="language-plaintext highlighter-rouge">colour</code> column is in <strong>total disarray</strong>, with <code class="language-plaintext highlighter-rouge">mahogany</code> appearing both after <code class="language-plaintext highlighter-rouge">zebra</code> and before <code class="language-plaintext highlighter-rouge">aqua</code>.</p>
+
+<p>Without sorted data, binary search can’t help us. Without binary search, this index can do nothing!</p>
+
+<p>This flat table analogy thus gives some intuition for why our colour-only query remains slow, even with the multi-column index: there’s <strong>no sorted data</strong> for look-ups to use.</p>
+
+<h2 id="conceit">Conceit</h2>
+
+<p>I’ve tailored the numbers here: the benchmarks above were run with PostgreSQL (PG) 17. The slow colour-only comparison looks quite different with PG 18<sup id="fnref:benchmark:2"><a href="#fn:benchmark" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>, but the other two barely change:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Query</th>
+      <th style="text-align: right">PG</th>
+      <th style="text-align: right">No index (ms)</th>
+      <th style="text-align: right">With index (ms)</th>
+      <th>Speedup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Both</td>
+      <td style="text-align: right">17.7</td>
+      <td style="text-align: right">420</td>
+      <td style="text-align: right">0.009</td>
+      <td>46700×</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td style="text-align: right">18.1</td>
+      <td style="text-align: right">399</td>
+      <td style="text-align: right">0.008</td>
+      <td>49800×</td>
+    </tr>
+    <tr>
+      <td>Kind-only</td>
+      <td style="text-align: right">17.7</td>
+      <td style="text-align: right">403</td>
+      <td style="text-align: right">4.79</td>
+      <td>84×</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td style="text-align: right">18.1</td>
+      <td style="text-align: right">386</td>
+      <td style="text-align: right">3.76</td>
+      <td>103×</td>
+    </tr>
+    <tr>
+      <td>Colour-only</td>
+      <td style="text-align: right">17.7</td>
+      <td style="text-align: right">480</td>
+      <td style="text-align: right"><strong>492</strong></td>
+      <td><strong>1×</strong></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td style="text-align: right">18.1</td>
+      <td style="text-align: right">466</td>
+      <td style="text-align: right"><strong>15.6</strong></td>
+      <td><strong>30×</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The last row shows our colour-only query <strong>gets faster</strong> with the multi-column index in the newer PostgreSQL.</p>
+
+<p>It is still 4× slower than the superficially-similar kind-only query, and its speedup with the index is much smaller (“only” 30× instead of 103×)… but it is clear that the multi-column index <em>is</em> now helpful, despite our query being on the second colum only.</p>
+
+<p>This seemingly violates what we just learned: we can’t binary search on the <code class="language-plaintext highlighter-rouge">colour</code> column with our <code class="language-plaintext highlighter-rouge">kind</code>-then-<code class="language-plaintext highlighter-rouge">colour</code> index? Has the index structure changed? Can we no longer use a sorted table analogy to guide our intuition?</p>
+
+<p>No, the index data structure is the same, but Postgres 18 has <a href="https://github.com/postgres/postgres/commit/92fe23d93">learned</a> <strong>a ‘skip scan’ method</strong> for using the index. It’s a nifty optimisation that relies on the later columns not actually being random: those columns are <strong>partially sorted</strong>, with runs of sorted data. The flat table analogy is <strong>still relevant</strong> for building an intuition for this optimisation…</p>
+
+<p>… But this article is already long enough, and it is easier to build a mental model starting from the stark difference visible in PostgreSQL 17, before moving on to the fancier PostgreSQL 18 behaviour.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Like any index in a database, a multi-column index makes queries faster. It’s an index on multiple columns, but it can even make queries only involving <em>some</em> of those columns faster, but with differing behaviour depending on which subset of columns are involved.</p>
+
+<p>Thinking about the index as an ordered table of the indexed column’s data gives some intuition for why a query with only the first indexed column is much faster than a query with the second (or later) index column.</p>
+
+<section id="external-links" class="no-print">
+  
+  <div id="external-page">
+    <span class="external-label">Share this on</span>
+    <ul class="external-list">
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Why%20don't%20multi-column%20indices%20help%20queries%20on%20the%20second%20column?%20by%20@huonw.bsky.social%20%20https://huonw.github.io/blog/2026/03/multi-column-index/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Why%20don't%20multi-column%20indices%20help%20queries%20on%20the%20second%20column?%20&amp;url=https://huonw.github.io/blog/2026/03/multi-column-index/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2026/03/multi-column-index/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2026/03/multi-column-index/&amp;title=Why%20don't%20multi-column%20indices%20help%20queries%20on%20the%20second%20column?" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+    </ul>
+  </div>
+</section>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol start="0">
+    <li id="fn:knork">
+      <p>Yeah, looking for a red-brown-ish knife-fork is common. <a href="#fnref:knork" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:benchmark">
+      <p>Benchmark methodology, for all numbers in this article:</p>
+
+      <ul>
+        <li>Software: PostgreSQL 17.7 and 18.1 running via Podman (results are 17.7 unless otherwise stated); Python 3.13.11 &amp; psycopg 3.3.2 running natively; M1 MacBook Pro; macOS 26.0; <code class="language-plaintext highlighter-rouge">uv run bench.py</code>.</li>
+        <li>Scenario: 20 million rows inserted into the <code class="language-plaintext highlighter-rouge">cutlery</code> table structure above, using <code class="language-plaintext highlighter-rouge">random(1, 2000)::text</code> for both <code class="language-plaintext highlighter-rouge">kind</code> and <code class="language-plaintext highlighter-rouge">colour</code> columns (independently).</li>
+        <li>Queries: <code class="language-plaintext highlighter-rouge">SELECT * FROM cutlery WHERE kind = '17' AND colour = '630'</code> and the two single-column versions of that.</li>
+        <li>Measurement: for each combination of database version, query and indices: create the indices (if required), 3 unmeasured warm-up executions, then 15 measured ones with <code class="language-plaintext highlighter-rouge">EXPLAIN (ANALYZE, TIMING OFF, COSTS OFF, BUFFERS OFF)</code>, parse the database’s reported time from the output and take the minimum of the 15.</li>
+        <li><a href="https://gist.github.com/huonw/1f35b04ed99911d2eea658faa62bb667">Code and results</a>.</li>
+      </ul>
+
+      <details>
+        <summary>Full code reproduced here, too.</summary>
+
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># /// script
+# requires-python = "&gt;=3.12"
+# dependencies = [
+#     "psycopg[binary]&gt;=3.2,&lt;4",
+# ]
+#
+# [tool.uv]
+# exclude-newer = "2026-02-04T00:00:00Z"
+# ///
+</span>
+<span class="kn">import</span> <span class="n">json</span>
+<span class="kn">import</span> <span class="n">subprocess</span>
+<span class="kn">import</span> <span class="n">sys</span>
+<span class="kn">import</span> <span class="n">textwrap</span>
+<span class="kn">import</span> <span class="n">time</span>
+
+<span class="kn">import</span> <span class="n">psycopg</span>
+
+<span class="c1"># Data/query details
+</span><span class="n">INIT</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+DROP TABLE IF EXISTS cutlery;
+CREATE TABLE cutlery (
+  id BIGSERIAL PRIMARY KEY,
+  -- fork, spoon, knife, straw, strork, etc.
+  kind text,
+  -- silver, red, puce, etc.
+  colour text
+);
+
+INSERT INTO cutlery (kind, colour)
+SELECT random(1, 2000)::text, random(1, 2000)::text
+FROM generate_series(1, 20000) AS t(id);
+</span><span class="sh">"""</span>
+
+<span class="n">QUERIES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">Both</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">SELECT * FROM cutlery WHERE kind = </span><span class="sh">'</span><span class="s">17</span><span class="sh">'</span><span class="s"> AND colour = </span><span class="sh">'</span><span class="s">630</span><span class="sh">'"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">Kind</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">SELECT * FROM cutlery WHERE kind = </span><span class="sh">'</span><span class="s">17</span><span class="sh">'"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">Colour</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">SELECT * FROM cutlery WHERE colour = </span><span class="sh">'</span><span class="s">630</span><span class="sh">'"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Benchmarked scenarios
+</span><span class="n">IDX_KIND_ONLY</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="sh">"</span><span class="s">CREATE INDEX idx_cutlery_kind ON cutlery (kind)</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">DROP INDEX IF EXISTS idx_cutlery_kind</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">IDX_COLOUR_ONLY</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="sh">"</span><span class="s">CREATE INDEX idx_cutlery_colour ON cutlery (colour)</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">DROP INDEX IF EXISTS idx_cutlery_colour</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">IDX_MULTI</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="sh">"</span><span class="s">CREATE INDEX idx_cutlery_kind_colour ON cutlery (kind, colour)</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">DROP INDEX IF EXISTS idx_cutlery_kind_colour</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># name -&gt; list of (setup, teardown) pairs
+</span><span class="n">SCENARIOS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">No index</span><span class="sh">"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="sh">"</span><span class="s">Kind-only</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="n">IDX_KIND_ONLY</span><span class="p">],</span>
+    <span class="sh">"</span><span class="s">Colour-only</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="n">IDX_COLOUR_ONLY</span><span class="p">],</span>
+    <span class="sh">"</span><span class="s">Both onlys</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="n">IDX_KIND_ONLY</span><span class="p">,</span> <span class="n">IDX_COLOUR_ONLY</span><span class="p">],</span>
+    <span class="sh">"</span><span class="s">Multi-col</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="n">IDX_MULTI</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="c1"># Benchmark metadata
+</span><span class="n">WARMUP</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">RUNS</span> <span class="o">=</span> <span class="mi">15</span>
+
+<span class="c1"># Container info
+</span><span class="n">CONTAINER</span> <span class="o">=</span> <span class="sh">"</span><span class="s">bench-pg</span><span class="sh">"</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">25432</span>
+<span class="n">PASSWORD</span> <span class="o">=</span> <span class="sh">"</span><span class="s">postgres</span><span class="sh">"</span>
+<span class="n">CONNINFO</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">postgresql://postgres:</span><span class="si">{</span><span class="n">PASSWORD</span><span class="si">}</span><span class="s">@localhost:</span><span class="si">{</span><span class="n">PORT</span><span class="si">}</span><span class="s">/postgres</span><span class="sh">"</span>
+
+<span class="n">IMAGES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="sh">"</span><span class="s">postgres:17.7@sha256:2006493727bd5277eece187319af1ef82b4cf82cf4fc1ed00da0775b646ac2a4</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">postgres:18.1@sha256:3bb77a07b9ce8b8de0fe6d9b063adf20b9cca1068a1bcdc054cac71a69ce0ca6</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">start_postgres</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="c1"># in case a previous run didn't finish cleanly
+</span>    <span class="nf">stop_postgres</span><span class="p">()</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">  Starting postgres using image </span><span class="si">{</span><span class="n">image</span><span class="si">}</span><span class="s">...</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span>
+        <span class="sa">f</span><span class="sh">"</span><span class="s">podman run -d --name </span><span class="si">{</span><span class="n">CONTAINER</span><span class="si">}</span><span class="s"> -e POSTGRES_PASSWORD=</span><span class="si">{</span><span class="n">PASSWORD</span><span class="si">}</span><span class="s"> -p </span><span class="si">{</span><span class="n">PORT</span><span class="si">}</span><span class="s">:5432 </span><span class="si">{</span><span class="n">image</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Give it a bit of time to become ready, and then start polling for readiness
+</span>    <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span>
+            <span class="sa">f</span><span class="sh">"</span><span class="s">podman exec </span><span class="si">{</span><span class="n">CONTAINER</span><span class="si">}</span><span class="s"> pg_isready -U postgres -q</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="p">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="nc">Exception</span><span class="p">(</span><span class="sh">"</span><span class="s">postgres never became ready</span><span class="sh">"</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">stop_postgres</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">  Stopping postgres...</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">subprocess</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">podman rm -f </span><span class="si">{</span><span class="n">CONTAINER</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">run_scenario</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">stmts</span><span class="p">):</span>
+    <span class="c1"># Setup
+</span>    <span class="k">for</span> <span class="n">setup</span><span class="p">,</span> <span class="n">_teardown</span> <span class="ow">in</span> <span class="n">stmts</span><span class="p">:</span>
+        <span class="n">cur</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span><span class="n">setup</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">query_name</span><span class="p">,</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">QUERIES</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">WARMUP</span><span class="p">):</span>
+            <span class="n">cur</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">cur</span><span class="p">.</span><span class="nf">fetchall</span><span class="p">()</span>
+
+        <span class="c1"># Benchmark
+</span>        <span class="n">times</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">RUNS</span><span class="p">):</span>
+            <span class="n">cur</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span>
+                <span class="sa">f</span><span class="sh">"</span><span class="s">EXPLAIN (ANALYZE, TIMING OFF, COSTS OFF, BUFFERS OFF) </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="sh">"</span>
+            <span class="p">)</span>
+            <span class="nf">for </span><span class="p">(</span><span class="n">row</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">cur</span><span class="p">.</span><span class="nf">fetchall</span><span class="p">():</span>
+                <span class="c1"># lines like 'Execution Time: 3.750 ms'
+</span>                <span class="k">if</span> <span class="n">row</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">"</span><span class="s">Execution Time</span><span class="sh">"</span><span class="p">):</span>
+                    <span class="n">times</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">float</span><span class="p">(</span><span class="n">row</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">:</span><span class="sh">"</span><span class="p">)[</span><span class="mi">1</span><span class="p">].</span><span class="nf">strip</span><span class="p">().</span><span class="nf">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]))</span>
+
+        <span class="c1"># Report/teardown
+</span>        <span class="n">times</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+
+        <span class="k">yield</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">index</span><span class="sh">"</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">query</span><span class="sh">"</span><span class="p">:</span> <span class="n">query_name</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">min</span><span class="sh">"</span><span class="p">:</span> <span class="n">times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">median</span><span class="sh">"</span><span class="p">:</span> <span class="n">times</span><span class="p">[</span><span class="nf">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">max</span><span class="sh">"</span><span class="p">:</span> <span class="n">times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">times</span><span class="sh">"</span><span class="p">:</span> <span class="n">times</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">for</span> <span class="n">_setup</span><span class="p">,</span> <span class="n">teardown</span> <span class="ow">in</span> <span class="n">stmts</span><span class="p">:</span>
+        <span class="n">cur</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span><span class="n">teardown</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">run_benchmark</span><span class="p">():</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">IMAGES</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Running </span><span class="si">{</span><span class="n">image</span><span class="si">}</span><span class="s">...</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">start_postgres</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">image_results</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">with</span> <span class="n">psycopg</span><span class="p">.</span><span class="nf">connect</span><span class="p">(</span><span class="n">CONNINFO</span><span class="p">)</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
+            <span class="n">conn</span><span class="p">.</span><span class="n">autocommit</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">with</span> <span class="n">conn</span><span class="p">.</span><span class="nf">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">  Initialising...</span><span class="sh">"</span><span class="p">)</span>
+                <span class="n">cur</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span><span class="n">INIT</span><span class="p">)</span>
+                <span class="n">cur</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span><span class="sh">"</span><span class="s">VACUUM ANALYZE</span><span class="sh">"</span><span class="p">)</span>
+
+                <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">  Benchmark...</span><span class="sh">"</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">stmts</span> <span class="ow">in</span> <span class="n">SCENARIOS</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+                    <span class="n">image_results</span><span class="p">.</span><span class="nf">extend</span><span class="p">(</span><span class="nf">run_scenario</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">stmts</span><span class="p">))</span>
+
+        <span class="n">results</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span><span class="sh">"</span><span class="s">image</span><span class="sh">"</span><span class="p">:</span> <span class="n">image</span><span class="p">,</span> <span class="sh">"</span><span class="s">results</span><span class="sh">"</span><span class="p">:</span> <span class="n">image_results</span><span class="p">})</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">versions</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">python</span><span class="sh">"</span><span class="p">:</span> <span class="n">sys</span><span class="p">.</span><span class="n">version</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">psycopg</span><span class="sh">"</span><span class="p">:</span> <span class="n">psycopg</span><span class="p">.</span><span class="n">__version__</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="sh">"</span><span class="s">metadata</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">INIT</span><span class="sh">"</span><span class="p">:</span> <span class="n">INIT</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">QUERIES</span><span class="sh">"</span><span class="p">:</span> <span class="n">QUERIES</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">SCENARIOS</span><span class="sh">"</span><span class="p">:</span> <span class="n">SCENARIOS</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">WARMUP</span><span class="sh">"</span><span class="p">:</span> <span class="n">WARMUP</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">RUNS</span><span class="sh">"</span><span class="p">:</span> <span class="n">RUNS</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">IMAGES</span><span class="sh">"</span><span class="p">:</span> <span class="n">IMAGES</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="sh">"</span><span class="s">results</span><span class="sh">"</span><span class="p">:</span> <span class="n">results</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">"</span><span class="s">__main__</span><span class="sh">"</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nf">run_benchmark</span><span class="p">()</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="nf">stop_postgres</span><span class="p">()</span>
+</code></pre></div>        </div>
+
+      </details>
+      <p><a href="#fnref:benchmark" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:benchmark:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:benchmark:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
+    <li id="fn:slower">
+      <p>This table even shows the colour-only appearing to get 2.5% slower, from 480ms to 492ms, but that’s well within error bars and likely just noise. <a href="#fnref:slower" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:btree">
+      <p>At least, binary search conceptually: in practice, these indices are typically implemented as <a href="https://en.wikipedia.org/wiki/B-tree">B</a> or <a href="https://en.wikipedia.org/wiki/B%2B_tree">B+</a> trees. <a href="#fnref:btree" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:location">
+      <p>The pedagogically-convenient locations column represents whatever information the database engine needs to find the actual data stored for the rows corresponding to a given index entry, such as the primary key (MySQL), tuple identifier (PostgreSQL), or row ID (SQLite). The specifics seem to vary between DBMSes, and aren’t important for understanding how the “multi-column” part of an multi-column index works. <a href="#fnref:location" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </article>
+
+    
+    <div id="no-ai">This article is from a human: I used no AI to write it.</div>
+    <footer id="more" class="no-print">
+      <div id="by-line">
+  <a href="/about"><div class="no-print" id="me-icon"></div></a>
+
+<p>I'm <a href="https://bsky.app/profile/huonw.bsky.social"><strong>Huon Wilson</strong></a>, a
+ mathematically and statistically inclined software engineer.
+ I have been a long-term volunteer
+ on <a href="http://rust-lang.org">Rust</a>'s core team, a
+ compiler engineer on the <a href="https://swift.org/">Swift</a> team
+ at Apple, and a senior software engineer at CSIRO's Data61, working on the <a href="https://github.com/stellargraph/stellargraph">StellarGraph
+ graph machine learning library</a>.
+</p>
+</div>
+      <h2 id="latest-heading"><a href="/blog">Latest posts</a></h2>
+      
+      <nav>
+        <ul id="latest-list"><!--
+           
+           --><li class="latest-post">
+                <a href="/blog/2026/02/ai-plan/">
+                   <h3>Staying engaged with AI plans: give inline feedback</h3>
+                     <p>I use my normal code editor to open the plans created by AI coding agents, and leave ad hoc feedback comments directly in the file. This is convenient and gives better results because I am more engaged with the plan.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/12/magit-insert-worktrees/">
+                   <h3>magit-insert-worktrees improves status buffers</h3>
+                     <p>When using Emacs’ Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/12/typescript-monotonic/">
+                   <h3>TypeScript strictness is non-monotonic: strict-null-checks and no-implicit-any interact</h3>
+                     <p>A curiosity about the interaction between two TypeScript compiler settings, that lead to errors that appear and disappear, as one increases strictness.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+      --></ul>
+      </nav>
+    </footer>
+    
+  </main>
+
+  <footer id="page-footer">
+    <span>Huon Wilson &mdash; <span class="date">2026</span></span>
+  </footer>
+</div>
+
+
+
+<!-- Default Statcounter code for huonw.github.io
+http://huonw.github.io -->
+<script type="text/javascript">
+var sc_project=7439209;
+var sc_invisible=1;
+var sc_security="b96244c7";
+</script>
+<script type="text/javascript"
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript><div class="statcounter"><a title="hit counter"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/7439209/0/b96244c7/1/"
+alt="hit counter"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-62534856-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-62534856-1');
+</script>
+
+
+
+</body> </html>
