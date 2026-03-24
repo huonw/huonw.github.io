@@ -3,6 +3,9 @@ layout: default
 title: "travis-cargo 0.1.3: --no-sudo"
 description: >
    travis-cargo can now record coverage without requiring sudo.
+
+hashtags: []
+comments:
 ---
 
 I just pushed [travis-cargo](https://github.com/huonw/travis-cargo)
@@ -55,3 +58,5 @@ else, and because adding `sudo: required` is simpler than the whole
 [^false]: I think I have also sometimes found it necessary to also add
           `sudo: false` to forcibly opt-in to the container-based
           infrastructure.
+
+{% include comments.html c=page.comments h=page.hashtags %}

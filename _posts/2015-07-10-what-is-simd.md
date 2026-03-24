@@ -1,6 +1,9 @@
 ---
 layout: default
 title: "What is SIMD?"
+
+hashtags: []
+comments:
 ---
 
 I'm currently in San Francisco doing an internship at Mozilla
@@ -125,3 +128,5 @@ they all give exactly the same output. (It runs approximately 3&times;
 faster than the non-SIMD version.)
 
 It's a simple example, but it's a nice first step.
+
+{% include comments.html c=page.comments h=page.hashtags %}

@@ -104,3 +104,5 @@ From a quick test, Gitlab looks to share the `y` keyboard shortcut, and line-lin
 Creating permalinks to code in GitHub is easy (hit `y`) and has benefits with few downsides.
 
 Consider making it a habit to always use them instead of branch-ful non-perma links.
+
+{% include comments.html c=page.comments h=page.hashtags %}
