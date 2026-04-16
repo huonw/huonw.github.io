@@ -6,8 +6,8 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Mon, 23 Mar 2026 22:02:06 +0000</pubDate>
-        <lastBuildDate>Mon, 23 Mar 2026 22:02:06 +0000</lastBuildDate>
+        <pubDate>Thu, 16 Apr 2026 13:51:34 +0000</pubDate>
+        <lastBuildDate>Thu, 16 Apr 2026 13:51:34 +0000</lastBuildDate>
         
         
         <item>
@@ -3421,6 +3421,20 @@ https://github.com/pantsbuild/pants/blob/cfb3cafcac2386c909bc4a3fee3997e1bd8b03d
 &lt;p&gt;Creating permalinks to code in GitHub is easy (hit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;y&lt;/code&gt;) and has benefits with few downsides.&lt;/p&gt;
 
 &lt;p&gt;Consider making it a habit to always use them instead of branch-ful non-perma links.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=GitHub%20tip-hub:%20habitual%20permalinks%20by%20@huonw.bsky.social%20%20https://huonw.github.io/blog/2024/07/github-permalinks/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=GitHub%20tip-hub:%20habitual%20permalinks%20&amp;amp;url=https://huonw.github.io/blog/2024/07/github-permalinks/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2024/07/github-permalinks/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2024/07/github-permalinks/&amp;amp;title=GitHub%20tip-hub:%20habitual%20permalinks&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol start=&quot;0&quot;&gt;
     &lt;li id=&quot;fn:permanent&quot;&gt;
@@ -8659,6 +8673,20 @@ they all give exactly the same output. (It runs approximately 3×
 faster than the non-SIMD version.)&lt;/p&gt;
 
 &lt;p&gt;It’s a simple example, but it’s a nice first step.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=What%20is%20SIMD?%20by%20@huonw.bsky.social%20%20https://huonw.github.io/blog/2015/07/what-is-simd/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=What%20is%20SIMD?%20&amp;amp;url=https://huonw.github.io/blog/2015/07/what-is-simd/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2015/07/what-is-simd/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2015/07/what-is-simd/&amp;amp;title=What%20is%20SIMD?&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
 </description>
         </item>
         
@@ -8715,6 +8743,19 @@ See http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for d
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--no-sudo&lt;/code&gt; is opt-in because it’d be a breaking change to do anything
 else, and because adding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sudo: required&lt;/code&gt; is simpler than the whole
 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;addons: apt: ...&lt;/code&gt; thing.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=travis-cargo%200.1.3:%20--no-sudo%20by%20@huonw.bsky.social%20%20https://huonw.github.io/blog/2015/06/travis-cargo-0.1.3/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=travis-cargo%200.1.3:%20--no-sudo%20&amp;amp;url=https://huonw.github.io/blog/2015/06/travis-cargo-0.1.3/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2015/06/travis-cargo-0.1.3/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2015/06/travis-cargo-0.1.3/&amp;amp;title=travis-cargo%200.1.3:%20--no-sudo&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
 
 &lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
   &lt;ol start=&quot;0&quot;&gt;
