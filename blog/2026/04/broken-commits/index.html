@@ -2,31 +2,31 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>  magit-insert-worktrees improves status buffers |  Huon on the internet</title>
+  <title>  Write broken commits for better review |  Huon on the internet</title>
 
   <link rel="alternate" type="application/atom+xml" href="/blog/atom.xml" title="Atom feed">
   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml" title="RSS feed">
   
-  <link rel="canonical" href="https://huonw.github.io/blog/2025/12/magit-insert-worktrees/">
+  <link rel="canonical" href="https://huonw.github.io/blog/2026/04/broken-commits/">
 
   <meta name="viewport" content="width=device-width; initial-scale=1.0;" />
   
 
   
-  <meta name="description" content="When using Emacs&apos; Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer." />
+  <meta name="description" content="Building an atomic code change from a series of tastefully broken commits can make for easier review, especially by separating mechanical from non-mechanical changes." />
 
   
   <meta name="twitter:card" content="summary" />
   
   <meta name="twitter:site" content="@huon_w" />
-  <meta name="twitter:title" content="magit-insert-worktrees improves status buffers" />
-  <meta name="twitter:description" content="When using Emacs&apos; Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer." />
-  <meta name="twitter:url" content="https://huonw.github.io/blog/2025/12/magit-insert-worktrees/">
+  <meta name="twitter:title" content="Write broken commits for better review" />
+  <meta name="twitter:description" content="Building an atomic code change from a series of tastefully broken commits can make for easier review, especially by separating mechanical from non-mechanical changes." />
+  <meta name="twitter:url" content="https://huonw.github.io/blog/2026/04/broken-commits/">
 
   <!-- facebook -->
-  <meta property="og:url" content="https://huonw.github.io/blog/2025/12/magit-insert-worktrees/" />
-  <meta property="og:title" content="magit-insert-worktrees improves status buffers" />
-  <meta property="og:description" content="When using Emacs&apos; Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer." />
+  <meta property="og:url" content="https://huonw.github.io/blog/2026/04/broken-commits/" />
+  <meta property="og:title" content="Write broken commits for better review" />
+  <meta property="og:description" content="Building an atomic code change from a series of tastefully broken commits can make for easier review, especially by separating mechanical from non-mechanical changes." />
   
   <meta property="og:type" content="article" />
   
@@ -721,100 +721,131 @@ ul.post-list {
   <main>
     <article>
       
-        <h1 id="title"> magit-insert-worktrees improves status buffers</h1>
+        <h1 id="title"> Write broken commits for better review</h1>
         
       
       
          <div id="info-intro">
            By <a href="/about">Huon Wilson</a>
            
-             &mdash; <span class="date pub-date">13 Dec 2025</span>
+             &mdash; <span class="date pub-date">17 Apr 2026</span>
            
            
          </div>
       
-      <p>The Magit package for Emacs is my Git UI of choice, and git worktrees are very convenient. They mesh up particularly well by adding the built-in <code class="language-plaintext highlighter-rouge">magit-insert-worktrees</code> to <code class="language-plaintext highlighter-rouge">magit-status-sections-hook</code>. With this, the magit status buffer shows a summary of the branch/HEAD/path of all worktrees, and allow jumping between them in a flash.</p>
+      <p>I spend a lot of time reviewing code, and I think it’d be easier if I saw more tastefully broken commits. Commits construct a story about a change: “first this happened, then that, that another thing” is a good narrative; “first everything happened, the end”… not so much. Sometimes, telling that story is impossible without having a commit that breaks tests or doesn’t compile!</p>
 
-<figure class="highlight"><pre><code class="language-emacs-lisp" data-lang="emacs-lisp"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="code"><pre><span class="c1">;; Show all worktrees at the end of the status buffer (if more than one)</span>
-<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'magit-status-sections-hook</span> <span class="nf">#'</span><span class="nv">magit-insert-worktrees</span> <span class="no">t</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></figure>
+<p>The principle that usually drives me to commit broken code is making <strong>mechanical changes obviously mechanical and mechanically obvious</strong>: reformatting, renaming a function or file, re-indenting, … are not “real” changes like adding new code or optimising a loop, and intermixing mechanical &amp; real changes all at once makes verifying either of them hard.</p>
 
-<figure class="image has-caption">
-  <div class="image-positioner">
-    
-    <a href="example.png">
-      <img src="example.png" alt="A screenshot of a magit status buffer, with several sections: the default 'Head' with the 'huonw/magit-insert-worktrees-docs' branch checked out, a partially expanded 'Unstaged changes (1)' section with a change to the 'docs/magit.org' file, a collapsed 'Recent commits' section, and then a 'Worktrees (3)' section, with three lines: 'huonw/magit-insert-worktrees-docs' branch (blue, outlined) at ~/projects/magit/magit, 'main' branch (blue, no outline) at ../magit2/, and then a detached HEAD commit hash (yellow, no outline) at ../magit3/." />
-    </a>
-    
-  </div>
-  <figcaption><p>A magit status buffer with all the usual features, plus the new ‘Worktrees’ section at the end: the outlined row with an absolute path is the worktree for the current status buffer, and the other two are elsewhere on disk. Hitting RET on any worktree switches to it.</p>
-</figcaption>
-</figure>
+<p>If mechanical changes are separate, it’s easy to be sure of huge changes: “yes, this commit is solely running a code formatter on 3k files”. I can literally check out the parent commit, and run the same formatting command, and get the same result. Mechanically obvious!</p>
 
-<aside data-icon="ℹ️">
-  <p>This post is about a particular feature of the <a href="https://magit.vc/">Magit</a> package for interfacing to <a href="https://git-scm.com/">Git</a> within <a href="https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html">Emacs</a>. I can’t say enough good things about Magit (it’s both incredibly powerful but also accessibly surfaces &amp; teaches so much of the raw git interface; even when I’ve been written code in a different editor, I’ll still use Magit to interact with Git)… but I also am not going to excessively extol its virtues or explain all the details here, as <a href="https://www.masteringemacs.org/article/introduction-magit-emacs-mode-git">others</a> have <a href="https://emacsair.me/2017/09/01/the-magical-git-interface/">already</a> done <a href="https://emacsair.me/2017/09/01/magit-walk-through/">so</a>.</p>
-</aside>
+<p>I’m feeling acute pressure on my ability to review code as I use more AI. I’m personally accountable for code that I’ve only reviewed, so it better be a damn good review. Any trick that makes that review easier is a good one.</p>
 
-<h2 id="worktrees">Worktrees</h2>
+<p>The technique is unlocked by separating commits into two buckets, “units of review” and “units of persistence”, via squash merges: we can be deliberate about nice commits for a reviewer now, without cluttering the long-term history.</p>
 
-<p>Git has a feature called <a href="https://git-scm.com/docs/git-worktree">worktrees</a>, which are a nifty way to do work in parallel: different branches checked out in different directories, but all sharing a single <code class="language-plaintext highlighter-rouge">.git</code> directory. This means less disk space used on duplicate <code class="language-plaintext highlighter-rouge">.git</code> clones, but, more usefully, data like branches &amp; stashes is shared.</p>
+<h2 id="review-dance">Review dance</h2>
 
-<p>There’s lots of ways to use worktrees, and they’re especially handy in the age of AI agents. At the most basic level, they’re <strong>useful for working concurrently</strong>, like <a href="/blog/2020/04/worktrees-and-pyenv/">reducing context switching when balancing deep projects, code reviewing, and small fixes</a>.</p>
+<p>Code review is a dance between code author and code reviewer<sup id="fnref:split"><a href="#fn:split" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> that requires <strong>coordination and anticipation</strong>: the code author should be planning how to make their change easier for a reviewer to validate, before writing the final code<sup id="fnref:ai"><a href="#fn:ai" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>. When I prepare a change, I want to help the reviewer help me!</p>
 
-<p>I know some people like to create a new worktree for each branch they work on, and then remove them once finished (or get their agents to do so). I personally generally have fixed long-lived worktrees<sup id="fnref:why-fixed"><a href="#fn:why-fixed" class="footnote" rel="footnote" role="doc-noteref">0</a></sup> that I cycle branches through as required: for my main work repo, I’m up to <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">name2</code>, …, <code class="language-plaintext highlighter-rouge">name5</code> at the moment… and if I ever need a 6th one, I’ll just create it.</p>
+<p>A common technique is smaller changes building into a big one: each small step is individually green (passing tests, compiling, whatever validation is used) and ‘clearly’ correct. If each is correct, then the overall change is likely correct too. I can review each step, get a sense of the overall diff, and feel confident.</p>
 
-<h2 id="finding-the-worktrees">Finding the worktrees</h2>
+<p>However, I hit the limits of always-green: sometimes it’s very hard to break a particular step into smaller understandable sub-steps that still ‘work’, like when a small manual change entails a large automated one. In this case, tasteful breakage is useful to <strong>achieve separation</strong>: the overall change is built of several commits, and the last one is where it all comes together.</p>
 
-<p>In either case, I find it annoying to keep track of what worktrees are ‘live’. There’s workable solutions, but they’re a bit of friction:</p>
+<h2 id="unit-of-review-vs-unit-of-persistence">Unit of review, vs. unit of persistence</h2>
+
+<p>Writing intentionally-broken commits makes most sense when using “Squash and merge” for merging changes. Using squashes separates two lives that commits live:</p>
 
 <ul>
-  <li>CLI: run <code class="language-plaintext highlighter-rouge">git worktree list</code> or some alias.</li>
-  <li>Magit: hit <a href="https://docs.magit.vc/magit/Worktree.html">keybinding <code class="language-plaintext highlighter-rouge">Z g</code> in magit buffers</a> to see a switcher.</li>
+  <li>they’re <strong>units of review</strong>: the pieces that can be assessed to understand a change</li>
+  <li>they’re <strong>units of persistence</strong>: the pieces that are actually landed in long lived branches</li>
 </ul>
 
-<p>The magit status buffer is the entry-point to a Git repo, and surfaces a lot of information that’s handy to have immediately available, in collapsible sections, things like diffs of any uncommitted and branch summaries. It reduces friction by making <code class="language-plaintext highlighter-rouge">git status</code>/<code class="language-plaintext highlighter-rouge">git diff</code>/… automatic and interactive, and is customisable.</p>
+<p>Using squash and merge, one can tailor work to benefit from both, by preparing small pull or merge requests (PR, hereafter) that are:</p>
 
-<p>I wanted to apply that mindset to worktrees too, and so, recently, started writing my own worktree section inserter… but then thought to double check the Magit source code for anything similar, and found exactly what I wanted<sup id="fnref:docs"><a href="#fn:docs" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>!</p>
+<ul>
+  <li>a <strong>single atomic change</strong> overall (the combined change that’s landed in <code class="language-plaintext highlighter-rouge">main</code> as a single commit, the unit of persistence),</li>
+  <li>built from several <strong>non-atomic subsections</strong> (several commits written locally, the unit of review).</li>
+</ul>
 
-<p>Magit has a <a href="https://github.com/magit/magit/blob/5c7dab418361e65d4efcb490d87dcb4887f630d5/lisp/magit-worktree.el#L247-L276">builtin <code class="language-plaintext highlighter-rouge">magit-insert-worktrees</code> function</a> that inserts a section <strong>summarising all worktrees</strong> (or nothing, if there’s only one worktree). It’s <strong>interactive</strong>: hitting <code class="language-plaintext highlighter-rouge">RET</code> on any worktree shows the magit status buffer for it.</p>
+<p>A code archaeologist sometimes finds a persisted commit via <code class="language-plaintext highlighter-rouge">git log</code> &amp; <code class="language-plaintext highlighter-rouge">git blame</code> and wants to understand the nitty-gritty details. Given this, it can feel unsatisfactory to squash away a PR’s internal commits<sup id="fnref:merge"><a href="#fn:merge" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>. I’ve found this fine in practice, the PR and its “units of review” commits still exist<sup id="fnref:history"><a href="#fn:history" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>, and someone who cares about a particular change in that much detail probably also cares about any discussion on the PR: they’re gonna be opening the PR anyway.</p>
 
-<p>It’s not used by default, so it needs to be <strong>explicitly enabled</strong> by adding to the hook that the status buffer executes to show all the sections. My init files now include:</p>
+<p>This is not an excuse to make huge PRs though: this is about commit granularity finer than the usual “make small commits/PRs” advice. Both are helpful.</p>
 
-<figure class="highlight"><pre><code class="language-emacs-lisp" data-lang="emacs-lisp"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="code"><pre><span class="c1">;; Show all worktrees at the end of the status buffer (if more than one)</span>
-<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'magit-status-sections-hook</span> <span class="nf">#'</span><span class="nv">magit-insert-worktrees</span> <span class="no">t</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></figure>
+<h2 id="when-to-do-it">When to do it</h2>
 
-<p>My status buffers now look like the screenshot above. Yay!</p>
+<p>I’ll systematically and habitually use broken commits when…</p>
+
+<ol>
+  <li><strong>Adding or updating a code formatter</strong>: add/update the formatter in the first commit (manual change), actually run it in the next (fully automatic), then do any fix-ups (if required) in the last (again, manual). This sequence is only correct at the end, once the codebase is formatted according to the new formatter… but a single commit mixing manual changes with the automatic ones means thousands of lines of automated reformatting drowning the handful of interesting manual ones. That makes for hard reviews and hard rebases<sup id="fnref:rebase"><a href="#fn:rebase" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>.</li>
+  <li><strong>Adding or updating a lint rule</strong>, especially one with automatic fixes: similar to a formatter, a mix of “tweaking configuration” and “fixing consequences” makes for harder review.</li>
+  <li><strong>Renaming functions or named arguments</strong>: rename the ‘declaration’ in one commit, update uses in another, then apply any reformatting in a third (if the new name is longer or shorter and causes different line-wrapping).</li>
+  <li><strong>Renaming files</strong>: if I’m doing a larger refactor and it requires renaming a file (like moving it to a new location, or matching a new function/class name, for function/class-per-file), doing that rename at the same time as other changes risks disguising the rename as a delete/recreate<sup id="fnref:recreate"><a href="#fn:recreate" class="footnote" rel="footnote" role="doc-noteref">5</a></sup>, if those other changes are extensive. Having a single commit that just does the rename (not even updating the imports) makes that clearer.</li>
+  <li><strong>Re-indenting significant blocks</strong>: similar to renaming, a large re-indent from adding or removing an <code class="language-plaintext highlighter-rouge">if</code> or loop can disguise changes<sup id="fnref:ignore-whitespace"><a href="#fn:ignore-whitespace" class="footnote" rel="footnote" role="doc-noteref">6</a></sup>. Doing a commit that’s (close to) just the re-indent alone can help keep things focused.</li>
+  <li><strong>Moving large code chunks</strong>: similar to renaming and re-indenting, shifting a block of code or function around can be hard to understand if it’s both shifted and changed at the same time.</li>
+</ol>
+
+<p>The common thread through these is that we’re building a PR that involves some mechanical changes and some ‘real’ ones. Separating them at the commit level, even if invalid, makes <strong>both types</strong> of changes easier to understand: verify the config, then rerun the formatter yourself; see the ‘renamed’ description for the file, guaranteed; extract the two blocks that were supposedly moved into separate files (or use a fancier diff viewer) and compare them<sup id="fnref:adversarial"><a href="#fn:adversarial" class="footnote" rel="footnote" role="doc-noteref">7</a></sup>.</p>
+
+<p>Beyond that list, I’ll use it whenever I think it’ll help my reviewer and myself be sure the code is correct: this is all just guidelines and vibes. <strong>Do what is useful</strong>!</p>
+
+<p>This technique can easily be taken too far: individual commits for each character added or deleted won’t help the reviewer.</p>
+
+<p>It also requires a little thought and preparation: slamming out all the code, and then committing later can be hard to detangle, even with <code class="language-plaintext highlighter-rouge">git add --patch</code>. Instead, I’ll estimate where the code is likely to go, plan ahead, commit often, and then quickly rewrite history to streamline down to a useful story (<code class="language-plaintext highlighter-rouge">git rebase --interactive</code> is magic).</p>
+
+<h2 id="brook-no-laiziness">Brook no lAIziness</h2>
+
+<p>With AI slopping out a lot of code, I find myself doing even more code review than I ever have before. I need to be <strong>aggressively sure</strong> that the code is sensible, because I’m still accountable for everything shipped under my name, whether brain- or vibe-coded. Unfortunately, AI tools don’t help: they seem to often default to Just Do It… Just Do It All In One Go Plus Some Bonus Unrelated Changes And Then “Done. Should I commit it?”.</p>
+
+<p>Forcing them to commit progressively makes my life easier: I see more of the story, review is easier, and revisiting/removing silly changes is easier too.</p>
+
+<p>Unfortunately, AI is often fixated on having everything work before committing (“Let me check tests pass…”). I find myself needing to give strong encouragement and reminders, so that it commits with more nuance and tells a better narrative.</p>
+
+<p>I expect a good commit story from the indefatigable machine, and I brook no laziness from it. Encouraging broken commits where appropriate helps me review more closely and ‘sit’ in the code more deeply, building understanding as best I can without brain-coding it myself.</p>
+
+<h2 id="break">Break;</h2>
+
+<p>I assume that all code is broken. Despite this, intentionally broken code can lead to better outcomes: for some changes, splitting them to tell a good story is more valuable than every commit passing tests. Better stories mean better review, better review means deeper understanding and better code.</p>
+
+<p>In this age of AI, good reviews are how I build the deep understanding that lets me feel comfortable being accountable for my code.</p>
 
 <section id="external-links" class="no-print">
   
   <div id="external-page">
     <span class="external-label">Share this on</span>
     <ul class="external-list">
-      <li class="external-link"><a href="https://bsky.app/intent/compose?text=magit-insert-worktrees%20improves%20status%20buffers%20by%20@huonw.bsky.social%20%20https://huonw.github.io/blog/2025/12/magit-insert-worktrees/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
-      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=magit-insert-worktrees%20improves%20status%20buffers%20&amp;url=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
-      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
-      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2025/12/magit-insert-worktrees/&amp;title=magit-insert-worktrees%20improves%20status%20buffers" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
+      <li class="external-link"><a href="https://bsky.app/intent/compose?text=Write%20broken%20commits%20for%20better%20review%20by%20@huonw.bsky.social%20%20https://huonw.github.io/blog/2026/04/broken-commits/" target="_blank" rel="nofollow noopener" title="Share on Bluesky">Bluesky</a></li>
+      <li class="external-link"><a href="https://twitter.com/intent/tweet?text=Write%20broken%20commits%20for%20better%20review%20&amp;url=https://huonw.github.io/blog/2026/04/broken-commits/&amp;via=huon_w" target="_blank" rel="nofollow noopener" title="Share on Twitter">Twitter</a></li>
+      <li class="external-link"><a href="https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2026/04/broken-commits/" rel="nofollow noopener" target="_blank" title="Share on Facebook">Facebook</a></li>
+      <li class="external-link"><a href="https://www.reddit.com/submit?url=https://huonw.github.io/blog/2026/04/broken-commits/&amp;title=Write%20broken%20commits%20for%20better%20review" rel="nofollow noopener" target="_blank" title="Share on Reddit">Reddit</a></li>
     </ul>
   </div>
 </section>
 
 <div class="footnotes" role="doc-endnotes">
   <ol start="0">
-    <li id="fn:why-fixed">
-      <p>I’ve settled on long-lived worktrees for two reasons:</p>
-      <ol>
-        <li>IME many code-bases have at least a little bit of static setup that’s intentionally not tracked in Git (like initialising an <code class="language-plaintext highlighter-rouge">.env</code> file from an <code class="language-plaintext highlighter-rouge">.env.example</code> file), and starting a new worktree requires redoing this… this can be solved with scripts, or just be side-stepped.</li>
-        <li>I have an (arguably bad) habit of taking notes, leaving reference data and/or creating ad-hoc scripts in untracked files in a worktree, and sometimes want to return to them and persist them later (commit, or paste into a issue tracker, or similar), so creating then <em>deleting</em> worktrees risks accidentally losing them.</li>
-      </ol>
-      <p><a href="#fnref:why-fixed" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    <li id="fn:split">
+      <p>I say “code author” and “code reviewer” but sometimes these are two hats on one person: for instance, I’ll usually do a self-review before sending a review over to someone else. Helping my reviewer is also helping myself during the self-review. <a href="#fnref:split" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
-    <li id="fn:docs">
-      <p>This function appears to have existed since 2016, but not be mentioned in the manual, so I submitted <a href="https://github.com/magit/magit/pull/5492">an addition</a>. <a href="#fnref:docs" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    <li id="fn:ai">
+      <p>With AI, it’s easy to write a throw-away sketch to get a sense of the change, and then redo it informed by that sketch. One thing to learn during such a sketch is how to break this up for review. <a href="#fnref:ai" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:merge">
+      <p>Using a normal merge can also technically work for this, assuming you then do all git operations with <code class="language-plaintext highlighter-rouge">--first-parent</code> by default (which follows the ‘spine’ of the merge commits on the main branch, rather than the details within each merged branch), and only look beyond that when deep diving. I’ve found doing that ends up pretty clunky in practice. <a href="#fnref:merge" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:history">
+      <p>PR history should still exist… assuming your project hasn’t gone through a forge migration that has thrown away the history. But throwing away that history is its own deeper problem. <a href="#fnref:history" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:rebase">
+      <p>If the automatic change is separate to the manual ones, rebasing is easy, even for a huge reformatting: interactively rebase <em>dropping</em> the automatic commit, and just recreate it from scratch. No need to filter through thousands of merge conflicts, because it’s all automatic. <a href="#fnref:rebase" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:recreate">
+      <p>The “rename looks like a delete/recreate” problem is arguably a git data model one that wouldn’t exist in a perfect world, since git’s snapshot approach requires heuristics for detecting renames rather than “knowing” that <em>this</em> change was semantically a rename. But it’s the world we live in, and pragmatism is useful. <a href="#fnref:recreate" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:ignore-whitespace">
+      <p>Reviewing with “ignore whitespace” mode on, like <code class="language-plaintext highlighter-rouge">git diff --ignore-all-space</code> or the equivalent in forge UIs, helps a lot with understanding what changed while re-indenting, but it’s not a panacea: if the new indentation requires re-wrapping code, that can be very distracting. <a href="#fnref:ignore-whitespace" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:adversarial">
+      <p>Hopefully, you trust your colleagues enough that if they say “I just ran the formatter/re-indented/moved the function”, a quick skim is sufficient, but… the “actually do the mechanical verification” level of scrutiny might be useful in adversarial environments, like untrusted contributors to an open source project or reviewing slop from an AI. <a href="#fnref:adversarial" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -842,15 +873,6 @@ ul.post-list {
         <ul id="latest-list"><!--
            
            --><li class="latest-post">
-                <a href="/blog/2026/04/broken-commits/">
-                   <h3>Write broken commits for better review</h3>
-                     <p>Building an atomic code change from a series of tastefully broken commits can make for easier review, especially by separating mechanical from non-mechanical changes.
-</p>
-                   
-                 </a>
-            </li><!--
-          
-           --><li class="latest-post">
                 <a href="/blog/2026/03/multi-column-index/">
                    <h3>Why don't multi-column indices help queries on the second column?</h3>
                      <p>A sorted-table mental model explains vast differences in performance for similar queries involving only one of a multi-column index in a database.
@@ -863,6 +885,15 @@ ul.post-list {
                 <a href="/blog/2026/02/ai-plan/">
                    <h3>Staying engaged with AI plans: give inline feedback</h3>
                      <p>I use my normal code editor to open the plans created by AI coding agents, and leave ad hoc feedback comments directly in the file. This is convenient and gives better results because I am more engaged with the plan.
+</p>
+                   
+                 </a>
+            </li><!--
+          
+           --><li class="latest-post">
+                <a href="/blog/2025/12/magit-insert-worktrees/">
+                   <h3>magit-insert-worktrees improves status buffers</h3>
+                     <p>When using Emacs’ Magit and Git worktrees, adding the magit-insert-worktrees section inserter gives an nice overview of them in the status buffer.
 </p>
                    
                  </a>

@@ -45,6 +45,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     };
     var posts = [
         
+        {path: "/blog/2026/04/broken-commits/", title: "Write broken commits for better review"},
+        
         {path: "/blog/2026/03/multi-column-index/", title: "Why don't multi-column indices help queries on the second column?"},
         
         {path: "/blog/2026/02/ai-plan/", title: "Staying engaged with AI plans: give inline feedback"},

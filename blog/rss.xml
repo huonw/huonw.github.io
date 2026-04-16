@@ -6,8 +6,135 @@
         <atom:link href="https://huonw.github.io/blog/rss.xml" rel="self" type="application/rss+xml" />
         <description>Huon Wilson's writings</description>
         <language>en-us</language>
-        <pubDate>Thu, 16 Apr 2026 13:51:34 +0000</pubDate>
-        <lastBuildDate>Thu, 16 Apr 2026 13:51:34 +0000</lastBuildDate>
+        <pubDate>Thu, 16 Apr 2026 21:49:57 +0000</pubDate>
+        <lastBuildDate>Thu, 16 Apr 2026 21:49:57 +0000</lastBuildDate>
+        
+        
+        <item>
+            <title>Write broken commits for better review</title>
+            <link>https://huonw.github.io/blog/2026/04/broken-commits/</link>
+            <pubDate>Fri, 17 Apr 2026 00:00:00 +0000</pubDate>
+            <author>Huon Wilson</author>
+            <guid>https://huonw.github.io/blog/2026/04/broken-commits</guid>
+            <description>&lt;p&gt;I spend a lot of time reviewing code, and I think it’d be easier if I saw more tastefully broken commits. Commits construct a story about a change: “first this happened, then that, that another thing” is a good narrative; “first everything happened, the end”… not so much. Sometimes, telling that story is impossible without having a commit that breaks tests or doesn’t compile!&lt;/p&gt;
+
+&lt;p&gt;The principle that usually drives me to commit broken code is making &lt;strong&gt;mechanical changes obviously mechanical and mechanically obvious&lt;/strong&gt;: reformatting, renaming a function or file, re-indenting, … are not “real” changes like adding new code or optimising a loop, and intermixing mechanical &amp;amp; real changes all at once makes verifying either of them hard.&lt;/p&gt;
+
+&lt;p&gt;If mechanical changes are separate, it’s easy to be sure of huge changes: “yes, this commit is solely running a code formatter on 3k files”. I can literally check out the parent commit, and run the same formatting command, and get the same result. Mechanically obvious!&lt;/p&gt;
+
+&lt;p&gt;I’m feeling acute pressure on my ability to review code as I use more AI. I’m personally accountable for code that I’ve only reviewed, so it better be a damn good review. Any trick that makes that review easier is a good one.&lt;/p&gt;
+
+&lt;p&gt;The technique is unlocked by separating commits into two buckets, “units of review” and “units of persistence”, via squash merges: we can be deliberate about nice commits for a reviewer now, without cluttering the long-term history.&lt;/p&gt;
+
+&lt;h2 id=&quot;review-dance&quot;&gt;Review dance&lt;/h2&gt;
+
+&lt;p&gt;Code review is a dance between code author and code reviewer&lt;sup id=&quot;fnref:split&quot;&gt;&lt;a href=&quot;#fn:split&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;0&lt;/a&gt;&lt;/sup&gt; that requires &lt;strong&gt;coordination and anticipation&lt;/strong&gt;: the code author should be planning how to make their change easier for a reviewer to validate, before writing the final code&lt;sup id=&quot;fnref:ai&quot;&gt;&lt;a href=&quot;#fn:ai&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. When I prepare a change, I want to help the reviewer help me!&lt;/p&gt;
+
+&lt;p&gt;A common technique is smaller changes building into a big one: each small step is individually green (passing tests, compiling, whatever validation is used) and ‘clearly’ correct. If each is correct, then the overall change is likely correct too. I can review each step, get a sense of the overall diff, and feel confident.&lt;/p&gt;
+
+&lt;p&gt;However, I hit the limits of always-green: sometimes it’s very hard to break a particular step into smaller understandable sub-steps that still ‘work’, like when a small manual change entails a large automated one. In this case, tasteful breakage is useful to &lt;strong&gt;achieve separation&lt;/strong&gt;: the overall change is built of several commits, and the last one is where it all comes together.&lt;/p&gt;
+
+&lt;h2 id=&quot;unit-of-review-vs-unit-of-persistence&quot;&gt;Unit of review, vs. unit of persistence&lt;/h2&gt;
+
+&lt;p&gt;Writing intentionally-broken commits makes most sense when using “Squash and merge” for merging changes. Using squashes separates two lives that commits live:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;they’re &lt;strong&gt;units of review&lt;/strong&gt;: the pieces that can be assessed to understand a change&lt;/li&gt;
+  &lt;li&gt;they’re &lt;strong&gt;units of persistence&lt;/strong&gt;: the pieces that are actually landed in long lived branches&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Using squash and merge, one can tailor work to benefit from both, by preparing small pull or merge requests (PR, hereafter) that are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;a &lt;strong&gt;single atomic change&lt;/strong&gt; overall (the combined change that’s landed in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; as a single commit, the unit of persistence),&lt;/li&gt;
+  &lt;li&gt;built from several &lt;strong&gt;non-atomic subsections&lt;/strong&gt; (several commits written locally, the unit of review).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A code archaeologist sometimes finds a persisted commit via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git log&lt;/code&gt; &amp;amp; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git blame&lt;/code&gt; and wants to understand the nitty-gritty details. Given this, it can feel unsatisfactory to squash away a PR’s internal commits&lt;sup id=&quot;fnref:merge&quot;&gt;&lt;a href=&quot;#fn:merge&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;. I’ve found this fine in practice, the PR and its “units of review” commits still exist&lt;sup id=&quot;fnref:history&quot;&gt;&lt;a href=&quot;#fn:history&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, and someone who cares about a particular change in that much detail probably also cares about any discussion on the PR: they’re gonna be opening the PR anyway.&lt;/p&gt;
+
+&lt;p&gt;This is not an excuse to make huge PRs though: this is about commit granularity finer than the usual “make small commits/PRs” advice. Both are helpful.&lt;/p&gt;
+
+&lt;h2 id=&quot;when-to-do-it&quot;&gt;When to do it&lt;/h2&gt;
+
+&lt;p&gt;I’ll systematically and habitually use broken commits when…&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Adding or updating a code formatter&lt;/strong&gt;: add/update the formatter in the first commit (manual change), actually run it in the next (fully automatic), then do any fix-ups (if required) in the last (again, manual). This sequence is only correct at the end, once the codebase is formatted according to the new formatter… but a single commit mixing manual changes with the automatic ones means thousands of lines of automated reformatting drowning the handful of interesting manual ones. That makes for hard reviews and hard rebases&lt;sup id=&quot;fnref:rebase&quot;&gt;&lt;a href=&quot;#fn:rebase&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Adding or updating a lint rule&lt;/strong&gt;, especially one with automatic fixes: similar to a formatter, a mix of “tweaking configuration” and “fixing consequences” makes for harder review.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Renaming functions or named arguments&lt;/strong&gt;: rename the ‘declaration’ in one commit, update uses in another, then apply any reformatting in a third (if the new name is longer or shorter and causes different line-wrapping).&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Renaming files&lt;/strong&gt;: if I’m doing a larger refactor and it requires renaming a file (like moving it to a new location, or matching a new function/class name, for function/class-per-file), doing that rename at the same time as other changes risks disguising the rename as a delete/recreate&lt;sup id=&quot;fnref:recreate&quot;&gt;&lt;a href=&quot;#fn:recreate&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;, if those other changes are extensive. Having a single commit that just does the rename (not even updating the imports) makes that clearer.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Re-indenting significant blocks&lt;/strong&gt;: similar to renaming, a large re-indent from adding or removing an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt; or loop can disguise changes&lt;sup id=&quot;fnref:ignore-whitespace&quot;&gt;&lt;a href=&quot;#fn:ignore-whitespace&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;. Doing a commit that’s (close to) just the re-indent alone can help keep things focused.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Moving large code chunks&lt;/strong&gt;: similar to renaming and re-indenting, shifting a block of code or function around can be hard to understand if it’s both shifted and changed at the same time.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The common thread through these is that we’re building a PR that involves some mechanical changes and some ‘real’ ones. Separating them at the commit level, even if invalid, makes &lt;strong&gt;both types&lt;/strong&gt; of changes easier to understand: verify the config, then rerun the formatter yourself; see the ‘renamed’ description for the file, guaranteed; extract the two blocks that were supposedly moved into separate files (or use a fancier diff viewer) and compare them&lt;sup id=&quot;fnref:adversarial&quot;&gt;&lt;a href=&quot;#fn:adversarial&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot; role=&quot;doc-noteref&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Beyond that list, I’ll use it whenever I think it’ll help my reviewer and myself be sure the code is correct: this is all just guidelines and vibes. &lt;strong&gt;Do what is useful&lt;/strong&gt;!&lt;/p&gt;
+
+&lt;p&gt;This technique can easily be taken too far: individual commits for each character added or deleted won’t help the reviewer.&lt;/p&gt;
+
+&lt;p&gt;It also requires a little thought and preparation: slamming out all the code, and then committing later can be hard to detangle, even with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git add --patch&lt;/code&gt;. Instead, I’ll estimate where the code is likely to go, plan ahead, commit often, and then quickly rewrite history to streamline down to a useful story (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git rebase --interactive&lt;/code&gt; is magic).&lt;/p&gt;
+
+&lt;h2 id=&quot;brook-no-laiziness&quot;&gt;Brook no lAIziness&lt;/h2&gt;
+
+&lt;p&gt;With AI slopping out a lot of code, I find myself doing even more code review than I ever have before. I need to be &lt;strong&gt;aggressively sure&lt;/strong&gt; that the code is sensible, because I’m still accountable for everything shipped under my name, whether brain- or vibe-coded. Unfortunately, AI tools don’t help: they seem to often default to Just Do It… Just Do It All In One Go Plus Some Bonus Unrelated Changes And Then “Done. Should I commit it?”.&lt;/p&gt;
+
+&lt;p&gt;Forcing them to commit progressively makes my life easier: I see more of the story, review is easier, and revisiting/removing silly changes is easier too.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, AI is often fixated on having everything work before committing (“Let me check tests pass…”). I find myself needing to give strong encouragement and reminders, so that it commits with more nuance and tells a better narrative.&lt;/p&gt;
+
+&lt;p&gt;I expect a good commit story from the indefatigable machine, and I brook no laziness from it. Encouraging broken commits where appropriate helps me review more closely and ‘sit’ in the code more deeply, building understanding as best I can without brain-coding it myself.&lt;/p&gt;
+
+&lt;h2 id=&quot;break&quot;&gt;Break;&lt;/h2&gt;
+
+&lt;p&gt;I assume that all code is broken. Despite this, intentionally broken code can lead to better outcomes: for some changes, splitting them to tell a good story is more valuable than every commit passing tests. Better stories mean better review, better review means deeper understanding and better code.&lt;/p&gt;
+
+&lt;p&gt;In this age of AI, good reviews are how I build the deep understanding that lets me feel comfortable being accountable for my code.&lt;/p&gt;
+
+&lt;section id=&quot;external-links&quot; class=&quot;no-print&quot;&gt;
+  
+  &lt;div id=&quot;external-page&quot;&gt;
+    &lt;span class=&quot;external-label&quot;&gt;Share this on&lt;/span&gt;
+    &lt;ul class=&quot;external-list&quot;&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://bsky.app/intent/compose?text=Write%20broken%20commits%20for%20better%20review%20by%20@huonw.bsky.social%20%20https://huonw.github.io/blog/2026/04/broken-commits/&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Bluesky&quot;&gt;Bluesky&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://twitter.com/intent/tweet?text=Write%20broken%20commits%20for%20better%20review%20&amp;amp;url=https://huonw.github.io/blog/2026/04/broken-commits/&amp;amp;via=huon_w&quot; target=&quot;_blank&quot; rel=&quot;nofollow noopener&quot; title=&quot;Share on Twitter&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://facebook.com/sharer.php?u=https://huonw.github.io/blog/2026/04/broken-commits/&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Facebook&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+      &lt;li class=&quot;external-link&quot;&gt;&lt;a href=&quot;https://www.reddit.com/submit?url=https://huonw.github.io/blog/2026/04/broken-commits/&amp;amp;title=Write%20broken%20commits%20for%20better%20review&quot; rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; title=&quot;Share on Reddit&quot;&gt;Reddit&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol start=&quot;0&quot;&gt;
+    &lt;li id=&quot;fn:split&quot;&gt;
+      &lt;p&gt;I say “code author” and “code reviewer” but sometimes these are two hats on one person: for instance, I’ll usually do a self-review before sending a review over to someone else. Helping my reviewer is also helping myself during the self-review. &lt;a href=&quot;#fnref:split&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:ai&quot;&gt;
+      &lt;p&gt;With AI, it’s easy to write a throw-away sketch to get a sense of the change, and then redo it informed by that sketch. One thing to learn during such a sketch is how to break this up for review. &lt;a href=&quot;#fnref:ai&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:merge&quot;&gt;
+      &lt;p&gt;Using a normal merge can also technically work for this, assuming you then do all git operations with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--first-parent&lt;/code&gt; by default (which follows the ‘spine’ of the merge commits on the main branch, rather than the details within each merged branch), and only look beyond that when deep diving. I’ve found doing that ends up pretty clunky in practice. &lt;a href=&quot;#fnref:merge&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:history&quot;&gt;
+      &lt;p&gt;PR history should still exist… assuming your project hasn’t gone through a forge migration that has thrown away the history. But throwing away that history is its own deeper problem. &lt;a href=&quot;#fnref:history&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:rebase&quot;&gt;
+      &lt;p&gt;If the automatic change is separate to the manual ones, rebasing is easy, even for a huge reformatting: interactively rebase &lt;em&gt;dropping&lt;/em&gt; the automatic commit, and just recreate it from scratch. No need to filter through thousands of merge conflicts, because it’s all automatic. &lt;a href=&quot;#fnref:rebase&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:recreate&quot;&gt;
+      &lt;p&gt;The “rename looks like a delete/recreate” problem is arguably a git data model one that wouldn’t exist in a perfect world, since git’s snapshot approach requires heuristics for detecting renames rather than “knowing” that &lt;em&gt;this&lt;/em&gt; change was semantically a rename. But it’s the world we live in, and pragmatism is useful. &lt;a href=&quot;#fnref:recreate&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:ignore-whitespace&quot;&gt;
+      &lt;p&gt;Reviewing with “ignore whitespace” mode on, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git diff --ignore-all-space&lt;/code&gt; or the equivalent in forge UIs, helps a lot with understanding what changed while re-indenting, but it’s not a panacea: if the new indentation requires re-wrapping code, that can be very distracting. &lt;a href=&quot;#fnref:ignore-whitespace&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:adversarial&quot;&gt;
+      &lt;p&gt;Hopefully, you trust your colleagues enough that if they say “I just ran the formatter/re-indented/moved the function”, a quick skim is sufficient, but… the “actually do the mechanical verification” level of scrutiny might be useful in adversarial environments, like untrusted contributors to an open source project or reviewing slop from an AI. &lt;a href=&quot;#fnref:adversarial&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        
         
         
         <item>
