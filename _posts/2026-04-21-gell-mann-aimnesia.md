@@ -15,7 +15,7 @@ Any time I use an AI tool for something I'm deeply familiar with, I find a conti
 
 AI can write confidently on any topic, with good presentation, just like newspaper articles. I find this easy to see through for areas in which _I_ am the one who is competent, but notice myself nodding along in areas where I have less expertise.
 
-This contrast is stark: do I really think AI is barely-competent at software engineering, but somehow a Cantonese genius? Not when I actually think about it, but it's easy to get distracted and forget to transfer the experience across domains.
+This contrast is stark: do I really think AI is barely-competent at software engineering, but somehow a travel/finance/Cantonese/... genius? Not when I actually think about it, but it's easy to get distracted and forget to transfer the experience across domains.
 
 I have to remind myself to distrust the slick writing, using all the 'slow' type thinking I can: "I'd expect to have found many errors if this was some software engineering question so far", "what sounds suspicious", "how can I verify this", "are there internal inconsistencies", and writing this post espousing this opinion publicly.
 
