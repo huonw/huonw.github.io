@@ -17,7 +17,7 @@ AI can write confidently on any topic, with good presentation, just like newspap
 
 This contrast is stark: do I really think AI is barely-competent at software engineering, but somehow a travel/finance/Cantonese/... genius? Not when I actually think about it, but it's easy to get distracted and forget to transfer the experience across domains.
 
-I have to remind myself to distrust the slick writing, using all the 'slow' type thinking I can: "I'd expect to have found many errors if this was some software engineering question so far", "what sounds suspicious", "how can I verify this", "are there internal inconsistencies", and writing this post espousing this opinion publicly.
+I have to remind myself to distrust the slick writing, using all the 'slow' type thinking I can: "I'd expect to have found many errors if this was some software engineering question", "what sounds suspicious", "how can I verify this", "are there internal inconsistencies", and writing this post espousing this opinion publicly.
 
 
 {% include comments.html c=page.comments h=page.hashtags %}
